@@ -1,0 +1,18 @@
+{
+  "schema_version": "x07.project@0.2.0",
+  "world": "run-os",
+  "entry": "src/main.x07.json",
+  "module_roots": ["src", "tests"],
+  "lockfile": "x07.lock.json",
+  "dependencies": [],
+  "default_profile": "os",
+  "profiles": {
+    "os": { "world": "run-os", "auto_ffi": true },
+    "sandbox": {
+      "world": "run-os-sandboxed",
+      "policy": ".x07/policies/base/worker.sandbox.base.policy.json",
+      "auto_ffi": true
+    }
+  }
+}
+
