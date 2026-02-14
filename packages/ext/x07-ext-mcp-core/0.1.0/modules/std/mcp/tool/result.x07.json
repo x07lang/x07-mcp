@@ -1,0 +1,157 @@
+{
+  "schema_version": "x07.x07ast@0.5.0",
+  "kind": "module",
+  "module_id": "std.mcp.tool.result",
+  "imports": [
+    "ext.data_model",
+    "ext.json.data_model",
+    "std.bytes",
+    "std.mcp.tool.errors",
+    "std.mcp.util.json"
+  ],
+  "decls": [
+    {
+      "kind": "export",
+      "names": [
+        "std.mcp.tool.result.err_text_structured_v1",
+        "std.mcp.tool.result.err_v1",
+        "std.mcp.tool.result.ok_text_structured_v1",
+        "std.mcp.tool.result.ok_text_v1"
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.tool.result._call_tool_result_v1",
+      "params": [
+        { "name": "text", "ty": "bytes_view" },
+        { "name": "structured_json_opt", "ty": "option_bytes" },
+        { "name": "is_error", "ty": "i32" }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "k_type", ["bytes.lit", "type"]],
+        ["let", "k_text", ["bytes.lit", "text"]],
+        ["let", "v_type_text", ["ext.data_model.value_string", ["bytes.view", ["bytes.lit", "text"]]]],
+        ["let", "v_text", ["ext.data_model.value_string", "text"]],
+        ["let", "content_item_entries", ["vec_u8.with_capacity", 64]],
+        ["set", "content_item_entries", ["vec_u8.extend_bytes", "content_item_entries", ["codec.write_u32_le", 2]]],
+        ["set", "content_item_entries", ["vec_u8.extend_bytes", "content_item_entries", ["codec.write_u32_le", ["bytes.len", "k_type"]]]],
+        ["set", "content_item_entries", ["vec_u8.extend_bytes", "content_item_entries", "k_type"]],
+        ["set", "content_item_entries", ["vec_u8.extend_bytes", "content_item_entries", ["codec.write_u32_le", ["bytes.len", "v_type_text"]]]],
+        ["set", "content_item_entries", ["vec_u8.extend_bytes", "content_item_entries", "v_type_text"]],
+        ["set", "content_item_entries", ["vec_u8.extend_bytes", "content_item_entries", ["codec.write_u32_le", ["bytes.len", "k_text"]]]],
+        ["set", "content_item_entries", ["vec_u8.extend_bytes", "content_item_entries", "k_text"]],
+        ["set", "content_item_entries", ["vec_u8.extend_bytes", "content_item_entries", ["codec.write_u32_le", ["bytes.len", "v_text"]]]],
+        ["set", "content_item_entries", ["vec_u8.extend_bytes", "content_item_entries", "v_text"]],
+        ["let", "content_item_entries_b", ["vec_u8.into_bytes", "content_item_entries"]],
+        ["let", "content_item_val", ["ext.data_model.value_map_from_entries", ["bytes.view", "content_item_entries_b"]]],
+        ["if", ["=", ["bytes.len", "content_item_val"], 0], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "content_elems", ["vec_u8.with_capacity", 64]],
+        ["set", "content_elems", ["vec_u8.extend_bytes", "content_elems", ["codec.write_u32_le", 1]]],
+        ["set", "content_elems", ["vec_u8.extend_bytes", "content_elems", ["codec.write_u32_le", ["bytes.len", "content_item_val"]]]],
+        ["set", "content_elems", ["vec_u8.extend_bytes", "content_elems", "content_item_val"]],
+        ["let", "content_elems_b", ["vec_u8.into_bytes", "content_elems"]],
+        ["let", "content_val", ["ext.data_model.value_seq_from_elems", ["bytes.view", "content_elems_b"]]],
+        ["if", ["=", ["bytes.len", "content_val"], 0], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "k_content", ["bytes.lit", "content"]],
+        ["let", "k_is_error", ["bytes.lit", "isError"]],
+        ["let", "v_is_error", ["ext.data_model.value_bool", "is_error"]],
+        ["let", "entries", ["vec_u8.with_capacity", 256]],
+        ["let", "with_structured", ["option_bytes.is_some", "structured_json_opt"]],
+        ["let", "count", ["if", ["=", "with_structured", 1], 3, 2]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", "count"]]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "k_content"]]]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", "k_content"]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "content_val"]]]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", "content_val"]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "k_is_error"]]]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", "k_is_error"]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "v_is_error"]]]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", "v_is_error"]],
+        [
+          "if",
+          ["=", "with_structured", 1],
+          [
+            "begin",
+            ["let", "k_structured", ["bytes.lit", "structuredContent"]],
+            ["let", "structured_json", ["option_bytes.unwrap_or", "structured_json_opt", ["bytes.alloc", 0]]],
+            ["let", "structured_val", ["std.mcp.util.json.value_from_json_or_null_v1", ["bytes.view", "structured_json"]]],
+            ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "k_structured"]]]],
+            ["set", "entries", ["vec_u8.extend_bytes", "entries", "k_structured"]],
+            ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "structured_val"]]]],
+            ["set", "entries", ["vec_u8.extend_bytes", "entries", "structured_val"]]
+          ],
+          0
+        ],
+        ["let", "entries_b", ["vec_u8.into_bytes", "entries"]],
+        ["let", "result_val", ["ext.data_model.value_map_from_entries", ["bytes.view", "entries_b"]]],
+        ["if", ["=", ["bytes.len", "result_val"], 0], ["return", ["bytes.alloc", 0]], 0],
+        ["std.mcp.util.json.json_from_value_v1", ["bytes.view", "result_val"]]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.tool.result.ok_text_v1",
+      "params": [{ "name": "text", "ty": "bytes_view" }],
+      "result": "bytes",
+      "body": ["std.mcp.tool.result._call_tool_result_v1", "text", ["option_bytes.none"], 0]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.tool.result.ok_text_structured_v1",
+      "params": [
+        { "name": "text", "ty": "bytes_view" },
+        { "name": "structured_json", "ty": "bytes_view" }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "b", ["view.to_bytes", "structured_json"]],
+        ["std.mcp.tool.result._call_tool_result_v1", "text", ["option_bytes.some", "b"], 0]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.tool.result.err_text_structured_v1",
+      "params": [
+        { "name": "text", "ty": "bytes_view" },
+        { "name": "diag_json", "ty": "bytes_view" }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "b", ["view.to_bytes", "diag_json"]],
+        ["std.mcp.tool.result._call_tool_result_v1", "text", ["option_bytes.some", "b"], 1]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.tool.result.err_v1",
+      "params": [
+        { "name": "diag_code", "ty": "bytes_view" },
+        { "name": "human_text_utf8", "ty": "bytes_view" },
+        { "name": "detail_json", "ty": "bytes_view" }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "cat", ["bytes.lit", "x07_mcp"]],
+        ["let", "fix", ["bytes.alloc", 0]],
+        [
+          "let",
+          "diag_json",
+          [
+            "std.mcp.tool.errors.diag_v1",
+            "diag_code",
+            ["bytes.view", "cat"],
+            "detail_json",
+            ["bytes.view", "fix"]
+          ]
+        ],
+        ["std.mcp.tool.result.err_text_structured_v1", "human_text_utf8", ["bytes.view", "diag_json"]]
+      ]
+    }
+  ]
+}
+

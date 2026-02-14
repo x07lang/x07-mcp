@@ -1,0 +1,30 @@
+{
+  "schema_version": "x07.x07ast@0.5.0",
+  "kind": "module",
+  "module_id": "std.mcp.toolkit.derive_hooks",
+  "imports": ["std.mcp.toolkit.schema_subset", "std.mcp.toolkit.tools_file"],
+  "decls": [
+    {
+      "kind": "export",
+      "names": ["std.mcp.toolkit.derive_hooks.validate_tool_args_v1"]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.derive_hooks.validate_tool_args_v1",
+      "params": [
+        { "name": "tools_registry_json", "ty": "bytes_view" },
+        { "name": "tool_name", "ty": "bytes_view" },
+        { "name": "args_json", "ty": "bytes_view" }
+      ],
+      "result": "result_bytes",
+      "body": [
+        "begin",
+        ["let", "schema_res", ["std.mcp.toolkit.tools_file.tool_input_schema_json_v1", "tools_registry_json", "tool_name"]],
+        ["if", ["!=", ["result_bytes.err_code", "schema_res"], 0], ["return", "schema_res"], 0],
+        ["let", "schema_json", ["result_bytes.unwrap_or", "schema_res", ["bytes.alloc", 0]]],
+        ["let", "errors_json", ["std.mcp.toolkit.schema_subset.validate_v1", ["bytes.view", "schema_json"], "args_json"]],
+        ["result_bytes.ok", "errors_json"]
+      ]
+    }
+  ]
+}

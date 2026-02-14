@@ -7,8 +7,8 @@
 target/
 dist/
 artifacts/
+out/
 
 # Editor noise
 .DS_Store
 *.log
-

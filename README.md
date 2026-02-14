@@ -2,10 +2,12 @@
 
 `x07-mcp` is the MCP kit companion tool for the X07 toolchain.
 
-In Phase 0 it provides only **project scaffolding**, and is invoked by `x07` via delegation:
+It currently provides **project scaffolding**, and is invoked by `x07` via delegation:
 
 - `x07 mcp ...` delegates to `x07-mcp ...`
 - `x07 init --template mcp-server|mcp-server-stdio|mcp-server-http` delegates to `x07-mcp scaffold init ...`
+
+Documentation is in `docs/`.
 
 ## Install (local dev)
 

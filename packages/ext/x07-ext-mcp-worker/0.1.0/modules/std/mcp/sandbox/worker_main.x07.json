@@ -1,0 +1,269 @@
+{
+  "schema_version": "x07.x07ast@0.5.0",
+  "kind": "module",
+  "module_id": "std.mcp.sandbox.worker_main",
+  "imports": [
+    "ext.data_model",
+    "ext.json.data_model",
+    "mcp.user",
+    "std.bytes",
+    "std.mcp.diag",
+    "std.mcp.sandbox.worker_proto",
+    "std.mcp.tool.errors",
+    "std.mcp.tool.result",
+    "std.mcp.toolkit.derive_hooks",
+    "std.mcp.util.json"
+  ],
+  "decls": [
+    {
+      "kind": "export",
+      "names": ["std.mcp.sandbox.worker_main.run_v1"]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.sandbox.worker_main._response_v1",
+      "params": [{ "name": "tool_result_json", "ty": "bytes_view" }],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "k_proto", ["bytes.lit", "x07McpWorkerProtocol"]],
+        ["let", "k_ok", ["bytes.lit", "ok"]],
+        ["let", "k_tool_result", ["bytes.lit", "toolResult"]],
+        ["let", "v_proto", ["ext.data_model.value_number", ["bytes.view", ["bytes.lit", "1"]]]],
+        ["let", "v_ok", ["ext.data_model.value_bool", 1]],
+        ["let", "v_tool_result", ["std.mcp.util.json.value_from_json_or_null_v1", "tool_result_json"]],
+        ["let", "entries", ["vec_u8.with_capacity", 384]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", 3]]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "k_ok"]]]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", "k_ok"]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "v_ok"]]]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", "v_ok"]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "k_proto"]]]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", "k_proto"]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "v_proto"]]]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", "v_proto"]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "k_tool_result"]]]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", "k_tool_result"]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "v_tool_result"]]]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", "v_tool_result"]],
+        ["let", "entries_b", ["vec_u8.into_bytes", "entries"]],
+        ["let", "resp_val", ["ext.data_model.value_map_from_entries", ["bytes.view", "entries_b"]]],
+        ["if", ["=", ["bytes.len", "resp_val"], 0], ["return", ["bytes.alloc", 0]], 0],
+        ["std.mcp.util.json.json_from_value_v1", ["bytes.view", "resp_val"]]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.sandbox.worker_main._internal_error_tool_result_v1",
+      "params": [{ "name": "human_text_utf8", "ty": "bytes_view" }],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "diag", ["std.mcp.diag.code_internal_v1"]],
+        ["let", "detail", ["bytes.lit", "{}"]],
+        ["std.mcp.tool.result.err_v1", ["bytes.view", "diag"], "human_text_utf8", ["bytes.view", "detail"]]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.sandbox.worker_main.run_v1",
+      "params": [{ "name": "input", "ty": "bytes_view" }],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "doc_b", ["ext.json.data_model.parse", "input"]],
+        ["let", "doc", ["bytes.view", "doc_b"]],
+        [
+          "if",
+          ["=", ["ext.data_model.doc_is_err", "doc"], 1],
+          [
+            "begin",
+            [
+              "std.mcp.sandbox.worker_main._response_v1",
+              [
+                "bytes.view",
+                ["std.mcp.sandbox.worker_main._internal_error_tool_result_v1", ["bytes.view", ["bytes.lit", "invalid worker request JSON"]]]
+              ]
+            ]
+          ],
+          [
+            "begin",
+            [
+              "if",
+              ["!=", ["ext.data_model.root_kind", "doc"], 5],
+              [
+                "begin",
+                [
+                  "std.mcp.sandbox.worker_main._response_v1",
+                  [
+                    "bytes.view",
+                    ["std.mcp.sandbox.worker_main._internal_error_tool_result_v1", ["bytes.view", ["bytes.lit", "worker request must be an object"]]]
+                  ]
+                ]
+              ],
+              [
+                "begin",
+                ["let", "root", ["ext.data_model.root_offset", "doc"]],
+                ["let", "k_tool", ["bytes.lit", "tool"]],
+                ["let", "tool_off", ["ext.data_model.map_find", "doc", "root", ["bytes.view", "k_tool"]]],
+                [
+                  "if",
+                  ["if", ["<", "tool_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "tool_off"], 3]],
+                  [
+                    "begin",
+                    [
+                      "std.mcp.sandbox.worker_main._response_v1",
+                      [
+                        "bytes.view",
+                        ["std.mcp.sandbox.worker_main._internal_error_tool_result_v1", ["bytes.view", ["bytes.lit", "missing tool name in worker request"]]]
+                      ]
+                    ]
+                  ],
+                  [
+                    "begin",
+                    ["let", "tool_name", ["ext.data_model.string_get", "doc", "tool_off"]],
+                    ["let", "k_ctx", ["bytes.lit", "ctx"]],
+                    ["let", "ctx_off", ["ext.data_model.map_find", "doc", "root", ["bytes.view", "k_ctx"]]],
+                    ["let", "ctx_json", ["bytes.lit", "{}"]],
+                    [
+                      "if",
+                      ["<", "ctx_off", 0],
+                      0,
+                      [
+                        "begin",
+                        ["let", "ctx_end", ["ext.data_model.skip_value", "doc", "ctx_off"]],
+                        [
+                          "if",
+                          ["<", "ctx_end", 0],
+                          0,
+                          [
+                            "begin",
+                            ["let", "ctx_val", ["view.to_bytes", ["view.slice", "doc", "ctx_off", ["-", "ctx_end", "ctx_off"]]]],
+                            ["set", "ctx_json", ["std.mcp.util.json.json_from_value_v1", ["bytes.view", "ctx_val"]]]
+                          ]
+                        ]
+                      ]
+                    ],
+                    ["let", "k_args", ["bytes.lit", "args"]],
+                    ["let", "args_off", ["ext.data_model.map_find", "doc", "root", ["bytes.view", "k_args"]]],
+                    ["let", "args_json", ["bytes.lit", "{}"]],
+                    [
+                      "if",
+                      ["<", "args_off", 0],
+                      0,
+                      [
+                        "begin",
+                        ["let", "args_end", ["ext.data_model.skip_value", "doc", "args_off"]],
+                        [
+                          "if",
+                          ["<", "args_end", 0],
+                          0,
+                          [
+                            "begin",
+                            ["let", "args_val", ["view.to_bytes", ["view.slice", "doc", "args_off", ["-", "args_end", "args_off"]]]],
+                            ["set", "args_json", ["std.mcp.util.json.json_from_value_v1", ["bytes.view", "args_val"]]]
+                          ]
+                        ]
+                      ]
+                    ],
+                    ["let", "k_tools", ["bytes.lit", "tools"]],
+                    ["let", "tools_off", ["ext.data_model.map_find", "doc", "root", ["bytes.view", "k_tools"]]],
+                    [
+                      "if",
+                      ["<", "tools_off", 0],
+                      [
+                        "begin",
+                        [
+                          "std.mcp.sandbox.worker_main._response_v1",
+                          [
+                            "bytes.view",
+                            ["std.mcp.sandbox.worker_main._internal_error_tool_result_v1", ["bytes.view", ["bytes.lit", "missing tools registry in worker request"]]]
+                          ]
+                        ]
+                      ],
+                      [
+                        "begin",
+                        ["let", "tools_end", ["ext.data_model.skip_value", "doc", "tools_off"]],
+                        [
+                          "if",
+                          ["<", "tools_end", 0],
+                          [
+                            "begin",
+                            [
+                              "std.mcp.sandbox.worker_main._response_v1",
+                              [
+                                "bytes.view",
+                                ["std.mcp.sandbox.worker_main._internal_error_tool_result_v1", ["bytes.view", ["bytes.lit", "invalid tools registry in worker request"]]]
+                              ]
+                            ]
+                          ],
+                          [
+                            "begin",
+                            ["let", "tools_val", ["view.to_bytes", ["view.slice", "doc", "tools_off", ["-", "tools_end", "tools_off"]]]],
+                            ["let", "tools_json", ["std.mcp.util.json.json_from_value_v1", ["bytes.view", "tools_val"]]],
+                            ["let", "val_res", ["std.mcp.toolkit.derive_hooks.validate_tool_args_v1", ["bytes.view", "tools_json"], ["bytes.view", "tool_name"], ["bytes.view", "args_json"]]],
+                            [
+                              "if",
+                              ["!=", ["result_bytes.err_code", "val_res"], 0],
+                              [
+                                "begin",
+                                [
+                                  "std.mcp.sandbox.worker_main._response_v1",
+                                  [
+                                    "bytes.view",
+                                    ["std.mcp.sandbox.worker_main._internal_error_tool_result_v1", ["bytes.view", ["bytes.lit", "failed to resolve tool schema"]]]
+                                  ]
+                                ]
+                              ],
+                              [
+                                "begin",
+                                ["let", "errors_json", ["result_bytes.unwrap_or", "val_res", ["bytes.alloc", 0]]],
+                                [
+                                  "if",
+                                  [">", ["bytes.len", "errors_json"], 0],
+                                  [
+                                    "begin",
+                                    ["let", "diag_json", ["std.mcp.tool.errors.diag_schema_validation_v1", ["bytes.view", "tool_name"], ["bytes.view", "errors_json"]]],
+                                    ["let", "pfx", ["bytes.lit", "Invalid tool arguments for "]],
+                                    ["let", "sfx", ["bytes.lit", "."]],
+                                    ["let", "t1", ["std.bytes.concat", ["bytes.view", "pfx"], ["bytes.view", "tool_name"]]],
+                                    ["let", "t2", ["std.bytes.concat", ["bytes.view", "t1"], ["bytes.view", "sfx"]]],
+                                    ["let", "tr", ["std.mcp.tool.result.err_text_structured_v1", ["bytes.view", "t2"], ["bytes.view", "diag_json"]]],
+                                    ["std.mcp.sandbox.worker_main._response_v1", ["bytes.view", "tr"]]
+                                  ],
+                                  [
+                                    "begin",
+                                    ["let", "tr", ["mcp.user.call_tool_v1", ["bytes.view", "tool_name"], ["bytes.view", "ctx_json"], ["bytes.view", "args_json"]]],
+                                    [
+                                      "if",
+                                      ["=", ["bytes.len", "tr"], 0],
+                                      [
+                                        "begin",
+                                        [
+                                          "std.mcp.sandbox.worker_main._response_v1",
+                                          [
+                                            "bytes.view",
+                                            ["std.mcp.sandbox.worker_main._internal_error_tool_result_v1", ["bytes.view", ["bytes.lit", "tool returned empty result"]]]
+                                          ]
+                                        ]
+                                      ],
+                                      ["std.mcp.sandbox.worker_main._response_v1", ["bytes.view", "tr"]]
+                                    ]
+                                  ]
+                                ]
+                              ]
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    }
+  ]
+}

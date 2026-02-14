@@ -1,0 +1,95 @@
+{
+  "schema_version": "x07.x07ast@0.5.0",
+  "kind": "module",
+  "module_id": "std.mcp.util.json",
+  "imports": ["ext.data_model", "ext.data_model.json", "ext.json.data_model"],
+  "decls": [
+    {
+      "kind": "export",
+      "names": [
+        "std.mcp.util.json.empty_map_value_v1",
+        "std.mcp.util.json.json_from_value_v1",
+        "std.mcp.util.json.value_from_json_or_empty_map_v1",
+        "std.mcp.util.json.value_from_json_or_null_v1"
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.util.json.json_from_value_v1",
+      "params": [{ "name": "value", "ty": "bytes_view" }],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "doc", ["ext.data_model.doc_ok", "value"]],
+        ["let", "json_doc", ["ext.data_model.json.emit_canon", ["bytes.view", "doc"]]],
+        ["let", "jv", ["bytes.view", "json_doc"]],
+        ["if", ["=", ["ext.data_model.doc_is_err", "jv"], 1], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "n", ["view.len", "jv"]],
+        ["if", ["<u", "n", 2], ["return", ["bytes.alloc", 0]], 0],
+        ["view.to_bytes", ["view.slice", "jv", 1, ["-", "n", 1]]]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.util.json.empty_map_value_v1",
+      "params": [],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "entries", ["vec_u8.with_capacity", 4]],
+        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", 0]]],
+        ["let", "entries_b", ["vec_u8.into_bytes", "entries"]],
+        ["ext.data_model.value_map_from_entries", ["bytes.view", "entries_b"]]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.util.json.value_from_json_or_null_v1",
+      "params": [{ "name": "json", "ty": "bytes_view" }],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "doc", ["ext.json.data_model.parse", "json"]],
+        ["let", "dv", ["bytes.view", "doc"]],
+        [
+          "if",
+          ["=", ["ext.data_model.doc_is_err", "dv"], 1],
+          ["ext.data_model.value_null"],
+          [
+            "begin",
+            ["let", "root", ["ext.data_model.root_offset", "dv"]],
+            ["let", "end", ["ext.data_model.skip_value", "dv", "root"]],
+            ["if", ["<", "end", 0], ["return", ["ext.data_model.value_null"]], 0],
+            ["let", "len", ["-", "end", "root"]],
+            ["view.to_bytes", ["view.slice", "dv", "root", "len"]]
+          ]
+        ]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.util.json.value_from_json_or_empty_map_v1",
+      "params": [{ "name": "json", "ty": "bytes_view" }],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "doc", ["ext.json.data_model.parse", "json"]],
+        ["let", "dv", ["bytes.view", "doc"]],
+        [
+          "if",
+          ["=", ["ext.data_model.doc_is_err", "dv"], 1],
+          ["std.mcp.util.json.empty_map_value_v1"],
+          [
+            "begin",
+            ["let", "root", ["ext.data_model.root_offset", "dv"]],
+            ["let", "end", ["ext.data_model.skip_value", "dv", "root"]],
+            ["if", ["<", "end", 0], ["return", ["std.mcp.util.json.empty_map_value_v1"]], 0],
+            ["let", "len", ["-", "end", "root"]],
+            ["view.to_bytes", ["view.slice", "dv", "root", "len"]]
+          ]
+        ]
+      ]
+    }
+  ]
+}
+

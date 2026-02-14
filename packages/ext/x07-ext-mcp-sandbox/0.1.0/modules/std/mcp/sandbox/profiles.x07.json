@@ -1,0 +1,36 @@
+{
+  "schema_version": "x07.x07ast@0.5.0",
+  "kind": "module",
+  "module_id": "std.mcp.sandbox.profiles",
+  "imports": ["std.os.process.caps_v1", "std.bytes"],
+  "decls": [
+    {
+      "kind": "export",
+      "names": ["std.mcp.sandbox.profiles.tool_caps_v1"]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.sandbox.profiles.tool_caps_v1",
+      "params": [{ "name": "profile_id", "ty": "bytes_view" }],
+      "result": "bytes",
+      "result_brand": "std.os.process.caps_v1",
+      "body": [
+        "begin",
+        ["let", "fast", ["bytes.lit", "mcp_tool_fast_v1"]],
+        ["let", "standard", ["bytes.lit", "mcp_tool_standard_v1"]],
+        ["let", "expensive", ["bytes.lit", "mcp_tool_expensive_v1"]],
+        [
+          "if",
+          ["=", ["bytes.eq", "profile_id", ["bytes.view", "fast"]], 1],
+          ["std.os.process.caps_v1.finish", 1048576, 1048576, 1000, 0],
+          [
+            "if",
+            ["=", ["bytes.eq", "profile_id", ["bytes.view", "expensive"]], 1],
+            ["std.os.process.caps_v1.finish", 33554432, 33554432, 30000, 0],
+            ["std.os.process.caps_v1.finish", 8388608, 8388608, 8000, 0]
+          ]
+        ]
+      ]
+    }
+  ]
+}

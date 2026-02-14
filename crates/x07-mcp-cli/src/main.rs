@@ -114,10 +114,26 @@ fn run_scaffold_init(args: &ScaffoldInitArgs) -> Result<ScaffoldInitReport> {
         created.push(f.rel_path.to_string());
     }
 
-    let next_steps: Vec<String> = vec![
-        "x07 run".to_string(),
-        "x07 test --manifest tests/tests.json".to_string(),
-    ];
+    let next_steps: Vec<String> = match args.template {
+        TemplateName::ServerStdio => vec![
+            format!("cd {}", dir.display()),
+            "x07 policy init --template worker --project x07.json".to_string(),
+            "x07 pkg add ext-mcp-transport-stdio@0.1.0 --sync".to_string(),
+            "x07 pkg add ext-mcp-worker@0.1.0 --sync".to_string(),
+            "x07 pkg add ext-mcp-rr@0.1.0 --sync".to_string(),
+            "x07 pkg add ext-hex-rs@0.1.4 --sync".to_string(),
+            "x07 test --manifest tests/tests.json".to_string(),
+            "x07 bundle --profile os --out out/mcp-router".to_string(),
+            "x07 bundle --profile sandbox --program src/worker_main.x07.json --out out/mcp-worker"
+                .to_string(),
+            "./out/mcp-router".to_string(),
+        ],
+        _ => vec![
+            format!("cd {}", dir.display()),
+            "x07 run".to_string(),
+            "x07 test --manifest tests/tests.json".to_string(),
+        ],
+    };
 
     Ok(ScaffoldInitReport {
         ok: true,
@@ -222,7 +238,7 @@ const TEMPLATE_MCP_SERVER: [TemplateFile; 8] = [
     },
 ];
 
-const TEMPLATE_MCP_SERVER_STDIO: [TemplateFile; 8] = [
+const TEMPLATE_MCP_SERVER_STDIO: [TemplateFile; 17] = [
     TemplateFile {
         rel_path: ".gitignore",
         contents: include_bytes!("../../../templates/mcp-server-stdio/.gitignore"),
@@ -240,6 +256,14 @@ const TEMPLATE_MCP_SERVER_STDIO: [TemplateFile; 8] = [
         contents: include_bytes!("../../../templates/mcp-server-stdio/x07.lock.json"),
     },
     TemplateFile {
+        rel_path: "config/mcp.server.json",
+        contents: include_bytes!("../../../templates/mcp-server-stdio/config/mcp.server.json"),
+    },
+    TemplateFile {
+        rel_path: "config/mcp.tools.json",
+        contents: include_bytes!("../../../templates/mcp-server-stdio/config/mcp.tools.json"),
+    },
+    TemplateFile {
         rel_path: "src/app.x07.json",
         contents: include_bytes!("../../../templates/mcp-server-stdio/src/app.x07.json"),
     },
@@ -248,12 +272,44 @@ const TEMPLATE_MCP_SERVER_STDIO: [TemplateFile; 8] = [
         contents: include_bytes!("../../../templates/mcp-server-stdio/src/main.x07.json"),
     },
     TemplateFile {
+        rel_path: "src/worker_main.x07.json",
+        contents: include_bytes!("../../../templates/mcp-server-stdio/src/worker_main.x07.json"),
+    },
+    TemplateFile {
+        rel_path: "src/mcp/user.x07.json",
+        contents: include_bytes!("../../../templates/mcp-server-stdio/src/mcp/user.x07.json"),
+    },
+    TemplateFile {
         rel_path: "tests/tests.json",
         contents: include_bytes!("../../../templates/mcp-server-stdio/tests/tests.json"),
     },
     TemplateFile {
         rel_path: "tests/smoke.x07.json",
         contents: include_bytes!("../../../templates/shared/tests/smoke.x07.json"),
+    },
+    TemplateFile {
+        rel_path: "tests/mcp/tests.x07.json",
+        contents: include_bytes!("../../../templates/mcp-server-stdio/tests/mcp/tests.x07.json"),
+    },
+    TemplateFile {
+        rel_path: "tests/fixtures/replay/mcp.server.json",
+        contents: include_bytes!(
+            "../../../templates/mcp-server-stdio/tests/fixtures/replay/mcp.server.json"
+        ),
+    },
+    TemplateFile {
+        rel_path: "tests/fixtures/replay/mcp.tools.json",
+        contents: include_bytes!(
+            "../../../templates/mcp-server-stdio/tests/fixtures/replay/mcp.tools.json"
+        ),
+    },
+    TemplateFile {
+        rel_path: "tests/fixtures/replay/c2s.jsonl",
+        contents: include_bytes!("../../../templates/mcp-server-stdio/tests/fixtures/replay/c2s.jsonl"),
+    },
+    TemplateFile {
+        rel_path: "tests/fixtures/replay/s2c.jsonl",
+        contents: include_bytes!("../../../templates/mcp-server-stdio/tests/fixtures/replay/s2c.jsonl"),
     },
 ];
 
@@ -311,8 +367,15 @@ mod tests {
         assert!(report.ok);
         assert!(dir.join("x07.json").is_file());
         assert!(dir.join("x07.lock.json").is_file());
+        assert!(dir.join("config/mcp.server.json").is_file());
+        assert!(dir.join("config/mcp.tools.json").is_file());
         assert!(dir.join("src").is_dir());
+        assert!(dir.join("src/worker_main.x07.json").is_file());
+        assert!(dir.join("src/mcp/user.x07.json").is_file());
         assert!(dir.join("tests").is_dir());
+        assert!(dir.join("tests/mcp/tests.x07.json").is_file());
+        assert!(dir.join("tests/fixtures/replay/c2s.jsonl").is_file());
+        assert!(dir.join("tests/fixtures/replay/s2c.jsonl").is_file());
         assert!(!report.created.is_empty());
     }
 }

@@ -1,0 +1,240 @@
+{
+  "schema_version": "x07.x07ast@0.5.0",
+  "kind": "module",
+  "module_id": "std.mcp.sandbox.policy_compile",
+  "imports": ["ext.data_model", "ext.json.data_model", "std.os.process.req_v1", "std.bytes"],
+  "decls": [
+    {
+      "kind": "export",
+      "names": ["std.mcp.sandbox.policy_compile.apply_tool_policy_env_v1"]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.sandbox.policy_compile._join_seq_strings_semicolon_v1",
+      "params": [
+        { "name": "doc", "ty": "bytes_view" },
+        { "name": "seq_off", "ty": "i32" }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "n", ["ext.data_model.seq_len", "doc", "seq_off"]],
+        ["if", ["<", "n", 0], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "out", ["vec_u8.with_capacity", 64]],
+        ["let", "first", 1],
+        [
+          "for",
+          "i",
+          0,
+          "n",
+          [
+            "begin",
+            ["let", "item_off", ["ext.data_model.seq_get", "doc", "seq_off", "i"]],
+            [
+              "if",
+              ["<", "item_off", 0],
+              0,
+              [
+                "begin",
+                [
+                  "if",
+                  ["!=", ["ext.data_model.kind_at", "doc", "item_off"], 3],
+                  0,
+                  [
+                    "begin",
+                    ["let", "s", ["ext.data_model.string_get", "doc", "item_off"]],
+                    [
+                      "if",
+                      ["=", "first", 1],
+                      ["set", "first", 0],
+                      ["set", "out", ["vec_u8.push", "out", 59]]
+                    ],
+                    ["set", "out", ["vec_u8.extend_bytes", "out", "s"]]
+                  ]
+                ]
+              ]
+            ],
+            0
+          ]
+        ],
+        ["vec_u8.into_bytes", "out"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.sandbox.policy_compile.apply_tool_policy_env_v1",
+      "params": [
+        { "name": "req", "ty": "vec_u8" },
+        { "name": "tool_name", "ty": "bytes_view" },
+        { "name": "tools_registry_json", "ty": "bytes_view" }
+      ],
+      "result": "vec_u8",
+      "body": [
+        "begin",
+        ["let", "r", "req"],
+        ["let", "doc_b", ["ext.json.data_model.parse", "tools_registry_json"]],
+        ["let", "doc", ["bytes.view", "doc_b"]],
+        ["if", ["=", ["ext.data_model.doc_is_err", "doc"], 1], ["return", "r"], 0],
+        ["if", ["!=", ["ext.data_model.root_kind", "doc"], 5], ["return", "r"], 0],
+        ["let", "root", ["ext.data_model.root_offset", "doc"]],
+        ["let", "k_tools", ["bytes.lit", "tools"]],
+        ["let", "tools_off", ["ext.data_model.map_find", "doc", "root", ["bytes.view", "k_tools"]]],
+        ["if", ["<", "tools_off", 0], ["return", "r"], 0],
+        ["if", ["!=", ["ext.data_model.kind_at", "doc", "tools_off"], 4], ["return", "r"], 0],
+        ["let", "tools_len", ["ext.data_model.seq_len", "doc", "tools_off"]],
+        ["if", ["<", "tools_len", 0], ["return", "r"], 0],
+        ["let", "tool_off", ["-", 0, 1]],
+        ["let", "k_name", ["bytes.lit", "name"]],
+        [
+          "for",
+          "i",
+          0,
+          "tools_len",
+          [
+            "begin",
+            ["if", [">=", "tool_off", 0], 0, ["begin", ["let", "it", ["ext.data_model.seq_get", "doc", "tools_off", "i"]], ["if", ["<", "it", 0], 0, ["begin", ["let", "name_off", ["ext.data_model.map_find", "doc", "it", ["bytes.view", "k_name"]]], ["if", ["<", "name_off", 0], 0, ["begin", ["let", "nm", ["ext.data_model.string_get", "doc", "name_off"]], ["if", ["=", ["bytes.eq", ["bytes.view", "nm"], "tool_name"], 1], ["set", "tool_off", "it"], 0], 0]]]]], 0]],
+            0
+          ]
+        ],
+        ["if", ["<", "tool_off", 0], ["return", "r"], 0],
+        ["let", "k_x07", ["bytes.lit", "x07"]],
+        ["let", "x07_off", ["ext.data_model.map_find", "doc", "tool_off", ["bytes.view", "k_x07"]]],
+        ["if", ["<", "x07_off", 0], ["return", "r"], 0],
+        ["if", ["!=", ["ext.data_model.kind_at", "doc", "x07_off"], 5], ["return", "r"], 0],
+        ["let", "k_sandbox", ["bytes.lit", "sandbox"]],
+        ["let", "sandbox_off", ["ext.data_model.map_find", "doc", "x07_off", ["bytes.view", "k_sandbox"]]],
+        ["if", ["<", "sandbox_off", 0], ["return", "r"], 0],
+        ["if", ["!=", ["ext.data_model.kind_at", "doc", "sandbox_off"], 5], ["return", "r"], 0],
+        ["let", "k_fs", ["bytes.lit", "fs"]],
+        ["let", "fs_off", ["ext.data_model.map_find", "doc", "sandbox_off", ["bytes.view", "k_fs"]]],
+        [
+          "if",
+          ["if", ["<", "fs_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "fs_off"], 5]],
+          0,
+          [
+            "begin",
+            ["let", "k_read", ["bytes.lit", "read_roots"]],
+            ["let", "k_write", ["bytes.lit", "write_roots"]],
+            ["let", "read_off", ["ext.data_model.map_find", "doc", "fs_off", ["bytes.view", "k_read"]]],
+            ["let", "write_off", ["ext.data_model.map_find", "doc", "fs_off", ["bytes.view", "k_write"]]],
+            ["let", "read_join", ["bytes.alloc", 0]],
+            ["let", "write_join", ["bytes.alloc", 0]],
+            [
+              "if",
+              ["if", ["<", "read_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "read_off"], 4]],
+              0,
+              ["set", "read_join", ["std.mcp.sandbox.policy_compile._join_seq_strings_semicolon_v1", "doc", "read_off"]]
+            ],
+            [
+              "if",
+              ["if", ["<", "write_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "write_off"], 4]],
+              0,
+              ["set", "write_join", ["std.mcp.sandbox.policy_compile._join_seq_strings_semicolon_v1", "doc", "write_off"]]
+            ],
+            [
+              "if",
+              ["if", [">", ["bytes.len", "read_join"], 0], 1, [">", ["bytes.len", "write_join"], 0]],
+              [
+                "begin",
+                ["set", "r", ["std.os.process.req_v1.env", "r", ["bytes.lit", "X07_OS_FS"], ["bytes.lit", "1"]]],
+                [
+                  "if",
+                  [">", ["bytes.len", "read_join"], 0],
+                  ["set", "r", ["std.os.process.req_v1.env", "r", ["bytes.lit", "X07_OS_FS_READ_ROOTS"], "read_join"]],
+                  0
+                ],
+                [
+                  "if",
+                  [">", ["bytes.len", "write_join"], 0],
+                  ["set", "r", ["std.os.process.req_v1.env", "r", ["bytes.lit", "X07_OS_FS_WRITE_ROOTS"], "write_join"]],
+                  0
+                ]
+              ],
+              0
+            ]
+          ]
+        ],
+        ["let", "k_net", ["bytes.lit", "net"]],
+        ["let", "net_off", ["ext.data_model.map_find", "doc", "sandbox_off", ["bytes.view", "k_net"]]],
+        [
+          "if",
+          ["if", ["<", "net_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "net_off"], 5]],
+          0,
+          [
+            "begin",
+            ["let", "k_allow_dns", ["bytes.lit", "allow_dns"]],
+            ["let", "k_allow_hosts", ["bytes.lit", "allow_hosts"]],
+            ["let", "allow_dns_off", ["ext.data_model.map_find", "doc", "net_off", ["bytes.view", "k_allow_dns"]]],
+            ["let", "allow_hosts_off", ["ext.data_model.map_find", "doc", "net_off", ["bytes.view", "k_allow_hosts"]]],
+            ["let", "allow_dns", 0],
+            [
+              "if",
+              ["if", ["<", "allow_dns_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "allow_dns_off"], 1]],
+              0,
+              ["set", "allow_dns", ["ext.data_model.bool_get", "doc", "allow_dns_off"]]
+            ],
+            ["let", "hosts_join", ["bytes.alloc", 0]],
+            [
+              "if",
+              ["if", ["<", "allow_hosts_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "allow_hosts_off"], 4]],
+              0,
+              ["set", "hosts_join", ["std.mcp.sandbox.policy_compile._join_seq_strings_semicolon_v1", "doc", "allow_hosts_off"]]
+            ],
+            [
+              "if",
+              ["if", ["=", "allow_dns", 1], 1, [">", ["bytes.len", "hosts_join"], 0]],
+              [
+                "begin",
+                ["set", "r", ["std.os.process.req_v1.env", "r", ["bytes.lit", "X07_OS_NET"], ["bytes.lit", "1"]]],
+                ["set", "r", ["std.os.process.req_v1.env", "r", ["bytes.lit", "X07_OS_NET_ALLOW_TCP"], ["bytes.lit", "1"]]],
+                [
+                  "if",
+                  ["=", "allow_dns", 1],
+                  ["set", "r", ["std.os.process.req_v1.env", "r", ["bytes.lit", "X07_OS_NET_ALLOW_DNS"], ["bytes.lit", "1"]]],
+                  0
+                ],
+                [
+                  "if",
+                  [">", ["bytes.len", "hosts_join"], 0],
+                  ["set", "r", ["std.os.process.req_v1.env", "r", ["bytes.lit", "X07_OS_NET_ALLOW_HOSTS"], "hosts_join"]],
+                  0
+                ]
+              ],
+              0
+            ]
+          ]
+        ],
+        ["let", "k_env", ["bytes.lit", "env"]],
+        ["let", "env_off", ["ext.data_model.map_find", "doc", "sandbox_off", ["bytes.view", "k_env"]]],
+        [
+          "if",
+          ["if", ["<", "env_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "env_off"], 5]],
+          0,
+          [
+            "begin",
+            ["let", "k_allow_keys", ["bytes.lit", "allow_keys"]],
+            ["let", "allow_keys_off", ["ext.data_model.map_find", "doc", "env_off", ["bytes.view", "k_allow_keys"]]],
+            ["let", "keys_join", ["bytes.alloc", 0]],
+            [
+              "if",
+              ["if", ["<", "allow_keys_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "allow_keys_off"], 4]],
+              0,
+              ["set", "keys_join", ["std.mcp.sandbox.policy_compile._join_seq_strings_semicolon_v1", "doc", "allow_keys_off"]]
+            ],
+            [
+              "if",
+              [">", ["bytes.len", "keys_join"], 0],
+              [
+                "begin",
+                ["set", "r", ["std.os.process.req_v1.env", "r", ["bytes.lit", "X07_OS_ENV"], ["bytes.lit", "1"]]],
+                ["set", "r", ["std.os.process.req_v1.env", "r", ["bytes.lit", "X07_OS_ENV_ALLOW_KEYS"], "keys_join"]]
+              ],
+              0
+            ]
+          ]
+        ],
+        "r"
+      ]
+    }
+  ]
+}

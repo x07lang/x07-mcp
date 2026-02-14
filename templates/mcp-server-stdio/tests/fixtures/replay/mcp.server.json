@@ -1,0 +1,14 @@
+{
+  "schema_version": "x07.mcp.server_config@0.1.0",
+  "server": {
+    "name": "my-mcp-server",
+    "version": "0.1.0",
+    "protocolVersion": "2025-11-25"
+  },
+  "tools_manifest_path": "fixtures/replay/mcp.tools.json",
+  "worker_exe_path": "out/mcp-worker",
+  "transport": {
+    "kind": "stdio",
+    "max_line_bytes": 1048576
+  }
+}

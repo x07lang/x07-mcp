@@ -6,7 +6,12 @@
       "world": "run-os",
       "entry": "smoke.pass",
       "expect": "pass"
+    },
+    {
+      "id": "mcp/replay_smoke",
+      "world": "solve-fs",
+      "entry": "mcp.tests.replay_smoke",
+      "expect": "pass"
     }
   ]
 }
-

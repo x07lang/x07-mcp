@@ -1,0 +1,775 @@
+{
+  "schema_version": "x07.x07ast@0.5.0",
+  "kind": "module",
+  "module_id": "std.mcp.toolkit.stdio_dispatch",
+  "imports": [
+    "ext.data_model",
+    "ext.json.data_model",
+    "std.bytes",
+    "std.mcp.jsonrpc",
+    "std.mcp.toolkit.tools_file",
+    "std.mcp.util.json"
+  ],
+  "decls": [
+    {
+      "kind": "export",
+      "names": [
+        "std.mcp.toolkit.stdio_dispatch.dispatch_line_v1",
+        "std.mcp.toolkit.stdio_dispatch.step_kind_v1",
+        "std.mcp.toolkit.stdio_dispatch.step_next_state_v1",
+        "std.mcp.toolkit.stdio_dispatch.step_resp_json_v1",
+        "std.mcp.toolkit.stdio_dispatch.step_tool_call_args_json_v1",
+        "std.mcp.toolkit.stdio_dispatch.step_tool_call_id_json_v1",
+        "std.mcp.toolkit.stdio_dispatch.step_tool_call_tool_name_v1"
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._tag_noop_v1",
+      "params": [],
+      "result": "i32",
+      "body": 0
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._tag_resp_v1",
+      "params": [],
+      "result": "i32",
+      "body": 1
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._tag_tool_call_v1",
+      "params": [],
+      "result": "i32",
+      "body": 2
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._bytes_empty_v1",
+      "params": [],
+      "result": "bytes",
+      "body": ["bytes.alloc", 0]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._step_noop_v1",
+      "params": [{ "name": "next_state", "ty": "i32" }],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "v", ["vec_u8.with_capacity", 5]],
+        ["set", "v", ["vec_u8.push", "v", ["std.mcp.toolkit.stdio_dispatch._tag_noop_v1"]]],
+        ["set", "v", ["vec_u8.extend_bytes", "v", ["codec.write_u32_le", "next_state"]]],
+        ["vec_u8.into_bytes", "v"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._step_resp_v1",
+      "params": [
+        { "name": "next_state", "ty": "i32" },
+        { "name": "resp_json", "ty": "bytes_view" }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "n", ["view.len", "resp_json"]],
+        ["let", "v", ["vec_u8.with_capacity", ["+", 9, "n"]]],
+        ["set", "v", ["vec_u8.push", "v", ["std.mcp.toolkit.stdio_dispatch._tag_resp_v1"]]],
+        ["set", "v", ["vec_u8.extend_bytes", "v", ["codec.write_u32_le", "next_state"]]],
+        ["set", "v", ["vec_u8.extend_bytes", "v", ["codec.write_u32_le", "n"]]],
+        ["set", "v", ["vec_u8.extend_bytes", "v", "resp_json"]],
+        ["vec_u8.into_bytes", "v"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._step_tool_call_v1",
+      "params": [
+        { "name": "next_state", "ty": "i32" },
+        { "name": "id_json", "ty": "bytes_view" },
+        { "name": "tool_name", "ty": "bytes_view" },
+        { "name": "args_json", "ty": "bytes_view" }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "id_n", ["view.len", "id_json"]],
+        ["let", "tool_n", ["view.len", "tool_name"]],
+        ["let", "args_n", ["view.len", "args_json"]],
+        [
+          "let",
+          "v",
+          ["vec_u8.with_capacity", ["+", 17, ["+", "id_n", ["+", "tool_n", "args_n"]]]]
+        ],
+        ["set", "v", ["vec_u8.push", "v", ["std.mcp.toolkit.stdio_dispatch._tag_tool_call_v1"]]],
+        ["set", "v", ["vec_u8.extend_bytes", "v", ["codec.write_u32_le", "next_state"]]],
+        ["set", "v", ["vec_u8.extend_bytes", "v", ["codec.write_u32_le", "id_n"]]],
+        ["set", "v", ["vec_u8.extend_bytes", "v", "id_json"]],
+        ["set", "v", ["vec_u8.extend_bytes", "v", ["codec.write_u32_le", "tool_n"]]],
+        ["set", "v", ["vec_u8.extend_bytes", "v", "tool_name"]],
+        ["set", "v", ["vec_u8.extend_bytes", "v", ["codec.write_u32_le", "args_n"]]],
+        ["set", "v", ["vec_u8.extend_bytes", "v", "args_json"]],
+        ["vec_u8.into_bytes", "v"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch.step_kind_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "i32",
+      "body": [
+        "begin",
+        ["if", ["<u", ["view.len", "step"], 1], ["return", ["-", 0, 1]], 0],
+        ["view.get_u8", "step", 0]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch.step_next_state_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "i32",
+      "body": [
+        "begin",
+        ["if", ["<u", ["view.len", "step"], 5], ["return", ["-", 0, 1]], 0],
+        ["codec.read_u32_le", "step", 1]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._slice_payload_v1",
+      "params": [
+        { "name": "step", "ty": "bytes_view" },
+        { "name": "start", "ty": "i32" },
+        { "name": "len", "ty": "i32" }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "n", ["view.len", "step"]],
+        ["if", ["<", "start", 0], ["return", ["bytes.alloc", 0]], 0],
+        ["if", ["<", "len", 0], ["return", ["bytes.alloc", 0]], 0],
+        ["if", ["<u", "n", ["+", "start", "len"]], ["return", ["bytes.alloc", 0]], 0],
+        ["view.to_bytes", ["view.slice", "step", "start", "len"]]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch.step_resp_json_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["if", ["!=", ["std.mcp.toolkit.stdio_dispatch.step_kind_v1", "step"], ["std.mcp.toolkit.stdio_dispatch._tag_resp_v1"]], ["return", ["bytes.alloc", 0]], 0],
+        ["if", ["<u", ["view.len", "step"], 9], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "len", ["codec.read_u32_le", "step", 5]],
+        ["std.mcp.toolkit.stdio_dispatch._slice_payload_v1", "step", 9, "len"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._tool_call_id_len_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "i32",
+      "body": [
+        "begin",
+        ["if", ["<u", ["view.len", "step"], 9], ["return", ["-", 0, 1]], 0],
+        ["codec.read_u32_le", "step", 5]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch.step_tool_call_id_json_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["if", ["!=", ["std.mcp.toolkit.stdio_dispatch.step_kind_v1", "step"], ["std.mcp.toolkit.stdio_dispatch._tag_tool_call_v1"]], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "id_len", ["std.mcp.toolkit.stdio_dispatch._tool_call_id_len_v1", "step"]],
+        ["if", ["<", "id_len", 0], ["return", ["bytes.alloc", 0]], 0],
+        ["std.mcp.toolkit.stdio_dispatch._slice_payload_v1", "step", 9, "id_len"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._tool_call_tool_len_off_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "i32",
+      "body": [
+        "begin",
+        ["let", "id_len", ["std.mcp.toolkit.stdio_dispatch._tool_call_id_len_v1", "step"]],
+        ["if", ["<", "id_len", 0], ["return", ["-", 0, 1]], 0],
+        ["+", 9, "id_len"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._tool_call_tool_len_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "i32",
+      "body": [
+        "begin",
+        ["let", "off", ["std.mcp.toolkit.stdio_dispatch._tool_call_tool_len_off_v1", "step"]],
+        ["if", ["<", "off", 0], ["return", ["-", 0, 1]], 0],
+        ["if", ["<u", ["view.len", "step"], ["+", "off", 4]], ["return", ["-", 0, 1]], 0],
+        ["codec.read_u32_le", "step", "off"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._tool_call_tool_start_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "i32",
+      "body": [
+        "begin",
+        ["let", "off", ["std.mcp.toolkit.stdio_dispatch._tool_call_tool_len_off_v1", "step"]],
+        ["if", ["<", "off", 0], ["return", ["-", 0, 1]], 0],
+        ["+", "off", 4]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch.step_tool_call_tool_name_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["if", ["!=", ["std.mcp.toolkit.stdio_dispatch.step_kind_v1", "step"], ["std.mcp.toolkit.stdio_dispatch._tag_tool_call_v1"]], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "tool_len", ["std.mcp.toolkit.stdio_dispatch._tool_call_tool_len_v1", "step"]],
+        ["if", ["<", "tool_len", 0], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "tool_start", ["std.mcp.toolkit.stdio_dispatch._tool_call_tool_start_v1", "step"]],
+        ["if", ["<", "tool_start", 0], ["return", ["bytes.alloc", 0]], 0],
+        ["std.mcp.toolkit.stdio_dispatch._slice_payload_v1", "step", "tool_start", "tool_len"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._tool_call_args_len_off_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "i32",
+      "body": [
+        "begin",
+        ["let", "tool_start", ["std.mcp.toolkit.stdio_dispatch._tool_call_tool_start_v1", "step"]],
+        ["if", ["<", "tool_start", 0], ["return", ["-", 0, 1]], 0],
+        ["let", "tool_len", ["std.mcp.toolkit.stdio_dispatch._tool_call_tool_len_v1", "step"]],
+        ["if", ["<", "tool_len", 0], ["return", ["-", 0, 1]], 0],
+        ["+", "tool_start", "tool_len"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._tool_call_args_len_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "i32",
+      "body": [
+        "begin",
+        ["let", "off", ["std.mcp.toolkit.stdio_dispatch._tool_call_args_len_off_v1", "step"]],
+        ["if", ["<", "off", 0], ["return", ["-", 0, 1]], 0],
+        ["if", ["<u", ["view.len", "step"], ["+", "off", 4]], ["return", ["-", 0, 1]], 0],
+        ["codec.read_u32_le", "step", "off"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._tool_call_args_start_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "i32",
+      "body": [
+        "begin",
+        ["let", "off", ["std.mcp.toolkit.stdio_dispatch._tool_call_args_len_off_v1", "step"]],
+        ["if", ["<", "off", 0], ["return", ["-", 0, 1]], 0],
+        ["+", "off", 4]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch.step_tool_call_args_json_v1",
+      "params": [{ "name": "step", "ty": "bytes_view" }],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["if", ["!=", ["std.mcp.toolkit.stdio_dispatch.step_kind_v1", "step"], ["std.mcp.toolkit.stdio_dispatch._tag_tool_call_v1"]], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "args_len", ["std.mcp.toolkit.stdio_dispatch._tool_call_args_len_v1", "step"]],
+        ["if", ["<", "args_len", 0], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "args_start", ["std.mcp.toolkit.stdio_dispatch._tool_call_args_start_v1", "step"]],
+        ["if", ["<", "args_start", 0], ["return", ["bytes.alloc", 0]], 0],
+        ["std.mcp.toolkit.stdio_dispatch._slice_payload_v1", "step", "args_start", "args_len"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._jsonrpc_default_message_v1",
+      "params": [{ "name": "code_i32", "ty": "i32" }],
+      "result": "bytes",
+      "body": [
+        "if",
+        ["=", "code_i32", -32700],
+        ["bytes.lit", "Parse error"],
+        [
+          "if",
+          ["=", "code_i32", -32600],
+          ["bytes.lit", "Invalid Request"],
+          [
+            "if",
+            ["=", "code_i32", -32601],
+            ["bytes.lit", "Method not found"],
+            [
+              "if",
+              ["=", "code_i32", -32602],
+              ["bytes.lit", "Invalid params"],
+              ["bytes.lit", "Internal error"]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._id_json_or_null_v1",
+      "params": [
+        { "name": "doc", "ty": "bytes_view" },
+        { "name": "root", "ty": "i32" }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "k_id", ["bytes.lit", "id"]],
+        ["let", "id_off", ["ext.data_model.map_find", "doc", "root", ["bytes.view", "k_id"]]],
+        [
+          "if",
+          ["<", "id_off", 0],
+          ["bytes.lit", "null"],
+          [
+            "begin",
+            ["let", "end", ["ext.data_model.skip_value", "doc", "id_off"]],
+            ["if", ["<", "end", 0], ["return", ["bytes.lit", "null"]], 0],
+            ["let", "val", ["view.to_bytes", ["view.slice", "doc", "id_off", ["-", "end", "id_off"]]]],
+            ["std.mcp.util.json.json_from_value_v1", ["bytes.view", "val"]]
+          ]
+        ]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch._initialize_result_json_v1",
+      "params": [
+        { "name": "server_name", "ty": "bytes_view" },
+        { "name": "server_version", "ty": "bytes_view" },
+        { "name": "protocol_version", "ty": "bytes_view" }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "k_protocol_version", ["bytes.lit", "protocolVersion"]],
+        ["let", "k_capabilities", ["bytes.lit", "capabilities"]],
+        ["let", "k_server_info", ["bytes.lit", "serverInfo"]],
+        ["let", "k_name", ["bytes.lit", "name"]],
+        ["let", "k_version", ["bytes.lit", "version"]],
+        ["let", "k_tools", ["bytes.lit", "tools"]],
+        ["let", "k_list_changed", ["bytes.lit", "listChanged"]],
+        ["let", "v_protocol_version", ["ext.data_model.value_string", "protocol_version"]],
+        ["let", "v_name", ["ext.data_model.value_string", "server_name"]],
+        ["let", "v_version", ["ext.data_model.value_string", "server_version"]],
+        ["let", "v_false", ["ext.data_model.value_bool", 0]],
+        ["let", "server_entries", ["vec_u8.with_capacity", 128]],
+        ["set", "server_entries", ["vec_u8.extend_bytes", "server_entries", ["codec.write_u32_le", 2]]],
+        ["set", "server_entries", ["vec_u8.extend_bytes", "server_entries", ["codec.write_u32_le", ["bytes.len", "k_name"]]]],
+        ["set", "server_entries", ["vec_u8.extend_bytes", "server_entries", "k_name"]],
+        ["set", "server_entries", ["vec_u8.extend_bytes", "server_entries", ["codec.write_u32_le", ["bytes.len", "v_name"]]]],
+        ["set", "server_entries", ["vec_u8.extend_bytes", "server_entries", "v_name"]],
+        ["set", "server_entries", ["vec_u8.extend_bytes", "server_entries", ["codec.write_u32_le", ["bytes.len", "k_version"]]]],
+        ["set", "server_entries", ["vec_u8.extend_bytes", "server_entries", "k_version"]],
+        ["set", "server_entries", ["vec_u8.extend_bytes", "server_entries", ["codec.write_u32_le", ["bytes.len", "v_version"]]]],
+        ["set", "server_entries", ["vec_u8.extend_bytes", "server_entries", "v_version"]],
+        ["let", "server_entries_b", ["vec_u8.into_bytes", "server_entries"]],
+        ["let", "server_val", ["ext.data_model.value_map_from_entries", ["bytes.view", "server_entries_b"]]],
+        ["if", ["=", ["bytes.len", "server_val"], 0], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "tools_entries", ["vec_u8.with_capacity", 64]],
+        ["set", "tools_entries", ["vec_u8.extend_bytes", "tools_entries", ["codec.write_u32_le", 1]]],
+        ["set", "tools_entries", ["vec_u8.extend_bytes", "tools_entries", ["codec.write_u32_le", ["bytes.len", "k_list_changed"]]]],
+        ["set", "tools_entries", ["vec_u8.extend_bytes", "tools_entries", "k_list_changed"]],
+        ["set", "tools_entries", ["vec_u8.extend_bytes", "tools_entries", ["codec.write_u32_le", ["bytes.len", "v_false"]]]],
+        ["set", "tools_entries", ["vec_u8.extend_bytes", "tools_entries", "v_false"]],
+        ["let", "tools_entries_b", ["vec_u8.into_bytes", "tools_entries"]],
+        ["let", "tools_val", ["ext.data_model.value_map_from_entries", ["bytes.view", "tools_entries_b"]]],
+        ["if", ["=", ["bytes.len", "tools_val"], 0], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "caps_entries", ["vec_u8.with_capacity", 64]],
+        ["set", "caps_entries", ["vec_u8.extend_bytes", "caps_entries", ["codec.write_u32_le", 1]]],
+        ["set", "caps_entries", ["vec_u8.extend_bytes", "caps_entries", ["codec.write_u32_le", ["bytes.len", "k_tools"]]]],
+        ["set", "caps_entries", ["vec_u8.extend_bytes", "caps_entries", "k_tools"]],
+        ["set", "caps_entries", ["vec_u8.extend_bytes", "caps_entries", ["codec.write_u32_le", ["bytes.len", "tools_val"]]]],
+        ["set", "caps_entries", ["vec_u8.extend_bytes", "caps_entries", "tools_val"]],
+        ["let", "caps_entries_b", ["vec_u8.into_bytes", "caps_entries"]],
+        ["let", "caps_val", ["ext.data_model.value_map_from_entries", ["bytes.view", "caps_entries_b"]]],
+        ["if", ["=", ["bytes.len", "caps_val"], 0], ["return", ["bytes.alloc", 0]], 0],
+        ["let", "root_entries", ["vec_u8.with_capacity", 256]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", ["codec.write_u32_le", 3]]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", ["codec.write_u32_le", ["bytes.len", "k_capabilities"]]]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", "k_capabilities"]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", ["codec.write_u32_le", ["bytes.len", "caps_val"]]]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", "caps_val"]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", ["codec.write_u32_le", ["bytes.len", "k_protocol_version"]]]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", "k_protocol_version"]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", ["codec.write_u32_le", ["bytes.len", "v_protocol_version"]]]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", "v_protocol_version"]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", ["codec.write_u32_le", ["bytes.len", "k_server_info"]]]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", "k_server_info"]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", ["codec.write_u32_le", ["bytes.len", "server_val"]]]],
+        ["set", "root_entries", ["vec_u8.extend_bytes", "root_entries", "server_val"]],
+        ["let", "root_entries_b", ["vec_u8.into_bytes", "root_entries"]],
+        ["let", "root_val", ["ext.data_model.value_map_from_entries", ["bytes.view", "root_entries_b"]]],
+        ["if", ["=", ["bytes.len", "root_val"], 0], ["return", ["bytes.alloc", 0]], 0],
+        ["std.mcp.util.json.json_from_value_v1", ["bytes.view", "root_val"]]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "std.mcp.toolkit.stdio_dispatch.dispatch_line_v1",
+      "params": [
+        { "name": "state", "ty": "i32" },
+        { "name": "cfg_pv", "ty": "bytes_view" },
+        { "name": "server_name", "ty": "bytes_view" },
+        { "name": "server_version", "ty": "bytes_view" },
+        { "name": "tools_json", "ty": "bytes_view" },
+        { "name": "line_utf8", "ty": "bytes_view" }
+      ],
+      "result": "result_bytes",
+      "body": [
+        "begin",
+        ["let", "parsed", ["std.mcp.jsonrpc.parse_line_v1", "line_utf8"]],
+        ["let", "parse_err", ["result_bytes.err_code", "parsed"]],
+        [
+          "if",
+          ["!=", "parse_err", 0],
+          [
+            "begin",
+            ["let", "id_null", ["bytes.lit", "null"]],
+            ["let", "msg", ["std.mcp.toolkit.stdio_dispatch._jsonrpc_default_message_v1", "parse_err"]],
+            ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_null"], "parse_err", ["bytes.view", "msg"], ["option_bytes.none"]]],
+            ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+            ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7205], ["result_bytes.ok", "step"]]
+          ],
+          0
+        ],
+        ["let", "canon", ["result_bytes.unwrap_or", "parsed", ["bytes.alloc", 0]]],
+        ["let", "doc_b", ["ext.json.data_model.parse", ["bytes.view", "canon"]]],
+        ["let", "doc", ["bytes.view", "doc_b"]],
+        [
+          "if",
+          ["=", ["ext.data_model.doc_is_err", "doc"], 1],
+          [
+            "begin",
+            ["let", "id_null", ["bytes.lit", "null"]],
+            ["let", "msg", ["bytes.lit", "Parse error"]],
+            ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_null"], -32700, ["bytes.view", "msg"], ["option_bytes.none"]]],
+            ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+            ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7206], ["result_bytes.ok", "step"]]
+          ],
+          0
+        ],
+        ["let", "root", ["ext.data_model.root_offset", "doc"]],
+        ["let", "id_json", ["std.mcp.toolkit.stdio_dispatch._id_json_or_null_v1", "doc", "root"]],
+        ["let", "k_method", ["bytes.lit", "method"]],
+        ["let", "method_off", ["ext.data_model.map_find", "doc", "root", ["bytes.view", "k_method"]]],
+        [
+          "if",
+          ["if", ["<", "method_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "method_off"], 3]],
+          [
+            "begin",
+            ["let", "msg", ["bytes.lit", "Invalid Request"]],
+            ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_json"], -32600, ["bytes.view", "msg"], ["option_bytes.none"]]],
+            ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+            ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7207], ["result_bytes.ok", "step"]]
+          ],
+          0
+        ],
+        ["let", "method", ["ext.data_model.string_get", "doc", "method_off"]],
+        ["let", "k_id", ["bytes.lit", "id"]],
+        ["let", "id_off", ["ext.data_model.map_find", "doc", "root", ["bytes.view", "k_id"]]],
+        ["let", "has_id", ["if", [">=", "id_off", 0], 1, 0]],
+        ["let", "m_init", ["bytes.lit", "initialize"]],
+        ["let", "m_initialized", ["bytes.lit", "notifications/initialized"]],
+        ["let", "m_tools_list", ["bytes.lit", "tools/list"]],
+        ["let", "m_tools_call", ["bytes.lit", "tools/call"]],
+        ["let", "m_ping", ["bytes.lit", "ping"]],
+        [
+          "if",
+          ["=", "state", 0],
+          [
+            "begin",
+            [
+              "if",
+              ["=", ["bytes.eq", ["bytes.view", "method"], ["bytes.view", "m_init"]], 1],
+              [
+                "begin",
+                [
+                  "if",
+                  ["=", "has_id", 1],
+                  [
+                    "begin",
+                    ["let", "k_params", ["bytes.lit", "params"]],
+                    ["let", "params_off", ["ext.data_model.map_find", "doc", "root", ["bytes.view", "k_params"]]],
+                    ["let", "client_pv_ok", 1],
+                    [
+                      "if",
+                      ["if", ["<", "params_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "params_off"], 5]],
+                      0,
+                      [
+                        "begin",
+                        ["let", "k_pv", ["bytes.lit", "protocolVersion"]],
+                        ["let", "pv_off", ["ext.data_model.map_find", "doc", "params_off", ["bytes.view", "k_pv"]]],
+                        [
+                          "if",
+                          ["if", ["<", "pv_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "pv_off"], 3]],
+                          0,
+                          [
+                            "begin",
+                            ["let", "client_pv", ["ext.data_model.string_get", "doc", "pv_off"]],
+                            [
+                              "if",
+                              ["=", ["bytes.eq", ["bytes.view", "client_pv"], "cfg_pv"], 1],
+                              0,
+                              ["set", "client_pv_ok", 0]
+                            ]
+                          ]
+                        ]
+                      ]
+                    ],
+                    [
+                      "if",
+                      ["=", "client_pv_ok", 1],
+                      [
+                        "begin",
+                        ["let", "init_result", ["std.mcp.toolkit.stdio_dispatch._initialize_result_json_v1", "server_name", "server_version", "cfg_pv"]],
+                        ["let", "resp", ["std.mcp.jsonrpc.make_result_response_v1", ["bytes.view", "id_json"], ["bytes.view", "init_result"]]],
+                        ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", 1, ["bytes.view", "resp"]]],
+                        ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7208], ["result_bytes.ok", "step"]]
+                      ],
+                      [
+                        "begin",
+                        ["let", "msg", ["bytes.lit", "Unsupported protocolVersion"]],
+                        ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_json"], -32602, ["bytes.view", "msg"], ["option_bytes.none"]]],
+                        ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+                        ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7209], ["result_bytes.ok", "step"]]
+                      ]
+                    ]
+                  ],
+                  ["result_bytes.ok", ["std.mcp.toolkit.stdio_dispatch._step_noop_v1", "state"]]
+                ]
+              ],
+              [
+                "begin",
+                [
+                  "if",
+                  ["=", "has_id", 1],
+                  [
+                    "begin",
+                    ["let", "msg", ["bytes.lit", "Expected initialize as first request"]],
+                    ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_json"], -32601, ["bytes.view", "msg"], ["option_bytes.none"]]],
+                    ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+                    ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7210], ["result_bytes.ok", "step"]]
+                  ],
+                  ["result_bytes.ok", ["std.mcp.toolkit.stdio_dispatch._step_noop_v1", "state"]]
+                ]
+              ]
+            ]
+          ],
+          0
+        ],
+        [
+          "if",
+          ["=", "state", 1],
+          [
+            "begin",
+            [
+              "if",
+              ["=", ["bytes.eq", ["bytes.view", "method"], ["bytes.view", "m_initialized"]], 1],
+              ["result_bytes.ok", ["std.mcp.toolkit.stdio_dispatch._step_noop_v1", 2]],
+              [
+                "begin",
+                [
+                  "if",
+                  ["=", "has_id", 1],
+                  [
+                    "begin",
+                    ["let", "msg", ["bytes.lit", "Server not initialized"]],
+                    ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_json"], -32601, ["bytes.view", "msg"], ["option_bytes.none"]]],
+                    ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+                    ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7211], ["result_bytes.ok", "step"]]
+                  ],
+                  ["result_bytes.ok", ["std.mcp.toolkit.stdio_dispatch._step_noop_v1", "state"]]
+                ]
+              ]
+            ]
+          ],
+          0
+        ],
+        [
+          "if",
+          ["=", ["bytes.eq", ["bytes.view", "method"], ["bytes.view", "m_tools_list"]], 1],
+          [
+            "begin",
+            [
+              "if",
+              ["=", "has_id", 1],
+              [
+                "begin",
+                ["let", "result_json", ["std.mcp.toolkit.tools_file.tools_list_result_v1", "tools_json"]],
+                [
+                  "if",
+                  ["=", ["bytes.len", "result_json"], 0],
+                  [
+                    "begin",
+                    ["let", "msg", ["bytes.lit", "Internal error"]],
+                    ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_json"], -32603, ["bytes.view", "msg"], ["option_bytes.none"]]],
+                    ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+                    ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7212], ["result_bytes.ok", "step"]]
+                  ],
+                  [
+                    "begin",
+                    ["let", "resp", ["std.mcp.jsonrpc.make_result_response_v1", ["bytes.view", "id_json"], ["bytes.view", "result_json"]]],
+                    ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+                    ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7213], ["result_bytes.ok", "step"]]
+                  ]
+                ]
+              ],
+              ["result_bytes.ok", ["std.mcp.toolkit.stdio_dispatch._step_noop_v1", "state"]]
+            ]
+          ],
+          0
+        ],
+        [
+          "if",
+          ["=", ["bytes.eq", ["bytes.view", "method"], ["bytes.view", "m_tools_call"]], 1],
+          [
+            "begin",
+            [
+              "if",
+              ["=", "has_id", 1],
+              [
+                "begin",
+                ["let", "k_params", ["bytes.lit", "params"]],
+                ["let", "params_off", ["ext.data_model.map_find", "doc", "root", ["bytes.view", "k_params"]]],
+                [
+                  "if",
+                  ["if", ["<", "params_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "params_off"], 5]],
+                  [
+                    "begin",
+                    ["let", "msg", ["bytes.lit", "Invalid params"]],
+                    ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_json"], -32602, ["bytes.view", "msg"], ["option_bytes.none"]]],
+                    ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+                    ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7214], ["result_bytes.ok", "step"]]
+                  ],
+                  [
+                    "begin",
+                    ["let", "k_name", ["bytes.lit", "name"]],
+                    ["let", "name_off", ["ext.data_model.map_find", "doc", "params_off", ["bytes.view", "k_name"]]],
+                    [
+                      "if",
+                      ["if", ["<", "name_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "name_off"], 3]],
+                      [
+                        "begin",
+                        ["let", "msg", ["bytes.lit", "Invalid params"]],
+                        ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_json"], -32602, ["bytes.view", "msg"], ["option_bytes.none"]]],
+                        ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+                        ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7215], ["result_bytes.ok", "step"]]
+                      ],
+                      [
+                        "begin",
+                        ["let", "tool_name", ["ext.data_model.string_get", "doc", "name_off"]],
+                        ["let", "schema_res", ["std.mcp.toolkit.tools_file.tool_input_schema_json_v1", "tools_json", ["bytes.view", "tool_name"]]],
+                        [
+                          "if",
+                          ["!=", ["result_bytes.err_code", "schema_res"], 0],
+                          [
+                            "begin",
+                            ["let", "msg", ["std.bytes.concat", ["bytes.view", ["bytes.lit", "Unknown tool: "]], ["bytes.view", "tool_name"]]],
+                            ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_json"], -32602, ["bytes.view", "msg"], ["option_bytes.none"]]],
+                            ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+                            ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7216], ["result_bytes.ok", "step"]]
+                          ],
+                          [
+                            "begin",
+                            ["let", "k_args", ["bytes.lit", "arguments"]],
+                            ["let", "args_off", ["ext.data_model.map_find", "doc", "params_off", ["bytes.view", "k_args"]]],
+                            [
+                              "if",
+                              ["<", "args_off", 0],
+                              [
+                                "begin",
+                                ["let", "msg", ["bytes.lit", "Invalid params"]],
+                                ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_json"], -32602, ["bytes.view", "msg"], ["option_bytes.none"]]],
+                                ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+                                ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7217], ["result_bytes.ok", "step"]]
+                              ],
+                              [
+                                "begin",
+                                ["let", "args_end", ["ext.data_model.skip_value", "doc", "args_off"]],
+                                [
+                                  "if",
+                                  ["<", "args_end", 0],
+                                  [
+                                    "begin",
+                                    ["let", "msg", ["bytes.lit", "Invalid params"]],
+                                    ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_json"], -32602, ["bytes.view", "msg"], ["option_bytes.none"]]],
+                                    ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+                                    ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7218], ["result_bytes.ok", "step"]]
+                                  ],
+                                  [
+                                    "begin",
+                                    ["let", "args_val", ["view.to_bytes", ["view.slice", "doc", "args_off", ["-", "args_end", "args_off"]]]],
+                                    ["let", "args_json", ["std.mcp.util.json.json_from_value_v1", ["bytes.view", "args_val"]]],
+                                    ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_tool_call_v1", "state", ["bytes.view", "id_json"], ["bytes.view", "tool_name"], ["bytes.view", "args_json"]]],
+                                    ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7219], ["result_bytes.ok", "step"]]
+                                  ]
+                                ]
+                              ]
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              ["result_bytes.ok", ["std.mcp.toolkit.stdio_dispatch._step_noop_v1", "state"]]
+            ]
+          ],
+          0
+        ],
+        [
+          "if",
+          ["=", ["bytes.eq", ["bytes.view", "method"], ["bytes.view", "m_ping"]], 1],
+          [
+            "begin",
+            [
+              "if",
+              ["=", "has_id", 1],
+              [
+                "begin",
+                ["let", "resp", ["std.mcp.jsonrpc.make_result_response_v1", ["bytes.view", "id_json"], ["bytes.view", ["bytes.lit", "{}"]]]],
+                ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+                ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7220], ["result_bytes.ok", "step"]]
+              ],
+              ["result_bytes.ok", ["std.mcp.toolkit.stdio_dispatch._step_noop_v1", "state"]]
+            ]
+          ],
+          0
+        ],
+        [
+          "if",
+          ["=", "has_id", 1],
+          [
+            "begin",
+            ["let", "msg", ["bytes.lit", "Method not found"]],
+            ["let", "resp", ["std.mcp.jsonrpc.make_error_response_v1", ["bytes.view", "id_json"], -32601, ["bytes.view", "msg"], ["option_bytes.none"]]],
+            ["let", "step", ["std.mcp.toolkit.stdio_dispatch._step_resp_v1", "state", ["bytes.view", "resp"]]],
+            ["if", ["=", ["bytes.len", "step"], 0], ["result_bytes.err", 7221], ["result_bytes.ok", "step"]]
+          ],
+          ["result_bytes.ok", ["std.mcp.toolkit.stdio_dispatch._step_noop_v1", "state"]]
+        ]
+      ]
+    }
+  ]
+}

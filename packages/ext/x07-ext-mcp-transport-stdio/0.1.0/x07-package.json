@@ -1,0 +1,29 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-transport-stdio",
+  "version": "0.1.0",
+  "description": "MCP stdio transport server: lifecycle gating plus tools/list and tools/call over newline-delimited JSON-RPC.",
+  "docs": "MCP stdio transport server.\n\nModules:\n- std.mcp.transport.stdio\n- std.mcp.transport.stdio_loop\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.transport.stdio",
+    "std.mcp.transport.stdio_loop"
+  ],
+  "meta": {
+    "determinism_tier": "os-world-only",
+    "worlds_allowed": [
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-mcp-core@0.1.0",
+      "ext-mcp-toolkit@0.1.0",
+      "ext-mcp-sandbox@0.1.0",
+      "ext-data-model@0.1.8",
+      "ext-json-rs@0.1.4",
+      "ext-stdio@0.1.0"
+    ],
+    "import_mode": "handwritten"
+  }
+}
+
