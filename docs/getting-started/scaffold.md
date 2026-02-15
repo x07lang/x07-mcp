@@ -14,11 +14,13 @@ Or:
 x07-mcp scaffold init --template mcp-server-stdio --dir ./my-mcp-server
 ```
 
-If you scaffolded via `x07-mcp` directly, generate the worker base policy:
+Install dependencies:
 
 ```sh
 cd ./my-mcp-server
-x07 policy init --template worker --project x07.json
+x07 pkg add ext-mcp-transport-stdio@0.1.1 --sync
+x07 pkg add ext-mcp-rr@0.1.1 --sync
+x07 pkg add ext-hex-rs@0.1.4 --sync
 ```
 
 The template is organized around:

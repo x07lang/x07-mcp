@@ -3,6 +3,14 @@
 target/
 **/*.rs.bk
 
+# X07
+/.x07/
+.x07/
+dist/
+out/
+tmp*/
+tmp*
+
 # IDE and OS
 .DS_Store
 .idea/
@@ -10,4 +18,3 @@ target/
 *.swp
 *.swo
 *~
-

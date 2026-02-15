@@ -8,41 +8,21 @@ permissions:
   contents: read
 
 jobs:
-  rustfmt:
-    name: ci / rustfmt
+  check:
+    name: ci / check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Rust (rust-toolchain.toml)
-        uses: dtolnay/rust-toolchain@stable
-      - name: Rust cache
-        uses: Swatinem/rust-cache@v2
-      - name: cargo fmt --check
-        run: cargo fmt --check
-
-  clippy:
-    name: ci / clippy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Rust (rust-toolchain.toml)
-        uses: dtolnay/rust-toolchain@stable
-      - name: Rust cache
-        uses: Swatinem/rust-cache@v2
-      - name: cargo clippy --all-targets -- -D warnings
-        run: cargo clippy --all-targets -- -D warnings
-
-  test:
-    name: ci / test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Rust (rust-toolchain.toml)
-        uses: dtolnay/rust-toolchain@stable
-      - name: Rust cache
-        uses: Swatinem/rust-cache@v2
-      - name: cargo test
-        run: cargo test
+      - name: Install X07 (stable)
+        shell: bash
+        run: |
+          curl -fsSL https://x07lang.org/install.sh | sh -s -- \
+            --yes \
+            --channel stable \
+            --no-modify-path \
+            --json
+          echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
+      - name: Check
+        shell: bash
+        run: ./scripts/ci/check_all.sh

@@ -5,7 +5,19 @@
     "version": "0.1.0",
     "protocolVersion": "2025-11-25"
   },
-  "tools_manifest_path": "fixtures/replay/mcp.tools.json",
+  "tools_manifest_path": "replay/mcp.tools.json",
+  "budgets": {
+    "index_path": "arch/budgets/index.x07budgets.json",
+    "default_profile": "mcp_router_v1"
+  },
+  "sandbox": {
+    "router_base_policy_path": "policy/mcp.router.base.policy.json",
+    "worker_base_policy_path": "policy/mcp.worker.base.policy.json"
+  },
+  "rr": {
+    "enabled": false,
+    "cassette_dir": ".x07_rr"
+  },
   "worker_exe_path": "out/mcp-worker",
   "transport": {
     "kind": "stdio",

@@ -1,2 +1,1 @@
-{"schema_version":"x07.x07ast@0.3.0","kind":"module","module_id":"smoke","imports":["std.test"],"decls":[{"kind":"export","names":["smoke.pass"]},{"kind":"defn","name":"smoke.pass","params":[],"result":"result_i32","body":["std.test.pass"]}]}
-
+{"decls":[{"kind":"export","names":["smoke.pass"]},{"body":["std.test.pass"],"kind":"defn","name":"smoke.pass","params":[],"result":"result_i32"}],"imports":["std.test"],"kind":"module","module_id":"smoke","schema_version":"x07.x07ast@0.3.0"}

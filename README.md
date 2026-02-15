@@ -14,8 +14,10 @@ Documentation is in `docs/`.
 Build and put `x07-mcp` on your `PATH`:
 
 ```sh
-cargo install --path crates/x07-mcp-cli
+x07 bundle --project x07.json --profile os --out dist/x07-mcp
 ```
+
+Put `dist/x07-mcp` on your `PATH`.
 
 ## Scaffolding
 

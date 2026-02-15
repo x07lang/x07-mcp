@@ -9,6 +9,6 @@ Each entry in `tools[]` includes:
 - `inputSchema`: JSON Schema describing `tools/call.params.arguments`
 - `x07.impl`: an implementation reference (string)
 - `x07.sandbox` (optional): allowlists for filesystem/network/env
-- `x07.limits_profile` (optional): selects a caps profile for worker execution
+- `x07.limits_profile` (optional): selects a caps profile and a budget profile for worker execution
 
 Tool names must match MCP constraints (1–128 chars; `A-Z a-z 0-9 _ - .`).

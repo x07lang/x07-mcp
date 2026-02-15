@@ -3,21 +3,23 @@
 ## Prerequisites
 
 - The X07 toolchain (`x07`) available on your `PATH`.
-- A Rust toolchain to build `x07-mcp` locally.
+- A C toolchain supported by `x07 bundle` (clang/gcc).
 
 ## Build and install (local dev)
 
 From the `x07-mcp/` repo:
 
 ```sh
-cargo install --path crates/x07-mcp-cli
+x07 bundle --project x07.json --profile os --out dist/x07-mcp
 ```
 
 Verify:
 
 ```sh
-x07-mcp --help
+./dist/x07-mcp --help
 ```
+
+Put `dist/x07-mcp` on your `PATH` to enable `x07` delegation.
 
 ## Delegation from `x07`
 

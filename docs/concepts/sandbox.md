@@ -11,3 +11,7 @@ Bundled worker executables always force sandboxing on (`X07_WORLD=run-os-sandbox
 ## Limits profiles
 
 Tools may select a `limits_profile` (for example: `mcp_tool_fast_v1`, `mcp_tool_standard_v1`, `mcp_tool_expensive_v1`) to control per-invocation caps like timeout and stdout/stderr limits.
+
+## Budget profiles
+
+Tool execution is also wrapped in a budget scope. The budget profile is selected from `x07.limits_profile` and loaded from `arch/budgets/profiles/<PROFILE_ID>.budget.json` at build time.

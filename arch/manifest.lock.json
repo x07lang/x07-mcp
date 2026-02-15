@@ -1,0 +1,24 @@
+{
+  "jcs_sha256_hex": "1f07e5071faf04214df8ad4789ce60f0da41b5d80bf033eea40b36a6406e4402",
+  "manifest_path": "arch/manifest.x07arch.json",
+  "module_scan": {
+    "exclude_globs": [
+      "**/.git/**",
+      "**/.x07/**",
+      "**/dist/**",
+      "**/gen/**",
+      "**/node_modules/**",
+      "**/target/**",
+      "**/tmp/**"
+    ],
+    "include_globs": [
+      "packages/ext/x07-ext-mcp-core/0.1.1/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-rr/0.1.1/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-sandbox/0.1.1/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-toolkit/0.1.1/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-transport-stdio/0.1.1/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-worker/0.1.1/modules/**/*.x07.json"
+    ]
+  },
+  "schema_version": "x07.arch.manifest.lock@0.1.0"
+}
