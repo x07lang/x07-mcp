@@ -1,134 +1,608 @@
 {
-  "schema_version": "x07.x07ast@0.5.0",
-  "kind": "module",
-  "module_id": "std.mcp.sandbox.router_exec",
-  "imports": [
-    "ext.data_model",
-    "ext.json.data_model",
-    "std.bytes",
-    "std.fmt",
-    "std.os.process",
-    "std.os.process.req_v1",
-    "std.os.stdio",
-    "std.os.stdio.spec",
-    "std.mcp.diag",
-    "std.mcp.sandbox.policy_compile",
-    "std.mcp.sandbox.profiles",
-    "std.mcp.sandbox.worker_proto",
-    "std.mcp.tool.result",
-    "std.mcp.toolkit.server_cfg_file",
-    "std.mcp.util.json"
-  ],
   "decls": [
     {
       "kind": "export",
-      "names": ["std.mcp.sandbox.router_exec.call_tool_oneshot_v1"]
-    },
-    {
-      "kind": "defn",
-      "name": "std.mcp.sandbox.router_exec._detail_json_v1",
-      "params": [
-        { "name": "tool_name", "ty": "bytes_view" },
-        { "name": "err_code", "ty": "i32" }
-      ],
-      "result": "bytes",
-      "body": [
-        "begin",
-        ["let", "k_err", ["bytes.lit", "err"]],
-        ["let", "k_tool", ["bytes.lit", "tool"]],
-        ["let", "v_tool", ["ext.data_model.value_string", "tool_name"]],
-        ["let", "err_s", ["std.fmt.s32_to_dec", "err_code"]],
-        ["let", "v_err", ["ext.data_model.value_number", ["bytes.view", "err_s"]]],
-        ["let", "entries", ["vec_u8.with_capacity", 128]],
-        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", 2]]],
-        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "k_err"]]]],
-        ["set", "entries", ["vec_u8.extend_bytes", "entries", "k_err"]],
-        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "v_err"]]]],
-        ["set", "entries", ["vec_u8.extend_bytes", "entries", "v_err"]],
-        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "k_tool"]]]],
-        ["set", "entries", ["vec_u8.extend_bytes", "entries", "k_tool"]],
-        ["set", "entries", ["vec_u8.extend_bytes", "entries", ["codec.write_u32_le", ["bytes.len", "v_tool"]]]],
-        ["set", "entries", ["vec_u8.extend_bytes", "entries", "v_tool"]],
-        ["let", "entries_b", ["vec_u8.into_bytes", "entries"]],
-        ["let", "val", ["ext.data_model.value_map_from_entries", ["bytes.view", "entries_b"]]],
-        ["if", ["=", ["bytes.len", "val"], 0], ["return", ["bytes.lit", "{}"]], 0],
-        ["std.mcp.util.json.json_from_value_v1", ["bytes.view", "val"]]
+      "names": [
+        "std.mcp.sandbox.router_exec.call_tool_oneshot_v1"
       ]
     },
     {
+      "body": [
+        "begin",
+        [
+          "let",
+          "default_profile",
+          [
+            "bytes.lit",
+            "mcp_tool_standard_v1"
+          ]
+        ],
+        [
+          "let",
+          "p",
+          [
+            "std.mcp.sandbox.router_exec._tool_limits_profile_v1",
+            "tool_name",
+            "tools_registry_json"
+          ]
+        ],
+        [
+          "if",
+          [
+            ">",
+            [
+              "std.bytes.len",
+              "p"
+            ],
+            0
+          ],
+          [
+            "std.mcp.sandbox.profiles.tool_caps_v1",
+            [
+              "bytes.view",
+              "p"
+            ]
+          ],
+          [
+            "std.mcp.sandbox.profiles.tool_caps_v1",
+            [
+              "bytes.view",
+              "default_profile"
+            ]
+          ]
+        ]
+      ],
       "kind": "defn",
-      "name": "std.mcp.sandbox.router_exec._process_error_message_v1",
-      "params": [{ "name": "err_code", "ty": "i32" }],
+      "name": "std.mcp.sandbox.router_exec._caps_for_tool_v1",
+      "params": [
+        {
+          "name": "tool_name",
+          "ty": "bytes_view"
+        },
+        {
+          "name": "tools_registry_json",
+          "ty": "bytes_view"
+        }
+      ],
       "result": "bytes",
+      "result_brand": "std.os.process.caps_v1"
+    },
+    {
+      "body": [
+        "begin",
+        [
+          "let",
+          "k_err",
+          [
+            "bytes.lit",
+            "err"
+          ]
+        ],
+        [
+          "let",
+          "k_tool",
+          [
+            "bytes.lit",
+            "tool"
+          ]
+        ],
+        [
+          "let",
+          "v_tool",
+          [
+            "ext.data_model.value_string",
+            "tool_name"
+          ]
+        ],
+        [
+          "let",
+          "err_s",
+          [
+            "std.fmt.s32_to_dec",
+            "err_code"
+          ]
+        ],
+        [
+          "let",
+          "v_err",
+          [
+            "ext.data_model.value_number",
+            [
+              "bytes.view",
+              "err_s"
+            ]
+          ]
+        ],
+        [
+          "let",
+          "entries",
+          [
+            "vec_u8.with_capacity",
+            128
+          ]
+        ],
+        [
+          "set",
+          "entries",
+          [
+            "vec_u8.extend_bytes",
+            "entries",
+            [
+              "codec.write_u32_le",
+              2
+            ]
+          ]
+        ],
+        [
+          "set",
+          "entries",
+          [
+            "vec_u8.extend_bytes",
+            "entries",
+            [
+              "codec.write_u32_le",
+              [
+                "std.bytes.len",
+                "k_err"
+              ]
+            ]
+          ]
+        ],
+        [
+          "set",
+          "entries",
+          [
+            "vec_u8.extend_bytes",
+            "entries",
+            [
+              "bytes.view",
+              "k_err"
+            ]
+          ]
+        ],
+        [
+          "set",
+          "entries",
+          [
+            "vec_u8.extend_bytes",
+            "entries",
+            [
+              "codec.write_u32_le",
+              [
+                "std.bytes.len",
+                "v_err"
+              ]
+            ]
+          ]
+        ],
+        [
+          "set",
+          "entries",
+          [
+            "vec_u8.extend_bytes",
+            "entries",
+            [
+              "bytes.view",
+              "v_err"
+            ]
+          ]
+        ],
+        [
+          "set",
+          "entries",
+          [
+            "vec_u8.extend_bytes",
+            "entries",
+            [
+              "codec.write_u32_le",
+              [
+                "std.bytes.len",
+                "k_tool"
+              ]
+            ]
+          ]
+        ],
+        [
+          "set",
+          "entries",
+          [
+            "vec_u8.extend_bytes",
+            "entries",
+            [
+              "bytes.view",
+              "k_tool"
+            ]
+          ]
+        ],
+        [
+          "set",
+          "entries",
+          [
+            "vec_u8.extend_bytes",
+            "entries",
+            [
+              "codec.write_u32_le",
+              [
+                "std.bytes.len",
+                "v_tool"
+              ]
+            ]
+          ]
+        ],
+        [
+          "set",
+          "entries",
+          [
+            "vec_u8.extend_bytes",
+            "entries",
+            [
+              "bytes.view",
+              "v_tool"
+            ]
+          ]
+        ],
+        [
+          "let",
+          "entries_b",
+          [
+            "vec_u8.into_bytes",
+            "entries"
+          ]
+        ],
+        [
+          "let",
+          "val",
+          [
+            "ext.data_model.value_map_from_entries",
+            [
+              "bytes.view",
+              "entries_b"
+            ]
+          ]
+        ],
+        [
+          "if",
+          [
+            "=",
+            [
+              "std.bytes.len",
+              "val"
+            ],
+            0
+          ],
+          [
+            "return",
+            [
+              "bytes.lit",
+              "{}"
+            ]
+          ],
+          0
+        ],
+        [
+          "std.mcp.util.json.json_from_value_v1",
+          [
+            "bytes.view",
+            "val"
+          ]
+        ]
+      ],
+      "kind": "defn",
+      "name": "std.mcp.sandbox.router_exec._detail_json_v1",
+      "params": [
+        {
+          "name": "tool_name",
+          "ty": "bytes_view"
+        },
+        {
+          "name": "err_code",
+          "ty": "i32"
+        }
+      ],
+      "result": "bytes"
+    },
+    {
+      "body": [
+        "begin",
+        [
+          "let",
+          "diag",
+          [
+            "std.mcp.diag.code_internal_v1"
+          ]
+        ],
+        [
+          "let",
+          "detail",
+          [
+            "std.mcp.sandbox.router_exec._detail_json_v1",
+            "tool_name",
+            "err_code"
+          ]
+        ],
+        [
+          "std.mcp.tool.result.err_v1",
+          [
+            "bytes.view",
+            "diag"
+          ],
+          "message_utf8",
+          [
+            "bytes.view",
+            "detail"
+          ]
+        ]
+      ],
+      "kind": "defn",
+      "name": "std.mcp.sandbox.router_exec._internal_error_tool_result_v1",
+      "params": [
+        {
+          "name": "tool_name",
+          "ty": "bytes_view"
+        },
+        {
+          "name": "err_code",
+          "ty": "i32"
+        },
+        {
+          "name": "message_utf8",
+          "ty": "bytes_view"
+        }
+      ],
+      "result": "bytes"
+    },
+    {
       "body": [
         "begin",
         [
           "if",
-          ["=", "err_code", ["std.os.process.code_timeout"]],
-          ["bytes.lit", "tool worker timed out"],
+          [
+            "=",
+            "err_code",
+            [
+              "std.os.process.code_timeout"
+            ]
+          ],
+          [
+            "bytes.lit",
+            "tool worker timed out"
+          ],
           [
             "if",
-            ["=", "err_code", ["std.os.process.code_output_limit"]],
-            ["bytes.lit", "tool worker exceeded output limits"],
+            [
+              "=",
+              "err_code",
+              [
+                "std.os.process.code_output_limit"
+              ]
+            ],
+            [
+              "bytes.lit",
+              "tool worker exceeded output limits"
+            ],
             [
               "if",
-              ["=", "err_code", ["std.os.process.code_policy_denied"]],
-              ["bytes.lit", "tool worker denied by policy"],
+              [
+                "=",
+                "err_code",
+                [
+                  "std.os.process.code_policy_denied"
+                ]
+              ],
+              [
+                "bytes.lit",
+                "tool worker denied by policy"
+              ],
               [
                 "if",
-                ["=", "err_code", ["std.os.process.code_spawn_failed"]],
-                ["bytes.lit", "failed to spawn tool worker"],
+                [
+                  "=",
+                  "err_code",
+                  [
+                    "std.os.process.code_spawn_failed"
+                  ]
+                ],
+                [
+                  "bytes.lit",
+                  "failed to spawn tool worker"
+                ],
                 [
                   "if",
-                  ["=", "err_code", ["std.os.process.code_invalid_request"]],
-                  ["bytes.lit", "invalid worker spawn request"],
-                  ["bytes.lit", "tool worker failed"]
+                  [
+                    "=",
+                    "err_code",
+                    [
+                      "std.os.process.code_invalid_request"
+                    ]
+                  ],
+                  [
+                    "bytes.lit",
+                    "invalid worker spawn request"
+                  ],
+                  [
+                    "bytes.lit",
+                    "tool worker failed"
+                  ]
                 ]
               ]
             ]
           ]
         ]
-      ]
+      ],
+      "kind": "defn",
+      "name": "std.mcp.sandbox.router_exec._process_error_message_v1",
+      "params": [
+        {
+          "name": "err_code",
+          "ty": "i32"
+        }
+      ],
+      "result": "bytes"
     },
     {
-      "kind": "defn",
-      "name": "std.mcp.sandbox.router_exec._internal_error_tool_result_v1",
-      "params": [
-        { "name": "tool_name", "ty": "bytes_view" },
-        { "name": "err_code", "ty": "i32" },
-        { "name": "message_utf8", "ty": "bytes_view" }
-      ],
-      "result": "bytes",
       "body": [
         "begin",
-        ["let", "diag", ["std.mcp.diag.code_internal_v1"]],
-        ["let", "detail", ["std.mcp.sandbox.router_exec._detail_json_v1", "tool_name", "err_code"]],
-        ["std.mcp.tool.result.err_v1", ["bytes.view", "diag"], "message_utf8", ["bytes.view", "detail"]]
-      ]
-    },
-    {
-      "kind": "defn",
-      "name": "std.mcp.sandbox.router_exec._tool_limits_profile_v1",
-      "params": [
-        { "name": "tool_name", "ty": "bytes_view" },
-        { "name": "tools_registry_json", "ty": "bytes_view" }
-      ],
-      "result": "bytes",
-      "body": [
-        "begin",
-        ["let", "doc_b", ["ext.json.data_model.parse", "tools_registry_json"]],
-        ["let", "doc", ["bytes.view", "doc_b"]],
-        ["if", ["=", ["ext.data_model.doc_is_err", "doc"], 1], ["return", ["bytes.alloc", 0]], 0],
-        ["if", ["!=", ["ext.data_model.root_kind", "doc"], 5], ["return", ["bytes.alloc", 0]], 0],
-        ["let", "root", ["ext.data_model.root_offset", "doc"]],
-        ["let", "k_tools", ["bytes.lit", "tools"]],
-        ["let", "tools_off", ["ext.data_model.map_find", "doc", "root", ["bytes.view", "k_tools"]]],
-        ["if", ["<", "tools_off", 0], ["return", ["bytes.alloc", 0]], 0],
-        ["if", ["!=", ["ext.data_model.kind_at", "doc", "tools_off"], 4], ["return", ["bytes.alloc", 0]], 0],
-        ["let", "n", ["ext.data_model.seq_len", "doc", "tools_off"]],
-        ["if", ["<", "n", 0], ["return", ["bytes.alloc", 0]], 0],
-        ["let", "tool_off", ["-", 0, 1]],
-        ["let", "k_name", ["bytes.lit", "name"]],
+        [
+          "let",
+          "doc_b",
+          [
+            "ext.json.data_model.parse",
+            "tools_registry_json"
+          ]
+        ],
+        [
+          "let",
+          "doc",
+          [
+            "bytes.view",
+            "doc_b"
+          ]
+        ],
+        [
+          "if",
+          [
+            "=",
+            [
+              "ext.data_model.doc_is_err",
+              "doc"
+            ],
+            1
+          ],
+          [
+            "return",
+            [
+              "bytes.alloc",
+              0
+            ]
+          ],
+          0
+        ],
+        [
+          "if",
+          [
+            "!=",
+            [
+              "ext.data_model.root_kind",
+              "doc"
+            ],
+            5
+          ],
+          [
+            "return",
+            [
+              "bytes.alloc",
+              0
+            ]
+          ],
+          0
+        ],
+        [
+          "let",
+          "root",
+          [
+            "ext.data_model.root_offset",
+            "doc"
+          ]
+        ],
+        [
+          "let",
+          "k_tools",
+          [
+            "bytes.lit",
+            "tools"
+          ]
+        ],
+        [
+          "let",
+          "tools_off",
+          [
+            "ext.data_model.map_find",
+            "doc",
+            "root",
+            [
+              "bytes.view",
+              "k_tools"
+            ]
+          ]
+        ],
+        [
+          "if",
+          [
+            "<",
+            "tools_off",
+            0
+          ],
+          [
+            "return",
+            [
+              "bytes.alloc",
+              0
+            ]
+          ],
+          0
+        ],
+        [
+          "if",
+          [
+            "!=",
+            [
+              "ext.data_model.kind_at",
+              "doc",
+              "tools_off"
+            ],
+            4
+          ],
+          [
+            "return",
+            [
+              "bytes.alloc",
+              0
+            ]
+          ],
+          0
+        ],
+        [
+          "let",
+          "n",
+          [
+            "ext.data_model.seq_len",
+            "doc",
+            "tools_off"
+          ]
+        ],
+        [
+          "if",
+          [
+            "<",
+            "n",
+            0
+          ],
+          [
+            "return",
+            [
+              "bytes.alloc",
+              0
+            ]
+          ],
+          0
+        ],
+        [
+          "let",
+          "tool_off",
+          [
+            "-",
+            0,
+            1
+          ]
+        ],
+        [
+          "let",
+          "k_name",
+          [
+            "bytes.lit",
+            "name"
+          ]
+        ],
         [
           "for",
           "i",
@@ -136,135 +610,764 @@
           "n",
           [
             "begin",
-            ["if", [">=", "tool_off", 0], 0, ["begin", ["let", "it", ["ext.data_model.seq_get", "doc", "tools_off", "i"]], ["if", ["<", "it", 0], 0, ["begin", ["let", "name_off", ["ext.data_model.map_find", "doc", "it", ["bytes.view", "k_name"]]], ["if", ["<", "name_off", 0], 0, ["begin", ["let", "nm", ["ext.data_model.string_get", "doc", "name_off"]], ["if", ["=", ["bytes.eq", ["bytes.view", "nm"], "tool_name"], 1], ["set", "tool_off", "it"], 0], 0]]]]], 0]],
+            [
+              "if",
+              [
+                ">=",
+                "tool_off",
+                0
+              ],
+              0,
+              [
+                "begin",
+                [
+                  "let",
+                  "it",
+                  [
+                    "ext.data_model.seq_get",
+                    "doc",
+                    "tools_off",
+                    "i"
+                  ]
+                ],
+                [
+                  "if",
+                  [
+                    "<",
+                    "it",
+                    0
+                  ],
+                  0,
+                  [
+                    "begin",
+                    [
+                      "let",
+                      "name_off",
+                      [
+                        "ext.data_model.map_find",
+                        "doc",
+                        "it",
+                        [
+                          "bytes.view",
+                          "k_name"
+                        ]
+                      ]
+                    ],
+                    [
+                      "if",
+                      [
+                        "<",
+                        "name_off",
+                        0
+                      ],
+                      0,
+                      [
+                        "begin",
+                        [
+                          "let",
+                          "nm",
+                          [
+                            "ext.data_model.string_get",
+                            "doc",
+                            "name_off"
+                          ]
+                        ],
+                        [
+                          "if",
+                          [
+                            "=",
+                            [
+                              "bytes.eq",
+                              [
+                                "bytes.view",
+                                "nm"
+                              ],
+                              "tool_name"
+                            ],
+                            1
+                          ],
+                          [
+                            "begin",
+                            [
+                              "set",
+                              "tool_off",
+                              "it"
+                            ],
+                            0
+                          ],
+                          0
+                        ],
+                        0
+                      ]
+                    ],
+                    0
+                  ]
+                ],
+                0
+              ]
+            ],
             0
           ]
         ],
-        ["if", ["<", "tool_off", 0], ["return", ["bytes.alloc", 0]], 0],
-        ["let", "k_x07", ["bytes.lit", "x07"]],
-        ["let", "x07_off", ["ext.data_model.map_find", "doc", "tool_off", ["bytes.view", "k_x07"]]],
-        ["if", ["<", "x07_off", 0], ["return", ["bytes.alloc", 0]], 0],
-        ["if", ["!=", ["ext.data_model.kind_at", "doc", "x07_off"], 5], ["return", ["bytes.alloc", 0]], 0],
-        ["let", "k_limits_profile", ["bytes.lit", "limits_profile"]],
-        ["let", "limits_off", ["ext.data_model.map_find", "doc", "x07_off", ["bytes.view", "k_limits_profile"]]],
         [
           "if",
-          ["if", ["<", "limits_off", 0], 1, ["!=", ["ext.data_model.kind_at", "doc", "limits_off"], 3]],
-          ["bytes.alloc", 0],
-          ["ext.data_model.string_get", "doc", "limits_off"]
+          [
+            "<",
+            "tool_off",
+            0
+          ],
+          [
+            "return",
+            [
+              "bytes.alloc",
+              0
+            ]
+          ],
+          0
+        ],
+        [
+          "let",
+          "k_x07",
+          [
+            "bytes.lit",
+            "x07"
+          ]
+        ],
+        [
+          "let",
+          "x07_off",
+          [
+            "ext.data_model.map_find",
+            "doc",
+            "tool_off",
+            [
+              "bytes.view",
+              "k_x07"
+            ]
+          ]
+        ],
+        [
+          "if",
+          [
+            "<",
+            "x07_off",
+            0
+          ],
+          [
+            "return",
+            [
+              "bytes.alloc",
+              0
+            ]
+          ],
+          0
+        ],
+        [
+          "if",
+          [
+            "!=",
+            [
+              "ext.data_model.kind_at",
+              "doc",
+              "x07_off"
+            ],
+            5
+          ],
+          [
+            "return",
+            [
+              "bytes.alloc",
+              0
+            ]
+          ],
+          0
+        ],
+        [
+          "let",
+          "k_limits_profile",
+          [
+            "bytes.lit",
+            "limits_profile"
+          ]
+        ],
+        [
+          "let",
+          "limits_off",
+          [
+            "ext.data_model.map_find",
+            "doc",
+            "x07_off",
+            [
+              "bytes.view",
+              "k_limits_profile"
+            ]
+          ]
+        ],
+        [
+          "if",
+          [
+            "if",
+            [
+              "<",
+              "limits_off",
+              0
+            ],
+            1,
+            [
+              "!=",
+              [
+                "ext.data_model.kind_at",
+                "doc",
+                "limits_off"
+              ],
+              3
+            ]
+          ],
+          [
+            "bytes.alloc",
+            0
+          ],
+          [
+            "ext.data_model.string_get",
+            "doc",
+            "limits_off"
+          ]
         ]
-      ]
+      ],
+      "kind": "defn",
+      "name": "std.mcp.sandbox.router_exec._tool_limits_profile_v1",
+      "params": [
+        {
+          "name": "tool_name",
+          "ty": "bytes_view"
+        },
+        {
+          "name": "tools_registry_json",
+          "ty": "bytes_view"
+        }
+      ],
+      "result": "bytes"
     },
     {
-      "kind": "defn",
-      "name": "std.mcp.sandbox.router_exec._caps_for_tool_v1",
-      "params": [
-        { "name": "tool_name", "ty": "bytes_view" },
-        { "name": "tools_registry_json", "ty": "bytes_view" }
-      ],
-      "result": "bytes",
-      "result_brand": "std.os.process.caps_v1",
       "body": [
         "begin",
-        ["let", "default_profile", ["bytes.lit", "mcp_tool_standard_v1"]],
-        ["let", "p", ["std.mcp.sandbox.router_exec._tool_limits_profile_v1", "tool_name", "tools_registry_json"]],
+        [
+          "let",
+          "worker_path",
+          [
+            "std.mcp.toolkit.server_cfg_file.worker_exe_path_v1",
+            "ctx_json"
+          ]
+        ],
         [
           "if",
-          [">", ["bytes.len", "p"], 0],
-          ["std.mcp.sandbox.profiles.tool_caps_v1", ["bytes.view", "p"]],
-          ["std.mcp.sandbox.profiles.tool_caps_v1", ["bytes.view", "default_profile"]]
-        ]
-      ]
-    },
-    {
-      "kind": "defn",
-      "name": "std.mcp.sandbox.router_exec.call_tool_oneshot_v1",
-      "params": [
-        { "name": "tool_name", "ty": "bytes_view" },
-        { "name": "ctx_json", "ty": "bytes_view" },
-        { "name": "args_json", "ty": "bytes_view" },
-        { "name": "tools_registry_json", "ty": "bytes_view" }
-      ],
-      "result": "result_bytes",
-      "body": [
-        "begin",
-        ["let", "worker_path", ["std.mcp.toolkit.server_cfg_file.worker_exe_path_v1", "ctx_json"]],
-        [
-          "if",
-          ["=", ["bytes.len", "worker_path"], 0],
+          [
+            "=",
+            [
+              "std.bytes.len",
+              "worker_path"
+            ],
+            0
+          ],
           [
             "begin",
-            ["let", "tr", ["std.mcp.sandbox.router_exec._internal_error_tool_result_v1", "tool_name", 7311, ["bytes.view", ["bytes.lit", "missing worker_exe_path in server config"]]]],
-            ["if", ["=", ["bytes.len", "tr"], 0], ["return", ["result_bytes.err", 7312]], 0],
-            ["return", ["result_bytes.ok", "tr"]]
+            [
+              "let",
+              "tr",
+              [
+                "std.mcp.sandbox.router_exec._internal_error_tool_result_v1",
+                "tool_name",
+                7311,
+                [
+                  "begin",
+                  [
+                    "let",
+                    "_x07_tmp_borrow_router_exec_0",
+                    [
+                      "bytes.lit",
+                      "missing worker_exe_path in server config"
+                    ]
+                  ],
+                  [
+                    "bytes.view",
+                    "_x07_tmp_borrow_router_exec_0"
+                  ]
+                ]
+              ]
+            ],
+            [
+              "if",
+              [
+                "=",
+                [
+                  "std.bytes.len",
+                  "tr"
+                ],
+                0
+              ],
+              [
+                "return",
+                [
+                  "result_bytes.err",
+                  7312
+                ]
+              ],
+              0
+            ],
+            [
+              "return",
+              [
+                "result_bytes.ok",
+                "tr"
+              ]
+            ]
           ],
           0
         ],
-        ["let", "req_json", ["std.mcp.sandbox.worker_proto.make_request_v1", "tool_name", "ctx_json", "args_json", "tools_registry_json"]],
+        [
+          "let",
+          "req_json",
+          [
+            "std.mcp.sandbox.worker_proto.make_request_v1",
+            "tool_name",
+            "ctx_json",
+            "args_json",
+            "tools_registry_json"
+          ]
+        ],
         [
           "if",
-          ["=", ["bytes.len", "req_json"], 0],
+          [
+            "=",
+            [
+              "std.bytes.len",
+              "req_json"
+            ],
+            0
+          ],
           [
             "begin",
-            ["let", "tr", ["std.mcp.sandbox.router_exec._internal_error_tool_result_v1", "tool_name", 7313, ["bytes.view", ["bytes.lit", "failed to build worker request"]]]],
-            ["if", ["=", ["bytes.len", "tr"], 0], ["return", ["result_bytes.err", 7314]], 0],
-            ["return", ["result_bytes.ok", "tr"]]
+            [
+              "let",
+              "tr",
+              [
+                "std.mcp.sandbox.router_exec._internal_error_tool_result_v1",
+                "tool_name",
+                7313,
+                [
+                  "begin",
+                  [
+                    "let",
+                    "_x07_tmp_borrow_router_exec_1",
+                    [
+                      "bytes.lit",
+                      "failed to build worker request"
+                    ]
+                  ],
+                  [
+                    "bytes.view",
+                    "_x07_tmp_borrow_router_exec_1"
+                  ]
+                ]
+              ]
+            ],
+            [
+              "if",
+              [
+                "=",
+                [
+                  "std.bytes.len",
+                  "tr"
+                ],
+                0
+              ],
+              [
+                "return",
+                [
+                  "result_bytes.err",
+                  7314
+                ]
+              ],
+              0
+            ],
+            [
+              "return",
+              [
+                "result_bytes.ok",
+                "tr"
+              ]
+            ]
           ],
           0
         ],
-        ["let", "nl", ["bytes.alloc", 1]],
-        ["set", "nl", ["bytes.set_u8", "nl", 0, 10]],
-        ["let", "stdin", ["std.bytes.concat", ["bytes.view", "req_json"], ["bytes.view", "nl"]]],
-        ["let", "req", ["std.os.process.req_v1.new", "worker_path"]],
-        ["let", "req2", ["std.os.process.req_v1.stdin", "req", "stdin"]],
-        ["let", "req3", ["std.mcp.sandbox.policy_compile.apply_tool_policy_env_v1", "req2", "tool_name", "tools_registry_json"]],
-        ["let", "req_b", ["std.os.process.req_v1.finish", "req3"]],
-        ["let", "caps", ["std.mcp.sandbox.router_exec._caps_for_tool_v1", "tool_name", "tools_registry_json"]],
-        ["let", "proc_doc", ["std.os.process.run_capture_v1", "req_b", "caps"]],
         [
-          "if",
-          ["=", ["std.os.process.is_err", ["bytes.view", "proc_doc"]], 1],
+          "let",
+          "nl",
           [
-            "begin",
-            ["let", "err_code", ["std.os.process.err_code", ["bytes.view", "proc_doc"]]],
-            ["let", "msg", ["std.mcp.sandbox.router_exec._process_error_message_v1", "err_code"]],
-            ["let", "tr", ["std.mcp.sandbox.router_exec._internal_error_tool_result_v1", "tool_name", "err_code", ["bytes.view", "msg"]]],
-            ["if", ["=", ["bytes.len", "tr"], 0], ["return", ["result_bytes.err", 7315]], 0],
-            ["return", ["result_bytes.ok", "tr"]]
-          ],
-          0
+            "bytes.alloc",
+            1
+          ]
         ],
-        ["let", "stderr", ["std.os.process.resp_stderr", ["bytes.view", "proc_doc"]]],
+        [
+          "set",
+          "nl",
+          [
+            "bytes.set_u8",
+            "nl",
+            0,
+            10
+          ]
+        ],
+        [
+          "let",
+          "stdin",
+          [
+            "std.bytes.concat",
+            [
+              "bytes.view",
+              "req_json"
+            ],
+            [
+              "bytes.view",
+              "nl"
+            ]
+          ]
+        ],
+        [
+          "let",
+          "req",
+          [
+            "std.os.process.req_v1.new",
+            "worker_path"
+          ]
+        ],
+        [
+          "let",
+          "req2",
+          [
+            "std.os.process.req_v1.stdin",
+            "req",
+            "stdin"
+          ]
+        ],
+        [
+          "let",
+          "req3",
+          [
+            "std.mcp.sandbox.policy_compile.apply_tool_policy_env_v1",
+            "req2",
+            "tool_name",
+            "tools_registry_json"
+          ]
+        ],
+        [
+          "let",
+          "req_b",
+          [
+            "std.os.process.req_v1.finish",
+            "req3"
+          ]
+        ],
+        [
+          "let",
+          "caps",
+          [
+            "std.mcp.sandbox.router_exec._caps_for_tool_v1",
+            "tool_name",
+            "tools_registry_json"
+          ]
+        ],
+        [
+          "let",
+          "proc_doc",
+          [
+            "std.os.process.run_capture_v1",
+            "req_b",
+            "caps"
+          ]
+        ],
+        [
+          "begin",
+          [
+            "let",
+            "_x07_tmp_copy",
+            [
+              "view.to_bytes",
+              "proc_doc"
+            ]
+          ],
+          [
+            "if",
+            [
+              "=",
+              [
+                "std.os.process.is_err",
+                [
+                  "bytes.view",
+                  "_x07_tmp_copy"
+                ]
+              ],
+              1
+            ],
+            [
+              "begin",
+              [
+                "let",
+                "err_code",
+                [
+                  "std.os.process.err_code",
+                  "proc_doc"
+                ]
+              ],
+              [
+                "let",
+                "msg",
+                [
+                  "std.mcp.sandbox.router_exec._process_error_message_v1",
+                  "err_code"
+                ]
+              ],
+              [
+                "let",
+                "tr",
+                [
+                  "std.mcp.sandbox.router_exec._internal_error_tool_result_v1",
+                  "tool_name",
+                  "err_code",
+                  [
+                    "bytes.view",
+                    "msg"
+                  ]
+                ]
+              ],
+              [
+                "if",
+                [
+                  "=",
+                  [
+                    "std.bytes.len",
+                    "tr"
+                  ],
+                  0
+                ],
+                [
+                  "return",
+                  [
+                    "result_bytes.err",
+                    7315
+                  ]
+                ],
+                0
+              ],
+              [
+                "return",
+                [
+                  "result_bytes.ok",
+                  "tr"
+                ]
+              ]
+            ],
+            0
+          ]
+        ],
+        [
+          "let",
+          "stderr",
+          [
+            "std.os.process.resp_stderr",
+            "proc_doc"
+          ]
+        ],
         [
           "if",
-          [">", ["bytes.len", "stderr"], 0],
+          [
+            ">",
+            [
+              "std.bytes.len",
+              "stderr"
+            ],
+            0
+          ],
           [
             "begin",
-            ["let", "caps0", ["std.os.stdio.spec.caps_default_v1"]],
-            ["drop", ["std.os.stdio.write_stderr_v1", "stderr", "caps0"]],
+            [
+              "let",
+              "caps0",
+              [
+                "std.os.stdio.spec.caps_default_v1"
+              ]
+            ],
+            [
+              "drop",
+              [
+                "std.os.stdio.write_stderr_v1",
+                "stderr",
+                "caps0"
+              ]
+            ],
             0
           ],
           0
         ],
-        ["let", "stdout", ["std.os.process.resp_stdout", ["bytes.view", "proc_doc"]]],
-        ["let", "parsed", ["std.mcp.sandbox.worker_proto.parse_tool_result_v1", ["bytes.view", "stdout"]]],
+        [
+          "let",
+          "stdout",
+          [
+            "std.os.process.resp_stdout",
+            "proc_doc"
+          ]
+        ],
+        [
+          "let",
+          "parsed",
+          [
+            "std.mcp.sandbox.worker_proto.parse_tool_result_v1",
+            [
+              "bytes.view",
+              "stdout"
+            ]
+          ]
+        ],
         [
           "if",
-          ["!=", ["result_bytes.err_code", "parsed"], 0],
+          [
+            "!=",
+            [
+              "result_bytes.err_code",
+              "parsed"
+            ],
+            0
+          ],
           [
             "begin",
-            ["let", "exit_code", ["std.os.process.resp_exit_code", ["bytes.view", "proc_doc"]]],
-            ["let", "msg", ["if", ["!=", "exit_code", 0], ["bytes.lit", "invalid tool worker response (non-zero exit)"], ["bytes.lit", "invalid tool worker response"]]],
-            ["let", "tr", ["std.mcp.sandbox.router_exec._internal_error_tool_result_v1", "tool_name", 7316, ["bytes.view", "msg"]]],
-            ["if", ["=", ["bytes.len", "tr"], 0], ["return", ["result_bytes.err", 7317]], 0],
-            ["return", ["result_bytes.ok", "tr"]]
+            [
+              "let",
+              "exit_code",
+              [
+                "std.os.process.resp_exit_code",
+                "proc_doc"
+              ]
+            ],
+            [
+              "let",
+              "msg",
+              [
+                "if",
+                [
+                  "!=",
+                  "exit_code",
+                  0
+                ],
+                [
+                  "bytes.lit",
+                  "invalid tool worker response (non-zero exit)"
+                ],
+                [
+                  "bytes.lit",
+                  "invalid tool worker response"
+                ]
+              ]
+            ],
+            [
+              "let",
+              "tr",
+              [
+                "std.mcp.sandbox.router_exec._internal_error_tool_result_v1",
+                "tool_name",
+                7316,
+                [
+                  "bytes.view",
+                  "msg"
+                ]
+              ]
+            ],
+            [
+              "if",
+              [
+                "=",
+                [
+                  "std.bytes.len",
+                  "tr"
+                ],
+                0
+              ],
+              [
+                "return",
+                [
+                  "result_bytes.err",
+                  7317
+                ]
+              ],
+              0
+            ],
+            [
+              "return",
+              [
+                "result_bytes.ok",
+                "tr"
+              ]
+            ]
           ],
           0
         ],
-        ["let", "tool_result", ["result_bytes.unwrap_or", "parsed", ["bytes.alloc", 0]]],
-        ["result_bytes.ok", "tool_result"]
-      ]
+        [
+          "let",
+          "tool_result",
+          [
+            "result_bytes.unwrap_or",
+            "parsed",
+            [
+              "bytes.alloc",
+              0
+            ]
+          ]
+        ],
+        [
+          "result_bytes.ok",
+          "tool_result"
+        ]
+      ],
+      "kind": "defn",
+      "name": "std.mcp.sandbox.router_exec.call_tool_oneshot_v1",
+      "params": [
+        {
+          "name": "tool_name",
+          "ty": "bytes_view"
+        },
+        {
+          "name": "ctx_json",
+          "ty": "bytes_view"
+        },
+        {
+          "name": "args_json",
+          "ty": "bytes_view"
+        },
+        {
+          "name": "tools_registry_json",
+          "ty": "bytes_view"
+        }
+      ],
+      "result": "result_bytes"
     }
-  ]
+  ],
+  "imports": [
+    "ext.data_model",
+    "ext.json.data_model",
+    "std.bytes",
+    "std.fmt",
+    "std.mcp.diag",
+    "std.mcp.sandbox.policy_compile",
+    "std.mcp.sandbox.profiles",
+    "std.mcp.sandbox.worker_proto",
+    "std.mcp.tool.result",
+    "std.mcp.toolkit.server_cfg_file",
+    "std.mcp.util.json",
+    "std.os.process",
+    "std.os.process.req_v1",
+    "std.os.stdio",
+    "std.os.stdio.spec"
+  ],
+  "kind": "module",
+  "module_id": "std.mcp.sandbox.router_exec",
+  "schema_version": "x07.x07ast@0.5.0"
 }
-

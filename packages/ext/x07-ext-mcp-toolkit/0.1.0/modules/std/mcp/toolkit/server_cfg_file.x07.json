@@ -32,8 +32,7 @@
         "begin",
         ["let", "canon", ["ext.json.canon.canonicalize", "json"]],
         ["if", ["=", ["bytes.len", "canon"], 0], ["return", ["result_bytes.err", ["std.mcp.toolkit.server_cfg_file._err_invalid_server_cfg_v1"]]], 0],
-        ["let", "canon_v", ["bytes.view", "canon"]],
-        ["let", "doc", ["ext.json.data_model.parse", "canon_v"]],
+        ["let", "doc", ["ext.json.data_model.parse", "canon"]],
         ["let", "dv", ["bytes.view", "doc"]],
         ["if", ["=", ["ext.data_model.doc_is_err", "dv"], 1], ["return", ["result_bytes.err", ["std.mcp.toolkit.server_cfg_file._err_invalid_server_cfg_v1"]]], 0],
         ["if", ["!=", ["ext.data_model.root_kind", "dv"], 5], ["return", ["result_bytes.err", ["std.mcp.toolkit.server_cfg_file._err_invalid_server_cfg_v1"]]], 0],
@@ -93,7 +92,7 @@
       "body": [
         "begin",
         ["let", "b", ["std.fs.read", "path"]],
-        ["std.mcp.toolkit.server_cfg_file._parse_server_cfg_v1", ["bytes.view", "b"]]
+        ["std.mcp.toolkit.server_cfg_file._parse_server_cfg_v1", "b"]
       ]
     },
     {
@@ -219,7 +218,7 @@
           [
             "begin",
             ["let", "num", ["ext.data_model.number_get", "dv", "max_off"]],
-            ["if", ["=", ["bytes.len", "num"], 0], 0, ["std.mcp.toolkit.server_cfg_file._parse_i32_or_0_v1", ["bytes.view", "num"]]]
+            ["if", ["=", ["bytes.len", "num"], 0], 0, ["std.mcp.toolkit.server_cfg_file._parse_i32_or_0_v1", "num"]]
           ]
         ]
       ]
