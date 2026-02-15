@@ -6,7 +6,42 @@
       "world": "run-os",
       "entry": "smoke.pass",
       "expect": "pass"
+    },
+    {
+      "id": "compile/app_import",
+      "world": "run-os",
+      "entry": "compile.app_import",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dev",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_missing_session_id",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_missing_session_id",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_invalid_protocol_version",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_invalid_protocol_version",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_get_not_supported",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_get_not_supported",
+      "expect": "pass"
     }
   ]
 }
-

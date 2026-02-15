@@ -7,8 +7,8 @@ This template scaffolds a minimal MCP **stdio** server in X07 with a router/work
 
 ## Layout
 
-- `config/mcp.server.json`: server config (`x07.mcp.server_config@0.1.0`)
-- `config/mcp.tools.json`: tools manifest (`x07.mcp.tools_manifest@0.1.0`)
+- `config/mcp.server.json`: server config (`x07.mcp.server_config@0.2.0`)
+- `config/mcp.tools.json`: tools manifest (`x07.mcp.tools_manifest@0.2.0`)
 - `src/main.x07.json`: router entry
 - `src/worker_main.x07.json`: worker entry
 - `src/mcp/user.x07.json`: tool implementations
@@ -19,8 +19,8 @@ This template scaffolds a minimal MCP **stdio** server in X07 with a router/work
 Add dependencies:
 
 ```sh
-x07 pkg add ext-mcp-transport-stdio@0.1.1 --sync
-x07 pkg add ext-mcp-rr@0.1.1 --sync
+x07 pkg add ext-mcp-transport-stdio@0.2.0 --sync
+x07 pkg add ext-mcp-rr@0.2.0 --sync
 x07 pkg add ext-hex-rs@0.1.4 --sync
 ```
 

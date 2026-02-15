@@ -1,0 +1,30 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-auth",
+  "version": "0.1.0",
+  "description": "MCP OAuth helpers: deterministic test-static Bearer validation, PRM document builder, and WWW-Authenticate challenges.",
+  "docs": "MCP OAuth helpers.\n\nModules:\n- std.mcp.auth.challenge\n- std.mcp.auth.oauth_test_static\n- std.mcp.auth.prm\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.auth.challenge",
+    "std.mcp.auth.oauth_test_static",
+    "std.mcp.auth.prm"
+  ],
+  "meta": {
+    "determinism_tier": "pure",
+    "worlds_allowed": [
+      "solve-pure",
+      "solve-fs",
+      "solve-rr",
+      "solve-kv",
+      "solve-full",
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-data-model@0.1.8",
+      "ext-json-rs@0.1.4"
+    ],
+    "import_mode": "handwritten"
+  }
+}

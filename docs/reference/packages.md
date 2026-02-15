@@ -1,10 +1,13 @@
 # Packages
 
-`x07-mcp` ships a small set of X07 external packages:
+`x07-mcp` publishes these MCP kit packages:
 
-- `ext-mcp-core@0.1.1`: protocol constants, JSON-RPC helpers, diagnostics, tool result helpers
-- `ext-mcp-toolkit@0.1.1`: server config + tools manifest loaders, schema validation helpers, shared stdio dispatcher
-- `ext-mcp-worker@0.1.1`: worker protocol + worker entrypoint (validates args, calls tool implementation)
-- `ext-mcp-transport-stdio@0.1.1`: stdio MCP server (router)
-- `ext-mcp-sandbox@0.1.1`: router-side tool execution helpers (policy env + spawn + limits)
-- `ext-mcp-rr@0.1.1`: record/replay helpers (stdio JSONL replay, sanitization)
+- `ext-mcp-core@0.2.0`: protocol constants, JSON-RPC helpers, diagnostics, tool result helpers
+- `ext-mcp-toolkit@0.2.0`: server/tools manifest loaders, schema helpers, shared dispatcher
+- `ext-mcp-worker@0.2.0`: worker protocol + worker entrypoint
+- `ext-mcp-sandbox@0.2.0`: router-side sandbox + worker spawn helpers
+- `ext-mcp-transport-stdio@0.2.0`: stdio MCP router transport
+- `ext-mcp-transport-http@0.1.0`: HTTP MCP router transport helpers
+- `ext-mcp-auth@0.1.0`: OAuth test-static validation + challenge/PRM helpers
+- `ext-mcp-obs@0.1.0`: audit JSONL + metrics hooks
+- `ext-mcp-rr@0.2.0`: deterministic stdio and HTTP replay helpers + sanitizers

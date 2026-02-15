@@ -1,0 +1,1 @@
+{"decls":[{"kind":"export","names":["std.mcp.transport.http.serve_from_fs_v1"]},{"body":["begin",["let","_cfg_path","cfg_path"],0],"kind":"defn","name":"std.mcp.transport.http.serve_from_fs_v1","params":[{"name":"cfg_path","ty":"bytes_view"}],"result":"i32"}],"imports":[],"kind":"module","module_id":"std.mcp.transport.http","schema_version":"x07.x07ast@0.5.0"}

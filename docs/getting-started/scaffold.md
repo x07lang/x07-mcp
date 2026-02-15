@@ -14,19 +14,37 @@ Or:
 x07-mcp scaffold init --template mcp-server-stdio --dir ./my-mcp-server
 ```
 
-Install dependencies:
+After scaffolding, lock dependencies:
 
 ```sh
 cd ./my-mcp-server
-x07 pkg add ext-mcp-transport-stdio@0.1.1 --sync
-x07 pkg add ext-mcp-rr@0.1.1 --sync
-x07 pkg add ext-hex-rs@0.1.4 --sync
+x07 pkg lock
 ```
 
-The template is organized around:
+If you are testing unpublished local packages, add local paths before locking.
 
-- a **router** program (stdio transport + JSON-RPC/MCP dispatch)
-- a **worker** program (one tool call per process under `run-os-sandboxed`)
-- config files:
-  - `config/mcp.server.json` (`x07.mcp.server_config@0.1.0`)
-  - `config/mcp.tools.json` (`x07.mcp.tools_manifest@0.1.0`)
+## HTTP template
+
+```sh
+x07 init --template mcp-server-http --dir ./my-mcp-http
+```
+
+Or:
+
+```sh
+x07-mcp scaffold init --template mcp-server-http --dir ./my-mcp-http
+```
+
+Then lock dependencies:
+
+```sh
+cd ./my-mcp-http
+x07 pkg lock
+```
+
+The HTTP template includes:
+
+- `config/mcp.server.json` (`x07.mcp.server_config@0.2.0`)
+- `config/mcp.tools.json` (`x07.mcp.tools_manifest@0.2.0`)
+- `config/mcp.oauth.json` (`x07.mcp.oauth@0.1.0`)
+- replay fixtures under `tests/fixtures/rr/http/`

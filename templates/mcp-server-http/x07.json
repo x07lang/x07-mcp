@@ -10,9 +10,8 @@
     "os": { "world": "run-os", "auto_ffi": true },
     "sandbox": {
       "world": "run-os-sandboxed",
-      "policy": ".x07/policies/base/worker.sandbox.base.policy.json",
+      "policy": "policy/mcp.worker.base.policy.json",
       "auto_ffi": true
     }
   }
 }
-

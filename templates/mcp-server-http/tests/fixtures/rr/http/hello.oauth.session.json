@@ -1,0 +1,60 @@
+{
+  "schema_version": "x07.mcp.rr.http_session@0.1.0",
+  "id": "hello.oauth",
+  "profile": "prod",
+  "base_url": "http://127.0.0.1:8314",
+  "mcp_path": "/mcp",
+  "steps": [
+    {
+      "name": "unauthorized_tools_list_gets_401",
+      "req": { "method": "POST", "path": "/mcp" },
+      "res": {
+        "status": 401,
+        "headers": { "WWW-Authenticate": "Bearer scope=\"mcp:tools\"" },
+        "body_empty": true
+      }
+    },
+    {
+      "name": "prm_endpoint_returns_metadata",
+      "req": {
+        "method": "GET",
+        "path": "/.well-known/oauth-protected-resource"
+      },
+      "res": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "body_json": { "resource": "http://127.0.0.1:8314" }
+      }
+    },
+    {
+      "name": "token_without_scope_gets_403",
+      "req": {
+        "method": "POST",
+        "path": "/mcp",
+        "headers": { "Authorization": "Bearer TOKEN_NO_SCOPE" }
+      },
+      "res": {
+        "status": 403,
+        "headers": { "WWW-Authenticate": "Bearer error=\"insufficient_scope\"" },
+        "body_empty": true
+      }
+    },
+    {
+      "name": "token_with_scope_succeeds",
+      "req": {
+        "method": "POST",
+        "path": "/mcp",
+        "headers": { "Authorization": "Bearer TOKEN_OK" }
+      },
+      "res": {
+        "status": 200,
+        "headers": {},
+        "body_json": {
+          "jsonrpc": "2.0",
+          "id": 12,
+          "result": { "tools": [{ "name": "hello.greet" }] }
+        }
+      }
+    }
+  ]
+}

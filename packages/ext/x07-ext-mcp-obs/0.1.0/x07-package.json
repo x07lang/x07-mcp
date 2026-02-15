@@ -1,0 +1,23 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-obs",
+  "version": "0.1.0",
+  "description": "MCP observability helpers for audit JSONL and lightweight metrics hooks.",
+  "docs": "MCP observability helpers.\n\nModules:\n- std.mcp.obs.audit\n- std.mcp.obs.metrics\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.obs.audit",
+    "std.mcp.obs.metrics"
+  ],
+  "meta": {
+    "determinism_tier": "os-world-only",
+    "worlds_allowed": [
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-stdio@0.1.0"
+    ],
+    "import_mode": "handwritten"
+  }
+}

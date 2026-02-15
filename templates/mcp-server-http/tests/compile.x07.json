@@ -1,0 +1,1 @@
+{"decls":[{"kind":"export","names":["compile.app_import"]},{"body":["std.test.pass"],"kind":"defn","name":"compile.app_import","params":[],"result":"result_i32"}],"imports":["app","mcp.user","std.test"],"kind":"module","module_id":"compile","schema_version":"x07.x07ast@0.5.0"}
