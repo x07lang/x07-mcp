@@ -9,8 +9,8 @@
         {
           "module_id": "std.mcp.auth.challenge",
           "path": "packages/ext/x07-ext-mcp-auth/0.1.0/modules/std/mcp/auth/challenge.x07.json",
-          "sha256": "c05fd0961c646f6310ae32c6d0da53d4a735fc31ac5ff5a6224e44591d89ad5d",
-          "size_bytes": 1561
+          "sha256": "0ef1a2ddc1c00e510c273d9d35bc4488e3963ce2cae29828132bd34d17aff758",
+          "size_bytes": 1823
         },
         {
           "module_id": "std.mcp.auth.oauth_test_static",
@@ -21,8 +21,8 @@
         {
           "module_id": "std.mcp.auth.prm",
           "path": "packages/ext/x07-ext-mcp-auth/0.1.0/modules/std/mcp/auth/prm.x07.json",
-          "sha256": "965cd1e7bb1f56df8d7b57828dfefc52cdb746c6f8af1bff6a8f805899325abc",
-          "size_bytes": 788
+          "sha256": "036b6d9a72e65c36f16397dcdbea3fd1b5704d4addf160fb6000684f60e29112",
+          "size_bytes": 878
         }
       ],
       "name": "ext-mcp-auth",
@@ -645,6 +645,6 @@
       "version": "0.2.0"
     }
   ],
-  "packages_hash": "d82111341ba09c2fbc61319c5a6c1c7bb4e39949b11afbd54247695fed385ddb",
+  "packages_hash": "b9b3ff17179dfd2d228dcf6fdf244d0c6904ecf0a3262e112f0f42e0ca2b421f",
   "packages_root": "packages/ext"
 }
