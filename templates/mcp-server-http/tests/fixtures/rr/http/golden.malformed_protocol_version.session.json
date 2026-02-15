@@ -1,6 +1,6 @@
 {
   "schema_version": "x07.mcp.rr.http_session@0.1.0",
-  "id": "hello.dev",
+  "id": "golden.malformed_protocol_version",
   "profile": "dev",
   "project_files": {
     "server": "config/mcp.server.json",
@@ -11,7 +11,7 @@
   "mcp_path": "/mcp",
   "steps": [
     {
-      "name": "initialize",
+      "name": "initialize_sets_session_id",
       "req": {
         "method": "POST",
         "path": "/mcp",
@@ -37,7 +37,7 @@
       }
     },
     {
-      "name": "initialized_notification",
+      "name": "malformed_protocol_version_is_400",
       "req": {
         "method": "POST",
         "path": "/mcp",
@@ -45,17 +45,18 @@
           "Origin": "http://localhost:3000",
           "Accept": "application/json, text/event-stream",
           "Content-Type": "application/json",
-          "MCP-Protocol-Version": "2025-11-25",
-          "MCP-Session-Id": "sess_test_0001"
+          "MCP-Session-Id": "sess_test_0001",
+          "MCP-Protocol-Version": "banana"
         },
         "body_json": {
           "jsonrpc": "2.0",
-          "method": "notifications/initialized",
+          "id": 3,
+          "method": "tools/list",
           "params": {}
         }
       },
       "res": {
-        "status": 202,
+        "status": 400,
         "headers": {},
         "body_empty": true
       }

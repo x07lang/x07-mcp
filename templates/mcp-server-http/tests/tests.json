@@ -20,9 +20,33 @@
       "expect": "pass"
     },
     {
+      "id": "mcp/http/replay/hello_dev_tools_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev_tools_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dev_tools_call",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev_tools_call",
+      "expect": "pass"
+    },
+    {
       "id": "mcp/http/replay/hello_oauth",
       "world": "run-os",
       "entry": "mcp_http_replay.hello_oauth",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_insufficient_scope",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_insufficient_scope",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_success",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_success",
       "expect": "pass"
     },
     {
@@ -35,6 +59,12 @@
       "id": "mcp/http/replay/golden_invalid_protocol_version",
       "world": "run-os",
       "entry": "mcp_http_replay.golden_invalid_protocol_version",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_malformed_protocol_version",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_malformed_protocol_version",
       "expect": "pass"
     },
     {

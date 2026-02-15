@@ -39,6 +39,17 @@
       }
     },
     {
+      "name": "ext-curl-c",
+      "version": "0.1.6",
+      "path": ".x07/deps/ext-curl-c/0.1.6",
+      "package_manifest_sha256": "d88b6b83b79d8d25cfcf154fa6fa280ab9efa3ec2395c4842e1f859ccd8ed37f",
+      "module_root": "modules",
+      "modules_sha256": {
+        "ext.curl._ffi": "ef7ab5e230cc7bb054cf9b777ae803fe80907a43ab8254d99d231dc9b69d529f",
+        "ext.curl.http": "b7d884c62d109a666917dc2de20d9d30a7835103394afe61522632a02747e119"
+      }
+    },
+    {
       "name": "ext-data-model",
       "version": "0.1.8",
       "path": ".x07/deps/ext-data-model/0.1.8",
@@ -112,12 +123,13 @@
       "name": "ext-mcp-auth",
       "version": "0.1.0",
       "path": "packages/ext/x07-ext-mcp-auth/0.1.0",
-      "package_manifest_sha256": "400503deee66262c61f6323e4435304feb93628166a34da8dfbe370aa4b9f9a0",
+      "package_manifest_sha256": "8ac144a283005ef95ca73c4443a65383edef05f2108af36e4e817124aadf55bd",
       "module_root": "modules",
       "modules_sha256": {
+        "std.mcp.auth": "a58c0dc6a3244e12a5202189c4e523f92e7f43c59a2d22180ba3ac841c5ebd2c",
         "std.mcp.auth.challenge": "0ef1a2ddc1c00e510c273d9d35bc4488e3963ce2cae29828132bd34d17aff758",
-        "std.mcp.auth.oauth_test_static": "d408ad0787fc577911ebaba364ac9e57a73244c423550eb6f69a99c46bbea36e",
-        "std.mcp.auth.prm": "036b6d9a72e65c36f16397dcdbea3fd1b5704d4addf160fb6000684f60e29112"
+        "std.mcp.auth.oauth_test_static": "af9463b8c84fd2e18871a2e33d285fe9d0cfb8bac993e94ed1aaa6b55a90b46d",
+        "std.mcp.auth.prm": "f305ceb3977439a18c99f64ca4d8a53911d9c90a05447d00959330ed1f9ce3e1"
       }
     },
     {
@@ -140,21 +152,22 @@
       "name": "ext-mcp-obs",
       "version": "0.1.0",
       "path": "packages/ext/x07-ext-mcp-obs/0.1.0",
-      "package_manifest_sha256": "fc5e61d5ccfbe028769b8c98189f2d8666f551ecb6a38a8d894523810ce9c258",
+      "package_manifest_sha256": "c01f639cce65e695a901795c8b3abbf4d8bb8e0ad8491b678696688af0afb358",
       "module_root": "modules",
       "modules_sha256": {
+        "std.mcp.obs": "61449a85d70cb9193596f7b63fef10b3b95c838d44784c928b6649b4e19f4c41",
         "std.mcp.obs.audit": "0719452a359bbc1df45ff3f08f291d9c437c040f9660c1c9a666987ca0414f10",
-        "std.mcp.obs.metrics": "76ce26197c33f516f9a6ae056e17701d4f1cb6415d10b58f70946741530d6de2"
+        "std.mcp.obs.metrics": "54434c0a94cc742b3b78c77454df5fc5d211eb3bf90d4179ea4001f58b60413a"
       }
     },
     {
       "name": "ext-mcp-rr",
       "version": "0.2.0",
       "path": "packages/ext/x07-ext-mcp-rr/0.2.0",
-      "package_manifest_sha256": "66636630163ef272967af04c62d67d1c985d93a8e4c196e1e3fb1b3f6e435653",
+      "package_manifest_sha256": "7e56e2c63cfb6bf30ba6a508c4dcbec9a1ff070ac617fbfc017b3965d029ec96",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.rr.http": "0464b17207f2ca6629cd566ad7c209d49290fb434cb7c4d6e2a9a618d59fac0b",
+        "std.mcp.rr.http": "24e48fca32f2aaa9ea1aee7acc25ada0ad4eaab83e43dcc63dd6310cda7f9341",
         "std.mcp.rr.sanitize": "64a3e8f3c1374cbe7f1c506446b3fce73a14a4d8e918ef3e20dad7493c3fdeb8",
         "std.mcp.rr.session": "0d02ab2b3b793a2116139a1724e57e75d06673c1a1d7046125de9007a6c0db0b"
       }
@@ -189,12 +202,12 @@
       "name": "ext-mcp-transport-http",
       "version": "0.1.0",
       "path": "packages/ext/x07-ext-mcp-transport-http/0.1.0",
-      "package_manifest_sha256": "e9f4da05036ff3825bb7f7395cd3f3dfdfbbf156cedf742e6a5c30a47262cc08",
+      "package_manifest_sha256": "bc24d75066b573ce26571026418e1c8ff90b0ef601cfc39e1d09357010229c57",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.transport.http": "637474f6d64959c8dc176c6319309bf3d6d0b1432d982b5c3af8f523a6b4cd15",
-        "std.mcp.transport.http_rules": "f06fa6436d816fc93cedafe64b8c42bb3f15651a9ae0e014d20d360aab716b8d",
-        "std.mcp.transport.http_session": "ff1fb4a2e4b7a06f3de9c936d8f28952c45318e826581c1a96941b2904da7575"
+        "std.mcp.transport.http": "50e7fbb3f3b459767f61e94ede31bb9a60a55ba656a74b273cd70ceb40eb16a0",
+        "std.mcp.transport.http_rules": "e7a7ede55e59ff647a450398b4da1c203782b8ae3da81b91bd341ae2ea8fe3e4",
+        "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9"
       }
     },
     {
@@ -217,6 +230,37 @@
       "modules_sha256": {
         "std.mcp.sandbox.worker_main": "00d6d766bc7fd6136a16ed480040a9288e0691c5e474eb2b92dd03fec7ae8c90",
         "std.mcp.sandbox.worker_proto": "64eb3551a8bf609f4af2bb75254bd9501a24bf8bb7f9a5b9498487f5d6fdb3bd"
+      }
+    },
+    {
+      "name": "ext-net",
+      "version": "0.1.8",
+      "path": ".x07/deps/ext-net/0.1.8",
+      "package_manifest_sha256": "2c9e3cd98153bc2e879039c9b777b08e10a236c4923f56929f5dd4f6fc435cfc",
+      "module_root": "modules",
+      "modules_sha256": {
+        "std.net.codec": "c44592bb0ef0753a74c2a57f7b8e65e8ee9390513ae1852ba26746ad812f61c3",
+        "std.net.dns": "32133db3cb22b4d25272ecca3bd08881cabecbf3b9cc290b5e467b86cf3a0c94",
+        "std.net.err": "662a4b0385dc9730b7ee5791e73ce1b532ea6c0421c1aa2e4030a08c7535356e",
+        "std.net.http": "c65425c329faea952a1e2ece6a5d01cbb30e0f5e7c3ed8f996bcb6acc512f1a2",
+        "std.net.http.client": "eadb198ac302344827430d35063ed1e7a02d216c6ead3a5097636d2169e3b6fa",
+        "std.net.http.server": "cdee2135124db79035ba1fb2184e98fad8791b9b8260748341ae75cb26496bd1",
+        "std.net.http.spec": "675c224d33ab97a25d7cd8f6593f98cae0778f719fdffe83750e8308db4430e3",
+        "std.net.io": "4878202d5cdbf19d144d4e5f17155f161ee9ac11be49d96056fc5412d26115ca",
+        "std.net.tcp": "34d996b9e5998960030df14cab6899270fdcbac942db2f2eaf6f5e44458be903",
+        "std.net.tls": "525a4e5181b94d59f30b2ae055b642421788a00bd776f7cef16376f2f921ea27",
+        "std.net.udp": "d632703b7e750934891a60b155ce10f9a9cc21d674f23933b0023b5ea53dad18"
+      }
+    },
+    {
+      "name": "ext-sockets-c",
+      "version": "0.1.6",
+      "path": ".x07/deps/ext-sockets-c/0.1.6",
+      "package_manifest_sha256": "53e9c4ceb4c798a0dd013ac7e2d51b33f92652a7a43b63dbd31687520226dd6a",
+      "module_root": "modules",
+      "modules_sha256": {
+        "ext.sockets._ffi": "42e7d864c5f446762bbfa043b080b94280a9a4376a611266219b6f4eaa02554a",
+        "ext.sockets.net": "0929a1cd223dc356554a0ce9dd8b4cf822a962e12b9ab5af81582a4124d8a9d7"
       }
     },
     {
@@ -254,6 +298,21 @@
         "ext.unicode.normalize": "4f86ecc58f838788004617c9978476a1821cb780ed8e640f965d1aa44b826fc5",
         "ext.unicode.segment": "341c8ace2b44f8fca0c5339bdbc8d102a6d06d36ef4a6a705601539a9fbf03c4",
         "ext.unicode.tests": "1d5209fc2aab58dca59930459fd054d8065eb7a7dd9e042c179149ba7252064f"
+      }
+    },
+    {
+      "name": "ext-url-rs",
+      "version": "0.1.4",
+      "path": ".x07/deps/ext-url-rs/0.1.4",
+      "package_manifest_sha256": "c87e3e68a8520ae7538a3b76ba497088cc76629075a90ef67ce31190051db4f4",
+      "module_root": "modules",
+      "modules_sha256": {
+        "ext.http_types": "dd14b3da1a82a2424e7f7205df8d3b97559fbe556e319dcf7d32e9a2b46a6bbd",
+        "ext.httparse": "aa37f2a0973c9278463ecf596f98529115a593a83edc250e1a5fa0d9f7f04bb0",
+        "ext.httparse.tests": "7e3e79eef1f6bd112f6d06eeb34f8bae4cd261ccb960b41b7adf5cea4c50aafd",
+        "ext.url.encode": "7e234d2e46b57f246f5d96db9048008ae99baf7661163da60b7a372cb1397e88",
+        "ext.url.parse": "f2d6059e9e2f13f0e80e7780bc58686efdf82e08b87355c56348a236bc80bd5f",
+        "ext.url.tests": "34fc0a3c3c983c2a2e6f5928f00f02d97d66384fe62117dc96e096febf239523"
       }
     },
     {

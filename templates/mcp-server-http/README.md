@@ -17,11 +17,10 @@ This template scaffolds a minimal MCP **HTTP** server in X07 with a router/worke
 
 ## Quickstart
 
-Add dependencies:
+Dependencies are already declared in `x07.json`. If you need to refresh lock/deps:
 
 ```sh
-x07 pkg add ext-mcp-transport-http@0.1.0 --sync
-x07 pkg add ext-mcp-rr@0.2.0 --sync
+x07 pkg lock --project x07.json
 ```
 
 Bundle router + worker:

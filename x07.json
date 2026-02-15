@@ -17,6 +17,11 @@
       "version": "0.1.5"
     },
     {
+      "name": "ext-curl-c",
+      "path": ".x07/deps/ext-curl-c/0.1.6",
+      "version": "0.1.6"
+    },
+    {
       "name": "ext-data-model",
       "path": ".x07/deps/ext-data-model/0.1.8",
       "version": "0.1.8"
@@ -87,6 +92,16 @@
       "version": "0.2.0"
     },
     {
+      "name": "ext-net",
+      "path": ".x07/deps/ext-net/0.1.8",
+      "version": "0.1.8"
+    },
+    {
+      "name": "ext-sockets-c",
+      "path": ".x07/deps/ext-sockets-c/0.1.6",
+      "version": "0.1.6"
+    },
+    {
       "name": "ext-stdio",
       "path": ".x07/deps/ext-stdio/0.1.0",
       "version": "0.1.0"
@@ -100,6 +115,11 @@
       "name": "ext-unicode-rs",
       "path": ".x07/deps/ext-unicode-rs/0.1.5",
       "version": "0.1.5"
+    },
+    {
+      "name": "ext-url-rs",
+      "path": ".x07/deps/ext-url-rs/0.1.4",
+      "version": "0.1.4"
     },
     {
       "name": "ext-xml-rs",

@@ -3,9 +3,10 @@
   "name": "ext-mcp-obs",
   "version": "0.1.0",
   "description": "MCP observability helpers for audit JSONL and lightweight metrics hooks.",
-  "docs": "MCP observability helpers.\n\nModules:\n- std.mcp.obs.audit\n- std.mcp.obs.metrics\n",
+  "docs": "MCP observability helpers.\n\nModules:\n- std.mcp.obs\n- std.mcp.obs.audit\n- std.mcp.obs.metrics\n",
   "module_root": "modules",
   "modules": [
+    "std.mcp.obs",
     "std.mcp.obs.audit",
     "std.mcp.obs.metrics"
   ],

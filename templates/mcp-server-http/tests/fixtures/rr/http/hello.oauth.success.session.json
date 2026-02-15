@@ -1,9 +1,9 @@
 {
   "schema_version": "x07.mcp.rr.http_session@0.1.0",
-  "id": "hello.dev",
-  "profile": "dev",
+  "id": "hello.oauth.success",
+  "profile": "prod",
   "project_files": {
-    "server": "config/mcp.server.json",
+    "server": "config/mcp.server.oauth.json",
     "tools": "config/mcp.tools.json",
     "oauth": "config/mcp.oauth.json"
   },
@@ -11,7 +11,7 @@
   "mcp_path": "/mcp",
   "steps": [
     {
-      "name": "initialize",
+      "name": "initialize_with_scope_gets_session",
       "req": {
         "method": "POST",
         "path": "/mcp",
@@ -19,11 +19,12 @@
           "Origin": "http://localhost:3000",
           "Accept": "application/json, text/event-stream",
           "Content-Type": "application/json",
-          "MCP-Protocol-Version": "2025-11-25"
+          "MCP-Protocol-Version": "2025-11-25",
+          "Authorization": "Bearer TOKEN_OK"
         },
         "body_json": {
           "jsonrpc": "2.0",
-          "id": 1,
+          "id": 11,
           "method": "initialize",
           "params": {
             "protocolVersion": "2025-11-25",
@@ -37,7 +38,7 @@
       }
     },
     {
-      "name": "initialized_notification",
+      "name": "token_with_scope_succeeds",
       "req": {
         "method": "POST",
         "path": "/mcp",
@@ -46,18 +47,19 @@
           "Accept": "application/json, text/event-stream",
           "Content-Type": "application/json",
           "MCP-Protocol-Version": "2025-11-25",
-          "MCP-Session-Id": "sess_test_0001"
+          "MCP-Session-Id": "sess_test_0001",
+          "Authorization": "Bearer TOKEN_OK"
         },
         "body_json": {
           "jsonrpc": "2.0",
-          "method": "notifications/initialized",
+          "id": 13,
+          "method": "tools/list",
           "params": {}
         }
       },
       "res": {
-        "status": 202,
-        "headers": {},
-        "body_empty": true
+        "status": 200,
+        "headers": {}
       }
     }
   ]

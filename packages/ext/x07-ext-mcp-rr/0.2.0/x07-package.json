@@ -25,6 +25,8 @@
       "ext-mcp-core@0.2.0",
       "ext-mcp-toolkit@0.2.0",
       "ext-mcp-worker@0.2.0",
+      "ext-mcp-auth@0.1.0",
+      "ext-mcp-transport-http@0.1.0",
       "ext-data-model@0.1.8",
       "ext-json-rs@0.1.4"
     ],

@@ -21,7 +21,10 @@
       "ext-mcp-toolkit@0.2.0",
       "ext-mcp-sandbox@0.2.0",
       "ext-mcp-auth@0.1.0",
-      "ext-mcp-obs@0.1.0"
+      "ext-mcp-obs@0.1.0",
+      "ext-net@0.1.8",
+      "ext-data-model@0.1.8",
+      "ext-json-rs@0.1.4"
     ],
     "import_mode": "handwritten"
   }

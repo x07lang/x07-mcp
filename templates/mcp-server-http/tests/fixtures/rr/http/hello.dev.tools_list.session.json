@@ -1,6 +1,6 @@
 {
   "schema_version": "x07.mcp.rr.http_session@0.1.0",
-  "id": "hello.dev",
+  "id": "hello.dev.tools_list",
   "profile": "dev",
   "project_files": {
     "server": "config/mcp.server.json",
@@ -37,7 +37,7 @@
       }
     },
     {
-      "name": "initialized_notification",
+      "name": "tools_list",
       "req": {
         "method": "POST",
         "path": "/mcp",
@@ -50,14 +50,14 @@
         },
         "body_json": {
           "jsonrpc": "2.0",
-          "method": "notifications/initialized",
+          "id": 2,
+          "method": "tools/list",
           "params": {}
         }
       },
       "res": {
-        "status": 202,
-        "headers": {},
-        "body_empty": true
+        "status": 200,
+        "headers": {}
       }
     }
   ]
