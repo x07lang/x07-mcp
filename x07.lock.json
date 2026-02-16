@@ -164,12 +164,12 @@
       "name": "ext-mcp-rr",
       "version": "0.2.1",
       "path": "packages/ext/x07-ext-mcp-rr/0.2.1",
-      "package_manifest_sha256": "ec1158b0dbfbf80c359ed31bbe13695e95e40068100c5b3c67d38c51f7f8c76a",
+      "package_manifest_sha256": "1b34ad4087cca454edb4b7fc031e80742e38311e30e134ee87f72a4530ef59b5",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.rr.http": "14a0412a516700d89881fb01950b5d1eb95b78261296f8c67c3627684b1d0a3d",
+        "std.mcp.rr.http": "69ec5ca3c5ce2b3e71d8dcfeec6116b368e0bde0f8750ea83914d114346506c7",
         "std.mcp.rr.sanitize": "64a3e8f3c1374cbe7f1c506446b3fce73a14a4d8e918ef3e20dad7493c3fdeb8",
-        "std.mcp.rr.session": "4367bb08565449c42a3d37e97d74162bd8e61ae593ec53e0f7c7d808e6177a46"
+        "std.mcp.rr.session": "1603b1e53affd9fc5b7bfad8d650575759e3d2c27f1cdb913ba662038db5922a"
       }
     },
     {
@@ -192,11 +192,11 @@
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.toolkit.derive_hooks": "88777c9b801b101ebd977fadd241b85ad1e25ae5461c21cc6a4daac2f6519256",
-        "std.mcp.toolkit.prompts_file": "39d21e1bb983a8372ca101e7df750a92b95be2cd110056f455c90f5a19e6b243",
+        "std.mcp.toolkit.prompts_file": "6c505f9f725edec6f45fa8b7ffe17f9f07a93b5df08b5d388c6831cd1df7f023",
         "std.mcp.toolkit.resources_file": "a1ee694df26c8345bbf51fd15d48f705c330b5937c71edccce84df05addbbf52",
         "std.mcp.toolkit.schema_subset": "b6d1c073394e843d6c823e2584543fba40e1a80c002d0cb59a9143e8ab3e826b",
         "std.mcp.toolkit.server_cfg_file": "cdd979cc7cdad5b02def50f7f39e04094d4291c19fc0e9528af002c94428871a",
-        "std.mcp.toolkit.stdio_dispatch": "90402ae96edd850b8538391578f5db683cfe928263ee7f536d984d240a05c64d",
+        "std.mcp.toolkit.stdio_dispatch": "7b0569144dffa1e7b0bbc4db0b5f3ec6dbfa177b721b35950651a68633dbe24a",
         "std.mcp.toolkit.tools_file": "102c8affdcbdcfe6cfac81ed018e32f0691e126766d48276d581fae1eb5c7d9b"
       }
     },
@@ -207,7 +207,7 @@
       "package_manifest_sha256": "d45d3801b0e8ab42abc04379c771e1abfc11c909e657c1046f6e520ca4765ffd",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.transport.http": "912e4a7b7fd9f9eb691ffdcaf58e181e81e8b4df72aa8aedb0e6e1dadf46f79f",
+        "std.mcp.transport.http": "a8a0c9145d060347b5d2cff811243c4accb5a4f4cdb993d81b935f8f5b451c6d",
         "std.mcp.transport.http_rules": "e7a7ede55e59ff647a450398b4da1c203782b8ae3da81b91bd341ae2ea8fe3e4",
         "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9"
       }
