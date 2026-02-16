@@ -1,0 +1,18 @@
+{
+  "manifest_version": "0.3",
+  "name": "http-proxy-mcp",
+  "display_name": "http-proxy-mcp",
+  "version": "0.1.0",
+  "description": "http-proxy-mcp deterministic MCP reference server",
+  "author": {
+    "name": "x07"
+  },
+  "server": {
+    "type": "binary",
+    "entry_point": "server/http-proxy-mcp",
+    "mcp_config": {
+      "command": "${__dirname}/server/http-proxy-mcp",
+      "args": []
+    }
+  }
+}

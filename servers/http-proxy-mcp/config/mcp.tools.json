@@ -1,0 +1,73 @@
+{
+  "schema_version": "x07.mcp.tools_manifest@0.2.0",
+  "tools": [
+    {
+      "name": "http.get_json",
+      "description": "Fetch JSON from allowlisted hosts in stub mode.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "api.example.com:443"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "HTTP_PROXY_TOKEN"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "http.post_json",
+      "description": "Post JSON to allowlisted hosts in stub mode.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "api.example.com:443"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "HTTP_PROXY_TOKEN"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

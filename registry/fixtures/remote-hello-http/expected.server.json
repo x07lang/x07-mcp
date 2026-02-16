@@ -1,0 +1,1 @@
+{"$schema":"https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json","description":"Remote HTTP hello MCP server.","name":"io.x07/remote-hello-http-mcp","remotes":[{"type":"streamable-http","url":"https://hello.example.com/mcp"}],"title":"remote-hello-http","version":"0.1.0"}

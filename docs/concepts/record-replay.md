@@ -20,7 +20,7 @@ Each step includes:
 - `req`: method/path/headers/body
 - `res`: expected status/headers/body
 
-Template fixtures live under `tests/fixtures/rr/http/` and cover:
+Template fixtures live under `tests/.x07_rr/sessions/` and cover:
 
 - initialize + session header flow
 - OAuth 401 challenge + PRM discovery

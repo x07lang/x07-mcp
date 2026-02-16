@@ -26,3 +26,165 @@ jobs:
       - name: Check
         shell: bash
         run: ./scripts/ci/check_all.sh
+
+  registry-fixtures:
+    name: ci / registry-fixtures
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install X07 (stable)
+        shell: bash
+        run: |
+          curl -fsSL https://x07lang.org/install.sh | sh -s -- \
+            --yes \
+            --channel stable \
+            --no-modify-path \
+            --json
+          echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
+      - name: Validate fixtures
+        shell: bash
+        run: ./registry/scripts/check_fixtures.sh
+
+  publish-dry-run:
+    name: ci / publish-dry-run / ${{ matrix.server_id }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        server_id:
+          - github-mcp
+          - slack-mcp
+          - jira-mcp
+          - postgres-mcp
+          - redis-mcp
+          - s3-mcp
+          - kubernetes-mcp
+          - stripe-mcp
+          - smtp-mcp
+          - http-proxy-mcp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install X07 (stable)
+        shell: bash
+        run: |
+          curl -fsSL https://x07lang.org/install.sh | sh -s -- \
+            --yes \
+            --channel stable \
+            --no-modify-path \
+            --json
+          echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Build x07-mcp CLI
+        shell: bash
+        run: |
+          x07 bundle --project x07.json --profile os --out dist/x07-mcp --json=off >/dev/null
+      - name: Build MCPB and validate publish dry-run
+        shell: bash
+        run: |
+          server_id="${{ matrix.server_id }}"
+          ./servers/_shared/ci/install_server_deps.sh "./servers/${server_id}"
+          "./servers/${server_id}/publish/build_mcpb.sh"
+          ./dist/x07-mcp registry gen \
+            --in "servers/${server_id}/x07.mcp.json" \
+            --out "servers/${server_id}/dist/server.json" \
+            --mcpb "servers/${server_id}/dist/${server_id}.mcpb" \
+            --schema registry/schema/server.schema.2025-12-11.json \
+            --machine json \
+            >/dev/null
+          ./dist/x07-mcp publish --dry-run \
+            --server-json "servers/${server_id}/dist/server.json" \
+            --mcpb "servers/${server_id}/dist/${server_id}.mcpb" \
+            --machine json \
+            >/dev/null
+      - name: Check deterministic MCPB hash
+        if: matrix.server_id == 'postgres-mcp'
+        shell: bash
+        run: |
+          first="$(cat servers/postgres-mcp/dist/postgres-mcp.mcpb.sha256.txt)"
+          rm -f servers/postgres-mcp/dist/postgres-mcp.mcpb servers/postgres-mcp/dist/postgres-mcp.mcpb.sha256.txt
+          ./servers/postgres-mcp/publish/build_mcpb.sh
+          second="$(cat servers/postgres-mcp/dist/postgres-mcp.mcpb.sha256.txt)"
+          test "${first}" = "${second}"
+      - name: Upload publish metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: publish-${{ matrix.server_id }}
+          path: |
+            servers/${{ matrix.server_id }}/dist/server.json
+            servers/${{ matrix.server_id }}/dist/${{ matrix.server_id }}.mcpb.sha256.txt
+          if-no-files-found: error
+
+  release-metadata-guard:
+    name: ci / release-metadata-guard
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [publish-dry-run]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Download publish metadata artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: publish-*
+          merge-multiple: true
+          path: .agent_cache/release-metadata
+      - name: Guard against placeholder hashes
+        shell: bash
+        run: ./registry/scripts/release_metadata_guard.sh .agent_cache/release-metadata
+
+  conformance-server:
+    name: ci / conformance / ${{ matrix.server_id }} / ${{ matrix.mode }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        server_id:
+          - github-mcp
+          - slack-mcp
+          - jira-mcp
+          - postgres-mcp
+          - redis-mcp
+          - s3-mcp
+          - kubernetes-mcp
+          - stripe-mcp
+          - smtp-mcp
+          - http-proxy-mcp
+        mode: [noauth, oauth]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install X07 (stable)
+        shell: bash
+        run: |
+          curl -fsSL https://x07lang.org/install.sh | sh -s -- \
+            --yes \
+            --channel stable \
+            --no-modify-path \
+            --json
+          echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Run conformance
+        shell: bash
+        run: |
+          ./conformance/run_server_conformance.sh \
+            --url http://127.0.0.1:8080/mcp \
+            --baseline ./conformance/conformance-baseline.yml \
+            --spawn "${{ matrix.server_id }}" \
+            --mode "${{ matrix.mode }}" \
+            --results-dir "./conformance/results/${{ matrix.server_id }}-${{ matrix.mode }}"
+      - name: Upload conformance artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: conformance-${{ matrix.server_id }}-${{ matrix.mode }}
+          path: conformance/results/${{ matrix.server_id }}-${{ matrix.mode }}/**/checks*.json
+          if-no-files-found: ignore

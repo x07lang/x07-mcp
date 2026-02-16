@@ -1,0 +1,77 @@
+{
+  "schema_version": "x07.mcp.tools_manifest@0.2.0",
+  "tools": [
+    {
+      "name": "smtp.send",
+      "description": "Send a deterministic stub email.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "smtp.example.com:587"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "SMTP_HOST",
+              "SMTP_USER",
+              "SMTP_PASS"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "smtp.preview",
+      "description": "Render a deterministic SMTP preview.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "smtp.example.com:587"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "SMTP_HOST",
+              "SMTP_USER",
+              "SMTP_PASS"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

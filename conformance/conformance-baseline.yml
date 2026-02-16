@@ -1,0 +1,10 @@
+# Keep this list SMALL.
+# Failures not listed here should fail CI.
+# Listed failures that stop failing should also fail CI (stale baseline).
+
+server:
+  - tools-call-with-progress
+  - resources-subscribe
+
+client: []
+

@@ -1,0 +1,33 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-toolkit",
+  "version": "0.2.1",
+  "description": "MCP server kit helpers: config parsing, tool registry loading, and schema validation.",
+  "docs": "MCP kit helpers.\n\nModules:\n- std.mcp.toolkit.tools_file\n- std.mcp.toolkit.server_cfg_file\n- std.mcp.toolkit.schema_subset\n- std.mcp.toolkit.derive_hooks\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.toolkit.resources_file",
+    "std.mcp.toolkit.prompts_file",
+    "std.mcp.toolkit.tools_file",
+    "std.mcp.toolkit.server_cfg_file",
+    "std.mcp.toolkit.schema_subset",
+    "std.mcp.toolkit.derive_hooks",
+    "std.mcp.toolkit.stdio_dispatch"
+  ],
+  "meta": {
+    "determinism_tier": "pure",
+    "worlds_allowed": [
+      "solve-fs",
+      "solve-full",
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-mcp-core@0.2.1",
+      "ext-data-model@0.1.8",
+      "ext-json-rs@0.1.4",
+      "ext-jsonschema-rs@0.1.0"
+    ],
+    "import_mode": "handwritten"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "x07.mcp.tools_manifest@0.2.0",
+  "tools": [
+    {
+      "name": "stripe.list_customers",
+      "description": "stripe-mcp replay test tool.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_readonly_v1"
+      }
+    }
+  ]
+}

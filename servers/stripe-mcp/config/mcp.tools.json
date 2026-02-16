@@ -1,0 +1,73 @@
+{
+  "schema_version": "x07.mcp.tools_manifest@0.2.0",
+  "tools": [
+    {
+      "name": "stripe.list_customers",
+      "description": "List customers in deterministic stub mode.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "api.stripe.com:443"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "STRIPE_API_KEY"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "stripe.get_customer",
+      "description": "Get customer details in deterministic stub mode.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "api.stripe.com:443"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "STRIPE_API_KEY"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

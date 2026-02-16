@@ -14,3 +14,5 @@ Start here:
 - [Install](getting-started/install.md)
 - [Scaffold a server](getting-started/scaffold.md)
 - [Run a stdio server](getting-started/run-stdio.md)
+- [Run conformance](getting-started/conformance.md)
+- [Build `.mcpb` bundles](getting-started/bundle-mcpb.md)

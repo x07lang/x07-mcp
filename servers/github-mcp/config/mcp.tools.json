@@ -1,0 +1,73 @@
+{
+  "schema_version": "x07.mcp.tools_manifest@0.2.0",
+  "tools": [
+    {
+      "name": "github.list_repos",
+      "description": "List repositories for the configured account.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "api.github.com:443"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "GITHUB_TOKEN"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "github.get_issue",
+      "description": "Get a deterministic issue payload by number.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "api.github.com:443"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "GITHUB_TOKEN"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

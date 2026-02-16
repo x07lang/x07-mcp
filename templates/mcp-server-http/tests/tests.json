@@ -26,6 +26,18 @@
       "expect": "pass"
     },
     {
+      "id": "mcp/http/replay/hello_dev_resources_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev_resources_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dev_prompts_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev_prompts_list",
+      "expect": "pass"
+    },
+    {
       "id": "mcp/http/replay/hello_dev_tools_call",
       "world": "run-os",
       "entry": "mcp_http_replay.hello_dev_tools_call",
@@ -44,9 +56,33 @@
       "expect": "pass"
     },
     {
+      "id": "mcp/http/replay/hello_oauth_insufficient_scope_resources_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_insufficient_scope_resources_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_insufficient_scope_prompts_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_insufficient_scope_prompts_list",
+      "expect": "pass"
+    },
+    {
       "id": "mcp/http/replay/hello_oauth_success",
       "world": "run-os",
       "entry": "mcp_http_replay.hello_oauth_success",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_success_resources_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_success_resources_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_success_prompts_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_success_prompts_list",
       "expect": "pass"
     },
     {

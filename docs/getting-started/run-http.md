@@ -31,4 +31,4 @@ Default endpoint values from the template:
 x07 test --manifest tests/tests.json
 ```
 
-HTTP replay fixtures live under `tests/fixtures/rr/http/`.
+HTTP replay fixtures live under `tests/.x07_rr/sessions/`.

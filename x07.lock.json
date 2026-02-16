@@ -134,13 +134,13 @@
     },
     {
       "name": "ext-mcp-core",
-      "version": "0.2.0",
-      "path": "packages/ext/x07-ext-mcp-core/0.2.0",
-      "package_manifest_sha256": "ab4eafeef82a0281e9a5f1b05c065485405f0ea9585beeb9b3f0bb86f3eb7949",
+      "version": "0.2.1",
+      "path": "packages/ext/x07-ext-mcp-core/0.2.1",
+      "package_manifest_sha256": "4d972c31eef37e8d8154e47c8c8187e7bd052ae3e406cf941461c50b7fe54101",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.diag": "8e1f6931bfe65880fdb5570bc7d4e0a2aa5775ea669346be3f667998738e18f1",
-        "std.mcp.jsonrpc": "5bbbee8c61665ff512ba4d614513faccc4d301677e150937aa4669491e092fc1",
+        "std.mcp.jsonrpc": "b369452205c724ffe2060af7c3b1df20c92550e7ed958684ceb13c7747ac2e86",
         "std.mcp.protocol": "d294f387128fc0601d3d9ce8c42d78ab87f4ee1bf758b8d3bd39c390551dd381",
         "std.mcp.tool": "bc13c2078cdcd9b79b7f822e0232f56bf193ae85c9264c4dc80379154b0afd85",
         "std.mcp.tool.errors": "c617965ffcda142f4bdb577ed09f953a1d18caff9be5f44075df080f0bf6352f",
@@ -162,21 +162,21 @@
     },
     {
       "name": "ext-mcp-rr",
-      "version": "0.2.0",
-      "path": "packages/ext/x07-ext-mcp-rr/0.2.0",
-      "package_manifest_sha256": "7e56e2c63cfb6bf30ba6a508c4dcbec9a1ff070ac617fbfc017b3965d029ec96",
+      "version": "0.2.1",
+      "path": "packages/ext/x07-ext-mcp-rr/0.2.1",
+      "package_manifest_sha256": "ec1158b0dbfbf80c359ed31bbe13695e95e40068100c5b3c67d38c51f7f8c76a",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.rr.http": "24e48fca32f2aaa9ea1aee7acc25ada0ad4eaab83e43dcc63dd6310cda7f9341",
+        "std.mcp.rr.http": "14a0412a516700d89881fb01950b5d1eb95b78261296f8c67c3627684b1d0a3d",
         "std.mcp.rr.sanitize": "64a3e8f3c1374cbe7f1c506446b3fce73a14a4d8e918ef3e20dad7493c3fdeb8",
-        "std.mcp.rr.session": "0d02ab2b3b793a2116139a1724e57e75d06673c1a1d7046125de9007a6c0db0b"
+        "std.mcp.rr.session": "4367bb08565449c42a3d37e97d74162bd8e61ae593ec53e0f7c7d808e6177a46"
       }
     },
     {
       "name": "ext-mcp-sandbox",
-      "version": "0.2.0",
-      "path": "packages/ext/x07-ext-mcp-sandbox/0.2.0",
-      "package_manifest_sha256": "666bef3f5253c88e72faf5f06164b9684bcbb875a9f43ec0d0a6bb3bd6697ac3",
+      "version": "0.2.1",
+      "path": "packages/ext/x07-ext-mcp-sandbox/0.2.1",
+      "package_manifest_sha256": "d05ab465951c99b5efcdbe11a442e60159c65a8d25135343986ac85d93ef673d",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.sandbox.policy_compile": "81d89ef61aab2bbeac8a4d733cc14deac5ca0c834cf8592b7a134878c18e11ea",
@@ -186,46 +186,48 @@
     },
     {
       "name": "ext-mcp-toolkit",
-      "version": "0.2.0",
-      "path": "packages/ext/x07-ext-mcp-toolkit/0.2.0",
-      "package_manifest_sha256": "0943f659346c79be2ef8a49265ff69dd58d460b0029d5a52546367539a7f43bc",
+      "version": "0.2.1",
+      "path": "packages/ext/x07-ext-mcp-toolkit/0.2.1",
+      "package_manifest_sha256": "36eafa950a40a9f23cb387de5a47d7380336abfb1640700a2f3d0268197b7ef3",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.toolkit.derive_hooks": "88777c9b801b101ebd977fadd241b85ad1e25ae5461c21cc6a4daac2f6519256",
+        "std.mcp.toolkit.prompts_file": "39d21e1bb983a8372ca101e7df750a92b95be2cd110056f455c90f5a19e6b243",
+        "std.mcp.toolkit.resources_file": "a1ee694df26c8345bbf51fd15d48f705c330b5937c71edccce84df05addbbf52",
         "std.mcp.toolkit.schema_subset": "b6d1c073394e843d6c823e2584543fba40e1a80c002d0cb59a9143e8ab3e826b",
         "std.mcp.toolkit.server_cfg_file": "cdd979cc7cdad5b02def50f7f39e04094d4291c19fc0e9528af002c94428871a",
-        "std.mcp.toolkit.stdio_dispatch": "9bc866df3fff36af76c79e90cb05ff4c77420dd1c787a86e7882778dfb085817",
-        "std.mcp.toolkit.tools_file": "3853ff6e02f6d52effe593da7dae94113503f7bc361debff7889c0589368d28b"
+        "std.mcp.toolkit.stdio_dispatch": "90402ae96edd850b8538391578f5db683cfe928263ee7f536d984d240a05c64d",
+        "std.mcp.toolkit.tools_file": "102c8affdcbdcfe6cfac81ed018e32f0691e126766d48276d581fae1eb5c7d9b"
       }
     },
     {
       "name": "ext-mcp-transport-http",
-      "version": "0.1.0",
-      "path": "packages/ext/x07-ext-mcp-transport-http/0.1.0",
-      "package_manifest_sha256": "bc24d75066b573ce26571026418e1c8ff90b0ef601cfc39e1d09357010229c57",
+      "version": "0.1.1",
+      "path": "packages/ext/x07-ext-mcp-transport-http/0.1.1",
+      "package_manifest_sha256": "d45d3801b0e8ab42abc04379c771e1abfc11c909e657c1046f6e520ca4765ffd",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.transport.http": "50e7fbb3f3b459767f61e94ede31bb9a60a55ba656a74b273cd70ceb40eb16a0",
+        "std.mcp.transport.http": "912e4a7b7fd9f9eb691ffdcaf58e181e81e8b4df72aa8aedb0e6e1dadf46f79f",
         "std.mcp.transport.http_rules": "e7a7ede55e59ff647a450398b4da1c203782b8ae3da81b91bd341ae2ea8fe3e4",
         "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9"
       }
     },
     {
       "name": "ext-mcp-transport-stdio",
-      "version": "0.2.0",
-      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.2.0",
-      "package_manifest_sha256": "6a0529e9774b40106b8108dfcc46e40f2ef731681900d41fd1dffd3ad902c71f",
+      "version": "0.2.1",
+      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.2.1",
+      "package_manifest_sha256": "50e0df2a24cc243e55728756a03c9d6d62fae42b2c527702cd14b1585f0ae640",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.transport.stdio": "8d246cb676b9d2150a39d314f2139f4614efe24e841f74fd1f2add9c645dd796",
+        "std.mcp.transport.stdio": "3ddc75961bfe4928552b284036f81726e27a15e372dcf6351414541c9f345c51",
         "std.mcp.transport.stdio_loop": "3cfaa6fc7ad2cfb5976dbb82f4eaed2b1f4c52594167a409d285bb0460476523"
       }
     },
     {
       "name": "ext-mcp-worker",
-      "version": "0.2.0",
-      "path": "packages/ext/x07-ext-mcp-worker/0.2.0",
-      "package_manifest_sha256": "8054182cc90a1f1aa559c2ce170a6153727feda57ad9e3eacae66d096dcb6097",
+      "version": "0.2.1",
+      "path": "packages/ext/x07-ext-mcp-worker/0.2.1",
+      "package_manifest_sha256": "d45e019275674e1541a0f6ffb6e6ce5a66c27a88ddf2ca8eb789fc18f38bd3c8",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.sandbox.worker_main": "00d6d766bc7fd6136a16ed480040a9288e0691c5e474eb2b92dd03fec7ae8c90",

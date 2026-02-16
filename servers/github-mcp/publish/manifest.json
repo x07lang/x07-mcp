@@ -1,0 +1,18 @@
+{
+  "manifest_version": "0.3",
+  "name": "github-mcp",
+  "display_name": "github-mcp",
+  "version": "0.1.0",
+  "description": "github-mcp deterministic MCP reference server",
+  "author": {
+    "name": "x07"
+  },
+  "server": {
+    "type": "binary",
+    "entry_point": "server/github-mcp",
+    "mcp_config": {
+      "command": "${__dirname}/server/github-mcp",
+      "args": []
+    }
+  }
+}

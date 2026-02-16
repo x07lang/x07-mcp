@@ -1,0 +1,59 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "smoke/pass",
+      "world": "run-os",
+      "entry": "smoke.pass",
+      "expect": "pass"
+    },
+    {
+      "id": "compile/app_import",
+      "world": "run-os",
+      "entry": "compile.app_import",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dev_tools_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev_tools_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dev_resources_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev_resources_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dev_prompts_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev_prompts_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dev_tools_call",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev_tools_call",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_insufficient_scope",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_insufficient_scope",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_success",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_success",
+      "expect": "pass"
+    }
+  ]
+}

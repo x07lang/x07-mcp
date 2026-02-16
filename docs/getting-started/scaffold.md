@@ -47,4 +47,4 @@ The HTTP template includes:
 - `config/mcp.server.json` (`x07.mcp.server_config@0.2.0`)
 - `config/mcp.tools.json` (`x07.mcp.tools_manifest@0.2.0`)
 - `config/mcp.oauth.json` (`x07.mcp.oauth@0.1.0`)
-- replay fixtures under `tests/fixtures/rr/http/`
+- replay fixtures under `tests/.x07_rr/sessions/`

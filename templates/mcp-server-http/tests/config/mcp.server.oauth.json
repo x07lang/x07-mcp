@@ -16,7 +16,7 @@
   },
   "rr": {
     "enabled": true,
-    "cassette_dir": "tests/fixtures/rr/http"
+    "cassette_dir": "tests/.x07_rr/sessions"
   },
   "worker_exe_path": "out/mcp-worker",
   "transport": {

@@ -22,7 +22,7 @@ Common sections:
 - `transport.bind_host`
 - `transport.bind_port`
 - `transport.mcp_path`
-- `transport.sse_enabled` (Phase-2 templates default to `false`)
+- `transport.sse_enabled` (current templates default to `false`)
 - `transport.origin_allow_missing`
 - `transport.origin_allowlist`
 - `transport.session_mode`

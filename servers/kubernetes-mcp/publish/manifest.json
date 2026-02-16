@@ -1,0 +1,18 @@
+{
+  "manifest_version": "0.3",
+  "name": "kubernetes-mcp",
+  "display_name": "kubernetes-mcp",
+  "version": "0.1.0",
+  "description": "kubernetes-mcp deterministic MCP reference server",
+  "author": {
+    "name": "x07"
+  },
+  "server": {
+    "type": "binary",
+    "entry_point": "server/kubernetes-mcp",
+    "mcp_config": {
+      "command": "${__dirname}/server/kubernetes-mcp",
+      "args": []
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "manifest_version": "0.3",
+  "name": "stripe-mcp",
+  "display_name": "stripe-mcp",
+  "version": "0.1.0",
+  "description": "stripe-mcp deterministic MCP reference server",
+  "author": {
+    "name": "x07"
+  },
+  "server": {
+    "type": "binary",
+    "entry_point": "server/stripe-mcp",
+    "mcp_config": {
+      "command": "${__dirname}/server/stripe-mcp",
+      "args": []
+    }
+  }
+}

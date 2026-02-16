@@ -1,0 +1,73 @@
+{
+  "schema_version": "x07.mcp.tools_manifest@0.2.0",
+  "tools": [
+    {
+      "name": "redis.ping",
+      "description": "Ping Redis in deterministic stub mode.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "127.0.0.1:6379"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "REDIS_URL"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "redis.get",
+      "description": "Get a deterministic Redis value stub.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "127.0.0.1:6379"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "REDIS_URL"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

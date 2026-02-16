@@ -1,0 +1,13 @@
+{
+  "schema_version": "x07.mcp.server@0.1.0",
+  "identifier": "io.x07/remote-hello-http-mcp",
+  "display_name": "remote-hello-http",
+  "version": "0.1.0",
+  "description": "Remote HTTP hello MCP server.",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://hello.example.com/mcp"
+    }
+  ]
+}

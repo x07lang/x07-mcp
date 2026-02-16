@@ -6,6 +6,7 @@ target/
 # X07
 /.x07/
 .x07/
+.agent_cache/
 dist/
 out/
 tmp*/
@@ -18,3 +19,5 @@ tmp*
 *.swp
 *.swo
 *~
+
+__pycache__/

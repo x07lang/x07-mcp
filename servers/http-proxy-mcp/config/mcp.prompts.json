@@ -1,0 +1,9 @@
+{
+  "schema_version": "x07.mcp.prompts_manifest@0.1.0",
+  "prompts": [
+    {
+      "name": "help",
+      "text": "ok"
+    }
+  ]
+}

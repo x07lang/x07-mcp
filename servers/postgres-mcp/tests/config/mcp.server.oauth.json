@@ -1,0 +1,50 @@
+{
+  "schema_version": "x07.mcp.server_config@0.2.0",
+  "server": {
+    "name": "io.x07/postgres-mcp",
+    "version": "0.1.0",
+    "protocolVersion": "2025-11-25"
+  },
+  "tools_manifest_path": "config/mcp.tools.json",
+  "budgets": {
+    "index_path": "arch/budgets/index.x07budgets.json",
+    "default_profile": "mcp_router_default_v1"
+  },
+  "sandbox": {
+    "router_base_policy_path": "policy/mcp.router.base.policy.json",
+    "worker_base_policy_path": "policy/mcp.worker.base.policy.json"
+  },
+  "rr": {
+    "enabled": true,
+    "cassette_dir": "tests/.x07_rr/sessions"
+  },
+  "worker_exe_path": "out/mcp-worker",
+  "transport": {
+    "kind": "http",
+    "bind_host": "127.0.0.1",
+    "bind_port": 8314,
+    "mcp_path": "/mcp",
+    "sse_enabled": false,
+    "origin_allow_missing": true,
+    "origin_allowlist": [
+      "http://localhost:*",
+      "http://127.0.0.1:*",
+      "https://mcp.example.com"
+    ],
+    "session_mode": "required",
+    "session_ttl_seconds": 600,
+    "session_max": 128
+  },
+  "auth": {
+    "mode": "oauth2",
+    "oauth_config_path": "config/mcp.oauth.json",
+    "required_scopes": [
+      "mcp:tools"
+    ]
+  },
+  "obs": {
+    "sink": "stdout_jsonl",
+    "audit": true,
+    "metrics": false
+  }
+}

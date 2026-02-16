@@ -1,0 +1,77 @@
+{
+  "schema_version": "x07.mcp.tools_manifest@0.2.0",
+  "tools": [
+    {
+      "name": "s3.list_buckets",
+      "description": "List buckets in deterministic stub mode.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "s3.amazonaws.com:443"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "AWS_REGION",
+              "AWS_ACCESS_KEY_ID",
+              "AWS_SECRET_ACCESS_KEY"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "s3.get_object",
+      "description": "Get an object in deterministic stub mode.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "s3.amazonaws.com:443"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "AWS_REGION",
+              "AWS_ACCESS_KEY_ID",
+              "AWS_SECRET_ACCESS_KEY"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

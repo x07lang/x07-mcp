@@ -1,0 +1,22 @@
+{
+  "schema_version": "x07.mcp.server@0.1.0",
+  "identifier": "io.x07/redis-mcp",
+  "display_name": "redis-mcp",
+  "version": "0.1.0",
+  "description": "Deterministic reference server for redis-mcp.",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "io.x07/redis-mcp",
+      "version": "0.1.0",
+      "url": "https://example.com/redis-mcp-0.1.0.mcpb",
+      "fileSha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "x07_reference": true,
+      "server_id": "redis-mcp"
+    }
+  }
+}

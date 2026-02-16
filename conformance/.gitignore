@@ -1,0 +1,4 @@
+# Upstream conformance tool writes results/ by default
+results/
+*.log
+

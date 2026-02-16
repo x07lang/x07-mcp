@@ -1,0 +1,22 @@
+{
+  "schema_version": "x07.mcp.server@0.1.0",
+  "identifier": "io.x07/s3-mcp",
+  "display_name": "s3-mcp",
+  "version": "0.1.0",
+  "description": "Deterministic reference server for s3-mcp.",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "io.x07/s3-mcp",
+      "version": "0.1.0",
+      "url": "https://example.com/s3-mcp-0.1.0.mcpb",
+      "fileSha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "x07_reference": true,
+      "server_id": "s3-mcp"
+    }
+  }
+}

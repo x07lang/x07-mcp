@@ -1,0 +1,15 @@
+{
+  "schema_version": "x07.mcp.kit_pins@0.1.0",
+  "mcp_spec": {
+    "protocol_version": "2025-11-25"
+  },
+  "registry": {
+    "server_schema_url": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+    "server_schema_file": "registry/schema/server.schema.2025-12-11.json",
+    "server_schema_sha256": "3fba09590c99f61735d234822279f4223fab9e300c0a81e81c91ab62a4114de0"
+  },
+  "tools": {
+    "conformance_npx": "@modelcontextprotocol/conformance@0.1.13",
+    "mcpb_npx": "@anthropic-ai/mcpb@2.1.2"
+  }
+}

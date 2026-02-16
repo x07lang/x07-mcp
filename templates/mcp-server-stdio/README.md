@@ -19,8 +19,8 @@ This template scaffolds a minimal MCP **stdio** server in X07 with a router/work
 Add dependencies:
 
 ```sh
-x07 pkg add ext-mcp-transport-stdio@0.2.0 --sync
-x07 pkg add ext-mcp-rr@0.2.0 --sync
+x07 pkg add ext-mcp-transport-stdio@0.2.1 --sync
+x07 pkg add ext-mcp-rr@0.2.1 --sync
 x07 pkg add ext-hex-rs@0.1.4 --sync
 ```
 
