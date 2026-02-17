@@ -43,8 +43,8 @@
     },
     {
       "name": "ext-mcp-core",
-      "path": ".x07/local/ext-mcp-core/0.2.1",
-      "version": "0.2.1"
+      "path": ".x07/local/ext-mcp-core/0.2.2",
+      "version": "0.2.2"
     },
     {
       "name": "ext-mcp-obs",
@@ -53,28 +53,28 @@
     },
     {
       "name": "ext-mcp-rr",
-      "path": ".x07/local/ext-mcp-rr/0.2.1",
-      "version": "0.2.1"
+      "path": ".x07/local/ext-mcp-rr/0.2.2",
+      "version": "0.2.2"
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": ".x07/local/ext-mcp-sandbox/0.2.1",
-      "version": "0.2.1"
+      "path": ".x07/local/ext-mcp-sandbox/0.2.2",
+      "version": "0.2.2"
     },
     {
       "name": "ext-mcp-toolkit",
-      "path": ".x07/local/ext-mcp-toolkit/0.2.1",
-      "version": "0.2.1"
+      "path": ".x07/local/ext-mcp-toolkit/0.2.2",
+      "version": "0.2.2"
     },
     {
       "name": "ext-mcp-transport-http",
-      "path": ".x07/local/ext-mcp-transport-http/0.1.1",
-      "version": "0.1.1"
+      "path": ".x07/local/ext-mcp-transport-http/0.2.0",
+      "version": "0.2.0"
     },
     {
       "name": "ext-mcp-worker",
-      "path": ".x07/local/ext-mcp-worker/0.2.1",
-      "version": "0.2.1"
+      "path": ".x07/local/ext-mcp-worker/0.2.2",
+      "version": "0.2.2"
     },
     {
       "name": "ext-net",
@@ -126,11 +126,13 @@
   "profiles": {
     "os": {
       "auto_ffi": true,
+      "solve_fuel": 500000000,
       "world": "run-os"
     },
     "sandbox": {
       "auto_ffi": true,
       "policy": "policy/mcp.worker.base.policy.json",
+      "solve_fuel": 500000000,
       "world": "run-os-sandboxed"
     }
   },

@@ -108,6 +108,30 @@
       "world": "run-os",
       "entry": "mcp_http_replay.golden_get_not_supported",
       "expect": "pass"
+    },
+    {
+      "id": "mcp/http_sse/replay/post_progress_poll_resume",
+      "world": "run-os",
+      "entry": "mcp_http_replay.http_sse_post_progress_poll_resume",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http_sse/replay/get_listen_resources_updated",
+      "world": "run-os",
+      "entry": "mcp_http_replay.http_sse_get_listen_resources_updated",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http_sse/replay/cancelled_tool_call",
+      "world": "run-os",
+      "entry": "mcp_http_replay.http_sse_cancelled_tool_call",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http_sse/replay/origin_invalid_403",
+      "world": "run-os",
+      "entry": "mcp_http_replay.http_sse_origin_invalid_403",
+      "expect": "pass"
     }
   ]
 }

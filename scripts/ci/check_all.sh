@@ -28,7 +28,11 @@ step "x07 version"
 x07 --version
 
 step "pkg lock (check)"
-x07 pkg lock --project x07.json --check --offline >/dev/null
+if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+  echo "skip root pkg.lock in local-deps mode"
+else
+  x07 pkg lock --project x07.json --check --offline >/dev/null
+fi
 
 step "external-packages lock (check)"
 python3 scripts/generate_external_packages_lock.py --packages-root packages/ext --out locks/external-packages.lock --check >/dev/null
@@ -91,15 +95,15 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   xml_dir="$x07_root/packages/ext/x07-ext-xml-rs/0.1.4"
   yaml_dir="$x07_root/packages/ext/x07-ext-yaml-rs/0.1.4"
   hex_dir="$x07_root/packages/ext/x07-ext-hex-rs/0.1.4"
-  core_dir="$root/packages/ext/x07-ext-mcp-core/0.2.1"
-  toolkit_dir="$root/packages/ext/x07-ext-mcp-toolkit/0.2.1"
-  worker_dir="$root/packages/ext/x07-ext-mcp-worker/0.2.1"
-  sandbox_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.2.1"
-  transport_dir="$root/packages/ext/x07-ext-mcp-transport-stdio/0.2.1"
+  core_dir="$root/packages/ext/x07-ext-mcp-core/0.2.2"
+  toolkit_dir="$root/packages/ext/x07-ext-mcp-toolkit/0.2.2"
+  worker_dir="$root/packages/ext/x07-ext-mcp-worker/0.2.2"
+  sandbox_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.2.2"
+  transport_dir="$root/packages/ext/x07-ext-mcp-transport-stdio/0.2.2"
   auth_dir="$root/packages/ext/x07-ext-mcp-auth/0.1.0"
   obs_dir="$root/packages/ext/x07-ext-mcp-obs/0.1.0"
-  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.1.1"
-  rr_dir="$root/packages/ext/x07-ext-mcp-rr/0.2.1"
+  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.2.0"
+  rr_dir="$root/packages/ext/x07-ext-mcp-rr/0.2.2"
   [[ -d "$jsonschema_dir" ]] || { echo "ERROR: missing local package: $jsonschema_dir" >&2; exit 2; }
   [[ -d "$fs_dir" ]] || { echo "ERROR: missing local package: $fs_dir" >&2; exit 2; }
   [[ -d "$data_model_dir" ]] || { echo "ERROR: missing local package: $data_model_dir" >&2; exit 2; }
@@ -156,19 +160,19 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_local_pkg ext-xml-rs 0.1.4 "$xml_dir"
   install_local_pkg ext-yaml-rs 0.1.4 "$yaml_dir"
   install_local_pkg ext-hex-rs 0.1.4 "$hex_dir"
-  install_local_pkg ext-mcp-core 0.2.1 "$core_dir"
-  install_local_pkg ext-mcp-toolkit 0.2.1 "$toolkit_dir"
-  install_local_pkg ext-mcp-worker 0.2.1 "$worker_dir"
-  install_local_pkg ext-mcp-sandbox 0.2.1 "$sandbox_dir"
-  install_local_pkg ext-mcp-transport-stdio 0.2.1 "$transport_dir"
+  install_local_pkg ext-mcp-core 0.2.2 "$core_dir"
+  install_local_pkg ext-mcp-toolkit 0.2.2 "$toolkit_dir"
+  install_local_pkg ext-mcp-worker 0.2.2 "$worker_dir"
+  install_local_pkg ext-mcp-sandbox 0.2.2 "$sandbox_dir"
+  install_local_pkg ext-mcp-transport-stdio 0.2.2 "$transport_dir"
   install_local_pkg ext-mcp-auth 0.1.0 "$auth_dir"
   install_local_pkg ext-mcp-obs 0.1.0 "$obs_dir"
-  install_local_pkg ext-mcp-transport-http 0.1.1 "$transport_http_dir"
-  install_local_pkg ext-mcp-rr 0.2.1 "$rr_dir"
+  install_local_pkg ext-mcp-transport-http 0.2.0 "$transport_http_dir"
+  install_local_pkg ext-mcp-rr 0.2.2 "$rr_dir"
   x07 pkg lock --project x07.json --offline >/dev/null
 else
-  x07 pkg add ext-mcp-transport-stdio@0.2.1 --sync >/dev/null
-  x07 pkg add ext-mcp-rr@0.2.1 --sync >/dev/null
+  x07 pkg add ext-mcp-transport-stdio@0.2.2 --sync >/dev/null
+  x07 pkg add ext-mcp-rr@0.2.2 --sync >/dev/null
   x07 pkg add ext-hex-rs@0.1.4 --sync >/dev/null
 fi
 x07 arch check --manifest arch/manifest.x07arch.json --lock arch/manifest.lock.json >/dev/null
@@ -214,14 +218,14 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   url_dir="$x07_root/packages/ext/x07-ext-url-rs/0.1.4"
   xml_dir="$x07_root/packages/ext/x07-ext-xml-rs/0.1.4"
   yaml_dir="$x07_root/packages/ext/x07-ext-yaml-rs/0.1.4"
-  core_http_dir="$root/packages/ext/x07-ext-mcp-core/0.2.1"
-  toolkit_http_dir="$root/packages/ext/x07-ext-mcp-toolkit/0.2.1"
-  worker_http_dir="$root/packages/ext/x07-ext-mcp-worker/0.2.1"
-  sandbox_http_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.2.1"
+  core_http_dir="$root/packages/ext/x07-ext-mcp-core/0.2.2"
+  toolkit_http_dir="$root/packages/ext/x07-ext-mcp-toolkit/0.2.2"
+  worker_http_dir="$root/packages/ext/x07-ext-mcp-worker/0.2.2"
+  sandbox_http_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.2.2"
   auth_http_dir="$root/packages/ext/x07-ext-mcp-auth/0.1.0"
   obs_http_dir="$root/packages/ext/x07-ext-mcp-obs/0.1.0"
-  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.1.1"
-  rr_http_dir="$root/packages/ext/x07-ext-mcp-rr/0.2.1"
+  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.2.0"
+  rr_http_dir="$root/packages/ext/x07-ext-mcp-rr/0.2.2"
   [[ -d "$jsonschema_dir" ]] || { echo "ERROR: missing local package: $jsonschema_dir" >&2; exit 2; }
   [[ -d "$fs_dir" ]] || { echo "ERROR: missing local package: $fs_dir" >&2; exit 2; }
   [[ -d "$data_model_dir" ]] || { echo "ERROR: missing local package: $data_model_dir" >&2; exit 2; }
@@ -275,18 +279,18 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_local_pkg ext-url-rs 0.1.4 "$url_dir"
   install_local_pkg ext-xml-rs 0.1.4 "$xml_dir"
   install_local_pkg ext-yaml-rs 0.1.4 "$yaml_dir"
-  install_local_pkg ext-mcp-core 0.2.1 "$core_http_dir"
-  install_local_pkg ext-mcp-toolkit 0.2.1 "$toolkit_http_dir"
-  install_local_pkg ext-mcp-worker 0.2.1 "$worker_http_dir"
-  install_local_pkg ext-mcp-sandbox 0.2.1 "$sandbox_http_dir"
+  install_local_pkg ext-mcp-core 0.2.2 "$core_http_dir"
+  install_local_pkg ext-mcp-toolkit 0.2.2 "$toolkit_http_dir"
+  install_local_pkg ext-mcp-worker 0.2.2 "$worker_http_dir"
+  install_local_pkg ext-mcp-sandbox 0.2.2 "$sandbox_http_dir"
   install_local_pkg ext-mcp-auth 0.1.0 "$auth_http_dir"
   install_local_pkg ext-mcp-obs 0.1.0 "$obs_http_dir"
-  install_local_pkg ext-mcp-transport-http 0.1.1 "$transport_http_dir"
-  install_local_pkg ext-mcp-rr 0.2.1 "$rr_http_dir"
+  install_local_pkg ext-mcp-transport-http 0.2.0 "$transport_http_dir"
+  install_local_pkg ext-mcp-rr 0.2.2 "$rr_http_dir"
   x07 pkg lock --project x07.json --offline >/dev/null
 else
-  x07 pkg add ext-mcp-transport-http@0.1.1 --sync >/dev/null
-  x07 pkg add ext-mcp-rr@0.2.1 --sync >/dev/null
+  x07 pkg add ext-mcp-transport-http@0.2.0 --sync >/dev/null
+  x07 pkg add ext-mcp-rr@0.2.2 --sync >/dev/null
 fi
 x07 test --manifest tests/tests.json >/dev/null
 

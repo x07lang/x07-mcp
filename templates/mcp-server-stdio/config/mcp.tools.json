@@ -42,6 +42,30 @@
         "additionalProperties": false
       },
       "x07": { "impl": "mcp.user.call_tool_v1", "limits_profile": "mcp_tool_fast_v1" }
+    },
+    {
+      "name": "hello.work",
+      "description": "Demo tool that emits progress notifications while working.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "steps": { "type": "number" }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "x07": { "impl": "mcp.user.call_tool_v1", "limits_profile": "mcp_tool_standard_v1" }
+    },
+    {
+      "name": "hello.bump_resource",
+      "description": "Emit notifications/resources/updated for about:example.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "x07": { "impl": "mcp.user.call_tool_v1", "limits_profile": "mcp_tool_fast_v1" }
     }
   ]
 }

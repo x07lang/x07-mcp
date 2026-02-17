@@ -1,78 +1,141 @@
 {
-  "schema_version": "x07.project@0.2.0",
-  "world": "run-os",
-  "entry": "src/main.x07.json",
-  "module_roots": ["src", "tests"],
-  "lockfile": "x07.lock.json",
+  "default_profile": "os",
   "dependencies": [
     {
-      "name": "ext-net",
-      "version": "0.1.8",
-      "path": ".x07/deps/ext-net/0.1.8"
+      "name": "ext-csv-rs",
+      "path": ".x07/local/ext-csv-rs/0.1.5",
+      "version": "0.1.5"
     },
     {
-      "name": "ext-url-rs",
-      "version": "0.1.4",
-      "path": ".x07/deps/ext-url-rs/0.1.4"
-    },
-    {
-      "name": "ext-json-rs",
-      "version": "0.1.4",
-      "path": ".x07/deps/ext-json-rs/0.1.4"
+      "name": "ext-curl-c",
+      "path": ".x07/local/ext-curl-c/0.1.6",
+      "version": "0.1.6"
     },
     {
       "name": "ext-data-model",
-      "version": "0.1.8",
-      "path": ".x07/deps/ext-data-model/0.1.8"
+      "path": ".x07/local/ext-data-model/0.1.8",
+      "version": "0.1.8"
     },
     {
-      "name": "ext-mcp-core",
-      "version": "0.2.1",
-      "path": ".x07/deps/ext-mcp-core/0.2.1"
+      "name": "ext-fs",
+      "path": ".x07/local/ext-fs/0.1.4",
+      "version": "0.1.4"
     },
     {
-      "name": "ext-mcp-toolkit",
-      "version": "0.2.1",
-      "path": ".x07/deps/ext-mcp-toolkit/0.2.1"
+      "name": "ext-ini-rs",
+      "path": ".x07/local/ext-ini-rs/0.1.4",
+      "version": "0.1.4"
     },
     {
-      "name": "ext-mcp-worker",
-      "version": "0.2.1",
-      "path": ".x07/deps/ext-mcp-worker/0.2.1"
+      "name": "ext-json-rs",
+      "path": ".x07/local/ext-json-rs/0.1.4",
+      "version": "0.1.4"
     },
     {
-      "name": "ext-mcp-sandbox",
-      "version": "0.2.1",
-      "path": ".x07/deps/ext-mcp-sandbox/0.2.1"
+      "name": "ext-jsonschema-rs",
+      "path": ".x07/local/ext-jsonschema-rs/0.1.0",
+      "version": "0.1.0"
     },
     {
       "name": "ext-mcp-auth",
-      "version": "0.1.0",
-      "path": ".x07/deps/ext-mcp-auth/0.1.0"
+      "path": ".x07/local/ext-mcp-auth/0.1.0",
+      "version": "0.1.0"
+    },
+    {
+      "name": "ext-mcp-core",
+      "path": ".x07/local/ext-mcp-core/0.2.2",
+      "version": "0.2.2"
     },
     {
       "name": "ext-mcp-obs",
-      "version": "0.1.0",
-      "path": ".x07/deps/ext-mcp-obs/0.1.0"
-    },
-    {
-      "name": "ext-mcp-transport-http",
-      "version": "0.1.1",
-      "path": ".x07/deps/ext-mcp-transport-http/0.1.1"
+      "path": ".x07/local/ext-mcp-obs/0.1.0",
+      "version": "0.1.0"
     },
     {
       "name": "ext-mcp-rr",
-      "version": "0.2.1",
-      "path": ".x07/deps/ext-mcp-rr/0.2.1"
+      "path": ".x07/local/ext-mcp-rr/0.2.2",
+      "version": "0.2.2"
+    },
+    {
+      "name": "ext-mcp-sandbox",
+      "path": ".x07/local/ext-mcp-sandbox/0.2.2",
+      "version": "0.2.2"
+    },
+    {
+      "name": "ext-mcp-toolkit",
+      "path": ".x07/local/ext-mcp-toolkit/0.2.2",
+      "version": "0.2.2"
+    },
+    {
+      "name": "ext-mcp-transport-http",
+      "path": ".x07/local/ext-mcp-transport-http/0.2.0",
+      "version": "0.2.0"
+    },
+    {
+      "name": "ext-mcp-worker",
+      "path": ".x07/local/ext-mcp-worker/0.2.2",
+      "version": "0.2.2"
+    },
+    {
+      "name": "ext-net",
+      "path": ".x07/local/ext-net/0.1.8",
+      "version": "0.1.8"
+    },
+    {
+      "name": "ext-sockets-c",
+      "path": ".x07/local/ext-sockets-c/0.1.6",
+      "version": "0.1.6"
+    },
+    {
+      "name": "ext-stdio",
+      "path": ".x07/local/ext-stdio/0.1.0",
+      "version": "0.1.0"
+    },
+    {
+      "name": "ext-toml-rs",
+      "path": ".x07/local/ext-toml-rs/0.1.5",
+      "version": "0.1.5"
+    },
+    {
+      "name": "ext-unicode-rs",
+      "path": ".x07/local/ext-unicode-rs/0.1.5",
+      "version": "0.1.5"
+    },
+    {
+      "name": "ext-url-rs",
+      "path": ".x07/local/ext-url-rs/0.1.4",
+      "version": "0.1.4"
+    },
+    {
+      "name": "ext-xml-rs",
+      "path": ".x07/local/ext-xml-rs/0.1.4",
+      "version": "0.1.4"
+    },
+    {
+      "name": "ext-yaml-rs",
+      "path": ".x07/local/ext-yaml-rs/0.1.4",
+      "version": "0.1.4"
     }
   ],
-  "default_profile": "os",
+  "entry": "src/main.x07.json",
+  "lockfile": "x07.lock.json",
+  "module_roots": [
+    "src",
+    "tests"
+  ],
   "profiles": {
-    "os": { "world": "run-os", "auto_ffi": true },
+    "os": {
+      "auto_ffi": true,
+      "solve_fuel": 500000000,
+      "world": "run-os"
+    },
     "sandbox": {
-      "world": "run-os-sandboxed",
+      "auto_ffi": true,
       "policy": "policy/mcp.worker.base.policy.json",
-      "auto_ffi": true
+      "solve_fuel": 500000000,
+      "world": "run-os-sandboxed"
     }
-  }
+  },
+  "schema_version": "x07.project@0.2.0",
+  "world": "run-os"
 }

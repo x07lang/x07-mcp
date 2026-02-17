@@ -18,10 +18,24 @@ x07-mcp conformance --url http://127.0.0.1:8080/mcp
 
 ```sh
 x07-mcp conformance \
-  --url http://127.0.0.1:8080/mcp \
   --baseline conformance/conformance-baseline.yml \
   --spawn postgres-mcp \
-  --mode oauth
+  --mode noauth
 ```
 
-Use `--mode noauth` for the no-auth profile.
+When `--url` is omitted with `--spawn`, the harness derives `bind_host`, `bind_port`, and `mcp_path` from the spawned server config.
+
+Default run mode executes the Phase-4 regression set:
+
+- `server-initialize`
+- `ping`
+- `tools-list`
+- `tools-call-with-progress`
+- `resources-subscribe`
+- `resources-unsubscribe`
+- `server-sse-multiple-streams`
+- `dns-rebinding-protection`
+
+Use `--full-suite` to run the full active conformance suite.
+
+Phase-4 baseline policy: keep `conformance/conformance-baseline.yml` empty unless a temporary known issue must be tracked.

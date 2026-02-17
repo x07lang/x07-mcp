@@ -24,9 +24,13 @@
     "bind_host": "127.0.0.1",
     "bind_port": 8314,
     "mcp_path": "/mcp",
-    "sse_enabled": false,
+    "sse_enabled": true,
     "origin_allow_missing": true,
-    "origin_allowlist": ["http://localhost:*", "http://127.0.0.1:*", "https://mcp.example.com"],
+    "origin_allowlist": [
+      "http://localhost:*",
+      "http://127.0.0.1:*",
+      "https://mcp.example.com"
+    ],
     "session_mode": "required",
     "session_ttl_seconds": 600,
     "session_max": 128
@@ -34,7 +38,9 @@
   "auth": {
     "mode": "none",
     "oauth_config_path": "config/mcp.oauth.json",
-    "required_scopes": ["mcp:tools"]
+    "required_scopes": [
+      "mcp:tools"
+    ]
   },
   "obs": {
     "sink": "stdout_jsonl",

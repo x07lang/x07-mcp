@@ -29,7 +29,7 @@
     {
       "name": "ext-csv-rs",
       "version": "0.1.5",
-      "path": ".x07/deps/ext-csv-rs/0.1.5",
+      "path": ".x07/local/ext-csv-rs/0.1.5",
       "package_manifest_sha256": "d5c689ffc2fd0a43941070ca48159a025dad7413adda8200e60d64146330d4ca",
       "module_root": "modules",
       "modules_sha256": {
@@ -41,7 +41,7 @@
     {
       "name": "ext-curl-c",
       "version": "0.1.6",
-      "path": ".x07/deps/ext-curl-c/0.1.6",
+      "path": ".x07/local/ext-curl-c/0.1.6",
       "package_manifest_sha256": "d88b6b83b79d8d25cfcf154fa6fa280ab9efa3ec2395c4842e1f859ccd8ed37f",
       "module_root": "modules",
       "modules_sha256": {
@@ -52,7 +52,7 @@
     {
       "name": "ext-data-model",
       "version": "0.1.8",
-      "path": ".x07/deps/ext-data-model/0.1.8",
+      "path": ".x07/local/ext-data-model/0.1.8",
       "package_manifest_sha256": "256665f4519598ef50953e7cd8fc2b18aefcdeaa4689e82f4fb832892cc3f1e8",
       "module_root": "modules",
       "modules_sha256": {
@@ -75,7 +75,7 @@
     {
       "name": "ext-fs",
       "version": "0.1.4",
-      "path": ".x07/deps/ext-fs/0.1.4",
+      "path": ".x07/local/ext-fs/0.1.4",
       "package_manifest_sha256": "cf139c695712462ad40689e2b4435feb2eb942f2460a6159f140e84771c59fab",
       "module_root": "modules",
       "modules_sha256": {
@@ -86,7 +86,7 @@
     {
       "name": "ext-ini-rs",
       "version": "0.1.4",
-      "path": ".x07/deps/ext-ini-rs/0.1.4",
+      "path": ".x07/local/ext-ini-rs/0.1.4",
       "package_manifest_sha256": "aea03e8e0d7071538ca4f605cbfae5e2be290f97e27ac52e9dece1f5308daec4",
       "module_root": "modules",
       "modules_sha256": {
@@ -98,7 +98,7 @@
     {
       "name": "ext-json-rs",
       "version": "0.1.4",
-      "path": ".x07/deps/ext-json-rs/0.1.4",
+      "path": ".x07/local/ext-json-rs/0.1.4",
       "package_manifest_sha256": "7801ecd8a774f290c864a42e5bc3280e6ed7268bc2e79d8d66c5e1472eebe208",
       "module_root": "modules",
       "modules_sha256": {
@@ -111,7 +111,7 @@
     {
       "name": "ext-jsonschema-rs",
       "version": "0.1.0",
-      "path": ".x07/deps/ext-jsonschema-rs/0.1.0",
+      "path": ".x07/local/ext-jsonschema-rs/0.1.0",
       "package_manifest_sha256": "5964a1f60b89cdea77d6989601fd45f0a9102e60e7cee8b1b5a26a42b74634d3",
       "module_root": "modules",
       "modules_sha256": {
@@ -122,7 +122,7 @@
     {
       "name": "ext-mcp-auth",
       "version": "0.1.0",
-      "path": "packages/ext/x07-ext-mcp-auth/0.1.0",
+      "path": ".x07/local/ext-mcp-auth/0.1.0",
       "package_manifest_sha256": "8ac144a283005ef95ca73c4443a65383edef05f2108af36e4e817124aadf55bd",
       "module_root": "modules",
       "modules_sha256": {
@@ -134,14 +134,17 @@
     },
     {
       "name": "ext-mcp-core",
-      "version": "0.2.1",
-      "path": "packages/ext/x07-ext-mcp-core/0.2.1",
-      "package_manifest_sha256": "4d972c31eef37e8d8154e47c8c8187e7bd052ae3e406cf941461c50b7fe54101",
+      "version": "0.2.2",
+      "path": "packages/ext/x07-ext-mcp-core/0.2.2",
+      "package_manifest_sha256": "70fecc49c7e7eaf7001f14060e2b23be2a8c1ceef8c03c08b072bcac8980da25",
       "module_root": "modules",
       "modules_sha256": {
+        "std.mcp.ctx": "d2111bc3404a2deb8e9d7bb38db8179f8453b267d8da0f347f63aed0aff51caf",
         "std.mcp.diag": "8e1f6931bfe65880fdb5570bc7d4e0a2aa5775ea669346be3f667998738e18f1",
         "std.mcp.jsonrpc": "b369452205c724ffe2060af7c3b1df20c92550e7ed958684ceb13c7747ac2e86",
+        "std.mcp.notifications": "062139eb933bd5f9c489d55ec78b549923acacfc82822a5bc2f248dc02c1724b",
         "std.mcp.protocol": "d294f387128fc0601d3d9ce8c42d78ab87f4ee1bf758b8d3bd39c390551dd381",
+        "std.mcp.sse": "2d2af24c8efb02a358297555e0e0ade89e1b6ac01a9ad06e37bddc3847dab8c8",
         "std.mcp.tool": "bc13c2078cdcd9b79b7f822e0232f56bf193ae85c9264c4dc80379154b0afd85",
         "std.mcp.tool.errors": "c617965ffcda142f4bdb577ed09f953a1d18caff9be5f44075df080f0bf6352f",
         "std.mcp.tool.result": "cf3291b3e03a568dba889b1ac63bd91da9cfcf880d3356abe7f9441ae8f98200",
@@ -151,7 +154,7 @@
     {
       "name": "ext-mcp-obs",
       "version": "0.1.0",
-      "path": "packages/ext/x07-ext-mcp-obs/0.1.0",
+      "path": ".x07/local/ext-mcp-obs/0.1.0",
       "package_manifest_sha256": "c01f639cce65e695a901795c8b3abbf4d8bb8e0ad8491b678696688af0afb358",
       "module_root": "modules",
       "modules_sha256": {
@@ -162,33 +165,34 @@
     },
     {
       "name": "ext-mcp-rr",
-      "version": "0.2.1",
-      "path": "packages/ext/x07-ext-mcp-rr/0.2.1",
-      "package_manifest_sha256": "1b34ad4087cca454edb4b7fc031e80742e38311e30e134ee87f72a4530ef59b5",
+      "version": "0.2.2",
+      "path": ".x07/local/ext-mcp-rr/0.2.2",
+      "package_manifest_sha256": "d2febee406b99e4063a3f8734b4bc49569b54275abab58f3e136fdcc62d155cc",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.rr.http": "69ec5ca3c5ce2b3e71d8dcfeec6116b368e0bde0f8750ea83914d114346506c7",
+        "std.mcp.rr.http_sse": "d1d46ff7914709291ebee38d28923acfe1b1ec295c3fba02b7016d047b0cfa1a",
         "std.mcp.rr.sanitize": "64a3e8f3c1374cbe7f1c506446b3fce73a14a4d8e918ef3e20dad7493c3fdeb8",
         "std.mcp.rr.session": "1603b1e53affd9fc5b7bfad8d650575759e3d2c27f1cdb913ba662038db5922a"
       }
     },
     {
       "name": "ext-mcp-sandbox",
-      "version": "0.2.1",
-      "path": "packages/ext/x07-ext-mcp-sandbox/0.2.1",
-      "package_manifest_sha256": "d05ab465951c99b5efcdbe11a442e60159c65a8d25135343986ac85d93ef673d",
+      "version": "0.2.2",
+      "path": ".x07/local/ext-mcp-sandbox/0.2.2",
+      "package_manifest_sha256": "8adf3f6206d81749e22524f68a01233cc05c291efd96711f789cc9f05204aecb",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.sandbox.policy_compile": "81d89ef61aab2bbeac8a4d733cc14deac5ca0c834cf8592b7a134878c18e11ea",
         "std.mcp.sandbox.profiles": "44646f9ac97bdf9b2612a6e81e504d789fb227f44a74a053f9570880342f5fe7",
-        "std.mcp.sandbox.router_exec": "5c854a502affe5d4afb4ce99cf9e5e1b98eaab8c7a021a5a1469644bf47bd191"
+        "std.mcp.sandbox.router_exec": "3acc04b7505718178ea9bf8589b68ebe473ba2d8f84fd2b0d82c5c5f02fafb12"
       }
     },
     {
       "name": "ext-mcp-toolkit",
-      "version": "0.2.1",
-      "path": "packages/ext/x07-ext-mcp-toolkit/0.2.1",
-      "package_manifest_sha256": "36eafa950a40a9f23cb387de5a47d7380336abfb1640700a2f3d0268197b7ef3",
+      "version": "0.2.2",
+      "path": ".x07/local/ext-mcp-toolkit/0.2.2",
+      "package_manifest_sha256": "ff5ff2aaca8a916495c19682f4acb5011d20bf44aa24fe03b9a613df7f6777d1",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.toolkit.derive_hooks": "88777c9b801b101ebd977fadd241b85ad1e25ae5461c21cc6a4daac2f6519256",
@@ -196,48 +200,50 @@
         "std.mcp.toolkit.resources_file": "a1ee694df26c8345bbf51fd15d48f705c330b5937c71edccce84df05addbbf52",
         "std.mcp.toolkit.schema_subset": "b6d1c073394e843d6c823e2584543fba40e1a80c002d0cb59a9143e8ab3e826b",
         "std.mcp.toolkit.server_cfg_file": "cdd979cc7cdad5b02def50f7f39e04094d4291c19fc0e9528af002c94428871a",
-        "std.mcp.toolkit.stdio_dispatch": "7b0569144dffa1e7b0bbc4db0b5f3ec6dbfa177b721b35950651a68633dbe24a",
+        "std.mcp.toolkit.stdio_dispatch": "fa2b58d636bbba6c8a1fda1560f6c95cec8aa2f157fae0ff5a4c4ceb680969c8",
+        "std.mcp.toolkit.toolctx": "9fc0ccb38897fbc877a746990ed490dd9d9b5b4e9d34633ad7fff4024c1c0052",
         "std.mcp.toolkit.tools_file": "102c8affdcbdcfe6cfac81ed018e32f0691e126766d48276d581fae1eb5c7d9b"
       }
     },
     {
       "name": "ext-mcp-transport-http",
-      "version": "0.1.1",
-      "path": "packages/ext/x07-ext-mcp-transport-http/0.1.1",
-      "package_manifest_sha256": "d45d3801b0e8ab42abc04379c771e1abfc11c909e657c1046f6e520ca4765ffd",
+      "version": "0.2.0",
+      "path": "packages/ext/x07-ext-mcp-transport-http/0.2.0",
+      "package_manifest_sha256": "c8b19f9c40ed31532ab0fc9361033b24324ccf9da42966214230baeaede4e461",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.transport.http": "a8a0c9145d060347b5d2cff811243c4accb5a4f4cdb993d81b935f8f5b451c6d",
-        "std.mcp.transport.http_rules": "e7a7ede55e59ff647a450398b4da1c203782b8ae3da81b91bd341ae2ea8fe3e4",
-        "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9"
+        "std.mcp.transport.http": "ef00f36297ac7a292881315c10edb3c1345d13897e0ebce91af704860c5cc496",
+        "std.mcp.transport.http_rules": "010fa25b899a3f499b37cd8ecc3dc6fdf3514f066c6700fc6c9a8890ba020584",
+        "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9",
+        "std.mcp.transport.http_sse": "5fa7f191dac0e9fe080275ce47152285890c308164b2972093601e0cc35b9f2a"
       }
     },
     {
       "name": "ext-mcp-transport-stdio",
-      "version": "0.2.1",
-      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.2.1",
-      "package_manifest_sha256": "50e0df2a24cc243e55728756a03c9d6d62fae42b2c527702cd14b1585f0ae640",
+      "version": "0.2.2",
+      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.2.2",
+      "package_manifest_sha256": "763e2439c47392f3e5d678112b9508779d7f21cf8478c261a97522b92c82cf1f",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.transport.stdio": "3ddc75961bfe4928552b284036f81726e27a15e372dcf6351414541c9f345c51",
+        "std.mcp.transport.stdio": "b07b2cf52a6e06bdc306eba01ed60ebdaed7772b376d3ba4c3b5b8e7d0946438",
         "std.mcp.transport.stdio_loop": "3cfaa6fc7ad2cfb5976dbb82f4eaed2b1f4c52594167a409d285bb0460476523"
       }
     },
     {
       "name": "ext-mcp-worker",
-      "version": "0.2.1",
-      "path": "packages/ext/x07-ext-mcp-worker/0.2.1",
-      "package_manifest_sha256": "d45e019275674e1541a0f6ffb6e6ce5a66c27a88ddf2ca8eb789fc18f38bd3c8",
+      "version": "0.2.2",
+      "path": ".x07/local/ext-mcp-worker/0.2.2",
+      "package_manifest_sha256": "a72b6d5cb3bb7a39d94ef1e2309eaa660eb38bbe1e61d4103b9a518cb2d28612",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.sandbox.worker_main": "00d6d766bc7fd6136a16ed480040a9288e0691c5e474eb2b92dd03fec7ae8c90",
-        "std.mcp.sandbox.worker_proto": "64eb3551a8bf609f4af2bb75254bd9501a24bf8bb7f9a5b9498487f5d6fdb3bd"
+        "std.mcp.sandbox.worker_proto": "d9598dc01ca61b50daa36c6b744457504a83d6217cc5130a24a6c2f64780494f"
       }
     },
     {
       "name": "ext-net",
       "version": "0.1.8",
-      "path": ".x07/deps/ext-net/0.1.8",
+      "path": ".x07/local/ext-net/0.1.8",
       "package_manifest_sha256": "2c9e3cd98153bc2e879039c9b777b08e10a236c4923f56929f5dd4f6fc435cfc",
       "module_root": "modules",
       "modules_sha256": {
@@ -257,7 +263,7 @@
     {
       "name": "ext-sockets-c",
       "version": "0.1.6",
-      "path": ".x07/deps/ext-sockets-c/0.1.6",
+      "path": ".x07/local/ext-sockets-c/0.1.6",
       "package_manifest_sha256": "53e9c4ceb4c798a0dd013ac7e2d51b33f92652a7a43b63dbd31687520226dd6a",
       "module_root": "modules",
       "modules_sha256": {
@@ -268,7 +274,7 @@
     {
       "name": "ext-stdio",
       "version": "0.1.0",
-      "path": ".x07/deps/ext-stdio/0.1.0",
+      "path": ".x07/local/ext-stdio/0.1.0",
       "package_manifest_sha256": "f62d48be6adc0bc9de1a31c2911e5477cb8ed046ab2a37a8226eaedfd73b7c4e",
       "module_root": "modules",
       "modules_sha256": {
@@ -279,7 +285,7 @@
     {
       "name": "ext-toml-rs",
       "version": "0.1.5",
-      "path": ".x07/deps/ext-toml-rs/0.1.5",
+      "path": ".x07/local/ext-toml-rs/0.1.5",
       "package_manifest_sha256": "5077603c74f831f417ad0c215cde53c09209bb708db03fcb00227e6c10f07a6e",
       "module_root": "modules",
       "modules_sha256": {
@@ -291,7 +297,7 @@
     {
       "name": "ext-unicode-rs",
       "version": "0.1.5",
-      "path": ".x07/deps/ext-unicode-rs/0.1.5",
+      "path": ".x07/local/ext-unicode-rs/0.1.5",
       "package_manifest_sha256": "a25f1c73b8f456c2a8719e105ca95d40c50c1489cd88169d51301b845b6411c0",
       "module_root": "modules",
       "modules_sha256": {
@@ -305,7 +311,7 @@
     {
       "name": "ext-url-rs",
       "version": "0.1.4",
-      "path": ".x07/deps/ext-url-rs/0.1.4",
+      "path": ".x07/local/ext-url-rs/0.1.4",
       "package_manifest_sha256": "c87e3e68a8520ae7538a3b76ba497088cc76629075a90ef67ce31190051db4f4",
       "module_root": "modules",
       "modules_sha256": {
@@ -320,7 +326,7 @@
     {
       "name": "ext-xml-rs",
       "version": "0.1.4",
-      "path": ".x07/deps/ext-xml-rs/0.1.4",
+      "path": ".x07/local/ext-xml-rs/0.1.4",
       "package_manifest_sha256": "060e26ecd284fcb88834053b8a849f93e0507434c81bf9e60dee504a3211beb1",
       "module_root": "modules",
       "modules_sha256": {
@@ -332,7 +338,7 @@
     {
       "name": "ext-yaml-rs",
       "version": "0.1.4",
-      "path": ".x07/deps/ext-yaml-rs/0.1.4",
+      "path": ".x07/local/ext-yaml-rs/0.1.4",
       "package_manifest_sha256": "5b5643f86fffb93ca376015a9669cea4cc6608123fedf9467ebec2edfdd5a568",
       "module_root": "modules",
       "modules_sha256": {

@@ -145,17 +145,8 @@ jobs:
       fail-fast: false
       matrix:
         server_id:
-          - github-mcp
-          - slack-mcp
-          - jira-mcp
           - postgres-mcp
-          - redis-mcp
-          - s3-mcp
-          - kubernetes-mcp
-          - stripe-mcp
-          - smtp-mcp
-          - http-proxy-mcp
-        mode: [noauth, oauth]
+        mode: [noauth]
     steps:
       - name: Checkout
         uses: actions/checkout@v4

@@ -12,6 +12,7 @@
 - [Publish dry-run](getting-started/publish.md)
 
 ## Concepts
+- [HTTP SSE](concepts/http-sse.md)
 - [Router/worker model](concepts/router-worker.md)
 - [Tool schemas](concepts/tool-schemas.md)
 - [Sandbox policy & limits](concepts/sandbox.md)

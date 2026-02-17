@@ -68,6 +68,40 @@
           }
         }
       }
+    },
+    {
+      "name": "test_tool_with_progress",
+      "description": "Conformance fixture: emits progress notifications and returns text.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "net": {
+            "allowlist": [
+              "127.0.0.1:5432"
+            ]
+          },
+          "env": {
+            "allowlist": [
+              "PG_URI"
+            ]
+          }
+        }
+      }
     }
   ]
 }

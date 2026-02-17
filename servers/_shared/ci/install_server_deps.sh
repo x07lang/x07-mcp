@@ -47,14 +47,14 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_local_pkg ext-url-rs 0.1.4 "${X07_ROOT}/packages/ext/x07-ext-url-rs/0.1.4"
   install_local_pkg ext-xml-rs 0.1.4 "${X07_ROOT}/packages/ext/x07-ext-xml-rs/0.1.4"
   install_local_pkg ext-yaml-rs 0.1.4 "${X07_ROOT}/packages/ext/x07-ext-yaml-rs/0.1.4"
-  install_local_pkg ext-mcp-core 0.2.1 "${ROOT}/packages/ext/x07-ext-mcp-core/0.2.1"
-  install_local_pkg ext-mcp-toolkit 0.2.1 "${ROOT}/packages/ext/x07-ext-mcp-toolkit/0.2.1"
-  install_local_pkg ext-mcp-worker 0.2.1 "${ROOT}/packages/ext/x07-ext-mcp-worker/0.2.1"
-  install_local_pkg ext-mcp-sandbox 0.2.1 "${ROOT}/packages/ext/x07-ext-mcp-sandbox/0.2.1"
+  install_local_pkg ext-mcp-core 0.2.2 "${ROOT}/packages/ext/x07-ext-mcp-core/0.2.2"
+  install_local_pkg ext-mcp-toolkit 0.2.2 "${ROOT}/packages/ext/x07-ext-mcp-toolkit/0.2.2"
+  install_local_pkg ext-mcp-worker 0.2.2 "${ROOT}/packages/ext/x07-ext-mcp-worker/0.2.2"
+  install_local_pkg ext-mcp-sandbox 0.2.2 "${ROOT}/packages/ext/x07-ext-mcp-sandbox/0.2.2"
   install_local_pkg ext-mcp-auth 0.1.0 "${ROOT}/packages/ext/x07-ext-mcp-auth/0.1.0"
   install_local_pkg ext-mcp-obs 0.1.0 "${ROOT}/packages/ext/x07-ext-mcp-obs/0.1.0"
-  install_local_pkg ext-mcp-transport-http 0.1.1 "${ROOT}/packages/ext/x07-ext-mcp-transport-http/0.1.1"
-  install_local_pkg ext-mcp-rr 0.2.1 "${ROOT}/packages/ext/x07-ext-mcp-rr/0.2.1"
+  install_local_pkg ext-mcp-transport-http 0.2.0 "${ROOT}/packages/ext/x07-ext-mcp-transport-http/0.2.0"
+  install_local_pkg ext-mcp-rr 0.2.2 "${ROOT}/packages/ext/x07-ext-mcp-rr/0.2.2"
   x07 pkg lock --project x07.json --offline >/dev/null
 else
   install_sync_pkg ext-jsonschema-rs 0.1.0
@@ -72,13 +72,13 @@ else
   install_sync_pkg ext-url-rs 0.1.4
   install_sync_pkg ext-xml-rs 0.1.4
   install_sync_pkg ext-yaml-rs 0.1.4
-  install_sync_pkg ext-mcp-core 0.2.1
-  install_sync_pkg ext-mcp-toolkit 0.2.1
-  install_sync_pkg ext-mcp-worker 0.2.1
-  install_sync_pkg ext-mcp-sandbox 0.2.1
+  install_sync_pkg ext-mcp-core 0.2.2
+  install_sync_pkg ext-mcp-toolkit 0.2.2
+  install_sync_pkg ext-mcp-worker 0.2.2
+  install_sync_pkg ext-mcp-sandbox 0.2.2
   install_sync_pkg ext-mcp-auth 0.1.0
   install_sync_pkg ext-mcp-obs 0.1.0
-  install_sync_pkg ext-mcp-transport-http 0.1.1
-  install_sync_pkg ext-mcp-rr 0.2.1
+  install_sync_pkg ext-mcp-transport-http 0.2.0
+  install_sync_pkg ext-mcp-rr 0.2.2
   x07 pkg lock --project x07.json >/dev/null
 fi

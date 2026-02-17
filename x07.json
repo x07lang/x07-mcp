@@ -13,122 +13,122 @@
     },
     {
       "name": "ext-csv-rs",
-      "path": ".x07/deps/ext-csv-rs/0.1.5",
+      "path": ".x07/local/ext-csv-rs/0.1.5",
       "version": "0.1.5"
     },
     {
       "name": "ext-curl-c",
-      "path": ".x07/deps/ext-curl-c/0.1.6",
+      "path": ".x07/local/ext-curl-c/0.1.6",
       "version": "0.1.6"
     },
     {
       "name": "ext-data-model",
-      "path": ".x07/deps/ext-data-model/0.1.8",
+      "path": ".x07/local/ext-data-model/0.1.8",
       "version": "0.1.8"
     },
     {
       "name": "ext-fs",
-      "path": ".x07/deps/ext-fs/0.1.4",
+      "path": ".x07/local/ext-fs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-ini-rs",
-      "path": ".x07/deps/ext-ini-rs/0.1.4",
+      "path": ".x07/local/ext-ini-rs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-json-rs",
-      "path": ".x07/deps/ext-json-rs/0.1.4",
+      "path": ".x07/local/ext-json-rs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-jsonschema-rs",
-      "path": ".x07/deps/ext-jsonschema-rs/0.1.0",
+      "path": ".x07/local/ext-jsonschema-rs/0.1.0",
       "version": "0.1.0"
     },
     {
       "name": "ext-mcp-auth",
-      "path": "packages/ext/x07-ext-mcp-auth/0.1.0",
+      "path": ".x07/local/ext-mcp-auth/0.1.0",
       "version": "0.1.0"
     },
     {
       "name": "ext-mcp-core",
-      "path": "packages/ext/x07-ext-mcp-core/0.2.1",
-      "version": "0.2.1"
+      "path": "packages/ext/x07-ext-mcp-core/0.2.2",
+      "version": "0.2.2"
     },
     {
       "name": "ext-mcp-obs",
-      "path": "packages/ext/x07-ext-mcp-obs/0.1.0",
+      "path": ".x07/local/ext-mcp-obs/0.1.0",
       "version": "0.1.0"
     },
     {
       "name": "ext-mcp-rr",
-      "path": "packages/ext/x07-ext-mcp-rr/0.2.1",
-      "version": "0.2.1"
+      "path": ".x07/local/ext-mcp-rr/0.2.2",
+      "version": "0.2.2"
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": "packages/ext/x07-ext-mcp-sandbox/0.2.1",
-      "version": "0.2.1"
+      "path": ".x07/local/ext-mcp-sandbox/0.2.2",
+      "version": "0.2.2"
     },
     {
       "name": "ext-mcp-toolkit",
-      "path": "packages/ext/x07-ext-mcp-toolkit/0.2.1",
-      "version": "0.2.1"
+      "path": ".x07/local/ext-mcp-toolkit/0.2.2",
+      "version": "0.2.2"
     },
     {
       "name": "ext-mcp-transport-http",
-      "path": "packages/ext/x07-ext-mcp-transport-http/0.1.1",
-      "version": "0.1.1"
+      "path": "packages/ext/x07-ext-mcp-transport-http/0.2.0",
+      "version": "0.2.0"
     },
     {
       "name": "ext-mcp-transport-stdio",
-      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.2.1",
-      "version": "0.2.1"
+      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.2.2",
+      "version": "0.2.2"
     },
     {
       "name": "ext-mcp-worker",
-      "path": "packages/ext/x07-ext-mcp-worker/0.2.1",
-      "version": "0.2.1"
+      "path": ".x07/local/ext-mcp-worker/0.2.2",
+      "version": "0.2.2"
     },
     {
       "name": "ext-net",
-      "path": ".x07/deps/ext-net/0.1.8",
+      "path": ".x07/local/ext-net/0.1.8",
       "version": "0.1.8"
     },
     {
       "name": "ext-sockets-c",
-      "path": ".x07/deps/ext-sockets-c/0.1.6",
+      "path": ".x07/local/ext-sockets-c/0.1.6",
       "version": "0.1.6"
     },
     {
       "name": "ext-stdio",
-      "path": ".x07/deps/ext-stdio/0.1.0",
+      "path": ".x07/local/ext-stdio/0.1.0",
       "version": "0.1.0"
     },
     {
       "name": "ext-toml-rs",
-      "path": ".x07/deps/ext-toml-rs/0.1.5",
+      "path": ".x07/local/ext-toml-rs/0.1.5",
       "version": "0.1.5"
     },
     {
       "name": "ext-unicode-rs",
-      "path": ".x07/deps/ext-unicode-rs/0.1.5",
+      "path": ".x07/local/ext-unicode-rs/0.1.5",
       "version": "0.1.5"
     },
     {
       "name": "ext-url-rs",
-      "path": ".x07/deps/ext-url-rs/0.1.4",
+      "path": ".x07/local/ext-url-rs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-xml-rs",
-      "path": ".x07/deps/ext-xml-rs/0.1.4",
+      "path": ".x07/local/ext-xml-rs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-yaml-rs",
-      "path": ".x07/deps/ext-yaml-rs/0.1.4",
+      "path": ".x07/local/ext-yaml-rs/0.1.4",
       "version": "0.1.4"
     }
   ],

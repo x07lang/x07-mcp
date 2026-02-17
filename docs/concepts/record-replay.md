@@ -1,6 +1,6 @@
 # Record/replay
 
-`x07-mcp` ships deterministic replay helpers for stdio and HTTP cassettes.
+`x07-mcp` ships deterministic replay helpers for stdio, HTTP, and HTTP+SSE cassettes.
 
 ## Stdio replay
 
@@ -27,8 +27,29 @@ Template fixtures live under `tests/.x07_rr/sessions/` and cover:
 - OAuth 403 insufficient scope
 - guardrails for missing session id, invalid protocol version, and `GET /mcp` when SSE is disabled
 
+## HTTP+SSE replay
+
+`std.mcp.rr.http_sse.replay_from_fs_v1` replays deterministic `.http_sse.session.jsonl` cassettes.
+
+Fixtures use:
+
+- `tests/.x07_rr/sessions/http_sse_post_progress_poll_resume.http_sse.session.jsonl`
+- `tests/.x07_rr/sessions/http_sse_get_listen_resources_updated.http_sse.session.jsonl`
+- `tests/.x07_rr/sessions/http_sse_cancelled_tool_call.http_sse.session.jsonl`
+- `tests/.x07_rr/sessions/http_sse_origin_invalid_403.http_sse.session.jsonl`
+
+Replay verifies:
+
+- SSE prime event behavior
+- event-id monotonicity and resume behavior from `Last-Event-ID`
+- progress emission when requested
+- cancellation semantics (no final response after cancel)
+- no-broadcast routing constraints
+
 ## Sanitization
 
 `std.mcp.rr.sanitize.sanitize_jsonl_v1` canonicalizes stdio lines.
 
 `std.mcp.rr.sanitize.sanitize_http_session_v1` is the HTTP sanitizer hook used by replay/record pipelines.
+
+`std.mcp.rr.sanitize.sanitize_http_sse_session_v1` is the HTTP+SSE sanitizer hook (headers + token-like values).
