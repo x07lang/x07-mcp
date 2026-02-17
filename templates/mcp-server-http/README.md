@@ -12,8 +12,16 @@ This template scaffolds a minimal MCP **HTTP** server in X07 with a router/worke
 - `config/mcp.oauth.json`: OAuth test-static config (`x07.mcp.oauth@0.1.0`)
 - `src/main.x07.json`: router entry
 - `src/worker_main.x07.json`: worker entry
-- `src/mcp/user.x07.json`: tool implementations
+- `src/mcp/user.x07.json`: dispatch shim for user tools
+- `src/tools/hello.x07.json`: demo tools (`hello.echo`, `hello.work`, `hello.bump_resource`)
 - `tests/`: smoke, compile-import, and HTTP replay fixtures
+
+## Included Phase-4 demos
+
+- `hello.echo`: simple typed echo tool.
+- `hello.work`: emits `notifications/progress` and checks cancellation.
+- `hello.bump_resource`: emits `notifications/resources/updated` for `hello://greeting`.
+- `config/mcp.resources.json` includes `hello://greeting` for subscribe/read demos.
 
 ## Quickstart
 

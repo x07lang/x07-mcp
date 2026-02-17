@@ -2,11 +2,14 @@
   "schema_version": "x07.mcp.tools_manifest@0.2.0",
   "tools": [
     {
-      "name": "hello.greet",
-      "description": "Returns a deterministic greeting string.",
+      "name": "hello.echo",
+      "description": "Echo back the provided text.",
       "inputSchema": {
         "type": "object",
-        "properties": {},
+        "properties": {
+          "text": { "type": "string", "minLength": 1, "maxLength": 4096 }
+        },
+        "required": ["text"],
         "additionalProperties": false
       },
       "annotations": {
@@ -19,6 +22,42 @@
       "x07": {
         "impl": "mcp.user.call_tool_v1",
         "limits_profile": "mcp_tool_readonly_v1"
+      }
+    },
+    {
+      "name": "hello.work",
+      "description": "Demo tool that emits progress and checks cancellation.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "steps": { "type": "number" }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "auth": {
+        "required_scopes": ["mcp:tools"]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1"
+      }
+    },
+    {
+      "name": "hello.bump_resource",
+      "description": "Emit notifications/resources/updated for hello://greeting.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "auth": {
+        "required_scopes": ["mcp:tools"]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1"
       }
     }
   ]
