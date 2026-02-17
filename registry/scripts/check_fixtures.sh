@@ -6,6 +6,8 @@ cd "${ROOT}"
 
 mkdir -p .agent_cache/registry-fixtures
 
+./scripts/ci/hydrate_root_deps.sh
+
 if [[ ! -x dist/x07-mcp ]]; then
   x07 bundle \
     --project x07.json \

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 URL="${1:?missing URL}"
-TRIES="${TRIES:-60}"
+TRIES="${TRIES:-240}"
 SLEEP_SECS="${SLEEP_SECS:-0.25}"
 
 for ((i=1; i<=TRIES; i++)); do
@@ -17,4 +17,3 @@ done
 
 echo "Timed out waiting for ${URL}"
 exit 1
-

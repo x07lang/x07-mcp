@@ -82,6 +82,7 @@ jobs:
       - name: Build x07-mcp CLI
         shell: bash
         run: |
+          ./scripts/ci/hydrate_root_deps.sh
           x07 bundle --project x07.json --profile os --out dist/x07-mcp --json=off >/dev/null
       - name: Build MCPB and validate publish dry-run
         shell: bash
@@ -167,7 +168,6 @@ jobs:
         shell: bash
         run: |
           ./conformance/run_server_conformance.sh \
-            --url http://127.0.0.1:8080/mcp \
             --baseline ./conformance/conformance-baseline.yml \
             --spawn "${{ matrix.server_id }}" \
             --mode "${{ matrix.mode }}" \

@@ -27,10 +27,11 @@ require_cmd jq
 step "x07 version"
 x07 --version
 
-step "pkg lock (check)"
+step "pkg lock (hydrate + check)"
 if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   echo "skip root pkg.lock in local-deps mode"
 else
+  ./scripts/ci/hydrate_root_deps.sh
   x07 pkg lock --project x07.json --check --offline >/dev/null
 fi
 

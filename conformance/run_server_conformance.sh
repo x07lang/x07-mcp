@@ -79,9 +79,18 @@ start_spawn() {
   if [[ -n "${bg_pid}" ]]; then
     return 0
   fi
-  ./spawn_reference_http.sh "${SPAWN_SERVER}" "${SPAWN_MODE}" >/tmp/x07-mcp-conformance-server.log 2>&1 &
+  local server_log="/tmp/x07-mcp-conformance-server.log"
+  ./spawn_reference_http.sh "${SPAWN_SERVER}" "${SPAWN_MODE}" >"${server_log}" 2>&1 &
   bg_pid="$!"
-  ./wait_for_http.sh "${URL}" >/dev/null
+  if ! ./wait_for_http.sh "${URL}" >/dev/null; then
+    echo "ERROR: spawned server did not become ready at ${URL}" >&2
+    if [[ -f "${server_log}" ]]; then
+      echo "---- begin spawned server log ----" >&2
+      tail -n 200 "${server_log}" >&2 || true
+      echo "---- end spawned server log ----" >&2
+    fi
+    return 1
+  fi
 }
 
 stop_spawn() {
