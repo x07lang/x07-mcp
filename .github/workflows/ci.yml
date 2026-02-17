@@ -7,6 +7,10 @@ on:
 permissions:
   contents: read
 
+env:
+  X07_MCP_LOCK_RETRIES: "5"
+  X07_MCP_LOCK_RETRY_DELAY_SECS: "3"
+
 jobs:
   check:
     name: ci / check
@@ -83,7 +87,7 @@ jobs:
         shell: bash
         run: |
           ./scripts/ci/hydrate_root_deps.sh
-          x07 bundle --project x07.json --profile os --out dist/x07-mcp --json=off >/dev/null
+          x07 bundle --project x07.json --profile os --out dist/x07-mcp --json=off
       - name: Build MCPB and validate publish dry-run
         shell: bash
         run: |

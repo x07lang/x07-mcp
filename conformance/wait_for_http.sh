@@ -2,7 +2,7 @@
 set -euo pipefail
 
 URL="${1:?missing URL}"
-TRIES="${TRIES:-240}"
+TRIES="${TRIES:-960}"
 SLEEP_SECS="${SLEEP_SECS:-0.25}"
 
 for ((i=1; i<=TRIES; i++)); do

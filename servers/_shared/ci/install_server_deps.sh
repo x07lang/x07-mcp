@@ -26,8 +26,22 @@ install_local_pkg() {
 install_sync_pkg() {
   local name="$1"
   local version="$2"
+  local retries="${X07_MCP_LOCK_RETRIES:-3}"
+  local delay_secs="${X07_MCP_LOCK_RETRY_DELAY_SECS:-2}"
+  local attempt=1
   x07 pkg remove "${name}" >/dev/null 2>&1 || true
-  x07 pkg add "${name}@${version}" --sync >/dev/null
+  while true; do
+    if x07 pkg add "${name}@${version}" --sync >/dev/null; then
+      break
+    fi
+    if [[ "${attempt}" -ge "${retries}" ]]; then
+      echo "ERROR: failed to add ${name}@${version} after ${attempt} attempts" >&2
+      exit 1
+    fi
+    echo "WARN: retrying ${name}@${version} install (${attempt}/${retries}) in ${delay_secs}s" >&2
+    sleep "${delay_secs}"
+    attempt="$((attempt + 1))"
+  done
 }
 
 if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then

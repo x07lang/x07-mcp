@@ -42,7 +42,7 @@ step "MCP pins (check)"
 ./scripts/ci/check_mcp_pins.sh >/dev/null
 
 step "registry fixtures (check)"
-./registry/scripts/check_fixtures.sh >/dev/null
+./registry/scripts/check_fixtures.sh
 
 step "fmt check (x07AST JSON)"
 while IFS= read -r -d '' f; do

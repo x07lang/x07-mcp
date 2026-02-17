@@ -13,8 +13,7 @@ if [[ ! -x dist/x07-mcp ]]; then
     --project x07.json \
     --profile os \
     --out dist/x07-mcp \
-    --json=off \
-    >/dev/null
+    --json=off
 fi
 
 for fixture in registry/fixtures/*; do
