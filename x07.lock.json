@@ -139,7 +139,7 @@
       "package_manifest_sha256": "70fecc49c7e7eaf7001f14060e2b23be2a8c1ceef8c03c08b072bcac8980da25",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.ctx": "d2111bc3404a2deb8e9d7bb38db8179f8453b267d8da0f347f63aed0aff51caf",
+        "std.mcp.ctx": "8cfcb31d6d2448436acd85456b93c1978904dd9962edba9608ea5d716db6022c",
         "std.mcp.diag": "8e1f6931bfe65880fdb5570bc7d4e0a2aa5775ea669346be3f667998738e18f1",
         "std.mcp.jsonrpc": "b369452205c724ffe2060af7c3b1df20c92550e7ed958684ceb13c7747ac2e86",
         "std.mcp.notifications": "062139eb933bd5f9c489d55ec78b549923acacfc82822a5bc2f248dc02c1724b",
