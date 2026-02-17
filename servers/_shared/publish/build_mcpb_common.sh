@@ -52,7 +52,13 @@ PY
 fi
 
 STAGE="$(mktemp -d)"
-cleanup() { rm -rf "${STAGE}"; }
+TMP_OUT_FILE=""
+cleanup() {
+  rm -rf "${STAGE}"
+  if [[ -n "${TMP_OUT_FILE}" ]]; then
+    rm -f "${TMP_OUT_FILE}"
+  fi
+}
 trap cleanup EXIT
 
 mkdir -p "${STAGE}/server" "${STAGE}/config" "${STAGE}/policy" "${STAGE}/arch/budgets"
@@ -65,7 +71,36 @@ cp -R "${SERVER_ROOT}/arch/budgets/." "${STAGE}/arch/budgets/"
 
 find "${STAGE}" -exec touch -t 200001010000 {} +
 
-npx -y @anthropic-ai/mcpb@2.1.2 pack "${STAGE}" "${OUT_FILE}"
+TMP_OUT_FILE="${OUT_FILE}.tmp"
+
+npx -y @anthropic-ai/mcpb@2.1.2 pack "${STAGE}" "${TMP_OUT_FILE}"
+npx -y @anthropic-ai/mcpb@2.1.2 clean "${TMP_OUT_FILE}" >/dev/null
+
+python3 - "${TMP_OUT_FILE}" "${OUT_FILE}" <<'PY'
+import sys
+import zipfile
+
+src_path = sys.argv[1]
+dst_path = sys.argv[2]
+
+fixed_ts = (2000, 1, 1, 0, 0, 0)
+
+with zipfile.ZipFile(src_path, "r") as src, zipfile.ZipFile(
+    dst_path, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9
+) as dst:
+    for name in sorted(src.namelist()):
+        info = src.getinfo(name)
+        zi = zipfile.ZipInfo(filename=name, date_time=fixed_ts)
+        zi.compress_type = zipfile.ZIP_DEFLATED
+        zi.flag_bits = info.flag_bits
+        zi.external_attr = info.external_attr
+        zi.create_system = 3
+        data = b"" if name.endswith("/") else src.read(name)
+        dst.writestr(zi, data)
+PY
+
+rm -f "${TMP_OUT_FILE}"
+TMP_OUT_FILE=""
 
 shasum -a 256 "${OUT_FILE}" | awk '{print $1}' > "${OUT_FILE}.sha256.txt"
 echo "built ${OUT_FILE}"
