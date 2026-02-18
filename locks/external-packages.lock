@@ -1045,8 +1045,8 @@
         {
           "module_id": "std.mcp.toolkit.server_cfg_file",
           "path": "packages/ext/x07-ext-mcp-toolkit/0.3.0/modules/std/mcp/toolkit/server_cfg_file.x07.json",
-          "sha256": "78167e62d041b46c9b37f4397af7f4e0e403dcec89bd233ff778a1d7fc8e7151",
-          "size_bytes": 41908
+          "sha256": "0c3d633465eed63279e1ccef11d54ff84de3313aaed33f580fb009fc8ed60082",
+          "size_bytes": 41917
         },
         {
           "module_id": "std.mcp.toolkit.stdio_dispatch",
@@ -1467,6 +1467,6 @@
       "version": "0.3.0"
     }
   ],
-  "packages_hash": "240a7481df44d0386b03a544c1bca62648ad95e57a785babc1284b1524d6fcd6",
+  "packages_hash": "54e06bdbb9723fa2f0dd3f22d9de6aff0e6856f30c9571cc3ac20ef3d6d53980",
   "packages_root": "packages/ext"
 }
