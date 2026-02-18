@@ -769,8 +769,8 @@
         {
           "module_id": "std.mcp.sandbox.task_store_mem_v1",
           "path": "packages/ext/x07-ext-mcp-sandbox/0.3.0/modules/std/mcp/sandbox/task_store_mem_v1.x07.json",
-          "sha256": "f7fbde2af51c9670a266e02038c8dc562285d3d08f91d7edc8eeb86aab280fc3",
-          "size_bytes": 50672
+          "sha256": "a685b5164b98295b690ed728bb4c3f5ddfc6332c8fc559835ae3515832037b6d",
+          "size_bytes": 50728
         },
         {
           "module_id": "std.mcp.sandbox.task_store_sqlite_v1",
@@ -1467,6 +1467,6 @@
       "version": "0.3.0"
     }
   ],
-  "packages_hash": "54e06bdbb9723fa2f0dd3f22d9de6aff0e6856f30c9571cc3ac20ef3d6d53980",
+  "packages_hash": "06bf0aa1d01ce5009d37c976e5a27a2d6e43047d218ef952cf94a52adcba9e62",
   "packages_root": "packages/ext"
 }
