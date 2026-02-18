@@ -1,0 +1,22 @@
+{
+  "files": {
+    "arch/budgets/profiles/mcp_tool_default_v1.budget.json": {
+      "jcs_sha256_hex": "af25341de326a7670d1f93b88c0d305a6189e5ed2a15ced7266843f1e454bf3f"
+    },
+    "arch/rr/policies/mcp_http_tasks_rr_v1.policy.json": {
+      "jcs_sha256_hex": "8e1cab4dd67f019fd75d31da7273fccd63250285f2abfce19fe808ce422dbec1"
+    },
+    "arch/rr/sanitizers/sanitize_mcp_v1.sanitize.json": {
+      "jcs_sha256_hex": "13461012148dacdeaaf8f151421421ecd875f19d7b9d6aec4c8653735724a1cb"
+    }
+  },
+  "indexes": {
+    "arch/budgets/index.x07budgets.json": {
+      "jcs_sha256_hex": "0a18152026da49b2d6686bd51b95546d18cb7af74aab3bf18824fa2c5954aac8"
+    },
+    "arch/rr/index.x07rr.json": {
+      "jcs_sha256_hex": "66aa70bd892471077579e12dcc002d9eab575953351bef79a53a75e5733a5032"
+    }
+  },
+  "schema_version": "x07.arch.contracts.lock@0.1.0"
+}

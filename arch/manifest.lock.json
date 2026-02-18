@@ -1,5 +1,5 @@
 {
-  "jcs_sha256_hex": "1f07e5071faf04214df8ad4789ce60f0da41b5d80bf033eea40b36a6406e4402",
+  "jcs_sha256_hex": "6918dca12f47bd0e64e9537a23a8e9dd3e81eb61e8ecf15c59486a6a0f6ac517",
   "manifest_path": "arch/manifest.x07arch.json",
   "module_scan": {
     "exclude_globs": [
@@ -12,12 +12,15 @@
       "**/tmp/**"
     ],
     "include_globs": [
-      "packages/ext/x07-ext-mcp-core/0.1.1/modules/**/*.x07.json",
-      "packages/ext/x07-ext-mcp-rr/0.1.1/modules/**/*.x07.json",
-      "packages/ext/x07-ext-mcp-sandbox/0.1.1/modules/**/*.x07.json",
-      "packages/ext/x07-ext-mcp-toolkit/0.1.1/modules/**/*.x07.json",
-      "packages/ext/x07-ext-mcp-transport-stdio/0.1.1/modules/**/*.x07.json",
-      "packages/ext/x07-ext-mcp-worker/0.1.1/modules/**/*.x07.json"
+      "packages/ext/x07-ext-mcp-auth/0.1.0/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-core/0.3.0/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-obs/0.1.0/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-rr/0.3.0/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-sandbox/0.3.0/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-toolkit/0.3.0/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-transport-http/0.3.0/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-transport-stdio/0.3.0/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-worker/0.3.0/modules/**/*.x07.json"
     ]
   },
   "schema_version": "x07.arch.manifest.lock@0.1.0"

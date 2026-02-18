@@ -1,0 +1,41 @@
+{
+  "schema_version": "x07.mcp.tools_manifest@0.2.0",
+  "tools": [
+    {
+      "name": "hello.echo",
+      "description": "Echoes back a short greeting (taskSupport forbidden).",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": { "text": { "type": "string" } },
+        "required": ["text"]
+      },
+      "x07": { "impl": "mcp.user.call_tool_v1" },
+      "execution": { "taskSupport": "forbidden" }
+    },
+    {
+      "name": "hello.wait",
+      "description": "Demonstrates task-augmented execution (taskSupport optional). Deterministic completion for RR.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": { "steps": { "type": "integer", "minimum": 1, "maximum": 10 } },
+        "required": ["steps"]
+      },
+      "x07": { "impl": "mcp.user.call_tool_v1" },
+      "execution": { "taskSupport": "optional" }
+    },
+    {
+      "name": "hello.wait_required",
+      "description": "Demonstrates required task-augmented execution (taskSupport required).",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": { "steps": { "type": "integer", "minimum": 1, "maximum": 10 } },
+        "required": ["steps"]
+      },
+      "x07": { "impl": "mcp.user.call_tool_v1" },
+      "execution": { "taskSupport": "required" }
+    }
+  ]
+}

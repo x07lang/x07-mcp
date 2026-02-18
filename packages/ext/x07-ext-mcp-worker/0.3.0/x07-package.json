@@ -1,0 +1,31 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-worker",
+  "version": "0.3.0",
+  "description": "MCP worker helpers: internal worker protocol and the worker entrypoint that validates tool args and executes a tool implementation.",
+  "docs": "MCP worker helpers.\n\nModules:\n- std.mcp.sandbox.worker_proto\n- std.mcp.sandbox.worker_main\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.sandbox.worker_proto",
+    "std.mcp.sandbox.worker_main"
+  ],
+  "meta": {
+    "determinism_tier": "pure",
+    "worlds_allowed": [
+      "solve-pure",
+      "solve-fs",
+      "solve-rr",
+      "solve-kv",
+      "solve-full",
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-mcp-core@0.3.0",
+      "ext-mcp-toolkit@0.3.0",
+      "ext-data-model@0.1.8",
+      "ext-json-rs@0.1.4"
+    ],
+    "import_mode": "handwritten"
+  }
+}

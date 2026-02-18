@@ -16,10 +16,12 @@
 - [Router/worker model](concepts/router-worker.md)
 - [Tool schemas](concepts/tool-schemas.md)
 - [Sandbox policy & limits](concepts/sandbox.md)
+- [Tasks](concepts/tasks.md)
 - [Record/replay](concepts/record-replay.md)
 
 ## Reference
-- [Server config](reference/server-config.md)
+- [Server config (v0.2.0)](reference/server-config.md)
+- [Server config (v0.3.0)](reference/server-config-v0.3.0.md)
 - [Tools manifest](reference/tools-manifest.md)
 - [Registry manifest](reference/registry-manifest.md)
 - [Resources manifest](reference/resources-manifest.md)

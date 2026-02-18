@@ -315,6 +315,76 @@
       "version": "0.2.2"
     },
     {
+      "determinism_tier": "pure",
+      "import_mode": "handwritten",
+      "modules": [
+        {
+          "module_id": "std.mcp.ctx",
+          "path": "packages/ext/x07-ext-mcp-core/0.3.0/modules/std/mcp/ctx.x07.json",
+          "sha256": "8cfcb31d6d2448436acd85456b93c1978904dd9962edba9608ea5d716db6022c",
+          "size_bytes": 5050
+        },
+        {
+          "module_id": "std.mcp.diag",
+          "path": "packages/ext/x07-ext-mcp-core/0.3.0/modules/std/mcp/diag.x07.json",
+          "sha256": "8e1f6931bfe65880fdb5570bc7d4e0a2aa5775ea669346be3f667998738e18f1",
+          "size_bytes": 774
+        },
+        {
+          "module_id": "std.mcp.jsonrpc",
+          "path": "packages/ext/x07-ext-mcp-core/0.3.0/modules/std/mcp/jsonrpc.x07.json",
+          "sha256": "b369452205c724ffe2060af7c3b1df20c92550e7ed958684ceb13c7747ac2e86",
+          "size_bytes": 9606
+        },
+        {
+          "module_id": "std.mcp.notifications",
+          "path": "packages/ext/x07-ext-mcp-core/0.3.0/modules/std/mcp/notifications.x07.json",
+          "sha256": "991f45e9cb8486a6cadf452b21f2945dc69b2538eb846832ed776d87e7ee29e9",
+          "size_bytes": 13860
+        },
+        {
+          "module_id": "std.mcp.protocol",
+          "path": "packages/ext/x07-ext-mcp-core/0.3.0/modules/std/mcp/protocol.x07.json",
+          "sha256": "d294f387128fc0601d3d9ce8c42d78ab87f4ee1bf758b8d3bd39c390551dd381",
+          "size_bytes": 463
+        },
+        {
+          "module_id": "std.mcp.sse",
+          "path": "packages/ext/x07-ext-mcp-core/0.3.0/modules/std/mcp/sse.x07.json",
+          "sha256": "2d2af24c8efb02a358297555e0e0ade89e1b6ac01a9ad06e37bddc3847dab8c8",
+          "size_bytes": 7072
+        },
+        {
+          "module_id": "std.mcp.tool.errors",
+          "path": "packages/ext/x07-ext-mcp-core/0.3.0/modules/std/mcp/tool/errors.x07.json",
+          "sha256": "c617965ffcda142f4bdb577ed09f953a1d18caff9be5f44075df080f0bf6352f",
+          "size_bytes": 5508
+        },
+        {
+          "module_id": "std.mcp.tool.result",
+          "path": "packages/ext/x07-ext-mcp-core/0.3.0/modules/std/mcp/tool/result.x07.json",
+          "sha256": "cf3291b3e03a568dba889b1ac63bd91da9cfcf880d3356abe7f9441ae8f98200",
+          "size_bytes": 6334
+        },
+        {
+          "module_id": "std.mcp.tool",
+          "path": "packages/ext/x07-ext-mcp-core/0.3.0/modules/std/mcp/tool.x07.json",
+          "sha256": "bc13c2078cdcd9b79b7f822e0232f56bf193ae85c9264c4dc80379154b0afd85",
+          "size_bytes": 1196
+        },
+        {
+          "module_id": "std.mcp.util.json",
+          "path": "packages/ext/x07-ext-mcp-core/0.3.0/modules/std/mcp/util/json.x07.json",
+          "sha256": "81c289f3987178fe4a14c948e772cdf663be0eca6f9c4f6a850cfe832d8bb97f",
+          "size_bytes": 2428
+        }
+      ],
+      "name": "ext-mcp-core",
+      "package_manifest_sha256": "5f4156c65fc9324efac394cf1df5ae63ebec83828ea26a0fd5ebc60de2dd6f74",
+      "path": "packages/ext/x07-ext-mcp-core/0.3.0",
+      "version": "0.3.0"
+    },
+    {
       "determinism_tier": "os-world-only",
       "import_mode": "handwritten",
       "modules": [
@@ -477,6 +547,46 @@
       "version": "0.2.2"
     },
     {
+      "determinism_tier": "pure",
+      "import_mode": "handwritten",
+      "modules": [
+        {
+          "module_id": "ext.mcp.rr",
+          "path": "packages/ext/x07-ext-mcp-rr/0.3.0/modules/ext/mcp/rr.x07.json",
+          "sha256": "5015d6b8fd70a6ade9ff17ddc57c2422e1a9460ef745bf692bf5d5f6f972f904",
+          "size_bytes": 10486
+        },
+        {
+          "module_id": "std.mcp.rr.http",
+          "path": "packages/ext/x07-ext-mcp-rr/0.3.0/modules/std/mcp/rr/http.x07.json",
+          "sha256": "33911bb51fa324564127be8720c41026f6615c7b6de7b2cfe39643fda574581c",
+          "size_bytes": 25182
+        },
+        {
+          "module_id": "std.mcp.rr.http_sse",
+          "path": "packages/ext/x07-ext-mcp-rr/0.3.0/modules/std/mcp/rr/http_sse.x07.json",
+          "sha256": "be282e3c8f6c26da1fcd9b4f70111a0dc770fc18ec76a41ec5296d6225a1142f",
+          "size_bytes": 8392
+        },
+        {
+          "module_id": "std.mcp.rr.sanitize",
+          "path": "packages/ext/x07-ext-mcp-rr/0.3.0/modules/std/mcp/rr/sanitize.x07.json",
+          "sha256": "64a3e8f3c1374cbe7f1c506446b3fce73a14a4d8e918ef3e20dad7493c3fdeb8",
+          "size_bytes": 1708
+        },
+        {
+          "module_id": "std.mcp.rr.session",
+          "path": "packages/ext/x07-ext-mcp-rr/0.3.0/modules/std/mcp/rr/session.x07.json",
+          "sha256": "1603b1e53affd9fc5b7bfad8d650575759e3d2c27f1cdb913ba662038db5922a",
+          "size_bytes": 8592
+        }
+      ],
+      "name": "ext-mcp-rr",
+      "package_manifest_sha256": "51a7bf70e126e4affa3772b8c7ffc1a3190773c53e5ed1c578d11307893089c9",
+      "path": "packages/ext/x07-ext-mcp-rr/0.3.0",
+      "version": "0.3.0"
+    },
+    {
       "determinism_tier": "os-world-only",
       "import_mode": "handwritten",
       "modules": [
@@ -615,6 +725,64 @@
       "package_manifest_sha256": "8adf3f6206d81749e22524f68a01233cc05c291efd96711f789cc9f05204aecb",
       "path": "packages/ext/x07-ext-mcp-sandbox/0.2.2",
       "version": "0.2.2"
+    },
+    {
+      "determinism_tier": "os-world-only",
+      "import_mode": "handwritten",
+      "modules": [
+        {
+          "module_id": "std.mcp.sandbox.policy_compile",
+          "path": "packages/ext/x07-ext-mcp-sandbox/0.3.0/modules/std/mcp/sandbox/policy_compile.x07.json",
+          "sha256": "81d89ef61aab2bbeac8a4d733cc14deac5ca0c834cf8592b7a134878c18e11ea",
+          "size_bytes": 7000
+        },
+        {
+          "module_id": "std.mcp.sandbox.profiles",
+          "path": "packages/ext/x07-ext-mcp-sandbox/0.3.0/modules/std/mcp/sandbox/profiles.x07.json",
+          "sha256": "44646f9ac97bdf9b2612a6e81e504d789fb227f44a74a053f9570880342f5fe7",
+          "size_bytes": 875
+        },
+        {
+          "module_id": "std.mcp.sandbox.router_exec",
+          "path": "packages/ext/x07-ext-mcp-sandbox/0.3.0/modules/std/mcp/sandbox/router_exec.x07.json",
+          "sha256": "75cce1cd14aa8378add7ed3fbf3d9277dae36b539dff3f583f4cc4eb70bcf5b4",
+          "size_bytes": 17521
+        },
+        {
+          "module_id": "std.mcp.sandbox.task_exec_async_pool_v1",
+          "path": "packages/ext/x07-ext-mcp-sandbox/0.3.0/modules/std/mcp/sandbox/task_exec_async_pool_v1.x07.json",
+          "sha256": "542e8a912af573f05f543b92b71c9d90d03dec7f62f335b435ffab6e4de3292b",
+          "size_bytes": 5434
+        },
+        {
+          "module_id": "std.mcp.sandbox.task_exec_deterministic_v1",
+          "path": "packages/ext/x07-ext-mcp-sandbox/0.3.0/modules/std/mcp/sandbox/task_exec_deterministic_v1.x07.json",
+          "sha256": "18a9b2790f3456443dd09b947091b736e1fdc398f122f27c01a41b58dd1d778a",
+          "size_bytes": 6583
+        },
+        {
+          "module_id": "std.mcp.sandbox.task_store_any_v1",
+          "path": "packages/ext/x07-ext-mcp-sandbox/0.3.0/modules/std/mcp/sandbox/task_store_any_v1.x07.json",
+          "sha256": "fa0c8307647de4b8bde3aa10caf7758cb494f67369d9ea67144a823226d8ff00",
+          "size_bytes": 16436
+        },
+        {
+          "module_id": "std.mcp.sandbox.task_store_mem_v1",
+          "path": "packages/ext/x07-ext-mcp-sandbox/0.3.0/modules/std/mcp/sandbox/task_store_mem_v1.x07.json",
+          "sha256": "f7fbde2af51c9670a266e02038c8dc562285d3d08f91d7edc8eeb86aab280fc3",
+          "size_bytes": 50672
+        },
+        {
+          "module_id": "std.mcp.sandbox.task_store_sqlite_v1",
+          "path": "packages/ext/x07-ext-mcp-sandbox/0.3.0/modules/std/mcp/sandbox/task_store_sqlite_v1.x07.json",
+          "sha256": "0306e65a6c39609383d02b23634bb102a3a060cff1ca42dbb841b9d620ebec5a",
+          "size_bytes": 57508
+        }
+      ],
+      "name": "ext-mcp-sandbox",
+      "package_manifest_sha256": "8b5160c0fc19e80ba983091c0354cfce77ce7a0c0ebb783864892841224f07d2",
+      "path": "packages/ext/x07-ext-mcp-sandbox/0.3.0",
+      "version": "0.3.0"
     },
     {
       "determinism_tier": "pure",
@@ -847,6 +1015,64 @@
       "version": "0.2.2"
     },
     {
+      "determinism_tier": "pure",
+      "import_mode": "handwritten",
+      "modules": [
+        {
+          "module_id": "std.mcp.toolkit.derive_hooks",
+          "path": "packages/ext/x07-ext-mcp-toolkit/0.3.0/modules/std/mcp/toolkit/derive_hooks.x07.json",
+          "sha256": "88777c9b801b101ebd977fadd241b85ad1e25ae5461c21cc6a4daac2f6519256",
+          "size_bytes": 4174
+        },
+        {
+          "module_id": "std.mcp.toolkit.prompts_file",
+          "path": "packages/ext/x07-ext-mcp-toolkit/0.3.0/modules/std/mcp/toolkit/prompts_file.x07.json",
+          "sha256": "6c505f9f725edec6f45fa8b7ffe17f9f07a93b5df08b5d388c6831cd1df7f023",
+          "size_bytes": 19961
+        },
+        {
+          "module_id": "std.mcp.toolkit.resources_file",
+          "path": "packages/ext/x07-ext-mcp-toolkit/0.3.0/modules/std/mcp/toolkit/resources_file.x07.json",
+          "sha256": "a1ee694df26c8345bbf51fd15d48f705c330b5937c71edccce84df05addbbf52",
+          "size_bytes": 18316
+        },
+        {
+          "module_id": "std.mcp.toolkit.schema_subset",
+          "path": "packages/ext/x07-ext-mcp-toolkit/0.3.0/modules/std/mcp/toolkit/schema_subset.x07.json",
+          "sha256": "b6d1c073394e843d6c823e2584543fba40e1a80c002d0cb59a9143e8ab3e826b",
+          "size_bytes": 15957
+        },
+        {
+          "module_id": "std.mcp.toolkit.server_cfg_file",
+          "path": "packages/ext/x07-ext-mcp-toolkit/0.3.0/modules/std/mcp/toolkit/server_cfg_file.x07.json",
+          "sha256": "78167e62d041b46c9b37f4397af7f4e0e403dcec89bd233ff778a1d7fc8e7151",
+          "size_bytes": 41908
+        },
+        {
+          "module_id": "std.mcp.toolkit.stdio_dispatch",
+          "path": "packages/ext/x07-ext-mcp-toolkit/0.3.0/modules/std/mcp/toolkit/stdio_dispatch.x07.json",
+          "sha256": "b45acad270e343e70963769d86b809500e6c7472de3863ecac687465d758badc",
+          "size_bytes": 53267
+        },
+        {
+          "module_id": "std.mcp.toolkit.toolctx",
+          "path": "packages/ext/x07-ext-mcp-toolkit/0.3.0/modules/std/mcp/toolkit/toolctx.x07.json",
+          "sha256": "9fc0ccb38897fbc877a746990ed490dd9d9b5b4e9d34633ad7fff4024c1c0052",
+          "size_bytes": 2992
+        },
+        {
+          "module_id": "std.mcp.toolkit.tools_file",
+          "path": "packages/ext/x07-ext-mcp-toolkit/0.3.0/modules/std/mcp/toolkit/tools_file.x07.json",
+          "sha256": "b35ed377718c5ede7265ae1e39945f057eb3fe3a9a533676960086dee80dd837",
+          "size_bytes": 19542
+        }
+      ],
+      "name": "ext-mcp-toolkit",
+      "package_manifest_sha256": "2f8f23707efd7fb08f7571e772cc13fb5c669a08d60106e16dd4c9d55ebcd443",
+      "path": "packages/ext/x07-ext-mcp-toolkit/0.3.0",
+      "version": "0.3.0"
+    },
+    {
       "determinism_tier": "os-world-only",
       "import_mode": "handwritten",
       "modules": [
@@ -935,6 +1161,46 @@
       "package_manifest_sha256": "c8b19f9c40ed31532ab0fc9361033b24324ccf9da42966214230baeaede4e461",
       "path": "packages/ext/x07-ext-mcp-transport-http/0.2.0",
       "version": "0.2.0"
+    },
+    {
+      "determinism_tier": "os-world-only",
+      "import_mode": "handwritten",
+      "modules": [
+        {
+          "module_id": "ext.mcp.server",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.0/modules/ext/mcp/server.x07.json",
+          "sha256": "a0f66e41b38ba07dc80061ea99811a7d9a86293a1af22633f4db71008e0e0ec4",
+          "size_bytes": 81814
+        },
+        {
+          "module_id": "std.mcp.transport.http",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.0/modules/std/mcp/transport/http.x07.json",
+          "sha256": "ef00f36297ac7a292881315c10edb3c1345d13897e0ebce91af704860c5cc496",
+          "size_bytes": 51727
+        },
+        {
+          "module_id": "std.mcp.transport.http_rules",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.0/modules/std/mcp/transport/http_rules.x07.json",
+          "sha256": "010fa25b899a3f499b37cd8ecc3dc6fdf3514f066c6700fc6c9a8890ba020584",
+          "size_bytes": 5016
+        },
+        {
+          "module_id": "std.mcp.transport.http_session",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.0/modules/std/mcp/transport/http_session.x07.json",
+          "sha256": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9",
+          "size_bytes": 1917
+        },
+        {
+          "module_id": "std.mcp.transport.http_sse",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.0/modules/std/mcp/transport/http_sse.x07.json",
+          "sha256": "5fa7f191dac0e9fe080275ce47152285890c308164b2972093601e0cc35b9f2a",
+          "size_bytes": 675
+        }
+      ],
+      "name": "ext-mcp-transport-http",
+      "package_manifest_sha256": "9c61b00476889eebab1f27e5dd6d82127c1d722f844df6556113493facd933b3",
+      "path": "packages/ext/x07-ext-mcp-transport-http/0.3.0",
+      "version": "0.3.0"
     },
     {
       "determinism_tier": "os-world-only",
@@ -1047,6 +1313,28 @@
       "version": "0.2.2"
     },
     {
+      "determinism_tier": "os-world-only",
+      "import_mode": "handwritten",
+      "modules": [
+        {
+          "module_id": "std.mcp.transport.stdio",
+          "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.0/modules/std/mcp/transport/stdio.x07.json",
+          "sha256": "b07b2cf52a6e06bdc306eba01ed60ebdaed7772b376d3ba4c3b5b8e7d0946438",
+          "size_bytes": 18882
+        },
+        {
+          "module_id": "std.mcp.transport.stdio_loop",
+          "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.0/modules/std/mcp/transport/stdio_loop.x07.json",
+          "sha256": "3cfaa6fc7ad2cfb5976dbb82f4eaed2b1f4c52594167a409d285bb0460476523",
+          "size_bytes": 1660
+        }
+      ],
+      "name": "ext-mcp-transport-stdio",
+      "package_manifest_sha256": "cd2cf09017b6eb6ec2f77d7b3a1b70f821e0c98cd7e1cfd71bc5d12c88c61bd6",
+      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.0",
+      "version": "0.3.0"
+    },
+    {
       "determinism_tier": "pure",
       "import_mode": "handwritten",
       "modules": [
@@ -1155,8 +1443,30 @@
       "package_manifest_sha256": "a72b6d5cb3bb7a39d94ef1e2309eaa660eb38bbe1e61d4103b9a518cb2d28612",
       "path": "packages/ext/x07-ext-mcp-worker/0.2.2",
       "version": "0.2.2"
+    },
+    {
+      "determinism_tier": "pure",
+      "import_mode": "handwritten",
+      "modules": [
+        {
+          "module_id": "std.mcp.sandbox.worker_main",
+          "path": "packages/ext/x07-ext-mcp-worker/0.3.0/modules/std/mcp/sandbox/worker_main.x07.json",
+          "sha256": "d68ef82c57ebe8ae3188308419afa5ab3ca3ea940890a4c7a81ce1e55188c52c",
+          "size_bytes": 7807
+        },
+        {
+          "module_id": "std.mcp.sandbox.worker_proto",
+          "path": "packages/ext/x07-ext-mcp-worker/0.3.0/modules/std/mcp/sandbox/worker_proto.x07.json",
+          "sha256": "d9598dc01ca61b50daa36c6b744457504a83d6217cc5130a24a6c2f64780494f",
+          "size_bytes": 10478
+        }
+      ],
+      "name": "ext-mcp-worker",
+      "package_manifest_sha256": "5964550ba94ca9afad9c04716ea582e13a2d06442c4cb13db96d80a279aa88c9",
+      "path": "packages/ext/x07-ext-mcp-worker/0.3.0",
+      "version": "0.3.0"
     }
   ],
-  "packages_hash": "bb96e6841ae643b89ea8746eaa0b12acff850c0341bab9875651c400865ad381",
+  "packages_hash": "240a7481df44d0386b03a544c1bca62648ad95e57a785babc1284b1524d6fcd6",
   "packages_root": "packages/ext"
 }

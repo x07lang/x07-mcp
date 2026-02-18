@@ -1,0 +1,82 @@
+{
+  "schema_version": "x07.mcp.server_config@0.3.0",
+
+  "server": {
+    "name": "mcp-server-http-tasks-template",
+    "version": "0.1.0",
+    "protocolVersion": "2025-11-25"
+  },
+
+  "transports": {
+    "http": {
+      "enabled": true,
+      "bind": "127.0.0.1:8080",
+      "path": "/mcp",
+      "streamable": {
+        "enabled": true,
+        "sse": { "enabled": true, "max_connections": 64 }
+      }
+    }
+  },
+
+  "capabilities": {
+    "tools": { "listChanged": false },
+    "tasks": {
+      "list": {},
+      "cancel": {},
+      "requests": { "tools": { "call": {} } }
+    }
+  },
+
+  "tools": {
+    "descriptor_path": "mcp.tools.json"
+  },
+
+  "tasks": {
+    "enabled": true,
+
+    "defaults": {
+      "ttl_ms": 60000,
+      "poll_interval_ms": 25
+    },
+
+    "id": {
+      "mode": "deterministic",
+      "deterministic": { "prefix": "task_", "start": 1 }
+    },
+
+    "clock": {
+      "mode": "fixed",
+      "fixed": {
+        "start_iso8601": "2026-02-13T00:00:00Z",
+        "step_ms": 1000
+      }
+    },
+
+    "executor": {
+      "mode": "deterministic",
+      "deterministic": {
+        "complete_after_ticks": 1000000,
+        "advance_on": []
+      }
+    },
+
+    "retention": {
+      "max_tasks": 1000
+    },
+
+    "store": {
+      "mode": "sqlite",
+      "sqlite": {
+        "path": "target/x07test/tasks_restart.sqlite"
+      }
+    }
+  },
+
+  "sandbox": {
+    "per_tool": {
+      "enabled": true,
+      "policy_path": "policy/tool.sandbox.json"
+    }
+  }
+}

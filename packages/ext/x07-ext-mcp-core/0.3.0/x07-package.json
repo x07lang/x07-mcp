@@ -1,0 +1,37 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-core",
+  "version": "0.3.0",
+  "description": "MCP core protocol helpers: pinned protocol constants, JSON-RPC helpers, diagnostics, and tool result builders.",
+  "docs": "MCP core protocol helpers.\n\nModules:\n- std.mcp.protocol\n- std.mcp.jsonrpc\n- std.mcp.diag\n- std.mcp.ctx\n- std.mcp.notifications\n- std.mcp.sse\n- std.mcp.tool.result\n- std.mcp.tool.errors\n- std.mcp.tool\n- std.mcp.util.json\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.protocol",
+    "std.mcp.jsonrpc",
+    "std.mcp.diag",
+    "std.mcp.ctx",
+    "std.mcp.notifications",
+    "std.mcp.sse",
+    "std.mcp.tool.result",
+    "std.mcp.tool.errors",
+    "std.mcp.tool",
+    "std.mcp.util.json"
+  ],
+  "meta": {
+    "determinism_tier": "pure",
+    "worlds_allowed": [
+      "solve-pure",
+      "solve-fs",
+      "solve-rr",
+      "solve-kv",
+      "solve-full",
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-data-model@0.1.8",
+      "ext-json-rs@0.1.4"
+    ],
+    "import_mode": "handwritten"
+  }
+}

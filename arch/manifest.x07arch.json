@@ -7,6 +7,16 @@
   },
   "nodes": [
     {
+      "id": "mcp_auth_pure",
+      "match": {
+        "module_prefixes": [],
+        "path_globs": ["packages/ext/x07-ext-mcp-auth/*/modules/**/*.x07.json"]
+      },
+      "world": "solve-pure",
+      "visibility": { "mode": "public", "visible_to": [] },
+      "imports": { "deny_prefixes": ["std.os."], "allow_prefixes": [] }
+    },
+    {
       "id": "mcp_core_pure",
       "match": {
         "module_prefixes": [],
@@ -24,7 +34,7 @@
       },
       "world": "solve-fs",
       "visibility": { "mode": "public", "visible_to": [] },
-      "imports": { "deny_prefixes": ["std.os."], "allow_prefixes": [] }
+      "imports": { "deny_prefixes": [], "allow_prefixes": [] }
     },
     {
       "id": "mcp_worker_fs",
@@ -47,10 +57,30 @@
       "imports": { "deny_prefixes": [], "allow_prefixes": [] }
     },
     {
+      "id": "mcp_obs_os",
+      "match": {
+        "module_prefixes": [],
+        "path_globs": ["packages/ext/x07-ext-mcp-obs/*/modules/**/*.x07.json"]
+      },
+      "world": "run-os",
+      "visibility": { "mode": "public", "visible_to": [] },
+      "imports": { "deny_prefixes": [], "allow_prefixes": [] }
+    },
+    {
       "id": "mcp_transport_stdio_os",
       "match": {
         "module_prefixes": [],
         "path_globs": ["packages/ext/x07-ext-mcp-transport-stdio/*/modules/**/*.x07.json"]
+      },
+      "world": "run-os",
+      "visibility": { "mode": "public", "visible_to": [] },
+      "imports": { "deny_prefixes": [], "allow_prefixes": [] }
+    },
+    {
+      "id": "mcp_transport_http_os",
+      "match": {
+        "module_prefixes": [],
+        "path_globs": ["packages/ext/x07-ext-mcp-transport-http/*/modules/**/*.x07.json"]
       },
       "world": "run-os",
       "visibility": { "mode": "public", "visible_to": [] },
@@ -62,7 +92,7 @@
         "module_prefixes": [],
         "path_globs": ["packages/ext/x07-ext-mcp-rr/*/modules/**/*.x07.json"]
       },
-      "world": "solve-fs",
+      "world": "run-os",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": ["std.os."], "allow_prefixes": [] }
     }
@@ -73,10 +103,13 @@
       "id": "layers.main_v1",
       "layers": [
         "mcp_core_pure",
+        "mcp_auth_pure",
         "mcp_toolkit_fs",
         "mcp_worker_fs",
         "mcp_sandbox_os",
+        "mcp_obs_os",
         "mcp_transport_stdio_os",
+        "mcp_transport_http_os",
         "mcp_rr_fs"
       ],
       "direction": "down"

@@ -1,0 +1,23 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "tasks/replay",
+      "world": "run-os",
+      "entry": "smoke.tasks_replay",
+      "expect": "pass"
+    },
+    {
+      "id": "tasks/sqlite-restart",
+      "world": "run-os",
+      "entry": "smoke.tasks_sqlite_restart",
+      "expect": "pass"
+    },
+    {
+      "id": "tasks/pbt",
+      "world": "run-os",
+      "entry": "pbt.tasks_store_invariants",
+      "expect": "pass"
+    }
+  ]
+}

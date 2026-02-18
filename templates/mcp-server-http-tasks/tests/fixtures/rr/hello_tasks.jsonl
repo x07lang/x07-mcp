@@ -1,0 +1,33 @@
+{"id":"hello_tasks","notes":"Task-augmented tools/call (taskSupport optional) + polling (working→completed) + tasks/list + tasks/result related-task meta + cancel rejection + forbidden tool task attempt (-32601) + required tool non-task attempt (-32601).","protocolVersion":"2025-11-25","schema_version":"x07.mcp.rr.transcript@0.2.0"}
+{"dir":"c2s","msg":{"id":1,"jsonrpc":"2.0","method":"initialize","params":{"capabilities":{"tasks":{"cancel":{},"list":{},"requests":{"tools":{"call":{}}}},"tools":{}},"clientInfo":{"name":"x07-mcp-rr","version":"0.3.0"},"protocolVersion":"2025-11-25"}}}
+{"dir":"s2c","msg":{"id":1,"jsonrpc":"2.0","result":{"capabilities":{"tasks":{"cancel":{},"list":{},"requests":{"tools":{"call":{}}}},"tools":{"listChanged":false}},"protocolVersion":"2025-11-25","serverInfo":{"name":"mcp-server-http-tasks-template","version":"0.1.0"}}}}
+{"dir":"c2s","msg":{"jsonrpc":"2.0","method":"notifications/initialized"}}
+
+{"dir":"c2s","msg":{"id":2,"jsonrpc":"2.0","method":"tools/list","params":{}}}
+{"dir":"s2c","msg":{"id":2,"jsonrpc":"2.0","result":{"tools":[{"description":"Echoes back a short greeting (taskSupport forbidden).","execution":{"taskSupport":"forbidden"},"inputSchema":{"$schema":"https://json-schema.org/draft/2020-12/schema","properties":{"text":{"type":"string"}},"required":["text"],"type":"object"},"name":"hello.echo"},{"description":"Demonstrates task-augmented execution (taskSupport optional). Deterministic completion for RR.","execution":{"taskSupport":"optional"},"inputSchema":{"$schema":"https://json-schema.org/draft/2020-12/schema","properties":{"steps":{"maximum":10,"minimum":1,"type":"integer"}},"required":["steps"],"type":"object"},"name":"hello.wait"},{"description":"Demonstrates required task-augmented execution (taskSupport required).","execution":{"taskSupport":"required"},"inputSchema":{"$schema":"https://json-schema.org/draft/2020-12/schema","properties":{"steps":{"maximum":10,"minimum":1,"type":"integer"}},"required":["steps"],"type":"object"},"name":"hello.wait_required"}]}}}
+
+{"dir":"c2s","msg":{"id":3,"jsonrpc":"2.0","method":"tools/call","params":{"_meta":{"progressToken":"p1"},"arguments":{"steps":2},"name":"hello.wait","task":{"ttl":60000}}}}
+{"dir":"s2c","msg":{"id":3,"jsonrpc":"2.0","result":{"task":{"createdAt":"2026-02-13T00:00:00Z","lastUpdatedAt":"2026-02-13T00:00:00Z","pollInterval":250,"status":"working","statusMessage":"queued","taskId":"task_0001","ttl":60000}}}}
+
+{"dir":"c2s","msg":{"id":4,"jsonrpc":"2.0","method":"tasks/get","params":{"taskId":"task_0001"}}}
+{"dir":"s2c","msg":{"id":4,"jsonrpc":"2.0","result":{"createdAt":"2026-02-13T00:00:00Z","lastUpdatedAt":"2026-02-13T00:00:01Z","pollInterval":250,"status":"working","statusMessage":"step 1/2","taskId":"task_0001","ttl":60000}}}
+{"dir":"s2c","msg":{"jsonrpc":"2.0","method":"notifications/tasks/status","params":{"createdAt":"2026-02-13T00:00:00Z","lastUpdatedAt":"2026-02-13T00:00:01Z","pollInterval":250,"status":"working","statusMessage":"step 1/2","taskId":"task_0001","ttl":60000}}}
+
+{"dir":"c2s","msg":{"id":5,"jsonrpc":"2.0","method":"tasks/get","params":{"taskId":"task_0001"}}}
+{"dir":"s2c","msg":{"id":5,"jsonrpc":"2.0","result":{"createdAt":"2026-02-13T00:00:00Z","lastUpdatedAt":"2026-02-13T00:00:02Z","pollInterval":250,"status":"completed","taskId":"task_0001","ttl":60000}}}
+{"dir":"s2c","msg":{"jsonrpc":"2.0","method":"notifications/tasks/status","params":{"createdAt":"2026-02-13T00:00:00Z","lastUpdatedAt":"2026-02-13T00:00:02Z","pollInterval":250,"status":"completed","taskId":"task_0001","ttl":60000}}}
+
+{"dir":"c2s","msg":{"id":6,"jsonrpc":"2.0","method":"tasks/list","params":{}}}
+{"dir":"s2c","msg":{"id":6,"jsonrpc":"2.0","result":{"nextCursor":null,"tasks":[{"createdAt":"2026-02-13T00:00:00Z","lastUpdatedAt":"2026-02-13T00:00:02Z","pollInterval":250,"status":"completed","taskId":"task_0001","ttl":60000}]}}}
+
+{"dir":"c2s","msg":{"id":7,"jsonrpc":"2.0","method":"tasks/result","params":{"taskId":"task_0001"}}}
+{"dir":"s2c","msg":{"id":7,"jsonrpc":"2.0","result":{"_meta":{"io.modelcontextprotocol/related-task":{"taskId":"task_0001"}},"content":[{"text":"hello.wait: done","type":"text"}],"isError":false,"structuredContent":{"mode":"deterministic"}}}}
+
+{"dir":"c2s","msg":{"id":8,"jsonrpc":"2.0","method":"tasks/cancel","params":{"taskId":"task_0001"}}}
+{"dir":"s2c","msg":{"error":{"code":-32602,"message":"Cannot cancel task: already in terminal status 'completed'"},"id":8,"jsonrpc":"2.0"}}
+
+{"dir":"c2s","msg":{"id":9,"jsonrpc":"2.0","method":"tools/call","params":{"arguments":{"text":"nope"},"name":"hello.echo","task":{"ttl":60000}}}}
+{"dir":"s2c","msg":{"error":{"code":-32601,"message":"Tool does not support task-augmented execution"},"id":9,"jsonrpc":"2.0"}}
+
+{"dir":"c2s","msg":{"id":10,"jsonrpc":"2.0","method":"tools/call","params":{"arguments":{"steps":1},"name":"hello.wait_required"}}}
+{"dir":"s2c","msg":{"error":{"code":-32601,"message":"Tool requires task-augmented execution"},"id":10,"jsonrpc":"2.0"}}

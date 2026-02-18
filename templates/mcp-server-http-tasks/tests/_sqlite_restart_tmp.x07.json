@@ -1,0 +1,1 @@
+{"decls":[],"imports":["smoke","std.test"],"kind":"entry","module_id":"sqlite_restart_tmp","schema_version":"x07.x07ast@0.5.0","solve":["std.test.status_from_result_i32",["smoke.tasks_sqlite_restart"]]}
