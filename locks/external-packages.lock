@@ -669,8 +669,8 @@
         {
           "module_id": "ext.mcp.rr",
           "path": "packages/ext/x07-ext-mcp-rr/0.3.1/modules/ext/mcp/rr.x07.json",
-          "sha256": "6aa60f2432543d17138b721c6e2e3ee149e0231378d40a4a5786f40a1c940e2b",
-          "size_bytes": 20721
+          "sha256": "04273d29eb09bf65c6ea4a9b43a00af2980931b3eb9b2567b787c7abb89cb6a6",
+          "size_bytes": 20814
         },
         {
           "module_id": "std.mcp.rr.http",
@@ -925,8 +925,8 @@
         {
           "module_id": "std.mcp.sandbox.task_exec_async_pool_v1",
           "path": "packages/ext/x07-ext-mcp-sandbox/0.3.1/modules/std/mcp/sandbox/task_exec_async_pool_v1.x07.json",
-          "sha256": "134c9f081d4fd435c01da4b7f8f6baa6499764fa4bcbb5336b76f414b7aea529",
-          "size_bytes": 11707
+          "sha256": "b582f0199347d824d7b2eecb71d84dcd27d10e7185a83c9c357f088230a45c48",
+          "size_bytes": 11817
         },
         {
           "module_id": "std.mcp.sandbox.task_exec_deterministic_v1",
@@ -1459,8 +1459,8 @@
         {
           "module_id": "ext.mcp.server",
           "path": "packages/ext/x07-ext-mcp-transport-http/0.3.1/modules/ext/mcp/server.x07.json",
-          "sha256": "05be4a48167d3b3223fa924b0ada25ea2cf822e7006c003d5014de6e89aa2491",
-          "size_bytes": 98703
+          "sha256": "223732897d63e08f248bedee3cda4dc7ec59d81c49b9cb22b32b8fda72bb4396",
+          "size_bytes": 98689
         },
         {
           "module_id": "std.mcp.transport.http",
@@ -1785,6 +1785,6 @@
       "version": "0.3.1"
     }
   ],
-  "packages_hash": "c2fd69cc0d2d3888247606ea722e842aac7f97621676f06dffe13cbea84aedea",
+  "packages_hash": "63e5afa1c05585c1d755191655373e9a115ddb8237c6b4dd69605fe768a761a6",
   "packages_root": "packages/ext"
 }
