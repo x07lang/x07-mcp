@@ -10,6 +10,8 @@ permissions:
 env:
   X07_MCP_LOCK_RETRIES: "5"
   X07_MCP_LOCK_RETRY_DELAY_SECS: "3"
+  X07_TOOLCHAIN_TAG: "v0.1.24"
+  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-v0.1.24-x86_64-unknown-linux-gnu.tar.gz"
 
 jobs:
   check:
@@ -23,14 +25,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
-      - name: Install X07 (stable)
+      - name: Install X07 (pinned)
         shell: bash
         run: |
-          curl -fsSL https://x07lang.org/install.sh | sh -s -- \
-            --yes \
-            --channel stable \
-            --no-modify-path \
-            --json
+          mkdir -p "$HOME/.x07"
+          curl -fsSL -L "https://github.com/x07lang/x07/releases/download/${X07_TOOLCHAIN_TAG}/${X07_TOOLCHAIN_TARBALL_LINUX_X64}" \
+            | tar -xz -C "$HOME/.x07"
           echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
       - name: Check
         shell: bash
@@ -47,14 +47,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
-      - name: Install X07 (stable)
+      - name: Install X07 (pinned)
         shell: bash
         run: |
-          curl -fsSL https://x07lang.org/install.sh | sh -s -- \
-            --yes \
-            --channel stable \
-            --no-modify-path \
-            --json
+          mkdir -p "$HOME/.x07"
+          curl -fsSL -L "https://github.com/x07lang/x07/releases/download/${X07_TOOLCHAIN_TAG}/${X07_TOOLCHAIN_TARBALL_LINUX_X64}" \
+            | tar -xz -C "$HOME/.x07"
           echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
       - name: Validate fixtures
         shell: bash
@@ -85,14 +83,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
-      - name: Install X07 (stable)
+      - name: Install X07 (pinned)
         shell: bash
         run: |
-          curl -fsSL https://x07lang.org/install.sh | sh -s -- \
-            --yes \
-            --channel stable \
-            --no-modify-path \
-            --json
+          mkdir -p "$HOME/.x07"
+          curl -fsSL -L "https://github.com/x07lang/x07/releases/download/${X07_TOOLCHAIN_TAG}/${X07_TOOLCHAIN_TARBALL_LINUX_X64}" \
+            | tar -xz -C "$HOME/.x07"
           echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
       - name: Setup Node 20
         uses: actions/setup-node@v4
@@ -175,14 +171,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
-      - name: Install X07 (stable)
+      - name: Install X07 (pinned)
         shell: bash
         run: |
-          curl -fsSL https://x07lang.org/install.sh | sh -s -- \
-            --yes \
-            --channel stable \
-            --no-modify-path \
-            --json
+          mkdir -p "$HOME/.x07"
+          curl -fsSL -L "https://github.com/x07lang/x07/releases/download/${X07_TOOLCHAIN_TAG}/${X07_TOOLCHAIN_TARBALL_LINUX_X64}" \
+            | tar -xz -C "$HOME/.x07"
           echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
       - name: Setup Node 20
         uses: actions/setup-node@v4
