@@ -351,12 +351,12 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   rand_dir="$x07_root/packages/ext/x07-ext-rand/0.1.0"
   time_dir="$x07_root/packages/ext/x07-ext-time-rs/0.1.5"
 
-  core_dir="$root/packages/ext/x07-ext-mcp-core/0.3.0"
-  toolkit_dir="$root/packages/ext/x07-ext-mcp-toolkit/0.3.0"
-  worker_dir="$root/packages/ext/x07-ext-mcp-worker/0.3.0"
-  sandbox_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.0"
-  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.0"
-  rr_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.0"
+  core_dir="$root/packages/ext/x07-ext-mcp-core/0.3.1"
+  toolkit_dir="$root/packages/ext/x07-ext-mcp-toolkit/0.3.1"
+  worker_dir="$root/packages/ext/x07-ext-mcp-worker/0.3.1"
+  sandbox_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.1"
+  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.1"
+  rr_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.1"
   auth_dir="$root/packages/ext/x07-ext-mcp-auth/0.1.0"
   obs_dir="$root/packages/ext/x07-ext-mcp-obs/0.1.0"
 
@@ -430,22 +430,22 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_local_pkg ext-rand 0.1.0 "$rand_dir"
   install_local_pkg ext-time-rs 0.1.5 "$time_dir"
 
-  install_local_pkg ext-mcp-core 0.3.0 "$core_dir"
-  install_local_pkg ext-mcp-toolkit 0.3.0 "$toolkit_dir"
-  install_local_pkg ext-mcp-worker 0.3.0 "$worker_dir"
-  install_local_pkg ext-mcp-sandbox 0.3.0 "$sandbox_dir"
-  install_local_pkg ext-mcp-transport-http 0.3.0 "$transport_http_dir"
-  install_local_pkg ext-mcp-rr 0.3.0 "$rr_dir"
+  install_local_pkg ext-mcp-core 0.3.1 "$core_dir"
+  install_local_pkg ext-mcp-toolkit 0.3.1 "$toolkit_dir"
+  install_local_pkg ext-mcp-worker 0.3.1 "$worker_dir"
+  install_local_pkg ext-mcp-sandbox 0.3.1 "$sandbox_dir"
+  install_local_pkg ext-mcp-transport-http 0.3.1 "$transport_http_dir"
+  install_local_pkg ext-mcp-rr 0.3.1 "$rr_dir"
   install_local_pkg ext-mcp-auth 0.1.0 "$auth_dir"
   install_local_pkg ext-mcp-obs 0.1.0 "$obs_dir"
   x07 pkg lock --project x07.json --offline >/dev/null
 else
-  x07 pkg add ext-mcp-core@0.3.0 --sync >/dev/null
-  x07 pkg add ext-mcp-toolkit@0.3.0 --sync >/dev/null
-  x07 pkg add ext-mcp-worker@0.3.0 --sync >/dev/null
-  x07 pkg add ext-mcp-sandbox@0.3.0 --sync >/dev/null
-  x07 pkg add ext-mcp-transport-http@0.3.0 --sync >/dev/null
-  x07 pkg add ext-mcp-rr@0.3.0 --sync >/dev/null
+  x07 pkg add ext-mcp-core@0.3.1 --sync >/dev/null
+  x07 pkg add ext-mcp-toolkit@0.3.1 --sync >/dev/null
+  x07 pkg add ext-mcp-worker@0.3.1 --sync >/dev/null
+  x07 pkg add ext-mcp-sandbox@0.3.1 --sync >/dev/null
+  x07 pkg add ext-mcp-transport-http@0.3.1 --sync >/dev/null
+  x07 pkg add ext-mcp-rr@0.3.1 --sync >/dev/null
   x07 pkg add ext-base64-rs@0.1.4 --sync >/dev/null
   x07 pkg add ext-crypto-rs@0.1.4 --sync >/dev/null
   x07 pkg add ext-hex-rs@0.1.4 --sync >/dev/null

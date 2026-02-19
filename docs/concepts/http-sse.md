@@ -1,6 +1,6 @@
 # HTTP SSE
 
-`ext-mcp-transport-http@0.2.0` adds Streamable HTTP SSE for MCP request/notification delivery.
+`ext-mcp-transport-http@0.3.1` implements MCP Streamable HTTP, including SSE framing, buffering, and resumability.
 
 ## Modes
 
@@ -22,8 +22,10 @@
 ## Routing invariants
 
 - No-broadcast routing is enforced:
-  - request-scoped notifications (including progress) stay on the request stream,
+  - a notification is delivered on exactly one stream (no duplicates across streams),
   - `notifications/resources/updated` is delivered to listen streams for subscribed URIs.
+
+When no SSE stream is connected, notifications are buffered up to a bounded limit; overflow drops the oldest events.
 
 ## Progress and cancellation
 

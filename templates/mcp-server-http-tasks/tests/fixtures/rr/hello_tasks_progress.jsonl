@@ -1,0 +1,20 @@
+{"id":"hello_tasks_progress","notes":"Task-augmented tools/call emits notifications/progress tied to the request progressToken and stops after terminal status.","protocolVersion":"2025-11-25","schema_version":"x07.mcp.rr.transcript@0.2.0"}
+{"dir":"c2s","msg":{"id":1,"jsonrpc":"2.0","method":"initialize","params":{"capabilities":{"tasks":{"cancel":{},"list":{},"requests":{"tools":{"call":{}}}},"tools":{}},"clientInfo":{"name":"x07-mcp-rr","version":"0.3.1"},"protocolVersion":"2025-11-25"}}}
+{"dir":"s2c","msg":{"id":1,"jsonrpc":"2.0","result":{"capabilities":{"tasks":{"cancel":{},"list":{},"requests":{"tools":{"call":{}}}},"tools":{"listChanged":false}},"protocolVersion":"2025-11-25","serverInfo":{"name":"mcp-server-http-tasks-template","version":"0.1.0"}}}}
+{"dir":"c2s","msg":{"jsonrpc":"2.0","method":"notifications/initialized"}}
+
+{"dir":"c2s","msg":{"id":2,"jsonrpc":"2.0","method":"tools/list","params":{}}}
+{"dir":"s2c","msg":{"id":2,"jsonrpc":"2.0","result":{"tools":[{"description":"Echoes back a short greeting (taskSupport forbidden).","execution":{"taskSupport":"forbidden"},"inputSchema":{"$schema":"https://json-schema.org/draft/2020-12/schema","properties":{"text":{"type":"string"}},"required":["text"],"type":"object"},"name":"hello.echo"},{"annotations":{"destructiveHint":false,"idempotentHint":true,"openWorldHint":false,"readOnlyHint":true},"description":"Waits N steps, emitting progress.","execution":{"taskSupport":"optional"},"inputSchema":{"$schema":"https://json-schema.org/draft/2020-12/schema","properties":{"steps":{"maximum":10,"minimum":1,"type":"integer"}},"required":["steps"],"type":"object"},"name":"hello.wait","title":"Wait (demo)"},{"description":"Demonstrates required task-augmented execution (taskSupport required).","execution":{"taskSupport":"required"},"inputSchema":{"$schema":"https://json-schema.org/draft/2020-12/schema","properties":{"steps":{"maximum":10,"minimum":1,"type":"integer"}},"required":["steps"],"type":"object"},"name":"hello.wait_required"}]}}}
+
+{"dir":"c2s","msg":{"id":3,"jsonrpc":"2.0","method":"tools/call","params":{"_meta":{"progressToken":"p1"},"arguments":{"steps":3},"name":"hello.wait","task":{"ttl":60000}}}}
+{"dir":"s2c","msg":{"id":3,"jsonrpc":"2.0","result":{"_meta":{"io.modelcontextprotocol/related-task":{"taskId":"task_0001"}},"task":{"createdAt":"2026-02-14T00:00:00Z","lastUpdatedAt":"2026-02-14T00:00:00Z","pollInterval":100,"status":"working","statusMessage":"queued","taskId":"task_0001","ttl":60000}}}}
+{"dir":"s2c","msg":{"jsonrpc":"2.0","method":"notifications/progress","params":{"_meta":{"io.modelcontextprotocol/related-task":{"taskId":"task_0001"}},"message":"step 1/3","progress":1,"progressToken":"p1","total":3}}}
+
+{"dir":"c2s","msg":{"id":4,"jsonrpc":"2.0","method":"tasks/get","params":{"taskId":"task_0001"}}}
+{"dir":"s2c","msg":{"id":4,"jsonrpc":"2.0","result":{"createdAt":"2026-02-14T00:00:00Z","lastUpdatedAt":"2026-02-14T00:00:01Z","pollInterval":100,"status":"working","statusMessage":"step 1/3","taskId":"task_0001","ttl":60000}}}
+{"dir":"s2c","msg":{"jsonrpc":"2.0","method":"notifications/progress","params":{"_meta":{"io.modelcontextprotocol/related-task":{"taskId":"task_0001"}},"message":"step 2/3","progress":2,"progressToken":"p1","total":3}}}
+{"dir":"s2c","msg":{"jsonrpc":"2.0","method":"notifications/progress","params":{"_meta":{"io.modelcontextprotocol/related-task":{"taskId":"task_0001"}},"message":"step 3/3","progress":3,"progressToken":"p1","total":3}}}
+{"dir":"s2c","msg":{"jsonrpc":"2.0","method":"notifications/tasks/status","params":{"createdAt":"2026-02-14T00:00:00Z","lastUpdatedAt":"2026-02-14T00:00:02Z","pollInterval":100,"status":"completed","statusMessage":"done","taskId":"task_0001","ttl":60000}}}
+
+{"dir":"c2s","msg":{"id":5,"jsonrpc":"2.0","method":"tasks/result","params":{"taskId":"task_0001"}}}
+{"dir":"s2c","msg":{"id":5,"jsonrpc":"2.0","result":{"_meta":{"io.modelcontextprotocol/related-task":{"taskId":"task_0001"}},"content":[{"text":"waited 3 steps","type":"text"}],"isError":false}}}

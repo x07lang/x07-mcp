@@ -46,6 +46,10 @@ Replay verifies:
 - cancellation semantics (no final response after cancel)
 - no-broadcast routing constraints
 
+## Tasks replay
+
+The `mcp-server-http-tasks` template includes transport-agnostic JSON-RPC transcript fixtures under `tests/fixtures/rr/` (for example `hello_tasks_progress.jsonl`) and replays them via `ext.mcp.rr.replay_from_fs_v1`.
+
 ## Sanitization
 
 `std.mcp.rr.sanitize.sanitize_jsonl_v1` canonicalizes stdio lines.

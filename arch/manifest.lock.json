@@ -13,14 +13,14 @@
     ],
     "include_globs": [
       "packages/ext/x07-ext-mcp-auth/0.1.0/modules/**/*.x07.json",
-      "packages/ext/x07-ext-mcp-core/0.3.0/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-core/0.3.1/modules/**/*.x07.json",
       "packages/ext/x07-ext-mcp-obs/0.1.0/modules/**/*.x07.json",
-      "packages/ext/x07-ext-mcp-rr/0.3.0/modules/**/*.x07.json",
-      "packages/ext/x07-ext-mcp-sandbox/0.3.0/modules/**/*.x07.json",
-      "packages/ext/x07-ext-mcp-toolkit/0.3.0/modules/**/*.x07.json",
-      "packages/ext/x07-ext-mcp-transport-http/0.3.0/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-rr/0.3.1/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-sandbox/0.3.1/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-toolkit/0.3.1/modules/**/*.x07.json",
+      "packages/ext/x07-ext-mcp-transport-http/0.3.1/modules/**/*.x07.json",
       "packages/ext/x07-ext-mcp-transport-stdio/0.3.0/modules/**/*.x07.json",
-      "packages/ext/x07-ext-mcp-worker/0.3.0/modules/**/*.x07.json"
+      "packages/ext/x07-ext-mcp-worker/0.3.1/modules/**/*.x07.json"
     ]
   },
   "schema_version": "x07.arch.manifest.lock@0.1.0"

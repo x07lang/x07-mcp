@@ -32,3 +32,21 @@ When a task is `cancelled`, `tasks/result` returns a JSON-RPC error `-32000` ("T
 
 Tasks are scoped to the current auth context (Authorization header hash / session id / stdio). Cross-context `get/list/result/cancel` is rejected or omitted.
 
+## Progress and status
+
+Task-augmented tool calls can opt in to progress via `_meta.progressToken` on the `tools/call` request.
+
+In x07-mcp:
+
+- `_meta.progressToken` must be a JSON string or number; other types are rejected as JSON-RPC invalid params (`-32602`).
+- The progress token remains valid for the lifetime of the task.
+- `notifications/progress` must stop once the task reaches a terminal state (`completed`, `failed`, `cancelled`).
+- `notifications/progress` carries related-task metadata via `_meta["io.modelcontextprotocol/related-task"] = { taskId }`.
+
+Tool code can emit progress in a transport-neutral way (worker → router) using:
+
+- `std.mcp.toolkit.progress.emit_v1(ctx_json, progress_i32, total_i32, message_utf8)`
+
+Tools can also request a `statusMessage` update while a task is still working:
+
+- `std.mcp.toolkit.task.set_status_message_v1(ctx_json, message_utf8)`

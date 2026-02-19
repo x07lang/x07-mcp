@@ -15,7 +15,8 @@
     },
     {
       "name": "hello.wait",
-      "description": "Demonstrates task-augmented execution (taskSupport optional). Deterministic completion for RR.",
+      "title": "Wait (demo)",
+      "description": "Waits N steps, emitting progress.",
       "inputSchema": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "type": "object",
@@ -23,7 +24,13 @@
         "required": ["steps"]
       },
       "x07": { "impl": "mcp.user.call_tool_v1" },
-      "execution": { "taskSupport": "optional" }
+      "execution": { "taskSupport": "optional" },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
     },
     {
       "name": "hello.wait_required",

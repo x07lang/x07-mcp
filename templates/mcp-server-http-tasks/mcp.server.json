@@ -40,7 +40,7 @@
 
     "defaults": {
       "ttl_ms": 60000,
-      "poll_interval_ms": 250
+      "poll_interval_ms": 100
     },
 
     "id": {
@@ -51,7 +51,7 @@
     "clock": {
       "mode": "fixed",
       "fixed": {
-        "start_iso8601": "2026-02-13T00:00:00Z",
+        "start_iso8601": "2026-02-14T00:00:00Z",
         "step_ms": 1000
       }
     },
@@ -59,7 +59,7 @@
     "executor": {
       "mode": "deterministic",
       "deterministic": {
-        "complete_after_ticks": 2,
+        "complete_after_ticks": 3,
         "advance_on": ["tasks/get", "tasks/list", "tasks/result"]
       }
     },

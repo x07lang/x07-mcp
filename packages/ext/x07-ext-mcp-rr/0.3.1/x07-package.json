@@ -1,0 +1,34 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-rr",
+  "version": "0.3.1",
+  "description": "MCP record/replay helpers for stdio and deterministic HTTP/SSE session cassettes.",
+  "docs": "MCP record/replay helpers.\n\nModules:\n- std.mcp.rr.session\n- std.mcp.rr.http\n- std.mcp.rr.http_sse\n- std.mcp.rr.sanitize\n",
+  "module_root": "modules",
+  "modules": [
+    "ext.mcp.rr",
+    "std.mcp.rr.session",
+    "std.mcp.rr.http",
+    "std.mcp.rr.http_sse",
+    "std.mcp.rr.sanitize"
+  ],
+  "meta": {
+    "determinism_tier": "pure",
+    "worlds_allowed": [
+      "solve-fs",
+      "solve-full",
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-mcp-core@0.3.1",
+      "ext-mcp-toolkit@0.3.1",
+      "ext-mcp-worker@0.3.1",
+      "ext-mcp-auth@0.1.0",
+      "ext-mcp-transport-http@0.3.1",
+      "ext-data-model@0.1.8",
+      "ext-json-rs@0.1.4"
+    ],
+    "import_mode": "handwritten"
+  }
+}

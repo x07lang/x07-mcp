@@ -68,6 +68,23 @@
           }
         }
       }
+    },
+    {
+      "name": "test_tool_with_progress",
+      "description": "Conformance-only tool: emits progress notifications when _meta.progressToken is provided.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1"
+      }
     }
   ]
 }
