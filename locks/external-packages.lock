@@ -544,7 +544,7 @@
         }
       ],
       "name": "ext-mcp-core",
-      "package_manifest_sha256": "57ca2a985eec9a21f01b8c06e9ba244be492877b8692693328e208c1b9033939",
+      "package_manifest_sha256": "22f2cc00a0bbe37d5eaff31d9b67042203ebc2e561def6cdf5b87bbce2eb4577",
       "path": "packages/ext/x07-ext-mcp-core/0.3.2",
       "version": "0.3.2"
     },
@@ -866,7 +866,7 @@
         }
       ],
       "name": "ext-mcp-rr",
-      "package_manifest_sha256": "35542c215889d495a8a02f39cc0da2c9122d22603b2ffd44703ee391208a85ee",
+      "package_manifest_sha256": "21ee2ec48c117d5bbdb92d67d5e15ef70982efa7e481f3a8db6ed33074d2cb24",
       "path": "packages/ext/x07-ext-mcp-rr/0.3.2",
       "version": "0.3.2"
     },
@@ -2179,6 +2179,6 @@
       "version": "0.3.2"
     }
   ],
-  "packages_hash": "f964b5d3aa11df474a0f75bd144e1ae1907bd0ce0c8df7aac54b17e84882e527",
+  "packages_hash": "a2715debc9139b64d26cdd7dd95f73f893c54d327016542de273198368b98455",
   "packages_root": "packages/ext"
 }

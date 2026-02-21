@@ -128,8 +128,8 @@
     },
     {
       "name": "ext-regex",
-      "path": ".x07/local/ext-regex/0.2.1",
-      "version": "0.2.1"
+      "path": ".x07/local/ext-regex/0.2.4",
+      "version": "0.2.4"
     },
     {
       "name": "ext-sockets-c",

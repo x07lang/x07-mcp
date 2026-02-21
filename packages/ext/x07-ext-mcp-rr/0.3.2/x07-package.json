@@ -29,7 +29,7 @@
       "ext-mcp-transport-http@0.3.2",
       "ext-data-model@0.1.8",
       "ext-json-rs@0.1.4",
-      "ext-regex@0.2.1"
+      "ext-regex@0.2.4"
     ],
     "import_mode": "handwritten"
   }

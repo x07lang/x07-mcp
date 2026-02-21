@@ -18,8 +18,16 @@ jobs:
     name: ci / check
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout x07-mcp
         uses: actions/checkout@v4
+        with:
+          path: x07-mcp
+      - name: Checkout x07 (local deps)
+        uses: actions/checkout@v4
+        with:
+          repository: x07lang/x07
+          ref: ${{ env.X07_TOOLCHAIN_TAG }}
+          path: x07
       - name: Install system deps
         shell: bash
         run: |
@@ -34,7 +42,8 @@ jobs:
           echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
       - name: Check
         shell: bash
-        run: ./scripts/ci/check_all.sh
+        working-directory: x07-mcp
+        run: X07_MCP_LOCAL_DEPS=1 ./scripts/ci/check_all.sh
 
   registry-fixtures:
     name: ci / registry-fixtures
