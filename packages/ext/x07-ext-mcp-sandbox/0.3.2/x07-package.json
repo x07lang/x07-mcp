@@ -1,0 +1,39 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-sandbox",
+  "version": "0.3.2",
+  "description": "MCP router-side tool execution helpers: policy env compilation, limits profiles, and worker spawn orchestration.",
+  "docs": "MCP tool execution helpers (router-side).\n\nModules:\n- std.mcp.sandbox.profiles\n- std.mcp.sandbox.policy_compile\n- std.mcp.sandbox.router_exec\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.sandbox.profiles",
+    "std.mcp.sandbox.policy_compile",
+    "std.mcp.sandbox.router_exec",
+    "std.mcp.sandbox.task_store_any_v1",
+    "std.mcp.sandbox.task_exec_deterministic_v1",
+    "std.mcp.sandbox.task_exec_async_pool_v1",
+    "std.mcp.sandbox.task_store_mem_v1",
+    "std.mcp.sandbox.task_store_sqlite_v1"
+  ],
+  "meta": {
+    "determinism_tier": "os-world-only",
+    "worlds_allowed": [
+    "run-os",
+    "run-os-sandboxed"
+  ],
+  "requires_packages": [
+      "ext-mcp-core@0.3.2",
+      "ext-mcp-toolkit@0.3.2",
+      "ext-mcp-worker@0.3.2",
+      "ext-base64-rs@0.1.4",
+      "ext-data-model@0.1.8",
+      "ext-json-rs@0.1.4",
+      "ext-stdio@0.1.0",
+      "ext-crypto-rs@0.1.4",
+      "ext-hex-rs@0.1.4",
+      "ext-time-rs@0.1.5",
+      "ext-db-sqlite@0.1.9"
+    ],
+    "import_mode": "handwritten"
+  }
+}

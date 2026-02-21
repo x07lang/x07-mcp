@@ -1,0 +1,1 @@
+{"auth":{"mode":"none","principal":null,"scopes":[]},"invocationId":"c804fb14f16bb834c380e3412cb54f5685dedd89fd7fdc50c0af2e8124f6212d","kind":"tool.invocation","mcp":{"requestId":3},"outcome":{"isError":true},"policy":{"budgets":{},"sandbox":{}},"schema_version":"x07.mcp.audit_event@0.1.0","timing":{"durationMs":1000},"tool":"hello.log","ts":"2026-02-14T00:00:00Z"}

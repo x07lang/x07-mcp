@@ -35,6 +35,47 @@
     "descriptor_path": "mcp.tools.json"
   },
 
+  "worker_exe_path": "out/mcp-worker",
+
+  "observability": {
+    "clock": {
+      "mode": "fixed",
+      "utc": "2026-02-14T00:00:00Z"
+    },
+    "logging": {
+      "enabled": true,
+      "declare_capability": true,
+      "default_client_level": "error",
+      "client_level_floor": "notice",
+      "rate_limit_per_sec": 25,
+      "max_data_bytes": 16384,
+      "emit": { "tool_start": true, "tool_finish": true },
+      "redaction": {
+        "redact_keys": [
+          "authorization",
+          "cookie",
+          "set-cookie",
+          "password",
+          "secret",
+          "token",
+          "apiKey"
+        ],
+        "redact_patterns": ["(?i)bearer\\s+[A-Za-z0-9._-]+"],
+        "redacted_value": "<redacted>"
+      }
+    },
+    "audit": {
+      "enabled": true,
+      "sinks": [{ "kind": "stderr_jsonl_v1" }, { "kind": "rr_sidecar_v1" }],
+      "allow_tool_tags": ["cache.hit"]
+    },
+    "metrics": {
+      "enabled": true,
+      "export": { "kind": "otlp_http_v1", "arch_exporter_id": "otlp_local_v1" },
+      "flush_interval_ms": 5000
+    }
+  },
+
   "tasks": {
     "enabled": true,
 

@@ -1,0 +1,115 @@
+{
+  "schema_version": "x07.mcp.sanitize@0.1.0",
+  "id": "sanitize_protocol_strict_test_v1",
+  "v": 1,
+  "replace": "<redacted>",
+  "targets": [
+    {
+      "id": "protocol.notifications_message.data",
+      "kind": "mcp_protocol_jsonl",
+      "when": { "msg_method_equals": "notifications/message" },
+      "json_path": "$.msg.params.data"
+    }
+  ],
+  "rules": {
+    "object_key": {
+      "canonicalize": { "lowercase": true, "dash_to_underscore": true },
+      "redact_if": {
+        "exact": [
+          "authorization",
+          "proxy_authorization",
+          "cookie",
+          "set_cookie",
+          "access_token",
+          "refresh_token",
+          "id_token",
+          "token",
+          "client_secret",
+          "client_assertion",
+          "assertion",
+          "api_key",
+          "apikey",
+          "x_api_key",
+          "x_auth_token",
+          "session",
+          "session_id",
+          "sessionid",
+          "sid",
+          "csrf",
+          "csrf_token",
+          "xsrf",
+          "xsrf_token",
+          "password",
+          "pass",
+          "secret",
+          "private_key",
+          "privatekey",
+          "credential",
+          "credentials"
+        ],
+        "regex_ci": [
+          "(?:^|[_])(token|secret|password)(?:$|[_])",
+          "(?:^|[_])(cookie|authorization)(?:$|[_])",
+          "(?:^|[_])(api[_]?key|apikey)(?:$|[_])",
+          "(?:^|[_])(session|sessionid|session_id|sid)(?:$|[_])"
+        ]
+      }
+    },
+    "string_regex_replacements": [
+      {
+        "id": "bearer_token",
+        "pattern": "(?i)(\\bbearer\\s+)[A-Za-z0-9._~+/=-]{8,}",
+        "replace": "$1<redacted>"
+      },
+      {
+        "id": "basic_auth",
+        "pattern": "(?i)(\\bbasic\\s+)[A-Za-z0-9+/=]{8,}",
+        "replace": "$1<redacted>"
+      },
+      {
+        "id": "jwt_3part_common",
+        "pattern": "\\beyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\b",
+        "replace": "<redacted>"
+      },
+      {
+        "id": "jwt_3part_generic",
+        "pattern": "\\b[A-Za-z0-9_-]{20,}\\.[A-Za-z0-9_-]{20,}\\.[A-Za-z0-9_-]{20,}\\b",
+        "replace": "<redacted>"
+      },
+      {
+        "id": "cookie_header_in_text",
+        "pattern": "(?i)\\b(cookie|set-cookie)\\s*:\\s*[^\\r\\n]*",
+        "replace": "$1: <redacted>"
+      },
+      {
+        "id": "cookie_kv_in_text",
+        "pattern": "(?i)\\b(cookie|set-cookie)\\s*=\\s*[^\\s;,&]+",
+        "replace": "$1=<redacted>"
+      },
+      {
+        "id": "oauth_params_in_url",
+        "pattern": "(?i)\\b(access_token|refresh_token|id_token|client_secret)=([^&\\s]+)",
+        "replace": "$1=<redacted>"
+      }
+    ],
+    "assert_no_match": [
+      {
+        "id": "no_bearer_tokens_left",
+        "pattern": "(?i)\\bbearer\\s+[A-Za-z0-9._~+/=-]{8,}"
+      },
+      {
+        "id": "no_cookie_headers_left",
+        "pattern": "(?i)\\b(cookie|set-cookie)\\b\\s*[:=]"
+      },
+      {
+        "id": "no_jwt_left",
+        "pattern": "\\b[A-Za-z0-9_-]{20,}\\.[A-Za-z0-9_-]{20,}\\.[A-Za-z0-9_-]{20,}\\b"
+      },
+      {
+        "id": "no_github_ghp_tokens_left",
+        "pattern": "\\bghp_[A-Za-z0-9]{20,}\\b"
+      }
+    ]
+  }
+}
+

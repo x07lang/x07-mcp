@@ -62,44 +62,49 @@
       "version": "0.1.0"
     },
     {
+      "name": "ext-math",
+      "path": ".x07/local/ext-math/0.1.4",
+      "version": "0.1.4"
+    },
+    {
       "name": "ext-mcp-auth",
       "path": ".x07/local/ext-mcp-auth/0.1.0",
       "version": "0.1.0"
     },
     {
       "name": "ext-mcp-core",
-      "path": ".x07/local/ext-mcp-core/0.3.1",
-      "version": "0.3.1"
+      "path": ".x07/local/ext-mcp-core/0.3.2",
+      "version": "0.3.2"
     },
     {
       "name": "ext-mcp-obs",
-      "path": ".x07/local/ext-mcp-obs/0.1.0",
-      "version": "0.1.0"
+      "path": ".x07/local/ext-mcp-obs/0.1.1",
+      "version": "0.1.1"
     },
     {
       "name": "ext-mcp-rr",
-      "path": ".x07/local/ext-mcp-rr/0.3.1",
-      "version": "0.3.1"
+      "path": ".x07/local/ext-mcp-rr/0.3.2",
+      "version": "0.3.2"
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": ".x07/local/ext-mcp-sandbox/0.3.1",
-      "version": "0.3.1"
+      "path": ".x07/local/ext-mcp-sandbox/0.3.2",
+      "version": "0.3.2"
     },
     {
       "name": "ext-mcp-toolkit",
-      "path": ".x07/local/ext-mcp-toolkit/0.3.1",
-      "version": "0.3.1"
+      "path": ".x07/local/ext-mcp-toolkit/0.3.2",
+      "version": "0.3.2"
     },
     {
       "name": "ext-mcp-transport-http",
-      "path": ".x07/local/ext-mcp-transport-http/0.3.1",
-      "version": "0.3.1"
+      "path": ".x07/local/ext-mcp-transport-http/0.3.2",
+      "version": "0.3.2"
     },
     {
       "name": "ext-mcp-worker",
-      "path": ".x07/local/ext-mcp-worker/0.3.1",
-      "version": "0.3.1"
+      "path": ".x07/local/ext-mcp-worker/0.3.2",
+      "version": "0.3.2"
     },
     {
       "name": "ext-net",
@@ -107,9 +112,24 @@
       "version": "0.1.8"
     },
     {
+      "name": "ext-obs",
+      "path": ".x07/local/ext-obs/0.1.2",
+      "version": "0.1.2"
+    },
+    {
+      "name": "ext-pb-rs",
+      "path": ".x07/local/ext-pb-rs/0.1.5",
+      "version": "0.1.5"
+    },
+    {
       "name": "ext-rand",
       "path": ".x07/local/ext-rand/0.1.0",
       "version": "0.1.0"
+    },
+    {
+      "name": "ext-regex",
+      "path": ".x07/local/ext-regex/0.2.1",
+      "version": "0.2.1"
     },
     {
       "name": "ext-sockets-c",
@@ -130,6 +150,11 @@
       "name": "ext-toml-rs",
       "path": ".x07/local/ext-toml-rs/0.1.5",
       "version": "0.1.5"
+    },
+    {
+      "name": "ext-u64-rs",
+      "path": ".x07/local/ext-u64-rs/0.1.0",
+      "version": "0.1.0"
     },
     {
       "name": "ext-unicode-rs",
@@ -161,20 +186,20 @@
   "profiles": {
     "os": {
       "auto_ffi": true,
-      "solve_fuel": 500000000,
+      "solve_fuel": 2000000000,
       "world": "run-os"
     },
     "os_dev": {
       "auto_ffi": true,
       "budgets": "arch/budgets/index.x07budgets.json",
       "policy": "policy/server.sandbox.json",
-      "solve_fuel": 500000000,
+      "solve_fuel": 2000000000,
       "world": "run-os-sandboxed"
     },
     "sandbox": {
       "auto_ffi": true,
-      "policy": "policy/mcp.worker.base.policy.json",
-      "solve_fuel": 500000000,
+      "policy": "policy/tool.sandbox.json",
+      "solve_fuel": 2000000000,
       "world": "run-os-sandboxed"
     }
   },

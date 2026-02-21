@@ -43,6 +43,19 @@
       },
       "x07": { "impl": "mcp.user.call_tool_v1" },
       "execution": { "taskSupport": "required" }
+    },
+    {
+      "name": "hello.log",
+      "title": "Log (demo)",
+      "description": "Emits notifications/message logs + an audit tag (Phase-7 observability fixture).",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": { "text": { "type": "string" } },
+        "required": ["text"]
+      },
+      "x07": { "impl": "mcp.user.call_tool_v1" },
+      "execution": { "taskSupport": "optional" }
     }
   ]
 }

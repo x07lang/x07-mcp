@@ -1,0 +1,2 @@
+{"auth":{"http":{"cookie":"sid=abc123; __Host-session=def456","set-cookie":"session=ghi789"},"mode":"oauth2","principal":{"sub":"user_123"},"scopes":["mcp:tools"]},"invocationId":"inv_0001","kind":"tool.invocation","policy":{"note":"audit cookie redaction test"},"schema_version":"x07.mcp.audit_event@0.1.0","tool":"hello.log","ts":"2026-02-14T00:00:00Z"}
+

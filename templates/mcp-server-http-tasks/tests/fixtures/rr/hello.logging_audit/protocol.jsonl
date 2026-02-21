@@ -1,0 +1,12 @@
+{"id":"hello.logging_audit","notes":"logging/setLevel enables notice-level notifications/message; hello.log emits tool_start/tool_finish and worker-spawn failure with audit sidecar.","protocolVersion":"2025-11-25","schema_version":"x07.mcp.rr.transcript@0.2.0"}
+{"dir":"c2s","msg":"{\"id\":1,\"jsonrpc\":\"2.0\",\"method\":\"initialize\",\"params\":{\"capabilities\":{\"tasks\":{\"cancel\":{},\"list\":{},\"requests\":{\"tools\":{\"call\":{}}}},\"tools\":{}},\"clientInfo\":{\"name\":\"x07-mcp-rr\",\"version\":\"0.3.2\"},\"protocolVersion\":\"2025-11-25\"}}"}
+{"dir":"s2c","msg":"{\"id\":1,\"jsonrpc\":\"2.0\",\"result\":{\"capabilities\":{\"tools\":{\"listChanged\":false},\"tasks\":{\"cancel\":{},\"list\":{},\"requests\":{\"tools\":{\"call\":{}}}},\"logging\":{}},\"protocolVersion\":\"2025-11-25\",\"serverInfo\":{\"name\":\"mcp-server-http-tasks-template\",\"version\":\"0.1.0\"}}}"}
+{"dir":"c2s","msg":"{\"jsonrpc\":\"2.0\",\"method\":\"notifications/initialized\"}"}
+
+{"dir":"c2s","msg":"{\"id\":2,\"jsonrpc\":\"2.0\",\"method\":\"logging/setLevel\",\"params\":{\"level\":\"info\"}}"}
+{"dir":"s2c","msg":"{\"id\":2,\"jsonrpc\":\"2.0\",\"result\":{}}"}
+
+{"dir":"c2s","msg":"{\"id\":3,\"jsonrpc\":\"2.0\",\"method\":\"tools/call\",\"params\":{\"arguments\":{\"text\":\"hi\"},\"name\":\"hello.log\"}}"}
+{"dir":"s2c","msg":"{\"jsonrpc\":\"2.0\",\"method\":\"notifications/message\",\"params\":{\"data\":{\"event\":\"tool_start\",\"tool\":\"hello.log\",\"invocationId\":\"c804fb14f16bb834c380e3412cb54f5685dedd89fd7fdc50c0af2e8124f6212d\"},\"level\":\"notice\",\"logger\":\"x07.mcp\"}}"}
+{"dir":"s2c","msg":"{\"jsonrpc\":\"2.0\",\"method\":\"notifications/message\",\"params\":{\"data\":{\"event\":\"tool_finish\",\"tool\":\"hello.log\",\"invocationId\":\"c804fb14f16bb834c380e3412cb54f5685dedd89fd7fdc50c0af2e8124f6212d\",\"durationMs\":1000},\"level\":\"notice\",\"logger\":\"x07.mcp\"}}"}
+{"dir":"s2c","msg":"{\"id\":3,\"jsonrpc\":\"2.0\",\"result\":{\"content\":[{\"text\":\"failed to spawn tool worker\",\"type\":\"text\"}],\"isError\":true,\"structuredContent\":{\"category\":\"x07_mcp\",\"detail\":{\"err\":3,\"tool\":\"hello.log\"},\"suggested_fix\":\"\",\"type\":\"x07.mcp.error@0.1.0\",\"x07_diag\":\"X07_MCP_INTERNAL\"}}}"}

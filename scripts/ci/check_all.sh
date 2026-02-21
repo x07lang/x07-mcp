@@ -350,15 +350,20 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   hex_dir="$x07_root/packages/ext/x07-ext-hex-rs/0.1.4"
   rand_dir="$x07_root/packages/ext/x07-ext-rand/0.1.0"
   time_dir="$x07_root/packages/ext/x07-ext-time-rs/0.1.5"
+  math_dir="$x07_root/packages/ext/x07-ext-math/0.1.4"
+  obs_ext_dir="$x07_root/packages/ext/x07-ext-obs/0.1.2"
+  pb_dir="$x07_root/packages/ext/x07-ext-pb-rs/0.1.5"
+  regex_dir="$x07_root/packages/ext/x07-ext-regex/0.2.1"
+  u64_dir="$x07_root/packages/ext/x07-ext-u64-rs/0.1.0"
 
-  core_dir="$root/packages/ext/x07-ext-mcp-core/0.3.1"
-  toolkit_dir="$root/packages/ext/x07-ext-mcp-toolkit/0.3.1"
-  worker_dir="$root/packages/ext/x07-ext-mcp-worker/0.3.1"
-  sandbox_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.1"
-  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.1"
-  rr_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.1"
+  core_dir="$root/packages/ext/x07-ext-mcp-core/0.3.2"
+  toolkit_dir="$root/packages/ext/x07-ext-mcp-toolkit/0.3.2"
+  worker_dir="$root/packages/ext/x07-ext-mcp-worker/0.3.2"
+  sandbox_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.2"
+  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.2"
+  rr_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.2"
   auth_dir="$root/packages/ext/x07-ext-mcp-auth/0.1.0"
-  obs_dir="$root/packages/ext/x07-ext-mcp-obs/0.1.0"
+  obs_dir="$root/packages/ext/x07-ext-mcp-obs/0.1.1"
 
   [[ -d "$base64_dir" ]] || { echo "ERROR: missing local package: $base64_dir" >&2; exit 2; }
   [[ -d "$crypto_dir" ]] || { echo "ERROR: missing local package: $crypto_dir" >&2; exit 2; }
@@ -382,6 +387,11 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$hex_dir" ]] || { echo "ERROR: missing local package: $hex_dir" >&2; exit 2; }
   [[ -d "$rand_dir" ]] || { echo "ERROR: missing local package: $rand_dir" >&2; exit 2; }
   [[ -d "$time_dir" ]] || { echo "ERROR: missing local package: $time_dir" >&2; exit 2; }
+  [[ -d "$math_dir" ]] || { echo "ERROR: missing local package: $math_dir" >&2; exit 2; }
+  [[ -d "$obs_ext_dir" ]] || { echo "ERROR: missing local package: $obs_ext_dir" >&2; exit 2; }
+  [[ -d "$pb_dir" ]] || { echo "ERROR: missing local package: $pb_dir" >&2; exit 2; }
+  [[ -d "$regex_dir" ]] || { echo "ERROR: missing local package: $regex_dir" >&2; exit 2; }
+  [[ -d "$u64_dir" ]] || { echo "ERROR: missing local package: $u64_dir" >&2; exit 2; }
 
   [[ -d "$core_dir" ]] || { echo "ERROR: missing local package: $core_dir" >&2; exit 2; }
   [[ -d "$toolkit_dir" ]] || { echo "ERROR: missing local package: $toolkit_dir" >&2; exit 2; }
@@ -429,31 +439,37 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_local_pkg ext-hex-rs 0.1.4 "$hex_dir"
   install_local_pkg ext-rand 0.1.0 "$rand_dir"
   install_local_pkg ext-time-rs 0.1.5 "$time_dir"
+  install_local_pkg ext-math 0.1.4 "$math_dir"
+  install_local_pkg ext-pb-rs 0.1.5 "$pb_dir"
+  install_local_pkg ext-regex 0.2.1 "$regex_dir"
+  install_local_pkg ext-u64-rs 0.1.0 "$u64_dir"
+  install_local_pkg ext-obs 0.1.2 "$obs_ext_dir"
 
-  install_local_pkg ext-mcp-core 0.3.1 "$core_dir"
-  install_local_pkg ext-mcp-toolkit 0.3.1 "$toolkit_dir"
-  install_local_pkg ext-mcp-worker 0.3.1 "$worker_dir"
-  install_local_pkg ext-mcp-sandbox 0.3.1 "$sandbox_dir"
-  install_local_pkg ext-mcp-transport-http 0.3.1 "$transport_http_dir"
-  install_local_pkg ext-mcp-rr 0.3.1 "$rr_dir"
+  install_local_pkg ext-mcp-core 0.3.2 "$core_dir"
+  install_local_pkg ext-mcp-toolkit 0.3.2 "$toolkit_dir"
+  install_local_pkg ext-mcp-worker 0.3.2 "$worker_dir"
+  install_local_pkg ext-mcp-sandbox 0.3.2 "$sandbox_dir"
+  install_local_pkg ext-mcp-transport-http 0.3.2 "$transport_http_dir"
+  install_local_pkg ext-mcp-rr 0.3.2 "$rr_dir"
   install_local_pkg ext-mcp-auth 0.1.0 "$auth_dir"
-  install_local_pkg ext-mcp-obs 0.1.0 "$obs_dir"
+  install_local_pkg ext-mcp-obs 0.1.1 "$obs_dir"
   x07 pkg lock --project x07.json --offline >/dev/null
 else
-  x07 pkg add ext-mcp-core@0.3.1 --sync >/dev/null
-  x07 pkg add ext-mcp-toolkit@0.3.1 --sync >/dev/null
-  x07 pkg add ext-mcp-worker@0.3.1 --sync >/dev/null
-  x07 pkg add ext-mcp-sandbox@0.3.1 --sync >/dev/null
-  x07 pkg add ext-mcp-transport-http@0.3.1 --sync >/dev/null
-  x07 pkg add ext-mcp-rr@0.3.1 --sync >/dev/null
+  x07 pkg add ext-mcp-core@0.3.2 --sync >/dev/null
+  x07 pkg add ext-mcp-toolkit@0.3.2 --sync >/dev/null
+  x07 pkg add ext-mcp-worker@0.3.2 --sync >/dev/null
+  x07 pkg add ext-mcp-sandbox@0.3.2 --sync >/dev/null
+  x07 pkg add ext-mcp-transport-http@0.3.2 --sync >/dev/null
+  x07 pkg add ext-mcp-rr@0.3.2 --sync >/dev/null
   x07 pkg add ext-base64-rs@0.1.4 --sync >/dev/null
   x07 pkg add ext-crypto-rs@0.1.4 --sync >/dev/null
   x07 pkg add ext-hex-rs@0.1.4 --sync >/dev/null
   x07 pkg add ext-rand@0.1.0 --sync >/dev/null
   x07 pkg add ext-time-rs@0.1.5 --sync >/dev/null
   x07 pkg add ext-db-sqlite@0.1.9 --sync >/dev/null
-fi
-x07 test --manifest tests/tests.json >/dev/null
-
-echo
-echo "ok: all checks passed"
+	fi
+	x07 test --manifest tests/tests.json >/dev/null
+	x07 run --program tests/replay_logging_audit_entry.x07.json --profile os --solve-fuel 2000000000 >/dev/null
+	
+	echo
+	echo "ok: all checks passed"

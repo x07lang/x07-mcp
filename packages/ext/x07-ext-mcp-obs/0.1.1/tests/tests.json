@@ -1,0 +1,17 @@
+{
+  "schema_version": "x07.tests_manifest@0.1.0",
+  "tests": [
+    {
+      "id": "std.mcp.obs/audit_event_build_tool_invocation_v1",
+      "world": "run-os",
+      "entry": "std.mcp.obs.tests.test_audit_event_build_tool_invocation_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "std.mcp.obs/metrics_openmetrics_export_v1",
+      "world": "run-os",
+      "entry": "std.mcp.obs.tests.test_metrics_openmetrics_export_v1",
+      "expect": "pass"
+    }
+  ]
+}

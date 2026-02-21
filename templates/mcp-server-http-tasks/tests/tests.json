@@ -2,9 +2,9 @@
   "schema_version": "x07.tests_manifest@0.2.0",
   "tests": [
     {
-      "id": "tasks/replay",
+      "id": "tasks/replay-progress",
       "world": "run-os",
-      "entry": "smoke.tasks_replay",
+      "entry": "replay_smoke.tasks_replay_progress",
       "expect": "pass"
     },
     {

@@ -1,0 +1,30 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-obs",
+  "version": "0.1.1",
+  "description": "MCP observability: audit events + metrics naming/export glue.",
+  "docs": "Audit event schemas + per-tool metrics for MCP kit. Uses ext-obs for OpenMetrics/OTLP metrics export.\n\nModules:\n- std.mcp.obs\n- std.mcp.obs.audit\n- std.mcp.obs.metrics\n- std.mcp.obs.export\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.obs",
+    "std.mcp.obs.audit",
+    "std.mcp.obs.metrics",
+    "std.mcp.obs.export"
+  ],
+  "meta": {
+    "determinism_tier": "os-world-only",
+    "worlds_allowed": [
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-obs@0.1.2",
+      "ext-data-model@0.1.8",
+      "ext-json-rs@0.1.4",
+      "ext-hex-rs@0.1.4",
+      "ext-fs@0.1.4",
+      "ext-stdio@0.1.0"
+    ],
+    "import_mode": "handwritten"
+  }
+}
