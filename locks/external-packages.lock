@@ -2031,8 +2031,8 @@
         {
           "module_id": "ext.mcp.server",
           "path": "packages/ext/x07-ext-mcp-transport-http/0.3.2/modules/ext/mcp/server.x07.json",
-          "sha256": "862c17624555c8b97aa61b8fce6f706498a856fa0266d9c97b2ea41c1d5c55aa",
-          "size_bytes": 190163
+          "sha256": "ba302978a7ecac138442dc30388ed5a411753a54e5612b6a50f879c00feffccd",
+          "size_bytes": 191420
         },
         {
           "module_id": "std.mcp.transport.http",
@@ -2425,6 +2425,6 @@
       "version": "0.3.2"
     }
   ],
-  "packages_hash": "5141da74855510621b5d4a21279f430ec7e55f313b062cb90b09e444003af0c6",
+  "packages_hash": "5d37e2dda5c0ecbfdc038571bcb1c4114cfeab40a31df7cb1f62191a4c2b1c89",
   "packages_root": "packages/ext"
 }

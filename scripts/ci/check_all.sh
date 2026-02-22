@@ -64,10 +64,12 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-core/0.3.2/modules"
   "packages/ext/x07-ext-mcp-obs/0.1.1/modules"
   "packages/ext/x07-ext-mcp-rr/0.2.3/modules"
+  "packages/ext/x07-ext-mcp-rr/0.3.2/modules"
   "packages/ext/x07-ext-mcp-rr/0.3.3/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.2/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.2.1/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.3/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.2/modules"
 )
