@@ -13,3 +13,13 @@
 - `ext-mcp-auth@0.2.0`: OAuth2 resource server enforcement + introspection adapter (uses `ext-mcp-auth-core`)
 - `ext-mcp-obs@0.1.1`: audit JSONL + metrics hooks
 - `ext-mcp-rr@0.3.3`: deterministic stdio, HTTP, and HTTP+SSE replay helpers + sanitizers
+
+## Lockfiles
+
+`x07-mcp` tracks the published `packages/ext/` tree via `locks/external-packages.lock`. CI checks that the lockfile matches the on-disk packages.
+
+Regenerate:
+
+```bash
+python3 scripts/generate_external_packages_lock.py --packages-root packages/ext --out locks/external-packages.lock --write
+```
