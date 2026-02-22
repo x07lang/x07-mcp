@@ -469,7 +469,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   obs_ext_dir="$x07_root/packages/ext/x07-ext-obs/0.1.2"
   pb_dir="$x07_root/packages/ext/x07-ext-pb-rs/0.1.5"
   regex_dir="$x07_root/packages/ext/x07-ext-regex/0.2.4"
-  u64_dir="$x07_root/packages/ext/x07-ext-u64-rs/0.1.4"
+  u64_dir="$x07_root/packages/ext/x07-ext-u64-rs/0.1.0"
 
   core_dir="$root/packages/ext/x07-ext-mcp-core/0.3.2"
   toolkit_dir="$root/packages/ext/x07-ext-mcp-toolkit/0.3.2"
@@ -559,7 +559,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_local_pkg ext-math 0.1.4 "$math_dir"
   install_local_pkg ext-pb-rs 0.1.5 "$pb_dir"
   install_local_pkg ext-regex 0.2.4 "$regex_dir"
-  install_local_pkg ext-u64-rs 0.1.4 "$u64_dir" ".x07/deps/ext-u64-rs/0.1.4"
+  install_local_pkg ext-u64-rs 0.1.0 "$u64_dir"
   install_local_pkg ext-obs 0.1.2 "$obs_ext_dir"
 
   install_local_pkg ext-mcp-core 0.3.2 "$core_dir"

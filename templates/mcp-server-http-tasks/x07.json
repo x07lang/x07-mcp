@@ -158,8 +158,8 @@
     },
     {
       "name": "ext-u64-rs",
-      "path": ".x07/deps/ext-u64-rs/0.1.4",
-      "version": "0.1.4"
+      "path": ".x07/local/ext-u64-rs/0.1.0",
+      "version": "0.1.0"
     },
     {
       "name": "ext-unicode-rs",
@@ -182,9 +182,6 @@
       "version": "0.1.4"
     }
   ],
-  "patch": {
-    "ext-u64-rs": { "version": "0.1.4" }
-  },
   "entry": "src/main.x07.json",
   "lockfile": "x07.lock.json",
   "module_roots": [
@@ -211,6 +208,6 @@
       "world": "run-os-sandboxed"
     }
   },
-  "schema_version": "x07.project@0.3.0",
+  "schema_version": "x07.project@0.2.0",
   "world": "run-os"
 }

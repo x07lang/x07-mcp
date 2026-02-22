@@ -1,5 +1,5 @@
 {
-  "schema_version": "x07.lock@0.3.0",
+  "schema_version": "x07.lock@0.2.0",
   "dependencies": [
     {
       "name": "ext-base64-rs",
@@ -288,7 +288,7 @@
       "package_manifest_sha256": "7d7fb464b0fec622c657e80be5eb0b8a77fc73b8c15210aa656654a2fd93ba41",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.mcp.server": "f9e03784ee793f14d438d37c10610b022de54cc3b0b211f16e47143c2b140fc8",
+        "ext.mcp.server": "c7a07e6ff48b4117669ae03b072679a99849fe8620e813953c083bff6058b3f2",
         "std.mcp.transport.http": "ef00f36297ac7a292881315c10edb3c1345d13897e0ebce91af704860c5cc496",
         "std.mcp.transport.http_rules": "010fa25b899a3f499b37cd8ecc3dc6fdf3514f066c6700fc6c9a8890ba020584",
         "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9",
@@ -428,13 +428,13 @@
     },
     {
       "name": "ext-u64-rs",
-      "version": "0.1.4",
-      "path": ".x07/deps/ext-u64-rs/0.1.4",
-      "package_manifest_sha256": "987f20363b550ce49870b1e4d6f574bc222c2a3689f2ed9772cb8e9b884f3d76",
+      "version": "0.1.0",
+      "path": ".x07/local/ext-u64-rs/0.1.0",
+      "package_manifest_sha256": "092c03cc72a4291b28e13807d294b98010f09d44c76c2b2392a49032f863cd9c",
       "module_root": "modules",
       "modules_sha256": {
         "ext.u64": "c3ba79f0554026716bfa1feea479c1eaa5b31be0ad7a8d166416a6a35d8b9a43",
-        "ext.u64.tests": "f4a739c17deb1dd369d9fb144111a87ce4f7c99f65f28265dfc1ce7f56eff86f"
+        "ext.u64.tests": "496d04d04c7cd8269f205d75d6e53cfa9cc4ee7900d7cc2e85f2be07f2f4d1df"
       }
     },
     {
