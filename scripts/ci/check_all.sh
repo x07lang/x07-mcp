@@ -57,6 +57,27 @@ while IFS= read -r -d '' f; do
   x07 fmt --input "$f" --check --report-json >/dev/null
 done < <(find cli/src packages/ext templates -type f -name '*.x07.json' -print0)
 
+step "lint check (publish ext package modules)"
+lint_dirs=(
+  "packages/ext/x07-ext-mcp-auth-core/0.1.0/modules"
+  "packages/ext/x07-ext-mcp-auth/0.2.0/modules"
+  "packages/ext/x07-ext-mcp-core/0.3.2/modules"
+  "packages/ext/x07-ext-mcp-obs/0.1.1/modules"
+  "packages/ext/x07-ext-mcp-rr/0.2.3/modules"
+  "packages/ext/x07-ext-mcp-rr/0.3.3/modules"
+  "packages/ext/x07-ext-mcp-sandbox/0.3.2/modules"
+  "packages/ext/x07-ext-mcp-toolkit/0.3.2/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.2.1/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.3.3/modules"
+  "packages/ext/x07-ext-mcp-worker/0.3.2/modules"
+)
+for d in "${lint_dirs[@]}"; do
+  [[ -d "$d" ]] || { echo "ERROR: missing lint dir: $d" >&2; exit 2; }
+done
+while IFS= read -r -d '' f; do
+  x07 lint --input "$f" >/dev/null
+done < <(find "${lint_dirs[@]}" -type f -name '*.x07.json' -print0)
+
 step "package tests (ext-mcp-rr sanitizer)"
 if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   x07_root="$(cd "$root/../x07" && pwd)"
