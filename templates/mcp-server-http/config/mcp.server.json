@@ -36,7 +36,7 @@
     "session_max": 128
   },
   "auth": {
-    "mode": "none",
+    "mode": "oauth2",
     "oauth_config_path": "config/mcp.oauth.json",
     "required_scopes": [
       "mcp:tools"

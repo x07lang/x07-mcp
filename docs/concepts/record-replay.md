@@ -56,4 +56,10 @@ The `mcp-server-http-tasks` template includes transport-agnostic JSON-RPC transc
 
 `std.mcp.rr.sanitize.sanitize_http_session_v1` is the HTTP sanitizer hook used by replay/record pipelines.
 
+The HTTP sanitizer is applied at the **cassette boundary** and is expected to:
+
+- redact `Authorization`, `Proxy-Authorization`, `Cookie`, and `Set-Cookie`
+- apply token-like regex redactions (Bearer/Basic/JWT patterns)
+- fail-closed if any token/cookie-like pattern remains after sanitization
+
 `std.mcp.rr.sanitize.sanitize_http_sse_session_v1` is the HTTP+SSE sanitizer hook (headers + token-like values).

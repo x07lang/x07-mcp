@@ -11,6 +11,7 @@
         "required": ["text"]
       },
       "x07": { "impl": "mcp.user.call_tool_v1" },
+      "auth": { "required_scopes": ["mcp:tools"] },
       "execution": { "taskSupport": "forbidden" }
     },
     {
@@ -24,6 +25,7 @@
         "required": ["steps"]
       },
       "x07": { "impl": "mcp.user.call_tool_v1" },
+      "auth": { "required_scopes": ["mcp:tools"] },
       "execution": { "taskSupport": "optional" },
       "annotations": {
         "readOnlyHint": true,
@@ -42,6 +44,7 @@
         "required": ["steps"]
       },
       "x07": { "impl": "mcp.user.call_tool_v1" },
+      "auth": { "required_scopes": ["mcp:tools"] },
       "execution": { "taskSupport": "required" }
     },
     {
@@ -55,6 +58,7 @@
         "required": ["text"]
       },
       "x07": { "impl": "mcp.user.call_tool_v1" },
+      "auth": { "required_scopes": ["mcp:tools"] },
       "execution": { "taskSupport": "optional" }
     }
   ]

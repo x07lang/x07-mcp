@@ -2,6 +2,11 @@
   "default_profile": "os",
   "dependencies": [
     {
+      "name": "ext-base64-rs",
+      "path": ".x07/local/ext-base64-rs/0.1.4",
+      "version": "0.1.4"
+    },
+    {
       "name": "ext-csv-rs",
       "path": ".x07/local/ext-csv-rs/0.1.5",
       "version": "0.1.5"
@@ -38,7 +43,12 @@
     },
     {
       "name": "ext-mcp-auth",
-      "path": ".x07/local/ext-mcp-auth/0.1.0",
+      "path": ".x07/local/ext-mcp-auth/0.2.0",
+      "version": "0.2.0"
+    },
+    {
+      "name": "ext-mcp-auth-core",
+      "path": ".x07/local/ext-mcp-auth-core/0.1.0",
       "version": "0.1.0"
     },
     {
@@ -53,8 +63,8 @@
     },
     {
       "name": "ext-mcp-rr",
-      "path": ".x07/local/ext-mcp-rr/0.2.2",
-      "version": "0.2.2"
+      "path": ".x07/local/ext-mcp-rr/0.2.3",
+      "version": "0.2.3"
     },
     {
       "name": "ext-mcp-sandbox",
@@ -68,8 +78,8 @@
     },
     {
       "name": "ext-mcp-transport-http",
-      "path": ".x07/local/ext-mcp-transport-http/0.2.0",
-      "version": "0.2.0"
+      "path": ".x07/local/ext-mcp-transport-http/0.2.1",
+      "version": "0.2.1"
     },
     {
       "name": "ext-mcp-worker",
@@ -80,6 +90,11 @@
       "name": "ext-net",
       "path": ".x07/local/ext-net/0.1.8",
       "version": "0.1.8"
+    },
+    {
+      "name": "ext-regex",
+      "path": ".x07/local/ext-regex/0.2.4",
+      "version": "0.2.4"
     },
     {
       "name": "ext-sockets-c",

@@ -1,0 +1,40 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "sanitize_http_session/bearer_header_redacted",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize_http_session.bearer_header_redacted",
+      "fixture_root": "fixtures/sanitize_http_session_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "sanitize_http_session/cookie_headers_redacted",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize_http_session.cookie_headers_redacted",
+      "fixture_root": "fixtures/sanitize_http_session_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "sanitize_http_session/proxy_authorization_redacted",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize_http_session.proxy_authorization_redacted",
+      "fixture_root": "fixtures/sanitize_http_session_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "sanitize_http_session/new_token_survives_fails_closed",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize_http_session.new_token_survives_fails_closed",
+      "fixture_root": "fixtures/sanitize_http_session_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "sanitize_http_session/token_key_survives_fails_closed",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize_http_session.token_key_survives_fails_closed",
+      "fixture_root": "fixtures/sanitize_http_session_v1",
+      "expect": "pass"
+    }
+  ]
+}

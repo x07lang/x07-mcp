@@ -86,6 +86,24 @@
       "expect": "pass"
     },
     {
+      "id": "mcp/http/replay/golden_prm_200",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_prm_200",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_missing_authorization_401",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_missing_authorization_401",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_access_token_in_query_400",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_access_token_in_query_400",
+      "expect": "pass"
+    },
+    {
       "id": "mcp/http/replay/golden_missing_session_id",
       "world": "run-os",
       "entry": "mcp_http_replay.golden_missing_session_id",

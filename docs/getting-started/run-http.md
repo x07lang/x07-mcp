@@ -23,7 +23,8 @@ Default endpoint values from the template:
 
 - bind: `127.0.0.1:8314`
 - MCP path: `/mcp`
-- PRM path: `/.well-known/oauth-protected-resource`
+- PRM insertion path: `/.well-known/oauth-protected-resource/mcp`
+- PRM root alias path (when `serve_root_alias=true`): `/.well-known/oauth-protected-resource`
 - SSE enabled: `transport.sse_enabled=true`
 
 ## 3) Run deterministic replay tests
@@ -34,7 +35,15 @@ x07 test --manifest tests/tests.json
 
 HTTP replay fixtures live under `tests/.x07_rr/sessions/`.
 
-## 4) Probe POST SSE and GET listen SSE
+## 4) No-auth local dev (template)
+
+The HTTP template defaults to `auth.mode="oauth2"`. For no-auth local dev:
+
+```sh
+X07_MCP_CFG_PATH=config/mcp.server.dev.json ./out/mcp-router
+```
+
+## 5) Probe POST SSE and GET listen SSE
 
 Initialize first and keep the returned `MCP-Session-Id`:
 

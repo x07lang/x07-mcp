@@ -7,9 +7,10 @@ This template scaffolds a minimal MCP **HTTP** server in X07 with a router/worke
 
 ## Layout
 
-- `config/mcp.server.json`: server config (`x07.mcp.server_config@0.2.0`)
+- `config/mcp.server.json`: server config (`x07.mcp.server_config@0.2.0`, default `auth.mode="oauth2"`)
+- `config/mcp.server.dev.json`: no-auth dev config (`auth.mode="none"`)
 - `config/mcp.tools.json`: tools manifest (`x07.mcp.tools_manifest@0.2.0`)
-- `config/mcp.oauth.json`: OAuth test-static config (`x07.mcp.oauth@0.1.0`)
+- `config/mcp.oauth.json`: OAuth test-static config (`x07.mcp.oauth@0.2.0`)
 - `src/main.x07.json`: router entry
 - `src/worker_main.x07.json`: worker entry
 - `src/mcp/user.x07.json`: dispatch shim for user tools
@@ -45,6 +46,17 @@ Run the router (HTTP endpoint):
 ```
 
 The MCP endpoint is `http://127.0.0.1:8314/mcp` in the default config.
+
+For no-auth local dev:
+
+```sh
+X07_MCP_CFG_PATH=config/mcp.server.dev.json ./out/mcp-router
+```
+
+OAuth Protected Resource Metadata (RFC9728) is served at:
+
+* Insertion URL: `http://127.0.0.1:8314/.well-known/oauth-protected-resource/mcp`
+* Root alias (when `serve_root_alias=true`): `http://127.0.0.1:8314/.well-known/oauth-protected-resource`
 
 Run tests:
 

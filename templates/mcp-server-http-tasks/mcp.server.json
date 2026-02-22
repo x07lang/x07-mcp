@@ -7,11 +7,20 @@
     "protocolVersion": "2025-11-25"
   },
 
+  "auth": {
+    "mode": "oauth2",
+    "oauth_config_path": "mcp.oauth.json",
+    "required_scopes": ["mcp:tools"],
+    "required_scopes_tasks": ["mcp:tasks"]
+  },
+
   "transports": {
     "http": {
       "enabled": true,
       "bind": "127.0.0.1:8080",
       "path": "/mcp",
+      "origin_allow_missing": true,
+      "origin_allowlist": ["http://localhost:*", "http://127.0.0.1:*"],
       "streamable": {
         "enabled": true,
         "sse": {

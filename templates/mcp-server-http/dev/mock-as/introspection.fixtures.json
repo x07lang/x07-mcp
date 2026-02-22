@@ -1,0 +1,14 @@
+{
+  "schema_version": "x07.mcp.mock_as@0.1.0",
+  "tokens": {
+    "devtoken-mcp-tools": {
+      "active": true,
+      "scope": "mcp:tools",
+      "sub": "user-123",
+      "client_id": "mcp-test-client",
+      "aud": ["http://127.0.0.1:8314/mcp"],
+      "exp_unix": 4102444800
+    }
+  }
+}
+

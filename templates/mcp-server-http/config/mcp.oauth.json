@@ -1,8 +1,9 @@
 {
-  "schema_version": "x07.mcp.oauth@0.1.0",
-  "resource": "http://127.0.0.1:8314",
+  "schema_version": "x07.mcp.oauth@0.2.0",
+  "resource": "http://127.0.0.1:8314/mcp",
+  "serve_root_alias": true,
   "authorization_servers": ["https://auth.example.com"],
-  "scopes_supported": ["mcp:tools"],
+  "scopes_supported": ["mcp:tools", "mcp:tasks"],
   "bearer_methods_supported": ["header"],
   "validation": {
     "kind": "test_static",

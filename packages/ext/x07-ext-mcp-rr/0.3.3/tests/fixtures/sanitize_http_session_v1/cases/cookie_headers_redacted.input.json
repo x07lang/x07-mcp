@@ -1,0 +1,1 @@
+{"req":{"headers":{"Cookie":"session=abc; foo=bar"}},"res":{"headers":{"Set-Cookie":"session=abc"}}}

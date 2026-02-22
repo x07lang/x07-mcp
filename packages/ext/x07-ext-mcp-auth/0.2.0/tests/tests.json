@@ -1,0 +1,35 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "auth/rs_pack_build",
+      "world": "run-os",
+      "entry": "smoke_auth.rs_pack_build",
+      "expect": "pass"
+    },
+    {
+      "id": "auth/oauth2_authenticate_http/missing_header",
+      "world": "run-os",
+      "entry": "smoke_auth.oauth2_authenticate_missing_header",
+      "expect": "pass"
+    },
+    {
+      "id": "auth/oauth2_authenticate_http/invalid_token",
+      "world": "run-os",
+      "entry": "smoke_auth.oauth2_authenticate_invalid_token",
+      "expect": "pass"
+    },
+    {
+      "id": "auth/oauth2_authenticate_http/ok_and_authorize_scopes",
+      "world": "run-os",
+      "entry": "smoke_auth.oauth2_authenticate_ok_and_authorize_scopes",
+      "expect": "pass"
+    },
+    {
+      "id": "auth/introspection/request_and_validate",
+      "world": "run-os",
+      "entry": "smoke_auth.introspection_request_and_validate",
+      "expect": "pass"
+    }
+  ]
+}

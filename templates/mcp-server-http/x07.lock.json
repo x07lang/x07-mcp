@@ -1,6 +1,17 @@
 {
-  "schema_version": "x07.lock@0.2.0",
+  "schema_version": "x07.lock@0.3.0",
   "dependencies": [
+    {
+      "name": "ext-base64-rs",
+      "version": "0.1.4",
+      "path": ".x07/local/ext-base64-rs/0.1.4",
+      "package_manifest_sha256": "9bfb8d1f9c21d5e6fb3db18b4aa7a577ffce9d5297012dad07c128cea605f864",
+      "module_root": "modules",
+      "modules_sha256": {
+        "ext.base64": "c5a3fdf95a966a898607d160cc03f86382e11c6c9b09de0585e0abb7709f1c32",
+        "ext.base64.tests": "f185b879647769e0495ecbcd6b32a0d1c35d05dbca7d91b6ee1134ce8a5f4ed4"
+      }
+    },
     {
       "name": "ext-csv-rs",
       "version": "0.1.5",
@@ -9,7 +20,7 @@
       "module_root": "modules",
       "modules_sha256": {
         "ext.csv": "09f75965c511bc084e99e7e0b82e9e19bde36e67b92b5e1eec22c77a2717d793",
-        "ext.csv.data_model": "edc77e2a0b0b52944eaba6b954538de637f4d298054e67b8f86972be1cd1f2a1",
+        "ext.csv.data_model": "a4de66fec599d5ef92ca30c056ef4e235a9aff85b74caec7d027c6f3aca9b911",
         "ext.csv.tests": "2f9a4ea717e4d1eec3ae65c561877a574f0813f5c43badf501c5b4c283475582"
       }
     },
@@ -20,7 +31,7 @@
       "package_manifest_sha256": "d88b6b83b79d8d25cfcf154fa6fa280ab9efa3ec2395c4842e1f859ccd8ed37f",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.curl._ffi": "8c1b58cb0dd9f32c3f51493b74e1b86243a07aafdd30ed042754dc5d0d0a64a5",
+        "ext.curl._ffi": "ef7ab5e230cc7bb054cf9b777ae803fe80907a43ab8254d99d231dc9b69d529f",
         "ext.curl.http": "b7d884c62d109a666917dc2de20d9d30a7835103394afe61522632a02747e119"
       }
     },
@@ -32,19 +43,19 @@
       "module_root": "modules",
       "modules_sha256": {
         "ext.data_model": "f725211ff55a6ad1db31f174dfbdcf55beccd7a24e44f8da929ecf7d5d0c0ccb",
-        "ext.data_model.csv": "bd6f36f25bc0e01480859c59e2302f2865c960f100a95cadefed7fe59f4e0c99",
-        "ext.data_model.csv.tests": "5df3b4a86cf222ca8962cb0ceab2c5fc861437713c36f262bca0fb891cc8614c",
-        "ext.data_model.ini": "e6cc44509901f4b350da17deffcd653b985dc9ec277a72efe523f122bf06a4a4",
-        "ext.data_model.ini.tests": "006b64f4404ba4da08eecaf9af201676fc49797a5a253b80d88236f78aa26e94",
+        "ext.data_model.csv": "3535863cd84a4dc45d5068347ca7e6005aae64d596a638e8497810f3f9b562ad",
+        "ext.data_model.csv.tests": "81d708e2f0df89050c2cbabf1ff739a88c0166b03ce95e2a0158f73d24159511",
+        "ext.data_model.ini": "754a6ed3ecda50959762f9629e99537935dd793dc26e2a3394449f653ad3dff3",
+        "ext.data_model.ini.tests": "f13271299d4131a702e33b4d058c98fc9d15f886f29ce93c2c64779f81a00a19",
         "ext.data_model.json": "6c634e7007fbb19db79262869e9348dc525339c59a5ff013837527bacd5a7294",
         "ext.data_model.json.tests": "0af030b9b17d03c554364c518841410f9263470d25e1f75ae70c582ad1182f01",
-        "ext.data_model.tests": "4d0d362e69893b6db9af6f5710c24e2868ef47b0fcad9df751a707547aa147e1",
-        "ext.data_model.toml": "81def2832777ebc48302c42e025cba94186deff64915aa6a0ccaf8aec6a74b32",
+        "ext.data_model.tests": "620b200c7570a4c6841cba26f5cda5f8451a7996f78bb73aec0ea3f6aafb825a",
+        "ext.data_model.toml": "675037e7d4bee4a8f5ae791eb94e246760296e122977015a010686f6191d2118",
         "ext.data_model.toml.tests": "bb8bb19c44d0e5a2b296eef2d0e70b005d84317347d48958fbe28a7ee9d2e94b",
-        "ext.data_model.xml": "6a93997653ad26b6922fa494a9b2bd15ab104626d0277f2fd267afd540974750",
-        "ext.data_model.xml.tests": "8346ec79e12f8dde83721bab5727da4f1db94d89bed824caea29c8792794eb47",
-        "ext.data_model.yaml": "622ecb16fd5b86ba979f3cde95473bda321af74a69bd43a03701407cc3be1abc",
-        "ext.data_model.yaml.tests": "03fc345b1dcaf330f813b6d3c2b11f0bb1ea509f3f72c93b6d2e3146a1ed7f50"
+        "ext.data_model.xml": "a58d1ba50f669ab944dfe2621d26cd6cc85df5086470eb23d3d39b77478de140",
+        "ext.data_model.xml.tests": "05017353879a1db1c4578cde7ccac8672b1e0c3f022a7471d79ca21e660934e5",
+        "ext.data_model.yaml": "b6f260ed1c258711422ec36f0b7721b5b590e6e32472c4b23d837b3155865c7c",
+        "ext.data_model.yaml.tests": "9fbb2323670b07f81daf0e339d73aff75cf4e340695ec5f1ae7410339f91609c"
       }
     },
     {
@@ -90,21 +101,32 @@
       "package_manifest_sha256": "5964a1f60b89cdea77d6989601fd45f0a9102e60e7cee8b1b5a26a42b74634d3",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.jsonschema": "fbf6cdd5518e89c8c8b1f3831e3c2eb8e49f21a1d1486f9cc8ede599a9525ee3",
-        "ext.jsonschema.tests": "c5256da7f351f0d1cdc22bd12d3a15df262e1909fa1a547201ebe39f75c65a04"
+        "ext.jsonschema": "e21611444b8ea6bd6659a4d01a78dbb39f4043d2f66ac3fd10457a0333ab1da3",
+        "ext.jsonschema.tests": "e85b2571087fa42e206a387fbaef66c910ec544d373738984de58c6e8f431c1d"
       }
     },
     {
       "name": "ext-mcp-auth",
-      "version": "0.1.0",
-      "path": ".x07/local/ext-mcp-auth/0.1.0",
-      "package_manifest_sha256": "8ac144a283005ef95ca73c4443a65383edef05f2108af36e4e817124aadf55bd",
+      "version": "0.2.0",
+      "path": ".x07/local/ext-mcp-auth/0.2.0",
+      "package_manifest_sha256": "b74f4271ab99a0d24e39aa9c9a7891d7dd2ef33c39ccfb324180d8d2c099ac3d",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.auth": "a58c0dc6a3244e12a5202189c4e523f92e7f43c59a2d22180ba3ac841c5ebd2c",
-        "std.mcp.auth.challenge": "0ef1a2ddc1c00e510c273d9d35bc4488e3963ce2cae29828132bd34d17aff758",
-        "std.mcp.auth.oauth_test_static": "af9463b8c84fd2e18871a2e33d285fe9d0cfb8bac993e94ed1aaa6b55a90b46d",
-        "std.mcp.auth.prm": "f305ceb3977439a18c99f64ca4d8a53911d9c90a05447d00959330ed1f9ce3e1"
+        "std.mcp.auth.http_middleware_v1": "ef62eed7ce282c94c6568542a0475f78e1356e9962d40db2d360f006e7a6bf76",
+        "std.mcp.auth.introspection_v1": "05859e3acd101a32f51a5d35fb8a727b6571067fbefc06dae5839877ca2389df",
+        "std.mcp.auth.rs_v1": "4d1c7a27697ce3cdf1c323d3bf9f2f9fd221e69c79f24ab18cf4505bb824ed37"
+      }
+    },
+    {
+      "name": "ext-mcp-auth-core",
+      "version": "0.1.0",
+      "path": ".x07/local/ext-mcp-auth-core/0.1.0",
+      "package_manifest_sha256": "b7eda0eece75e8f86e1f62ad8cc35d653cde4653e44dec6802d3d832530f57be",
+      "module_root": "modules",
+      "modules_sha256": {
+        "std.mcp.auth.bearer_v1": "a959cde40ab4bb0b4a60cde5ce22776525b3048aa4d77a94ddb04194f6257e6d",
+        "std.mcp.auth.prm_v1": "cdf976d3a1c7910abc8f50e1de9e8bf343b1994938cd1b01025bd4690ef17867",
+        "std.mcp.auth.scopes_v1": "3a1e9be2452f801844e6c5776604a199e48b06d3a80bef1176f04da0f878899a"
       }
     },
     {
@@ -114,7 +136,7 @@
       "package_manifest_sha256": "70fecc49c7e7eaf7001f14060e2b23be2a8c1ceef8c03c08b072bcac8980da25",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.ctx": "d2111bc3404a2deb8e9d7bb38db8179f8453b267d8da0f347f63aed0aff51caf",
+        "std.mcp.ctx": "8cfcb31d6d2448436acd85456b93c1978904dd9962edba9608ea5d716db6022c",
         "std.mcp.diag": "8e1f6931bfe65880fdb5570bc7d4e0a2aa5775ea669346be3f667998738e18f1",
         "std.mcp.jsonrpc": "b369452205c724ffe2060af7c3b1df20c92550e7ed958684ceb13c7747ac2e86",
         "std.mcp.notifications": "062139eb933bd5f9c489d55ec78b549923acacfc82822a5bc2f248dc02c1724b",
@@ -140,14 +162,14 @@
     },
     {
       "name": "ext-mcp-rr",
-      "version": "0.2.2",
-      "path": ".x07/local/ext-mcp-rr/0.2.2",
-      "package_manifest_sha256": "d2febee406b99e4063a3f8734b4bc49569b54275abab58f3e136fdcc62d155cc",
+      "version": "0.2.3",
+      "path": ".x07/local/ext-mcp-rr/0.2.3",
+      "package_manifest_sha256": "b943ed7b928e62dc063572f13a57e650ad52ad96978a244ecb6bb7d63beac096",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.rr.http": "69ec5ca3c5ce2b3e71d8dcfeec6116b368e0bde0f8750ea83914d114346506c7",
+        "std.mcp.rr.http": "dfedbcd91bd798bd64b3dbdfc6ff068ee180ffd81b23789078390ed2f9b2b8cf",
         "std.mcp.rr.http_sse": "be282e3c8f6c26da1fcd9b4f70111a0dc770fc18ec76a41ec5296d6225a1142f",
-        "std.mcp.rr.sanitize": "64a3e8f3c1374cbe7f1c506446b3fce73a14a4d8e918ef3e20dad7493c3fdeb8",
+        "std.mcp.rr.sanitize": "c4daba99e142249e94d40c9432b0071cecab9374207e3c91b2e3dde9b41d9370",
         "std.mcp.rr.session": "1603b1e53affd9fc5b7bfad8d650575759e3d2c27f1cdb913ba662038db5922a"
       }
     },
@@ -160,7 +182,7 @@
       "modules_sha256": {
         "std.mcp.sandbox.policy_compile": "81d89ef61aab2bbeac8a4d733cc14deac5ca0c834cf8592b7a134878c18e11ea",
         "std.mcp.sandbox.profiles": "44646f9ac97bdf9b2612a6e81e504d789fb227f44a74a053f9570880342f5fe7",
-        "std.mcp.sandbox.router_exec": "3acc04b7505718178ea9bf8589b68ebe473ba2d8f84fd2b0d82c5c5f02fafb12"
+        "std.mcp.sandbox.router_exec": "75cce1cd14aa8378add7ed3fbf3d9277dae36b539dff3f583f4cc4eb70bcf5b4"
       }
     },
     {
@@ -175,20 +197,20 @@
         "std.mcp.toolkit.resources_file": "a1ee694df26c8345bbf51fd15d48f705c330b5937c71edccce84df05addbbf52",
         "std.mcp.toolkit.schema_subset": "b6d1c073394e843d6c823e2584543fba40e1a80c002d0cb59a9143e8ab3e826b",
         "std.mcp.toolkit.server_cfg_file": "cdd979cc7cdad5b02def50f7f39e04094d4291c19fc0e9528af002c94428871a",
-        "std.mcp.toolkit.stdio_dispatch": "fa2b58d636bbba6c8a1fda1560f6c95cec8aa2f157fae0ff5a4c4ceb680969c8",
+        "std.mcp.toolkit.stdio_dispatch": "b45acad270e343e70963769d86b809500e6c7472de3863ecac687465d758badc",
         "std.mcp.toolkit.toolctx": "9fc0ccb38897fbc877a746990ed490dd9d9b5b4e9d34633ad7fff4024c1c0052",
         "std.mcp.toolkit.tools_file": "102c8affdcbdcfe6cfac81ed018e32f0691e126766d48276d581fae1eb5c7d9b"
       }
     },
     {
       "name": "ext-mcp-transport-http",
-      "version": "0.2.0",
-      "path": ".x07/local/ext-mcp-transport-http/0.2.0",
-      "package_manifest_sha256": "c8b19f9c40ed31532ab0fc9361033b24324ccf9da42966214230baeaede4e461",
+      "version": "0.2.1",
+      "path": ".x07/local/ext-mcp-transport-http/0.2.1",
+      "package_manifest_sha256": "fbfddebd7879a2bc416243a0d4ac7d2189930df2a090d5c0686701067950dd0a",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.transport.http": "8e5e92a4384f595f127c85169700915eec96d03e34212dc9eb77d2f57460c39f",
-        "std.mcp.transport.http_rules": "561812c3336206c298cf8fdb9704ac5fed696cdcf9fb5530f8fbee1dc1fa0723",
+        "std.mcp.transport.http": "48a5c1e6d3dc5dbef522c79fc2f5a29822f8427aa35ca8998b70267bc69e0b3d",
+        "std.mcp.transport.http_rules": "010fa25b899a3f499b37cd8ecc3dc6fdf3514f066c6700fc6c9a8890ba020584",
         "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9",
         "std.mcp.transport.http_sse": "5fa7f191dac0e9fe080275ce47152285890c308164b2972093601e0cc35b9f2a"
       }
@@ -200,7 +222,7 @@
       "package_manifest_sha256": "a72b6d5cb3bb7a39d94ef1e2309eaa660eb38bbe1e61d4103b9a518cb2d28612",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.sandbox.worker_main": "00d6d766bc7fd6136a16ed480040a9288e0691c5e474eb2b92dd03fec7ae8c90",
+        "std.mcp.sandbox.worker_main": "d68ef82c57ebe8ae3188308419afa5ab3ca3ea940890a4c7a81ce1e55188c52c",
         "std.mcp.sandbox.worker_proto": "d9598dc01ca61b50daa36c6b744457504a83d6217cc5130a24a6c2f64780494f"
       }
     },
@@ -222,6 +244,17 @@
         "std.net.tcp": "34d996b9e5998960030df14cab6899270fdcbac942db2f2eaf6f5e44458be903",
         "std.net.tls": "525a4e5181b94d59f30b2ae055b642421788a00bd776f7cef16376f2f921ea27",
         "std.net.udp": "d632703b7e750934891a60b155ce10f9a9cc21d674f23933b0023b5ea53dad18"
+      }
+    },
+    {
+      "name": "ext-regex",
+      "version": "0.2.4",
+      "path": ".x07/local/ext-regex/0.2.4",
+      "package_manifest_sha256": "5f10da1b19bbb296e460cf903d4b93954b55411f59c913eb6044354c497c6a18",
+      "module_root": "modules",
+      "modules_sha256": {
+        "ext.regex": "2167fb0d3ffb85e92cdac612dfb8b5de4dbb52a211bfadc8630d67d91fba16be",
+        "ext.regex.tests": "3626ebe4b5b487e82bc4ded9745cd3acd6a21258ac3a3b8e6f6696ee1fa75f5d"
       }
     },
     {
@@ -255,7 +288,7 @@
       "modules_sha256": {
         "ext.toml": "3bd80fbe0c44b57092432b628d3ce0068abe190d8c27395ebf9bf711bdeeea35",
         "ext.toml.data_model": "a156658af92d9a9e960d86e58de62c957b02440c7dbd6dca6e56fb28c6a1b642",
-        "ext.toml.tests": "e0d34af8f60786333ba479c7cf176dc5d108de4aacc560b086eb7e73886d3cda"
+        "ext.toml.tests": "f3a1e8df9afd6da0927c097080344af08a3cf12ae5769686721bf462e122a046"
       }
     },
     {
@@ -266,10 +299,10 @@
       "module_root": "modules",
       "modules_sha256": {
         "ext.unicode": "df35037b24fff1346db444d0281f002cc49f992799647d89d1ca80516714bbdb",
-        "ext.unicode.casefold": "3a8e5fa6ff0e0297e36939c3b168d114e577960fa61e3e74162cd87baab27ee1",
-        "ext.unicode.normalize": "bd2e84e835a62753af686c911016baba38af0df3fd31dc4e4d81cffca0be0b9c",
-        "ext.unicode.segment": "4da1f39b29bfecf0ab200d12993f27f85a893e2fea23cbb055b3ebe5ee3c82e9",
-        "ext.unicode.tests": "d5995f3ac0fedf88d6d58e5779ad751fc557c4d7237ae6431dc75d58bfd28270"
+        "ext.unicode.casefold": "2a2be7ca592acef482c3e0015ad9748cd98b9a831bebce0791d11488a70d38c4",
+        "ext.unicode.normalize": "4f86ecc58f838788004617c9978476a1821cb780ed8e640f965d1aa44b826fc5",
+        "ext.unicode.segment": "341c8ace2b44f8fca0c5339bdbc8d102a6d06d36ef4a6a705601539a9fbf03c4",
+        "ext.unicode.tests": "1d5209fc2aab58dca59930459fd054d8065eb7a7dd9e042c179149ba7252064f"
       }
     },
     {
@@ -281,10 +314,10 @@
       "modules_sha256": {
         "ext.http_types": "dd14b3da1a82a2424e7f7205df8d3b97559fbe556e319dcf7d32e9a2b46a6bbd",
         "ext.httparse": "aa37f2a0973c9278463ecf596f98529115a593a83edc250e1a5fa0d9f7f04bb0",
-        "ext.httparse.tests": "eb64cd7de850f582dceb96b87d997c167fa720d75a99932ad771609c19a97331",
+        "ext.httparse.tests": "7e3e79eef1f6bd112f6d06eeb34f8bae4cd261ccb960b41b7adf5cea4c50aafd",
         "ext.url.encode": "7e234d2e46b57f246f5d96db9048008ae99baf7661163da60b7a372cb1397e88",
         "ext.url.parse": "f2d6059e9e2f13f0e80e7780bc58686efdf82e08b87355c56348a236bc80bd5f",
-        "ext.url.tests": "a9e4e088ea9ec3b3cb68d22d2ec06d32305fefb518dfdca29bd9eb993bf52cbd"
+        "ext.url.tests": "34fc0a3c3c983c2a2e6f5928f00f02d97d66384fe62117dc96e096febf239523"
       }
     },
     {

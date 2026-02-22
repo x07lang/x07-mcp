@@ -46,7 +46,8 @@ The HTTP template includes:
 
 - `config/mcp.server.json` (`x07.mcp.server_config@0.2.0`)
 - `config/mcp.tools.json` (`x07.mcp.tools_manifest@0.2.0`)
-- `config/mcp.oauth.json` (`x07.mcp.oauth@0.1.0`)
+- `config/mcp.oauth.json` (`x07.mcp.oauth@0.2.0`)
+- `config/mcp.server.dev.json` (noauth dev config)
 - replay fixtures under `tests/.x07_rr/sessions/`
 
 ## HTTP Tasks template
@@ -71,6 +72,8 @@ x07 pkg lock
 The HTTP Tasks template includes:
 
 - `mcp.server.json` (`x07.mcp.server_config@0.3.0`)
+- `mcp.server.dev.json` (noauth dev config)
 - `mcp.server.sqlite.json` (sqlite store example)
+- `mcp.oauth.json` (`x07.mcp.oauth@0.2.0`)
 - `mcp.tools.json` (`x07.mcp.tools_manifest@0.2.0`)
 - RR transcript fixtures under `tests/fixtures/rr/`

@@ -22,6 +22,7 @@
 ## Reference
 - [Server config (v0.2.0)](reference/server-config.md)
 - [Server config (v0.3.0)](reference/server-config-v0.3.0.md)
+- [OAuth config](reference/oauth-config.md)
 - [Tools manifest](reference/tools-manifest.md)
 - [Registry manifest](reference/registry-manifest.md)
 - [Resources manifest](reference/resources-manifest.md)

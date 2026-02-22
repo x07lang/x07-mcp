@@ -1,0 +1,1 @@
+{"steps":[{"req":{"headers":{"Authorization":"Bearer TOKEN_OK","X-Other":"safe"}}}],"res":{"headers":{"Content-Type":"application/json"}}}

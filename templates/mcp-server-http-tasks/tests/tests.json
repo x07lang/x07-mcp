@@ -2,6 +2,30 @@
   "schema_version": "x07.tests_manifest@0.2.0",
   "tests": [
     {
+      "id": "http/auth/prm_200",
+      "world": "run-os",
+      "entry": "http_auth_goldens.prm_200",
+      "expect": "pass"
+    },
+    {
+      "id": "http/auth/missing_authorization_401",
+      "world": "run-os",
+      "entry": "http_auth_goldens.missing_authorization_401",
+      "expect": "pass"
+    },
+    {
+      "id": "http/auth/access_token_in_query_400",
+      "world": "run-os",
+      "entry": "http_auth_goldens.access_token_in_query_400",
+      "expect": "pass"
+    },
+    {
+      "id": "http/auth/insufficient_scope_403",
+      "world": "run-os",
+      "entry": "http_auth_goldens.insufficient_scope_403",
+      "expect": "pass"
+    },
+    {
       "id": "tasks/replay-progress",
       "world": "run-os",
       "entry": "replay_smoke.tasks_replay_progress",

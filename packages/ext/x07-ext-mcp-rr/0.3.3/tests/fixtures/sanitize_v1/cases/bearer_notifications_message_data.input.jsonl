@@ -1,0 +1,2 @@
+{"dir":"s2c","msg":{"jsonrpc":"2.0","method":"notifications/message","params":{"data":{"headers":{"Authorization":"Bearer abcdefghijklmnopqrstuvwxyz0123456789"},"msg":"calling upstream with Authorization: Bearer abcdefghijklmnopqrstuvwxyz0123456789","nested":{"note":"token=Bearer ZYXWVUTSRQPONMLKJIHGFEDCBA9876543210"}},"level":"info","logger":"unit.sanitize"}}}
+
