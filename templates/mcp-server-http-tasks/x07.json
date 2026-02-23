@@ -3,182 +3,182 @@
   "dependencies": [
     {
       "name": "ext-base64-rs",
-      "path": ".x07/local/ext-base64-rs/0.1.4",
+      "path": ".x07/deps/ext-base64-rs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-crypto-rs",
-      "path": ".x07/local/ext-crypto-rs/0.1.4",
+      "path": ".x07/deps/ext-crypto-rs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-csv-rs",
-      "path": ".x07/local/ext-csv-rs/0.1.5",
+      "path": ".x07/deps/ext-csv-rs/0.1.5",
       "version": "0.1.5"
     },
     {
       "name": "ext-curl-c",
-      "path": ".x07/local/ext-curl-c/0.1.6",
+      "path": ".x07/deps/ext-curl-c/0.1.6",
       "version": "0.1.6"
     },
     {
       "name": "ext-data-model",
-      "path": ".x07/local/ext-data-model/0.1.8",
+      "path": ".x07/deps/ext-data-model/0.1.8",
       "version": "0.1.8"
     },
     {
       "name": "ext-db-core",
-      "path": ".x07/local/ext-db-core/0.1.9",
+      "path": ".x07/deps/ext-db-core/0.1.9",
       "version": "0.1.9"
     },
     {
       "name": "ext-db-sqlite",
-      "path": ".x07/local/ext-db-sqlite/0.1.9",
+      "path": ".x07/deps/ext-db-sqlite/0.1.9",
       "version": "0.1.9"
     },
     {
       "name": "ext-fs",
-      "path": ".x07/local/ext-fs/0.1.4",
+      "path": ".x07/deps/ext-fs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-hex-rs",
-      "path": ".x07/local/ext-hex-rs/0.1.4",
+      "path": ".x07/deps/ext-hex-rs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-ini-rs",
-      "path": ".x07/local/ext-ini-rs/0.1.4",
+      "path": ".x07/deps/ext-ini-rs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-json-rs",
-      "path": ".x07/local/ext-json-rs/0.1.4",
+      "path": ".x07/deps/ext-json-rs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-jsonschema-rs",
-      "path": ".x07/local/ext-jsonschema-rs/0.1.0",
+      "path": ".x07/deps/ext-jsonschema-rs/0.1.0",
       "version": "0.1.0"
     },
     {
       "name": "ext-math",
-      "path": ".x07/local/ext-math/0.1.4",
+      "path": ".x07/deps/ext-math/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-mcp-auth",
-      "path": ".x07/local/ext-mcp-auth/0.2.0",
+      "path": ".x07/deps/ext-mcp-auth/0.2.0",
       "version": "0.2.0"
     },
     {
       "name": "ext-mcp-auth-core",
-      "path": ".x07/local/ext-mcp-auth-core/0.1.0",
+      "path": ".x07/deps/ext-mcp-auth-core/0.1.0",
       "version": "0.1.0"
     },
     {
       "name": "ext-mcp-core",
-      "path": ".x07/local/ext-mcp-core/0.3.2",
+      "path": ".x07/deps/ext-mcp-core/0.3.2",
       "version": "0.3.2"
     },
     {
       "name": "ext-mcp-obs",
-      "path": ".x07/local/ext-mcp-obs/0.1.1",
-      "version": "0.1.1"
+      "path": ".x07/deps/ext-mcp-obs/0.1.2",
+      "version": "0.1.2"
     },
     {
       "name": "ext-mcp-rr",
-      "path": ".x07/local/ext-mcp-rr/0.3.3",
-      "version": "0.3.3"
+      "path": ".x07/deps/ext-mcp-rr/0.3.6",
+      "version": "0.3.6"
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": ".x07/local/ext-mcp-sandbox/0.3.2",
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.2",
       "version": "0.3.2"
     },
     {
       "name": "ext-mcp-toolkit",
-      "path": ".x07/local/ext-mcp-toolkit/0.3.2",
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.2",
       "version": "0.3.2"
     },
     {
       "name": "ext-mcp-transport-http",
-      "path": ".x07/local/ext-mcp-transport-http/0.3.3",
-      "version": "0.3.3"
+      "path": ".x07/deps/ext-mcp-transport-http/0.3.6",
+      "version": "0.3.6"
     },
     {
       "name": "ext-mcp-worker",
-      "path": ".x07/local/ext-mcp-worker/0.3.2",
+      "path": ".x07/deps/ext-mcp-worker/0.3.2",
       "version": "0.3.2"
     },
     {
       "name": "ext-net",
-      "path": ".x07/local/ext-net/0.1.8",
-      "version": "0.1.8"
+      "path": ".x07/deps/ext-net/0.1.9",
+      "version": "0.1.9"
     },
     {
       "name": "ext-obs",
-      "path": ".x07/local/ext-obs/0.1.2",
+      "path": ".x07/deps/ext-obs/0.1.2",
       "version": "0.1.2"
     },
     {
       "name": "ext-pb-rs",
-      "path": ".x07/local/ext-pb-rs/0.1.5",
+      "path": ".x07/deps/ext-pb-rs/0.1.5",
       "version": "0.1.5"
     },
     {
       "name": "ext-rand",
-      "path": ".x07/local/ext-rand/0.1.0",
+      "path": ".x07/deps/ext-rand/0.1.0",
       "version": "0.1.0"
     },
     {
       "name": "ext-regex",
-      "path": ".x07/local/ext-regex/0.2.4",
+      "path": ".x07/deps/ext-regex/0.2.4",
       "version": "0.2.4"
     },
     {
       "name": "ext-sockets-c",
-      "path": ".x07/local/ext-sockets-c/0.1.6",
+      "path": ".x07/deps/ext-sockets-c/0.1.6",
       "version": "0.1.6"
     },
     {
       "name": "ext-stdio",
-      "path": ".x07/local/ext-stdio/0.1.0",
+      "path": ".x07/deps/ext-stdio/0.1.0",
       "version": "0.1.0"
     },
     {
       "name": "ext-time-rs",
-      "path": ".x07/local/ext-time-rs/0.1.5",
+      "path": ".x07/deps/ext-time-rs/0.1.5",
       "version": "0.1.5"
     },
     {
       "name": "ext-toml-rs",
-      "path": ".x07/local/ext-toml-rs/0.1.5",
+      "path": ".x07/deps/ext-toml-rs/0.1.5",
       "version": "0.1.5"
     },
     {
       "name": "ext-u64-rs",
-      "path": ".x07/local/ext-u64-rs/0.1.0",
+      "path": ".x07/deps/ext-u64-rs/0.1.0",
       "version": "0.1.0"
     },
     {
       "name": "ext-unicode-rs",
-      "path": ".x07/local/ext-unicode-rs/0.1.5",
+      "path": ".x07/deps/ext-unicode-rs/0.1.5",
       "version": "0.1.5"
     },
     {
       "name": "ext-url-rs",
-      "path": ".x07/local/ext-url-rs/0.1.4",
+      "path": ".x07/deps/ext-url-rs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-xml-rs",
-      "path": ".x07/local/ext-xml-rs/0.1.4",
+      "path": ".x07/deps/ext-xml-rs/0.1.4",
       "version": "0.1.4"
     },
     {
       "name": "ext-yaml-rs",
-      "path": ".x07/local/ext-yaml-rs/0.1.4",
+      "path": ".x07/deps/ext-yaml-rs/0.1.4",
       "version": "0.1.4"
     }
   ],

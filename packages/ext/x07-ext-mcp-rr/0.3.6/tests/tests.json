@@ -1,0 +1,61 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "sanitize/bearer_in_notifications_message_data",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize.bearer_in_notifications_message_data",
+      "fixture_root": "fixtures/sanitize_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "sanitize/cookie_in_audit_record",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize.cookie_in_audit_record",
+      "fixture_root": "fixtures/sanitize_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "sanitize/new_token_type_causes_assertion_failure",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize.new_token_type_causes_assertion_failure",
+      "fixture_root": "fixtures/sanitize_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "sanitize_http_session/bearer_header_redacted",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize_http_session.bearer_header_redacted",
+      "fixture_root": "fixtures/sanitize_http_session_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "sanitize_http_session/cookie_headers_redacted",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize_http_session.cookie_headers_redacted",
+      "fixture_root": "fixtures/sanitize_http_session_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "sanitize_http_session/proxy_authorization_redacted",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize_http_session.proxy_authorization_redacted",
+      "fixture_root": "fixtures/sanitize_http_session_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "sanitize_http_session/new_token_survives_fails_closed",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize_http_session.new_token_survives_fails_closed",
+      "fixture_root": "fixtures/sanitize_http_session_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "sanitize_http_session/token_key_survives_fails_closed",
+      "world": "solve-fs",
+      "entry": "smoke_sanitize_http_session.token_key_survives_fails_closed",
+      "fixture_root": "fixtures/sanitize_http_session_v1",
+      "expect": "pass"
+    }
+  ]
+}

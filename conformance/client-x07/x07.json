@@ -33,13 +33,13 @@
     },
     {
       "name": "ext-mcp-auth-core",
-      "path": ".x07/deps/ext-mcp-auth-core/0.1.0",
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth-core/0.1.0",
       "version": "0.1.0"
     },
     {
       "name": "ext-net",
-      "path": ".x07/deps/ext-net/0.1.8",
-      "version": "0.1.8"
+      "path": ".x07/deps/ext-net/0.1.9",
+      "version": "0.1.9"
     },
     {
       "name": "ext-sockets-c",

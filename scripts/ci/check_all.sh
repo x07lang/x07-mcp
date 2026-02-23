@@ -55,7 +55,41 @@ step "registry fixtures (check)"
 step "fmt check (x07AST JSON)"
 while IFS= read -r -d '' f; do
   x07 fmt --input "$f" --check --report-json >/dev/null
-done < <(find cli/src packages/ext templates conformance/client-x07/src conformance/client-x07/tests -type f -name '*.x07.json' -print0)
+done < <(
+  find cli/src packages/ext templates conformance/client-x07/src conformance/client-x07/tests \
+    -type d -name .x07 -prune -o \
+    -type f -name '*.x07.json' -print0
+)
+
+step "cli template assets (check)"
+assets_tmp="$(mktemp -d)"
+tmp_dirs+=("$assets_tmp")
+
+check_asset() {
+  local template="$1"
+  local module_id="$2"
+  local out_path="$3"
+  local gen_path="$assets_tmp/$(basename "$out_path")"
+
+  python3 scripts/generate_cli_template_asset_module.py \
+    --template-dir "templates/$template" \
+    --module-id "$module_id" \
+    --out "$gen_path" \
+    >/dev/null
+
+  if ! cmp -s "$gen_path" "$out_path"; then
+    echo "ERROR: cli asset module out of date: $out_path (template=templates/$template)" >&2
+    echo "Hint: run:" >&2
+    echo "  python3 scripts/generate_cli_template_asset_module.py --template-dir templates/$template --module-id $module_id --out $out_path" >&2
+    exit 2
+  fi
+}
+
+check_asset shared x07.mcp.cli.assets.shared cli/src/x07/mcp/cli/assets/shared.x07.json
+check_asset mcp-server x07.mcp.cli.assets.mcp-server cli/src/x07/mcp/cli/assets/mcp-server.x07.json
+check_asset mcp-server-stdio x07.mcp.cli.assets.mcp-server-stdio cli/src/x07/mcp/cli/assets/mcp-server-stdio.x07.json
+check_asset mcp-server-http x07.mcp.cli.assets.mcp-server-http cli/src/x07/mcp/cli/assets/mcp-server-http.x07.json
+check_asset mcp-server-http-tasks x07.mcp.cli.assets.mcp-server-http-tasks cli/src/x07/mcp/cli/assets/mcp-server-http-tasks.x07.json
 
 step "lint check (publish ext package modules)"
 lint_dirs=(
@@ -65,16 +99,21 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-auth/0.3.0/modules"
   "packages/ext/x07-ext-mcp-core/0.3.2/modules"
   "packages/ext/x07-ext-mcp-obs/0.1.1/modules"
+  "packages/ext/x07-ext-mcp-obs/0.1.2/modules"
   "packages/ext/x07-ext-mcp-rr/0.2.3/modules"
   "packages/ext/x07-ext-mcp-rr/0.3.2/modules"
   "packages/ext/x07-ext-mcp-rr/0.3.3/modules"
   "packages/ext/x07-ext-mcp-rr/0.3.4/modules"
+  "packages/ext/x07-ext-mcp-rr/0.3.5/modules"
+  "packages/ext/x07-ext-mcp-rr/0.3.6/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.2/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.2.1/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.3/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.4/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.3.5/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.3.6/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.2/modules"
 )
 for d in "${lint_dirs[@]}"; do
@@ -398,7 +437,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   db_core_dir="$x07_root/packages/ext/x07-ext-db-core/0.1.9"
   db_sqlite_dir="$x07_root/packages/ext/x07-ext-db-sqlite/0.1.9"
   json_dir="$x07_root/packages/ext/x07-ext-json-rs/0.1.4"
-  net_dir="$x07_root/packages/ext/x07-ext-net/0.1.8"
+  net_dir="$x07_root/packages/ext/x07-ext-net/0.1.9"
   stdio_dir="$x07_root/packages/ext/x07-ext-stdio/0.1.0"
   csv_dir="$x07_root/packages/ext/x07-ext-csv-rs/0.1.5"
   curl_dir="$x07_root/packages/ext/x07-ext-curl-c/0.1.6"
@@ -425,9 +464,9 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   sandbox_http_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.2"
   auth_core_http_dir="$root/packages/ext/x07-ext-mcp-auth-core/0.1.1"
   auth_http_dir="$root/packages/ext/x07-ext-mcp-auth/0.3.0"
-  obs_http_dir="$root/packages/ext/x07-ext-mcp-obs/0.1.1"
-  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.4"
-  rr_http_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.4"
+  obs_http_dir="$root/packages/ext/x07-ext-mcp-obs/0.1.2"
+  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.5"
+  rr_http_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.5"
   [[ -d "$auth_jwt_dir" ]] || { echo "ERROR: missing local package: $auth_jwt_dir" >&2; exit 2; }
   [[ -d "$base64_dir" ]] || { echo "ERROR: missing local package: $base64_dir" >&2; exit 2; }
   [[ -d "$crypto_dir" ]] || { echo "ERROR: missing local package: $crypto_dir" >&2; exit 2; }
@@ -490,7 +529,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_local_pkg ext-db-core 0.1.9 "$db_core_dir"
   install_local_pkg ext-db-sqlite 0.1.9 "$db_sqlite_dir"
   install_local_pkg ext-json-rs 0.1.4 "$json_dir"
-  install_local_pkg ext-net 0.1.8 "$net_dir"
+  install_local_pkg ext-net 0.1.9 "$net_dir"
   install_local_pkg ext-stdio 0.1.0 "$stdio_dir"
   install_local_pkg ext-csv-rs 0.1.5 "$csv_dir"
   install_local_pkg ext-curl-c 0.1.6 "$curl_dir"
@@ -517,9 +556,9 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_local_pkg ext-mcp-sandbox 0.3.2 "$sandbox_http_dir"
   install_local_pkg ext-mcp-auth-core 0.1.1 "$auth_core_http_dir"
   install_local_pkg ext-mcp-auth 0.3.0 "$auth_http_dir"
-  install_local_pkg ext-mcp-obs 0.1.1 "$obs_http_dir"
-  install_local_pkg ext-mcp-transport-http 0.3.4 "$transport_http_dir"
-  install_local_pkg ext-mcp-rr 0.3.4 "$rr_http_dir"
+  install_local_pkg ext-mcp-obs 0.1.2 "$obs_http_dir"
+  install_local_pkg ext-mcp-transport-http 0.3.5 "$transport_http_dir"
+  install_local_pkg ext-mcp-rr 0.3.5 "$rr_http_dir"
   x07 pkg lock --project x07.json --offline >/dev/null
 else
   local_deps_dir=".x07/local"
@@ -543,9 +582,9 @@ else
   install_local_pkg ext-mcp-sandbox 0.3.2 "$root/packages/ext/x07-ext-mcp-sandbox/0.3.2"
   install_local_pkg ext-mcp-auth-core 0.1.1 "$root/packages/ext/x07-ext-mcp-auth-core/0.1.1"
   install_local_pkg ext-mcp-auth 0.3.0 "$root/packages/ext/x07-ext-mcp-auth/0.3.0"
-  install_local_pkg ext-mcp-transport-http 0.3.4 "$root/packages/ext/x07-ext-mcp-transport-http/0.3.4"
-  install_local_pkg ext-mcp-rr 0.3.4 "$root/packages/ext/x07-ext-mcp-rr/0.3.4"
-  install_local_pkg ext-mcp-obs 0.1.1 "$root/packages/ext/x07-ext-mcp-obs/0.1.1"
+  install_local_pkg ext-mcp-transport-http 0.3.5 "$root/packages/ext/x07-ext-mcp-transport-http/0.3.5"
+  install_local_pkg ext-mcp-rr 0.3.5 "$root/packages/ext/x07-ext-mcp-rr/0.3.5"
+  install_local_pkg ext-mcp-obs 0.1.2 "$root/packages/ext/x07-ext-mcp-obs/0.1.2"
 
   x07 pkg lock --project x07.json --json=off >/dev/null
 fi
@@ -583,7 +622,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   db_core_dir="$x07_root/packages/ext/x07-ext-db-core/0.1.9"
   db_sqlite_dir="$x07_root/packages/ext/x07-ext-db-sqlite/0.1.9"
   json_dir="$x07_root/packages/ext/x07-ext-json-rs/0.1.4"
-  net_dir="$x07_root/packages/ext/x07-ext-net/0.1.8"
+  net_dir="$x07_root/packages/ext/x07-ext-net/0.1.9"
   stdio_dir="$x07_root/packages/ext/x07-ext-stdio/0.1.0"
   csv_dir="$x07_root/packages/ext/x07-ext-csv-rs/0.1.5"
   curl_dir="$x07_root/packages/ext/x07-ext-curl-c/0.1.6"
@@ -609,9 +648,9 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   sandbox_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.2"
   auth_core_dir="$root/packages/ext/x07-ext-mcp-auth-core/0.1.0"
   auth_dir="$root/packages/ext/x07-ext-mcp-auth/0.2.0"
-  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.3"
-  rr_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.3"
-  obs_dir="$root/packages/ext/x07-ext-mcp-obs/0.1.1"
+  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.6"
+  rr_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.6"
+  obs_dir="$root/packages/ext/x07-ext-mcp-obs/0.1.2"
 
   [[ -d "$base64_dir" ]] || { echo "ERROR: missing local package: $base64_dir" >&2; exit 2; }
   [[ -d "$crypto_dir" ]] || { echo "ERROR: missing local package: $crypto_dir" >&2; exit 2; }
@@ -674,7 +713,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_local_pkg ext-db-core 0.1.9 "$db_core_dir"
   install_local_pkg ext-db-sqlite 0.1.9 "$db_sqlite_dir"
   install_local_pkg ext-json-rs 0.1.4 "$json_dir"
-  install_local_pkg ext-net 0.1.8 "$net_dir"
+  install_local_pkg ext-net 0.1.9 "$net_dir"
   install_local_pkg ext-stdio 0.1.0 "$stdio_dir"
   install_local_pkg ext-csv-rs 0.1.5 "$csv_dir"
   install_local_pkg ext-curl-c 0.1.6 "$curl_dir"
@@ -700,9 +739,9 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_local_pkg ext-mcp-sandbox 0.3.2 "$sandbox_dir"
   install_local_pkg ext-mcp-auth-core 0.1.0 "$auth_core_dir"
   install_local_pkg ext-mcp-auth 0.2.0 "$auth_dir"
-  install_local_pkg ext-mcp-transport-http 0.3.3 "$transport_http_dir"
-  install_local_pkg ext-mcp-rr 0.3.3 "$rr_dir"
-  install_local_pkg ext-mcp-obs 0.1.1 "$obs_dir"
+  install_local_pkg ext-mcp-transport-http 0.3.6 "$transport_http_dir"
+  install_local_pkg ext-mcp-rr 0.3.6 "$rr_dir"
+  install_local_pkg ext-mcp-obs 0.1.2 "$obs_dir"
   x07 pkg lock --project x07.json --offline >/dev/null
 else
   local_deps_dir=".x07/local"
@@ -726,9 +765,9 @@ else
   install_local_pkg ext-mcp-sandbox 0.3.2 "$root/packages/ext/x07-ext-mcp-sandbox/0.3.2"
   install_local_pkg ext-mcp-auth-core 0.1.0 "$root/packages/ext/x07-ext-mcp-auth-core/0.1.0"
   install_local_pkg ext-mcp-auth 0.2.0 "$root/packages/ext/x07-ext-mcp-auth/0.2.0"
-  install_local_pkg ext-mcp-transport-http 0.3.3 "$root/packages/ext/x07-ext-mcp-transport-http/0.3.3"
-  install_local_pkg ext-mcp-rr 0.3.3 "$root/packages/ext/x07-ext-mcp-rr/0.3.3"
-  install_local_pkg ext-mcp-obs 0.1.1 "$root/packages/ext/x07-ext-mcp-obs/0.1.1"
+  install_local_pkg ext-mcp-transport-http 0.3.6 "$root/packages/ext/x07-ext-mcp-transport-http/0.3.6"
+  install_local_pkg ext-mcp-rr 0.3.6 "$root/packages/ext/x07-ext-mcp-rr/0.3.6"
+  install_local_pkg ext-mcp-obs 0.1.2 "$root/packages/ext/x07-ext-mcp-obs/0.1.2"
 
   x07 pkg lock --project x07.json --json=off >/dev/null
 fi

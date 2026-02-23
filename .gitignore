@@ -12,6 +12,9 @@ out/
 tmp*/
 tmp*
 
+# Legacy detritus from pre-$workspace path support (should not be committed).
+conformance/client-x07/$workspace/
+
 # IDE and OS
 .DS_Store
 .idea/

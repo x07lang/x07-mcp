@@ -11,8 +11,16 @@ This repository is an X07 project. You are a coding agent. Your job is to make c
 
 Avoid calling low-level binaries directly (`x07c`, `x07-host-runner`, `x07-os-runner`) unless the task explicitly requires “expert mode”.
 
+## Workspace-root paths (`$workspace/...`)
+
+If `x07.json` uses `$workspace/...` paths, set `X07_WORKSPACE_ROOT` to the repo root before running `x07 pkg lock`, `x07 run`, or `x07 test`.
+
+Example (from this directory):
+
+- `X07_WORKSPACE_ROOT="$PWD/../.." x07 pkg lock --project x07.json`
+
 ## Toolchain info (fill by x07up)
-- Toolchain: v0.1.34
+- Toolchain: v0.1.35
 - Installer channel: stable
 - Docs root: /Users/webik/projects/x07lang/x07-mcp/conformance/client-x07/.agent/docs
 - Skills root: /Users/webik/projects/x07lang/x07-mcp/conformance/client-x07/.agent/skills

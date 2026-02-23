@@ -102,10 +102,12 @@ def main() -> int:
 
     doc = _make_asset_module(args.module_id, files)
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(doc, separators=(",", ":")), encoding="utf-8")
+    text = json.dumps(doc, separators=(",", ":"))
+    if not text.endswith("\n"):
+        text += "\n"
+    args.out.write_text(text, encoding="utf-8")
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
