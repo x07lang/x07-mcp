@@ -10,8 +10,8 @@ permissions:
 env:
   X07_MCP_LOCK_RETRIES: "5"
   X07_MCP_LOCK_RETRY_DELAY_SECS: "3"
-  X07_TOOLCHAIN_TAG: "v0.1.24"
-  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-v0.1.24-x86_64-unknown-linux-gnu.tar.gz"
+  X07_TOOLCHAIN_TAG: "v0.1.34"
+  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-v0.1.34-x86_64-unknown-linux-gnu.tar.gz"
 
 jobs:
   check:
@@ -206,3 +206,37 @@ jobs:
           name: conformance-${{ matrix.server_id }}-${{ matrix.mode }}
           path: conformance/results/${{ matrix.server_id }}-${{ matrix.mode }}/**/checks*.json
           if-no-files-found: ignore
+
+  conformance-client-auth:
+    name: ci / conformance-client / auth
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install system deps
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
+      - name: Install X07 (pinned)
+        shell: bash
+        run: |
+          mkdir -p "$HOME/.x07"
+          curl -fsSL -L "https://github.com/x07lang/x07/releases/download/${X07_TOOLCHAIN_TAG}/${X07_TOOLCHAIN_TARBALL_LINUX_X64}" \
+            | tar -xz -C "$HOME/.x07"
+          echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Build conformance client
+        shell: bash
+        run: |
+          x07 pkg lock --project conformance/client-x07/x07.json --check --json=off
+          x07 bundle --project conformance/client-x07/x07.json --profile os --out dist/x07-mcp-conformance-client --json=off
+      - name: Run conformance (client/auth)
+        shell: bash
+        run: |
+          npx -y @modelcontextprotocol/conformance@0.1.14 client \
+            --command "./dist/x07-mcp-conformance-client" \
+            --suite auth

@@ -1,5 +1,8 @@
 {
   "files": {
+    "arch/budgets/profiles/crypto_jwt_v1.budget.json": {
+      "jcs_sha256_hex": "2f8638bef077d69f2b9339e2e33e33cc4412709d62467c15d04485b26979ed0f"
+    },
     "arch/budgets/profiles/mcp_router_v1.budget.json": {
       "jcs_sha256_hex": "d4c096bc27c55da0201a25c8f2c7300ecfbd549762b28af625ad0ad3bba1e0f2"
     },
@@ -21,7 +24,7 @@
   },
   "indexes": {
     "arch/budgets/index.x07budgets.json": {
-      "jcs_sha256_hex": "723aad034e577cfb7f008f13675f486b731f0a2e5403fbd70cc4decb8f8c9ef5"
+      "jcs_sha256_hex": "ffd0abb47c287968ce6b5a399f97bd50df064b67a845d81e7c9d5f1857ec59a9"
     },
     "arch/rr/index.x07rr.json": {
       "jcs_sha256_hex": "674e08f5eade95160edaabc7781ad2adb13d201bd7a595dc44728e6ebb71d48f"

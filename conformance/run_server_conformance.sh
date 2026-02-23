@@ -109,7 +109,7 @@ fi
 
 # NOTE: npx -y avoids prompting and keeps CI deterministic.
 if [[ "${FULL_SUITE}" == "1" ]]; then
-  npx -y @modelcontextprotocol/conformance@0.1.13 \
+  npx -y @modelcontextprotocol/conformance@0.1.14 \
     server \
     --url "${URL}" \
     --expected-failures "${BASELINE}" \
@@ -131,7 +131,7 @@ else
     if [[ -n "${SPAWN_SERVER}" ]]; then
       start_spawn
     fi
-    npx -y @modelcontextprotocol/conformance@0.1.13 \
+    npx -y @modelcontextprotocol/conformance@0.1.14 \
       server \
       --url "${URL}" \
       --scenario "${scenario}" \

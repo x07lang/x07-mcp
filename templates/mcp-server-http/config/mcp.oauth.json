@@ -5,19 +5,26 @@
   "authorization_servers": ["https://auth.example.com"],
   "scopes_supported": ["mcp:tools", "mcp:tasks"],
   "bearer_methods_supported": ["header"],
+  "dpop_signing_alg_values_supported": ["ES256"],
+  "dpop_bound_access_tokens_required": false,
   "validation": {
-    "kind": "test_static",
-    "static_tokens": [
-      {
-        "token": "TOKEN_OK",
-        "sub": "dev-user",
-        "scope": "mcp:tools"
+    "kind": "jwt_jwks_v1",
+    "jwt_jwks_v1": {
+      "issuer": "https://auth.example.com",
+      "audiences": ["http://127.0.0.1:8314/mcp"],
+      "clock_skew_s": 180,
+      "clock": { "kind": "fixed_v1", "now_s": 1700000005 },
+      "accepted_algs": ["RS256"],
+      "jwks_source": {
+        "kind": "file",
+        "path": "config/fixtures/auth/jwks.json"
       },
-      {
-        "token": "TOKEN_NO_SCOPE",
-        "sub": "dev-user",
-        "scope": "profile"
+      "dpop": {
+        "enabled": true,
+        "required": false,
+        "accepted_algs": ["ES256"],
+        "replay_window_s": 300
       }
-    ]
+    }
   }
 }

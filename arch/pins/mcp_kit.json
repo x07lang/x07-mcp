@@ -9,7 +9,7 @@
     "server_schema_sha256": "3fba09590c99f61735d234822279f4223fab9e300c0a81e81c91ab62a4114de0"
   },
   "tools": {
-    "conformance_npx": "@modelcontextprotocol/conformance@0.1.13",
+    "conformance_npx": "@modelcontextprotocol/conformance@0.1.14",
     "mcpb_npx": "@anthropic-ai/mcpb@2.1.2"
   }
 }

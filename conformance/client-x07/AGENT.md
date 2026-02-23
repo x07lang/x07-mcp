@@ -1,0 +1,145 @@
+# AGENT.md — X07 Agent Operating Guide (Self-Recovery)
+
+This repository is an X07 project. You are a coding agent. Your job is to make changes *and* autonomously recover from errors using the X07 toolchain and its JSON contracts.
+
+## Canonical entrypoints (do not guess)
+- Build / format / lint / fix: `x07 fmt`, `x07 lint`, `x07 fix`
+- Run: `x07 run` (single front door; emits JSON reports)
+- Test: `x07 test` (JSON report; deterministic suites)
+- Policies: `x07 policy init` and `x07 run --allow-host/--deny-host/...` (derived policy generation)
+- Packages: `x07 pkg add`, `x07 pkg lock`, `x07 pkg pack`, `x07 pkg login`, `x07 pkg publish`
+
+Avoid calling low-level binaries directly (`x07c`, `x07-host-runner`, `x07-os-runner`) unless the task explicitly requires “expert mode”.
+
+## Toolchain info (fill by x07up)
+- Toolchain: v0.1.34
+- Installer channel: stable
+- Docs root: /Users/webik/projects/x07lang/x07-mcp/conformance/client-x07/.agent/docs
+- Skills root: /Users/webik/projects/x07lang/x07-mcp/conformance/client-x07/.agent/skills
+
+If any of the above are missing, run:
+- `x07up show --json`
+- `x07up doctor --json`
+
+## Agent kit files (repo-local)
+
+- `AGENT.md`: this file.
+- `x07-toolchain.toml`: pins a channel and declares toolchain components (`docs`, `skills`).
+- `.agent/skills/`: skills pack (linked to the installed toolchain when available).
+- `.agent/docs/`: offline docs (linked to the installed toolchain when available).
+
+## Standard recovery loop (run this, in order)
+When something fails (compile/run/test), follow this loop *without asking for help first*:
+
+1) Format:
+- `x07 fmt --input <FILE> --write --json > .x07/fmt.last.json || true`
+
+2) Lint:
+- `x07 lint --input <FILE> --json > .x07/lint.last.json || true`
+
+3) Quickfix:
+- `x07 fix --input <FILE> --write --json > .x07/fix.last.json || true`
+
+4) Re-run the failing command with a wrapped report:
+- `x07 run --report wrapped --report-out .x07/run.last.json ...`
+- or `x07 test --report-out .x07/test.last.json ...`
+
+5) If still failing, inspect the JSON report fields first (not stdout):
+- Look for `ok: false`, `compile_error`, `trap`, and `stderr_b64`.
+- Decode base64 payloads deterministically (example below).
+
+Only after (1)-(5) should you change code again.
+
+## Package repos (`x07-package.json`)
+
+If this repo contains `x07-package.json`, treat it as a publishable package repo.
+
+Canonical authoring workflow:
+
+1) Edit `x07-package.json`: set `description`/`docs`, then bump `version`.
+
+2) Run tests:
+- `x07 test --manifest tests/tests.json`
+
+3) Pack (sanity check + artifact):
+- `x07 pkg pack --package . --out dist/<name>-<version>.x07pkg`
+
+4) Login + publish to the official registry:
+- `x07 pkg login --index sparse+https://registry.x07.io/index/`
+- `x07 pkg publish --index sparse+https://registry.x07.io/index/ --package .`
+
+## Decoding base64 fields (copy/paste)
+Many runner reports use base64 fields for binary outputs. Use this exact snippet:
+
+```bash
+python3 - <<'PY'
+import base64, json, sys
+p = ".x07/run.last.json"
+doc = json.load(open(p, "r", encoding="utf-8"))
+r = doc.get("report") if doc.get("schema_version","").startswith("x07.run.report@") else doc
+for k in ("stderr_b64","stdout_b64","solve_output_b64"):
+    if k in r and isinstance(r[k], str):
+        raw = base64.b64decode(r[k])
+        print(f"{k}: {len(raw)} bytes")
+        try:
+            print(raw.decode("utf-8", errors="replace")[:2000])
+        except Exception:
+            pass
+PY
+```
+
+## Project execution model (must be consistent)
+
+* `x07.json` defines:
+
+  * `default_profile`
+  * `profiles.<name>` with `world`, optional `policy`, optional resource limits
+* `x07.lock.json` (or configured lockfile) defines resolved package module roots.
+* `x07 run --profile <name>` is the canonical way to select world/policy.
+
+Do **not** pass long lists of `--module-root` manually unless in “expert mode”. The project lockfile must resolve them.
+
+## Worlds: operational rule of thumb
+
+* Use **`solve-*`** worlds for deterministic logic and unit tests.
+* Use **`run-os`** for “real” apps (network/FS/process), when sandboxing is not required.
+* Use **`run-os-sandboxed`** for controlled execution with an explicit policy file.
+
+If a task looks “real world” (CLI tool, HTTP client, web service), default to `run-os-sandboxed` + a base policy template, then widen intentionally.
+
+## Policy workflow (do not hand-edit derived policies)
+
+* Base policies live in: `.x07/policies/base/`
+* Generated/derived policies live in: `.x07/policies/_generated/` (do not commit; do not edit)
+
+Generate a base policy:
+
+* `x07 policy init --template cli --out .x07/policies/base/cli.sandbox.base.policy.json`
+
+Run with a derived policy:
+
+* `x07 run --profile sandbox --allow-host example.com:443 --report wrapped --report-out .x07/run.last.json`
+
+## Help surfaces (canonical)
+
+* `x07 --help`
+* `x07 run --help`
+* `x07 pkg --help`
+* `x07 test --help`
+* `x07 policy init --help`
+* `x07 fmt --help`
+* `x07 lint --help`
+* `x07 fix --help`
+
+From a temp project:
+
+* `x07 init`
+* `x07 run --profile test --stdin --report wrapped --report-out .x07/run.last.json`
+
+## “Expert tools” (only if explicitly asked)
+
+* `x07c` (compiler)
+* `x07-host-runner` (host runner)
+* `x07-os-runner` (OS runner)
+
+If you must use them, preserve the report JSON and include the exact invocation.

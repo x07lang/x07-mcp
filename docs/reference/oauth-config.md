@@ -23,8 +23,12 @@ The HTTP templates use an OAuth config file (usually `mcp.oauth.json` or `config
   // Current supported bearer methods
   "bearer_methods_supported": ["header"],
 
+  // RFC9728: advertise DPoP support / requirements in PRM (optional)
+  "dpop_signing_alg_values_supported": ["ES256"],
+  "dpop_bound_access_tokens_required": false,
+
   "validation": {
-    "kind": "test_static" | "introspection_v1",
+    "kind": "test_static" | "introspection_v1" | "jwt_jwks_v1",
 
     "static_tokens": [
       { "token": "TOKEN", "sub": "dev-user", "scope": "mcp:tools mcp:tasks" }
@@ -42,6 +46,35 @@ The HTTP templates use an OAuth config file (usually `mcp.oauth.json` or `config
       "require_audience": true,
       "audience": ["http://127.0.0.1:8314/mcp"],
       "cache": { "enabled": true, "ttl_ms": 5000 }
+    },
+
+    "jwt_jwks_v1": {
+      "issuer": "https://auth.example.com",
+      "audiences": ["http://127.0.0.1:8314/mcp"],
+      "clock_skew_s": 180,
+
+      // Optional: deterministic tests / RR (defaults to OS time)
+      "clock": { "kind": "fixed_v1", "now_s": 1700000005 },
+
+      "accepted_algs": ["RS256"],
+      "jwks_source": {
+        "kind": "file",
+        "path": "config/fixtures/auth/jwks.json"
+
+        // Or:
+        // "kind": "url",
+        // "url": "https://issuer.example.com/.well-known/jwks.json",
+        // "timeout_ms": 2000,
+        // "ssrf_guard": "strict_v1"
+      },
+
+      // Optional: accept DPoP proofs and enforce binding rules.
+      "dpop": {
+        "enabled": true,
+        "required": false,
+        "accepted_algs": ["ES256"],
+        "replay_window_s": 300
+      }
     }
   }
 }
@@ -55,4 +88,3 @@ Given `resource = http://127.0.0.1:8314/mcp`, the PRM endpoints are:
 - **Root alias** (only when `serve_root_alias=true`): `http://127.0.0.1:8314/.well-known/oauth-protected-resource`
 
 The PRM JSON response includes `resource` matching the configured `resource`, plus `authorization_servers`.
-

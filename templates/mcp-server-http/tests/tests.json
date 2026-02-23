@@ -86,6 +86,18 @@
       "expect": "pass"
     },
     {
+      "id": "mcp/http/replay/hello_jwt",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_jwt",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dpop",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dpop",
+      "expect": "pass"
+    },
+    {
       "id": "mcp/http/replay/golden_prm_200",
       "world": "run-os",
       "entry": "mcp_http_replay.golden_prm_200",
@@ -95,6 +107,24 @@
       "id": "mcp/http/replay/golden_missing_authorization_401",
       "world": "run-os",
       "entry": "mcp_http_replay.golden_missing_authorization_401",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_dpop_missing_proof_401",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_dpop_missing_proof_401",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_dpop_invalid_htu_401",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_dpop_invalid_htu_401",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_dpop_bound_token_as_bearer_401",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_dpop_bound_token_as_bearer_401",
       "expect": "pass"
     },
     {

@@ -1,0 +1,29 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "auth_core/prm_url_candidates",
+      "world": "solve-pure",
+      "entry": "smoke_auth_core.prm_url_candidates",
+      "expect": "pass"
+    },
+    {
+      "id": "auth_core/prm_doc_build_and_render",
+      "world": "solve-pure",
+      "entry": "smoke_auth_core.prm_doc_build_and_render",
+      "expect": "pass"
+    },
+    {
+      "id": "auth_core/bearer_parse_and_challenge",
+      "world": "solve-pure",
+      "entry": "smoke_auth_core.bearer_parse_and_challenge",
+      "expect": "pass"
+    },
+    {
+      "id": "auth_core/scopes",
+      "world": "solve-pure",
+      "entry": "smoke_auth_core.scopes",
+      "expect": "pass"
+    }
+  ]
+}

@@ -2,8 +2,18 @@
   "default_profile": "os",
   "dependencies": [
     {
+      "name": "ext-auth-jwt",
+      "path": ".x07/local/ext-auth-jwt/0.1.2",
+      "version": "0.1.2"
+    },
+    {
       "name": "ext-base64-rs",
       "path": ".x07/local/ext-base64-rs/0.1.4",
+      "version": "0.1.4"
+    },
+    {
+      "name": "ext-crypto-rs",
+      "path": ".x07/local/ext-crypto-rs/0.1.4",
       "version": "0.1.4"
     },
     {
@@ -22,8 +32,23 @@
       "version": "0.1.8"
     },
     {
+      "name": "ext-db-core",
+      "path": ".x07/local/ext-db-core/0.1.9",
+      "version": "0.1.9"
+    },
+    {
+      "name": "ext-db-sqlite",
+      "path": ".x07/local/ext-db-sqlite/0.1.9",
+      "version": "0.1.9"
+    },
+    {
       "name": "ext-fs",
       "path": ".x07/local/ext-fs/0.1.4",
+      "version": "0.1.4"
+    },
+    {
+      "name": "ext-hex-rs",
+      "path": ".x07/local/ext-hex-rs/0.1.4",
       "version": "0.1.4"
     },
     {
@@ -42,54 +67,79 @@
       "version": "0.1.0"
     },
     {
+      "name": "ext-math",
+      "path": ".x07/local/ext-math/0.1.4",
+      "version": "0.1.4"
+    },
+    {
       "name": "ext-mcp-auth",
-      "path": ".x07/local/ext-mcp-auth/0.2.0",
-      "version": "0.2.0"
+      "path": ".x07/local/ext-mcp-auth/0.3.0",
+      "version": "0.3.0"
     },
     {
       "name": "ext-mcp-auth-core",
-      "path": ".x07/local/ext-mcp-auth-core/0.1.0",
-      "version": "0.1.0"
+      "path": ".x07/local/ext-mcp-auth-core/0.1.1",
+      "version": "0.1.1"
     },
     {
       "name": "ext-mcp-core",
-      "path": ".x07/local/ext-mcp-core/0.2.2",
-      "version": "0.2.2"
+      "path": ".x07/local/ext-mcp-core/0.3.2",
+      "version": "0.3.2"
     },
     {
       "name": "ext-mcp-obs",
-      "path": ".x07/local/ext-mcp-obs/0.1.0",
-      "version": "0.1.0"
+      "path": ".x07/local/ext-mcp-obs/0.1.1",
+      "version": "0.1.1"
     },
     {
       "name": "ext-mcp-rr",
-      "path": ".x07/local/ext-mcp-rr/0.2.3",
-      "version": "0.2.3"
+      "path": ".x07/local/ext-mcp-rr/0.3.4",
+      "version": "0.3.4"
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": ".x07/local/ext-mcp-sandbox/0.2.2",
-      "version": "0.2.2"
+      "path": ".x07/local/ext-mcp-sandbox/0.3.2",
+      "version": "0.3.2"
     },
     {
       "name": "ext-mcp-toolkit",
-      "path": ".x07/local/ext-mcp-toolkit/0.2.2",
-      "version": "0.2.2"
+      "path": ".x07/local/ext-mcp-toolkit/0.3.2",
+      "version": "0.3.2"
     },
     {
       "name": "ext-mcp-transport-http",
-      "path": ".x07/local/ext-mcp-transport-http/0.2.1",
-      "version": "0.2.1"
+      "path": ".x07/local/ext-mcp-transport-http/0.3.4",
+      "version": "0.3.4"
     },
     {
       "name": "ext-mcp-worker",
-      "path": ".x07/local/ext-mcp-worker/0.2.2",
-      "version": "0.2.2"
+      "path": ".x07/local/ext-mcp-worker/0.3.2",
+      "version": "0.3.2"
     },
     {
       "name": "ext-net",
       "path": ".x07/local/ext-net/0.1.8",
       "version": "0.1.8"
+    },
+    {
+      "name": "ext-obs",
+      "path": ".x07/local/ext-obs/0.1.2",
+      "version": "0.1.2"
+    },
+    {
+      "name": "ext-openssl-c",
+      "path": ".x07/local/ext-openssl-c/0.1.7",
+      "version": "0.1.7"
+    },
+    {
+      "name": "ext-pb-rs",
+      "path": ".x07/local/ext-pb-rs/0.1.5",
+      "version": "0.1.5"
+    },
+    {
+      "name": "ext-rand",
+      "path": ".x07/local/ext-rand/0.1.0",
+      "version": "0.1.0"
     },
     {
       "name": "ext-regex",
@@ -107,9 +157,19 @@
       "version": "0.1.0"
     },
     {
+      "name": "ext-time-rs",
+      "path": ".x07/local/ext-time-rs/0.1.5",
+      "version": "0.1.5"
+    },
+    {
       "name": "ext-toml-rs",
       "path": ".x07/local/ext-toml-rs/0.1.5",
       "version": "0.1.5"
+    },
+    {
+      "name": "ext-u64-rs",
+      "path": ".x07/local/ext-u64-rs/0.1.0",
+      "version": "0.1.0"
     },
     {
       "name": "ext-unicode-rs",

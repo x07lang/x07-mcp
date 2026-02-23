@@ -1,4 +1,4 @@
-# x07-mcp
+# x07-mcp (WIP)
 
 `x07-mcp` is the MCP kit companion tool for the X07 toolchain.
 

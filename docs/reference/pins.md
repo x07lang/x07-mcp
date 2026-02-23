@@ -5,7 +5,7 @@
 - MCP protocol version: `2025-11-25`
 - Registry schema URL: `https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json`
 - Registry schema file: `registry/schema/server.schema.2025-12-11.json`
-- Conformance runner: `@modelcontextprotocol/conformance@0.1.13`
+- Conformance runner: `@modelcontextprotocol/conformance@0.1.14`
 - MCPB CLI: `@anthropic-ai/mcpb@2.1.2`
 
 Pin source of truth: `arch/pins/mcp_kit.json`.

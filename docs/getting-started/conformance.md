@@ -39,3 +39,19 @@ Default run mode executes the Phase-4 regression set:
 Use `--full-suite` to run the full active conformance suite.
 
 Phase-4 baseline policy: keep `conformance/conformance-baseline.yml` empty unless a temporary known issue must be tracked.
+
+## Client mode (auth suite)
+
+Build the X07 conformance client:
+
+```sh
+x07 bundle --project conformance/client-x07/x07.json --profile os --out dist/x07-mcp-conformance-client
+```
+
+Run upstream conformance in client mode:
+
+```sh
+npx -y @modelcontextprotocol/conformance@0.1.14 client \
+  --command "./dist/x07-mcp-conformance-client" \
+  --suite auth
+```

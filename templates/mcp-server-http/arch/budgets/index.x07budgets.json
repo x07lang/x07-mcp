@@ -45,6 +45,21 @@
         "run-os",
         "run-os-sandboxed"
       ]
+    },
+    {
+      "id": "crypto_jwt_v1",
+      "profile_path": "arch/budgets/profiles/crypto_jwt_v1.budget.json",
+      "enforce": "error",
+      "selectors": [],
+      "worlds_allowed": [
+        "solve-pure",
+        "solve-fs",
+        "solve-rr",
+        "solve-kv",
+        "solve-full",
+        "run-os",
+        "run-os-sandboxed"
+      ]
     }
   ]
 }
