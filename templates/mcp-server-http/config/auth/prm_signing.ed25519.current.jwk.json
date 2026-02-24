@@ -1,0 +1,7 @@
+{
+  "kty": "OKP",
+  "crv": "Ed25519",
+  "x": "A3WWp-lK4V561cvg97VV4VT0PskpQLPZDPpFk72qT88",
+  "kid": "prm-ed25519-2026-01",
+  "d": "NUyndE0D_PaW2t-wJwQzxwzuufEyS4zzKVUqThwnZWo"
+}

@@ -21,12 +21,16 @@
     ]
   },
   "prm_signed_v1": {
-    "enabled": true,
+    "enabled": false,
     "alg": "HS256",
     "iss": "https://auth.example.test",
     "ttl_s": 3600,
     "secret_b64_file": "../config/auth/prm_signed.secret.b64",
     "include_iat_exp": true,
     "clock": { "kind": "fixed_v1", "now_s": 1760000000 }
+  },
+  "prm_signing_v2": {
+    "enabled": true,
+    "cfg_path": "config/auth/prm_signing.v2.json"
   }
 }

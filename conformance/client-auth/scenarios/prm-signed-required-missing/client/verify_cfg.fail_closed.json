@@ -1,0 +1,11 @@
+{
+  "schema_version": "x07.mcp.prm_verify@0.2.0",
+  "mode": "fail_closed",
+  "require_signed_metadata": true,
+  "accepted_algs": ["Ed25519", "RS256"],
+  "allow_deprecated_algs": ["EdDSA"],
+  "trust_anchors_path": "templates/mcp-server-http/config/auth/prm_trust_anchors.json",
+  "clock_skew_s": 60,
+  "require_iat": false,
+  "require_exp": false
+}

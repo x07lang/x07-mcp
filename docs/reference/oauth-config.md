@@ -99,7 +99,7 @@ The HTTP templates use an OAuth config file (usually `mcp.oauth.json` or `config
     "test_fixed_nonce": "test-nonce-0001"
   },
 
-  // RFC9728: include signed_metadata JWT in PRM responses (optional)
+  // RFC9728: include signed_metadata JWT in PRM responses (legacy HS256; optional)
   "prm_signed_v1": {
     "enabled": true,
     "alg": "HS256",
@@ -107,6 +107,13 @@ The HTTP templates use an OAuth config file (usually `mcp.oauth.json` or `config
     "ttl_s": 3600,
     "secret_b64_file": "config/auth/prm_signed.secret.b64",
     "include_iat_exp": true
+  },
+
+  // RFC9728: include signed_metadata JWT in PRM responses (asymmetric; optional)
+  // Mutually exclusive with prm_signed_v1.
+  "prm_signing_v2": {
+    "enabled": true,
+    "cfg_path": "config/auth/prm_signing.v2.json"
   }
 }
 ```
@@ -127,7 +134,50 @@ If your server is used from browsers, ensure the HTTP transport CORS config expo
 
 ## Signed PRM behavior (RFC9728)
 
-When `prm_signed_v1.enabled=true`, PRM responses additionally include `signed_metadata` (a JWT). Consumers that validate it should merge signed claims into the PRM JSON, with signed claims taking precedence.
+When PRM signing is enabled, PRM responses additionally include `signed_metadata` (a JWT). Consumers that validate it should merge signed claims into the PRM JSON, with signed claims taking precedence.
+
+`x07-mcp` supports two signing modes:
+
+- `prm_signed_v1` (legacy): HS256 with a shared secret.
+- `prm_signing_v2`: asymmetric signing (Ed25519/RS256) using a private JWK + issuer trust anchors for verification.
+
+The template uses `prm_signing_v2`.
+
+## PRM signing v2 (`x07.mcp.prm_signing@0.2.0`)
+
+`prm_signing_v2.cfg_path` points to a separate config file used to issue `signed_metadata` for PRM responses.
+
+Example (Ed25519):
+
+```jsonc
+{
+  "schema_version": "x07.mcp.prm_signing@0.2.0",
+  "enabled": true,
+  "alg": "Ed25519",
+  "kid": "prm-ed25519-2026-01",
+  "iss": "http://127.0.0.1:8314/mcp",
+  "keypair_jwk_path": "./config/auth/prm_signing.ed25519.current.jwk.json",
+  "claims_include": [
+    "resource",
+    "authorization_servers",
+    "scopes_supported",
+    "bearer_methods_supported",
+    "dpop_signing_alg_values_supported",
+    "dpop_bound_access_tokens_required"
+  ],
+  "include_iat_exp": true,
+  "ttl_s": 3600
+}
+```
+
+## PRM verification config (`x07.mcp.prm_verify@0.2.0`) and trust anchors (`x07.mcp.trust_anchors@0.1.0`)
+
+Clients that validate `signed_metadata` use a PRM verify config plus an explicit trust-anchor file:
+
+- `trust_anchors_path`: pinned issuers + keys (supports rollover windows)
+- `mode="fail_closed"` + `require_signed_metadata=true`: reject unsigned PRM with error code `PRM_SIGNED_METADATA_REQUIRED`
+
+The HTTP template ships a sample trust anchor file at `config/auth/prm_trust_anchors.json`.
 
 ## PRM endpoints (RFC9728)
 

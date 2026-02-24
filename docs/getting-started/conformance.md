@@ -55,3 +55,15 @@ npx -y @modelcontextprotocol/conformance@0.1.14 client \
   --command "./dist/x07-mcp-conformance-client" \
   --suite auth
 ```
+
+## Client auth regression scenarios (x07-mcp)
+
+`x07-mcp` also ships small conformance-style regression scenarios that are not part of the upstream suite.
+
+Phase 11 (unsigned PRM must be rejected when fail-closed is enabled):
+
+```sh
+python3 conformance/client-auth/run_scenario.py \
+  --scenario prm-signed-required-missing \
+  --client dist/x07-mcp-conformance-client
+```

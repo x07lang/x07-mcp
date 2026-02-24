@@ -35,11 +35,15 @@
     "bind_to": "jkt"
   },
   "prm_signed_v1": {
-    "enabled": true,
+    "enabled": false,
     "alg": "HS256",
     "iss": "https://auth.example.com",
     "ttl_s": 3600,
     "secret_b64_file": "config/auth/prm_signed.secret.b64",
     "include_iat_exp": true
+  },
+  "prm_signing_v2": {
+    "enabled": true,
+    "cfg_path": "config/auth/prm_signing.v2.json"
   }
 }

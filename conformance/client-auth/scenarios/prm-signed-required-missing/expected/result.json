@@ -1,0 +1,7 @@
+{
+  "ok": true,
+  "expected_behavior": "client rejects unsigned PRM when mode=fail_closed",
+  "expected_error_code": "PRM_SIGNED_METADATA_REQUIRED",
+  "expected_http_requests": ["POST /mcp", "GET /.well-known/oauth-protected-resource"],
+  "expected_auth_flow_started": false
+}

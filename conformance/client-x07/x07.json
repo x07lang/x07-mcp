@@ -3,8 +3,8 @@
   "dependencies": [
     {
       "name": "ext-auth-jwt",
-      "path": ".x07/deps/ext-auth-jwt/0.1.2",
-      "version": "0.1.2"
+      "path": ".x07/deps/ext-auth-jwt/0.1.4",
+      "version": "0.1.4"
     },
     {
       "name": "ext-base64-rs",
@@ -53,8 +53,8 @@
     },
     {
       "name": "ext-mcp-auth",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.3.1",
-      "version": "0.3.1"
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.0",
+      "version": "0.4.0"
     },
     {
       "name": "ext-mcp-core",
@@ -68,8 +68,8 @@
     },
     {
       "name": "ext-openssl-c",
-      "path": ".x07/deps/ext-openssl-c/0.1.7",
-      "version": "0.1.7"
+      "path": ".x07/deps/ext-openssl-c/0.1.8",
+      "version": "0.1.8"
     },
     {
       "name": "ext-regex",

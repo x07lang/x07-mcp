@@ -7,12 +7,12 @@
 - `ext-mcp-worker@0.3.2`: worker protocol + worker entrypoint
 - `ext-mcp-sandbox@0.3.2`: router-side sandbox + task stores/executors + worker spawn helpers (streaming/cancel-aware)
 - `ext-mcp-transport-stdio@0.3.0`: stdio MCP transport (tasks, progress, cancellation, subscriptions)
-- `ext-mcp-transport-http@0.3.7`: HTTP MCP transport (`ext.mcp.server`) + Streamable HTTP SSE
+- `ext-mcp-transport-http@0.3.8`: HTTP MCP transport (`ext.mcp.server`) + Streamable HTTP SSE
 - `ext-mcp-transport-http@0.2.1`: HTTP MCP transport (`std.mcp.transport.http`) for the legacy server config (`x07.mcp.server_config@0.2.0`)
 - `ext-mcp-auth-core@0.1.1`: pure PRM URL/JSON utilities, Bearer parsing, `WWW-Authenticate` formatting, scope set ops
-- `ext-mcp-auth@0.3.1`: OAuth2 resource server enforcement (introspection + JWT/JWKS) + DPoP + DPoP nonce + signed PRM metadata (uses `ext-mcp-auth-core`)
-- `ext-mcp-obs@0.1.1`: audit JSONL + metrics hooks
-- `ext-mcp-rr@0.3.7`: deterministic stdio, HTTP, and HTTP+SSE replay helpers + sanitizers
+- `ext-mcp-auth@0.4.0`: OAuth2 resource server enforcement (introspection + JWT/JWKS) + DPoP + DPoP nonce + signed PRM metadata (HS256 + Ed25519/RS256 with trust anchors) (uses `ext-mcp-auth-core`)
+- `ext-mcp-obs@0.1.2`: audit JSONL + metrics hooks
+- `ext-mcp-rr@0.3.8`: deterministic stdio, HTTP, and HTTP+SSE replay helpers + sanitizers
 
 ## Lockfiles
 
