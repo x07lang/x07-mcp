@@ -97,6 +97,7 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-auth-core/0.1.1/modules"
   "packages/ext/x07-ext-mcp-auth/0.2.0/modules"
   "packages/ext/x07-ext-mcp-auth/0.3.0/modules"
+  "packages/ext/x07-ext-mcp-auth/0.3.1/modules"
   "packages/ext/x07-ext-mcp-core/0.3.2/modules"
   "packages/ext/x07-ext-mcp-obs/0.1.1/modules"
   "packages/ext/x07-ext-mcp-obs/0.1.2/modules"
@@ -106,6 +107,7 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-rr/0.3.4/modules"
   "packages/ext/x07-ext-mcp-rr/0.3.5/modules"
   "packages/ext/x07-ext-mcp-rr/0.3.6/modules"
+  "packages/ext/x07-ext-mcp-rr/0.3.7/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.2/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.2.1/modules"
@@ -114,6 +116,7 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-transport-http/0.3.4/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.5/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.6/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.3.7/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.2/modules"
 )
 for d in "${lint_dirs[@]}"; do
@@ -169,9 +172,11 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   rr_023_dir="$root/packages/ext/x07-ext-mcp-rr/0.2.3"
   rr_033_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.3"
   rr_034_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.4"
+  rr_037_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.7"
   [[ -d "$rr_023_dir" ]] || { echo "ERROR: missing local package: $rr_023_dir" >&2; exit 2; }
   [[ -d "$rr_033_dir" ]] || { echo "ERROR: missing local package: $rr_033_dir" >&2; exit 2; }
   [[ -d "$rr_034_dir" ]] || { echo "ERROR: missing local package: $rr_034_dir" >&2; exit 2; }
+  [[ -d "$rr_037_dir" ]] || { echo "ERROR: missing local package: $rr_037_dir" >&2; exit 2; }
 
   (
     cd "$rr_023_dir"
@@ -227,11 +232,31 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       >/dev/null
   )
 
+  (
+    cd "$rr_037_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.2/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.1/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.3.1/modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$base64_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$regex_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
   step "package tests (ext-mcp-auth)"
   auth_020_dir="$root/packages/ext/x07-ext-mcp-auth/0.2.0"
   auth_030_dir="$root/packages/ext/x07-ext-mcp-auth/0.3.0"
+  auth_031_dir="$root/packages/ext/x07-ext-mcp-auth/0.3.1"
   [[ -d "$auth_020_dir" ]] || { echo "ERROR: missing local package: $auth_020_dir" >&2; exit 2; }
   [[ -d "$auth_030_dir" ]] || { echo "ERROR: missing local package: $auth_030_dir" >&2; exit 2; }
+  [[ -d "$auth_031_dir" ]] || { echo "ERROR: missing local package: $auth_031_dir" >&2; exit 2; }
   (
     cd "$auth_020_dir"
     x07 test \
@@ -253,6 +278,28 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
     x07 test \
       --manifest tests/tests.json \
       --module-root modules \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.1/modules" \
+      --module-root "$auth_jwt_modules" \
+      --module-root "$openssl_modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$time_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$base64_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$regex_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
+  (
+    cd "$auth_031_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.2/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.1/modules" \
       --module-root "$auth_jwt_modules" \
       --module-root "$openssl_modules" \
@@ -463,10 +510,10 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   worker_http_dir="$root/packages/ext/x07-ext-mcp-worker/0.3.2"
   sandbox_http_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.2"
   auth_core_http_dir="$root/packages/ext/x07-ext-mcp-auth-core/0.1.1"
-  auth_http_dir="$root/packages/ext/x07-ext-mcp-auth/0.3.0"
+  auth_http_dir="$root/packages/ext/x07-ext-mcp-auth/0.3.1"
   obs_http_dir="$root/packages/ext/x07-ext-mcp-obs/0.1.2"
-  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.5"
-  rr_http_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.5"
+  transport_http_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.7"
+  rr_http_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.7"
   [[ -d "$auth_jwt_dir" ]] || { echo "ERROR: missing local package: $auth_jwt_dir" >&2; exit 2; }
   [[ -d "$base64_dir" ]] || { echo "ERROR: missing local package: $base64_dir" >&2; exit 2; }
   [[ -d "$crypto_dir" ]] || { echo "ERROR: missing local package: $crypto_dir" >&2; exit 2; }
@@ -555,10 +602,10 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_local_pkg ext-mcp-worker 0.3.2 "$worker_http_dir"
   install_local_pkg ext-mcp-sandbox 0.3.2 "$sandbox_http_dir"
   install_local_pkg ext-mcp-auth-core 0.1.1 "$auth_core_http_dir"
-  install_local_pkg ext-mcp-auth 0.3.0 "$auth_http_dir"
+  install_local_pkg ext-mcp-auth 0.3.1 "$auth_http_dir"
   install_local_pkg ext-mcp-obs 0.1.2 "$obs_http_dir"
-  install_local_pkg ext-mcp-transport-http 0.3.5 "$transport_http_dir"
-  install_local_pkg ext-mcp-rr 0.3.5 "$rr_http_dir"
+  install_local_pkg ext-mcp-transport-http 0.3.7 "$transport_http_dir"
+  install_local_pkg ext-mcp-rr 0.3.7 "$rr_http_dir"
   x07 pkg lock --project x07.json --offline >/dev/null
 else
   local_deps_dir=".x07/local"
@@ -581,9 +628,9 @@ else
   install_local_pkg ext-mcp-worker 0.3.2 "$root/packages/ext/x07-ext-mcp-worker/0.3.2"
   install_local_pkg ext-mcp-sandbox 0.3.2 "$root/packages/ext/x07-ext-mcp-sandbox/0.3.2"
   install_local_pkg ext-mcp-auth-core 0.1.1 "$root/packages/ext/x07-ext-mcp-auth-core/0.1.1"
-  install_local_pkg ext-mcp-auth 0.3.0 "$root/packages/ext/x07-ext-mcp-auth/0.3.0"
-  install_local_pkg ext-mcp-transport-http 0.3.5 "$root/packages/ext/x07-ext-mcp-transport-http/0.3.5"
-  install_local_pkg ext-mcp-rr 0.3.5 "$root/packages/ext/x07-ext-mcp-rr/0.3.5"
+  install_local_pkg ext-mcp-auth 0.3.1 "$root/packages/ext/x07-ext-mcp-auth/0.3.1"
+  install_local_pkg ext-mcp-transport-http 0.3.7 "$root/packages/ext/x07-ext-mcp-transport-http/0.3.7"
+  install_local_pkg ext-mcp-rr 0.3.7 "$root/packages/ext/x07-ext-mcp-rr/0.3.7"
   install_local_pkg ext-mcp-obs 0.1.2 "$root/packages/ext/x07-ext-mcp-obs/0.1.2"
 
   x07 pkg lock --project x07.json --json=off >/dev/null

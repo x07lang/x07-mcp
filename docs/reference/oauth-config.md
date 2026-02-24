@@ -76,9 +76,58 @@ The HTTP templates use an OAuth config file (usually `mcp.oauth.json` or `config
         "replay_window_s": 300
       }
     }
+  },
+
+  // RFC9449: Resource server-provided DPoP nonce (optional hardening)
+  "dpop_nonce_v1": {
+    // "disabled" (default) or "required"
+    "mode": "disabled",
+
+    // Validity window for issued nonces
+    "ttl_s": 60,
+
+    // When true, success responses may include a fresh DPoP-Nonce
+    "rotate_on_success": true,
+
+    // HMAC secret used to issue/verify nonces
+    "secret_b64_file": "config/auth/dpop_nonce.secret.b64",
+
+    // Current supported binding mode: "jkt"
+    "bind_to": "jkt",
+
+    // Test-only determinism override (guarded by CI release checks)
+    "test_fixed_nonce": "test-nonce-0001"
+  },
+
+  // RFC9728: include signed_metadata JWT in PRM responses (optional)
+  "prm_signed_v1": {
+    "enabled": true,
+    "alg": "HS256",
+    "iss": "https://auth.example.com",
+    "ttl_s": 3600,
+    "secret_b64_file": "config/auth/prm_signed.secret.b64",
+    "include_iat_exp": true
   }
 }
 ```
+
+## DPoP nonce behavior (RFC9449)
+
+When `dpop_nonce_v1.mode="required"` and the request is authenticated via DPoP, the server enforces a nonce in the DPoP proof (`nonce` claim).
+
+On nonce errors, the HTTP transport responds with:
+
+- `401`
+- `WWW-Authenticate: DPoP error="use_dpop_nonce", ...`
+- `DPoP-Nonce: <nonce>`
+- `Cache-Control: no-store`
+- an `application/json` body with `{ "error": "use_dpop_nonce", "error_description": "..." }`
+
+If your server is used from browsers, ensure the HTTP transport CORS config exposes `DPoP-Nonce` (and typically `WWW-Authenticate`) via `Access-Control-Expose-Headers`.
+
+## Signed PRM behavior (RFC9728)
+
+When `prm_signed_v1.enabled=true`, PRM responses additionally include `signed_metadata` (a JWT). Consumers that validate it should merge signed claims into the PRM JSON, with signed claims taking precedence.
 
 ## PRM endpoints (RFC9728)
 

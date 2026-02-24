@@ -10,7 +10,8 @@ This template scaffolds a minimal MCP **HTTP** server in X07 with a router/worke
 - `config/mcp.server.json`: server config (`x07.mcp.server_config@0.2.0`, default `auth.mode="oauth2"`)
 - `config/mcp.server.dev.json`: no-auth dev config (`auth.mode="none"`)
 - `config/mcp.tools.json`: tools manifest (`x07.mcp.tools_manifest@0.2.0`)
-- `config/mcp.oauth.json`: OAuth `jwt_jwks_v1` config (`x07.mcp.oauth@0.2.0`)
+- `config/mcp.oauth.json`: OAuth config (`x07.mcp.oauth@0.2.0`, `jwt_jwks_v1` + optional DPoP nonce + signed PRM)
+- `config/auth/`: deterministic auth secrets used by template tests/fixtures
 - `config/fixtures/auth/`: JWKS + test JWT/DPoP fixtures used by `jwt_jwks_v1`
 - `src/main.x07.json`: router entry
 - `src/worker_main.x07.json`: worker entry
@@ -59,6 +60,11 @@ For the default `jwt_jwks_v1` auth profile, use the bundled fixtures:
 - Bearer JWT: `config/fixtures/auth/access_token_rs256_valid.jwt`
 - DPoP-bound JWT: `config/fixtures/auth/access_token_rs256_dpop.jwt`
 - DPoP proofs (per-request): `config/fixtures/auth/dpop_proof_valid_init.jwt`, `config/fixtures/auth/dpop_proof_valid_call.jwt`
+
+Phase 10 adds:
+
+- DPoP nonce hardening (RFC9449) exercised by RR test `mcp/http/replay/hello_dpop_nonce`
+- `signed_metadata` in PRM responses (RFC9728) asserted by RR test `mcp/http/replay/golden_prm_signed_200`
 
 OAuth Protected Resource Metadata (RFC9728) is served at:
 

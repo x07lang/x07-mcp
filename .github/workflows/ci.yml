@@ -162,6 +162,9 @@ jobs:
       - name: Guard against placeholder hashes
         shell: bash
         run: ./registry/scripts/release_metadata_guard.sh .agent_cache/release-metadata
+      - name: Guard against test_fixed_nonce
+        shell: bash
+        run: ./scripts/ci/release_guard_no_test_fixed_nonce.sh
 
   conformance-server:
     name: ci / conformance / ${{ matrix.server_id }} / ${{ matrix.mode }}

@@ -140,6 +140,7 @@
   "profiles": {
     "os": {
       "auto_ffi": true,
+      "solve_fuel": 500000000,
       "world": "run-os"
     }
   },

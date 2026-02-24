@@ -2,6 +2,20 @@
   "schema_version": "x07.lock@0.3.0",
   "dependencies": [
     {
+      "name": "ext-auth-jwt",
+      "version": "0.1.2",
+      "path": ".x07/deps/ext-auth-jwt/0.1.2",
+      "package_manifest_sha256": "fb26a56bb6c1ee90a4d06acc63bffaac702d176d888f9c8e44c812695c70a3d2",
+      "module_root": "modules",
+      "modules_sha256": {
+        "std.auth.jose_jws_v1": "3b0627724b4364e0e1e54e3ec0aab38f18e5686a8d046443451f46975601847f",
+        "std.auth.jose_jws_v1.tests": "047d24cdde3c60172d05567bba4a0c0e0d0656268f77674c33ccb83c04094ec7",
+        "std.auth.jwt": "6c0a56abcc61e738c14ebadc395a85ecbcd42b5586d7a71a2e2a8968bf573d5a",
+        "std.auth.jwt.tests": "766a55ab64089038736d9d32800f37c02c1fe969fd828c2739bbdc68e240eb12",
+        "std.crypto.ed25519": "ccebffa3b471320683cce81cc2dbf362514f180f47cb77824df16751b9803234"
+      }
+    },
+    {
       "name": "ext-base64-rs",
       "version": "0.1.4",
       "path": ".x07/deps/ext-base64-rs/0.1.4",
@@ -12,6 +26,17 @@
         "ext.base64.tests": "f185b879647769e0495ecbcd6b32a0d1c35d05dbca7d91b6ee1134ce8a5f4ed4"
       },
       "yanked": false
+    },
+    {
+      "name": "ext-crypto-rs",
+      "version": "0.1.4",
+      "path": ".x07/deps/ext-crypto-rs/0.1.4",
+      "package_manifest_sha256": "cb30d2d07904a314556841b1f609cfa363d2cb3462d868b6d57c7a03b6fb9e1f",
+      "module_root": "modules",
+      "modules_sha256": {
+        "ext.crypto": "0468f27cefff8107f7b376675c4ca558cb3071922c301ff599be96e8b57f1045",
+        "ext.crypto.tests": "ec9f47c10eab896069949567cd230759880aac2962db8fe27e4a033381809c75"
+      }
     },
     {
       "name": "ext-csv-rs",
@@ -63,6 +88,17 @@
       "yanked": false
     },
     {
+      "name": "ext-fs",
+      "version": "0.1.4",
+      "path": ".x07/deps/ext-fs/0.1.4",
+      "package_manifest_sha256": "cf139c695712462ad40689e2b4435feb2eb942f2460a6159f140e84771c59fab",
+      "module_root": "modules",
+      "modules_sha256": {
+        "std.os.fs": "c3067e3b7526d5e14a0c70493290f7512b7a6652af62f042e0629d842090ae31",
+        "std.os.fs.spec": "b2f5276147697446a50e5d73a6037da1ceb8fcde1c9eadbe5aac654ab1091c7f"
+      }
+    },
+    {
       "name": "ext-ini-rs",
       "version": "0.1.4",
       "path": ".x07/deps/ext-ini-rs/0.1.4",
@@ -91,14 +127,51 @@
     },
     {
       "name": "ext-mcp-auth-core",
-      "version": "0.1.0",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth-core/0.1.0",
-      "package_manifest_sha256": "b7eda0eece75e8f86e1f62ad8cc35d653cde4653e44dec6802d3d832530f57be",
+      "version": "0.1.1",
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth-core/0.1.1",
+      "package_manifest_sha256": "bf5828d378aee09cb12da4dc1a6290b6c5a5e96e7c41f6f25b81cb56508ebd62",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.auth.bearer_v1": "60b175d7615e8ce49f42da1a956f9d24902750e5c71db9dd7c577d045f0bd018",
-        "std.mcp.auth.prm_v1": "cdf976d3a1c7910abc8f50e1de9e8bf343b1994938cd1b01025bd4690ef17867",
+        "std.mcp.auth.bearer_v1": "5898caeed5e4bf6fb8c04139b47804f8e0eb0b8dde6ee6aeaa2ab6022d004444",
+        "std.mcp.auth.prm_v1": "524f4728e74fb2116798f091a5d9398de46f3d6557783e590126395f47cec91e",
         "std.mcp.auth.scopes_v1": "3a1e9be2452f801844e6c5776604a199e48b06d3a80bef1176f04da0f878899a"
+      }
+    },
+    {
+      "name": "ext-mcp-auth",
+      "version": "0.3.1",
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.3.1",
+      "package_manifest_sha256": "16026259ddf8bef61d169b872f8d662c654bcef947dc6a4f96e30409f7d33152",
+      "module_root": "modules",
+      "modules_sha256": {
+        "std.mcp.auth.dpop_nonce_v1": "fb45e67f5cf1d1dd961e15d44642f9d88215ca7bea3d6f15f6f6dab6ad32a18b",
+        "std.mcp.auth.http_middleware_v1": "3d832f452dbd97dd2724436afa2a69002f2ace9d2699b19aaaab0e41645cb7fd",
+        "std.mcp.auth.introspection_v1": "05859e3acd101a32f51a5d35fb8a727b6571067fbefc06dae5839877ca2389df",
+        "std.mcp.auth.oauth_test_static": "0310fdc9456a7c71b2838390561fe7b2abe424b8b6b64f81e0a271d205683185",
+        "std.mcp.auth.prm_signed_v1": "f4174a12116a42947042b43c34b265a66638dec86d67ca5ffbdc38e8304b7849",
+        "std.mcp.auth.rs_v1": "34b98234d6f17d5652743ab04e6fe3887d747f217408255a1cd9ed1ef2d2b441"
+      }
+    },
+    {
+      "name": "ext-mcp-core",
+      "version": "0.3.2",
+      "path": "$workspace/packages/ext/x07-ext-mcp-core/0.3.2",
+      "package_manifest_sha256": "22f2cc00a0bbe37d5eaff31d9b67042203ebc2e561def6cdf5b87bbce2eb4577",
+      "module_root": "modules",
+      "modules_sha256": {
+        "std.mcp.ctx": "8cfcb31d6d2448436acd85456b93c1978904dd9962edba9608ea5d716db6022c",
+        "std.mcp.diag": "8e1f6931bfe65880fdb5570bc7d4e0a2aa5775ea669346be3f667998738e18f1",
+        "std.mcp.jsonrpc": "b369452205c724ffe2060af7c3b1df20c92550e7ed958684ceb13c7747ac2e86",
+        "std.mcp.logging": "92f179d339afb6bb142424343ef171dfe62ef83606a593f03397d97251c0ab03",
+        "std.mcp.notifications": "702cd717ee10c2bc952e8b5767da1679c13a9dc1b9f6a1185495ea3d1df289da",
+        "std.mcp.progress_registry": "d76a635d213b04cdba774bfdebb4ba68b07fab6e90ca59ccaf21c9a3698c1432",
+        "std.mcp.protocol": "d294f387128fc0601d3d9ce8c42d78ab87f4ee1bf758b8d3bd39c390551dd381",
+        "std.mcp.redact": "c4d3289483796a19e63583140031b08a4d5ee8d7aa4a3f2ba67cf7afe91e5f4b",
+        "std.mcp.sse": "2d2af24c8efb02a358297555e0e0ade89e1b6ac01a9ad06e37bddc3847dab8c8",
+        "std.mcp.tool": "bc13c2078cdcd9b79b7f822e0232f56bf193ae85c9264c4dc80379154b0afd85",
+        "std.mcp.tool.errors": "c617965ffcda142f4bdb577ed09f953a1d18caff9be5f44075df080f0bf6352f",
+        "std.mcp.tool.result": "cf3291b3e03a568dba889b1ac63bd91da9cfcf880d3356abe7f9441ae8f98200",
+        "std.mcp.util.json": "81c289f3987178fe4a14c948e772cdf663be0eca6f9c4f6a850cfe832d8bb97f"
       }
     },
     {
@@ -125,6 +198,32 @@
       "yanked": false
     },
     {
+      "name": "ext-openssl-c",
+      "version": "0.1.7",
+      "path": ".x07/deps/ext-openssl-c/0.1.7",
+      "package_manifest_sha256": "66ae301d4da9e018416c6a2d95d020043aa749222bb3f28e7c73c503f16172f2",
+      "module_root": "modules",
+      "modules_sha256": {
+        "ext.openssl._ffi": "d9d64eb27fb64586ebe664fb38193bc64d718d265d1373da91e3c52b94056144",
+        "ext.openssl.ecdsa_p256": "8f6ce4eed7854b9874eba2638c781a0f2c49a5dca860383ad09fc58ef655cb4d",
+        "ext.openssl.ed25519": "5883275c708e1c3d32c0a318db766a437bb2d30bfbc27227c4dac913ab5c3baf",
+        "ext.openssl.hash": "391d27f5fc7f105e320dcaed6a4858f7a971d73c94fdfa08badde576295f7eff",
+        "ext.openssl.rand": "0457cd38cec9b2a3723d7dba672128501db1f6986663e95ed0dd737edb933b36",
+        "ext.openssl.rsa": "e231bc893ede8f52c84d0ebc87b9fcc6067d43dab82e0b9671aef5132d24247a"
+      }
+    },
+    {
+      "name": "ext-regex",
+      "version": "0.2.4",
+      "path": ".x07/deps/ext-regex/0.2.4",
+      "package_manifest_sha256": "5f10da1b19bbb296e460cf903d4b93954b55411f59c913eb6044354c497c6a18",
+      "module_root": "modules",
+      "modules_sha256": {
+        "ext.regex": "2167fb0d3ffb85e92cdac612dfb8b5de4dbb52a211bfadc8630d67d91fba16be",
+        "ext.regex.tests": "3626ebe4b5b487e82bc4ded9745cd3acd6a21258ac3a3b8e6f6696ee1fa75f5d"
+      }
+    },
+    {
       "name": "ext-sockets-c",
       "version": "0.1.6",
       "path": ".x07/deps/ext-sockets-c/0.1.6",
@@ -135,6 +234,23 @@
         "ext.sockets.net": "0929a1cd223dc356554a0ce9dd8b4cf822a962e12b9ab5af81582a4124d8a9d7"
       },
       "yanked": false
+    },
+    {
+      "name": "ext-time-rs",
+      "version": "0.1.5",
+      "path": ".x07/deps/ext-time-rs/0.1.5",
+      "package_manifest_sha256": "a0705781fd883865f1417cc3863f120c81fbd1728ff268439086c67f91db645a",
+      "module_root": "modules",
+      "modules_sha256": {
+        "ext.time.civil": "ac2e60f05bd546d26749d6a6d97f977de547189991869f989e3139763552f9c0",
+        "ext.time.duration": "1b63d1ad771081c0b8cb8fe2cfaec645cc32282cf8c28e571ab7066dbb260c5b",
+        "ext.time.duration.tests": "77b7bc566639f3814913b6c8f7596f7b3a03ea4edab1c03606bb7f694e2cfa77",
+        "ext.time.instant": "90acc8c89fcf252d13d2f045f7e1b70c886fac6c58329acc7934d9e59d3d0beb",
+        "ext.time.os": "54ae6ec8d916a7718e000d3ed89be3d45f29d6cbf1ef1d2088065dc0d62ff0cd",
+        "ext.time.rfc3339": "b788630b12770bc2362190e027ffc143096da53e58a854d0b9ae3d0cfbb39f40",
+        "ext.time.rfc3339.tests": "27dff7b19962aee5f33022fb0d12cf5be3b4b13cded282478262758d6197094f",
+        "ext.time.tzdb": "85173e884640ee87b8c50f3f24f8c9f266323dbad46d6bced8d918759916ba33"
+      }
     },
     {
       "name": "ext-toml-rs",

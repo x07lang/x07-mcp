@@ -26,5 +26,20 @@
         "replay_window_s": 300
       }
     }
+  },
+  "dpop_nonce_v1": {
+    "mode": "disabled",
+    "ttl_s": 60,
+    "rotate_on_success": true,
+    "secret_b64_file": "config/auth/dpop_nonce.secret.b64",
+    "bind_to": "jkt"
+  },
+  "prm_signed_v1": {
+    "enabled": true,
+    "alg": "HS256",
+    "iss": "https://auth.example.com",
+    "ttl_s": 3600,
+    "secret_b64_file": "config/auth/prm_signed.secret.b64",
+    "include_iat_exp": true
   }
 }

@@ -1,0 +1,12 @@
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "kid": "test-rs256-nonce-1",
+      "use": "sig",
+      "alg": "RS256",
+      "n": "8c6k9b_0Z9cW2zCR2glycWidU7kdyAkfbNcSLeo5QsoljaWMBRRmfrPIX2yWoAwNI47zwp9dUgY6zZg1JXJOoRoRMlZlq7363MptzdmFPTA1Um4dHwTXAx4J_awspcbTVFSlReZD41AgLXC-VI0X1sWJUkVWJsXdAtxn2P3ByZ-iPmmc2zoSl4hbK-pVAiNJ2kc6Ie0LNBy5GT_gTEoKRbA1ZhkXxpUE7N0n0CuigzgRqBgEa-1QXBAgPID2qDdvIPboxMUBIhkCe-wxeFo8GfwMAw1oS3Zrnk7MHYP2o-H--to5N7sPatHD5PICqvLETt9-dwH32UlQb1FGGmH33Q",
+      "e": "AQAB"
+    }
+  ]
+}

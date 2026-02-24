@@ -98,9 +98,21 @@
       "expect": "pass"
     },
     {
+      "id": "mcp/http/replay/hello_dpop_nonce",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dpop_nonce",
+      "expect": "pass"
+    },
+    {
       "id": "mcp/http/replay/golden_prm_200",
       "world": "run-os",
       "entry": "mcp_http_replay.golden_prm_200",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_prm_signed_200",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_prm_signed_200",
       "expect": "pass"
     },
     {
