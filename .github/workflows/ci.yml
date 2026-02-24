@@ -33,13 +33,15 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
+      - name: Cache X07 toolchain
+        uses: actions/cache@v4
+        with:
+          path: ~/.x07
+          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
       - name: Install X07 (pinned)
         shell: bash
-        run: |
-          mkdir -p "$HOME/.x07"
-          curl -fsSL -L "https://github.com/x07lang/x07/releases/download/${X07_TOOLCHAIN_TAG}/${X07_TOOLCHAIN_TARBALL_LINUX_X64}" \
-            | tar -xz -C "$HOME/.x07"
-          echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
+        working-directory: x07-mcp
+        run: ./scripts/ci/install_x07_toolchain.sh
       - name: Check
         shell: bash
         working-directory: x07-mcp
@@ -56,13 +58,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
+      - name: Cache X07 toolchain
+        uses: actions/cache@v4
+        with:
+          path: ~/.x07
+          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
       - name: Install X07 (pinned)
         shell: bash
-        run: |
-          mkdir -p "$HOME/.x07"
-          curl -fsSL -L "https://github.com/x07lang/x07/releases/download/${X07_TOOLCHAIN_TAG}/${X07_TOOLCHAIN_TARBALL_LINUX_X64}" \
-            | tar -xz -C "$HOME/.x07"
-          echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
+        run: ./scripts/ci/install_x07_toolchain.sh
       - name: Validate fixtures
         shell: bash
         run: ./registry/scripts/check_fixtures.sh
@@ -92,13 +95,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
+      - name: Cache X07 toolchain
+        uses: actions/cache@v4
+        with:
+          path: ~/.x07
+          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
       - name: Install X07 (pinned)
         shell: bash
-        run: |
-          mkdir -p "$HOME/.x07"
-          curl -fsSL -L "https://github.com/x07lang/x07/releases/download/${X07_TOOLCHAIN_TAG}/${X07_TOOLCHAIN_TARBALL_LINUX_X64}" \
-            | tar -xz -C "$HOME/.x07"
-          echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
+        run: ./scripts/ci/install_x07_toolchain.sh
       - name: Setup Node 22
         uses: actions/setup-node@v4
         with:
@@ -183,13 +187,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
+      - name: Cache X07 toolchain
+        uses: actions/cache@v4
+        with:
+          path: ~/.x07
+          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
       - name: Install X07 (pinned)
         shell: bash
-        run: |
-          mkdir -p "$HOME/.x07"
-          curl -fsSL -L "https://github.com/x07lang/x07/releases/download/${X07_TOOLCHAIN_TAG}/${X07_TOOLCHAIN_TARBALL_LINUX_X64}" \
-            | tar -xz -C "$HOME/.x07"
-          echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
+        run: ./scripts/ci/install_x07_toolchain.sh
       - name: Setup Node 22
         uses: actions/setup-node@v4
         with:
@@ -221,13 +226,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
+      - name: Cache X07 toolchain
+        uses: actions/cache@v4
+        with:
+          path: ~/.x07
+          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
       - name: Install X07 (pinned)
         shell: bash
-        run: |
-          mkdir -p "$HOME/.x07"
-          curl -fsSL -L "https://github.com/x07lang/x07/releases/download/${X07_TOOLCHAIN_TAG}/${X07_TOOLCHAIN_TARBALL_LINUX_X64}" \
-            | tar -xz -C "$HOME/.x07"
-          echo "$HOME/.x07/bin" >> "$GITHUB_PATH"
+        run: ./scripts/ci/install_x07_toolchain.sh
       - name: Setup Node 22
         uses: actions/setup-node@v4
         with:
@@ -237,7 +243,7 @@ jobs:
         env:
           X07_WORKSPACE_ROOT: ${{ github.workspace }}
         run: |
-          x07 pkg lock --project conformance/client-x07/x07.json --check --json=off
+          ./scripts/ci/hydrate_project_deps.sh conformance/client-x07/x07.json
           x07 bundle --project conformance/client-x07/x07.json --profile os --out dist/x07-mcp-conformance-client --json=off
       - name: Run conformance (client/auth)
         shell: bash
