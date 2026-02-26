@@ -22,6 +22,15 @@ Mitigation implemented:
 
 - `.github/workflows/ci.yml` runs `scripts/ci/hydrate_project_deps.sh conformance/client-x07/x07.json` (retry loop) before bundling the conformance client.
 
+## CI failure mode: missing patch dependency paths
+
+Symptom: jobs fail in dependency hydration with `X07PKG_PATCH_MISSING_DEP` (for example `ext-u64-rs@0.1.4` in root `x07.json`, or `ext-net@0.1.9` in `conformance/client-x07/x07.json`).
+
+Mitigation implemented:
+
+- `scripts/ci/materialize_patch_deps.sh` materializes missing `project.patch` dependency paths before lock hydration.
+- `scripts/ci/hydrate_root_deps.sh` and `scripts/ci/hydrate_project_deps.sh` call that helper on every retry attempt.
+
 ## Local deps mode (workspace layout)
 
 Some checks run in `X07_MCP_LOCAL_DEPS=1` mode and expect an `x07/` checkout at `../x07` relative to the `x07-mcp/` repo root (matching the `x07lang/` workspace layout).

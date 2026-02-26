@@ -9,7 +9,7 @@ delay_secs="${X07_MCP_LOCK_RETRY_DELAY_SECS:-2}"
 
 attempt=1
 while true; do
-  if x07 pkg lock --project x07.json --check --json=off; then
+  if ./scripts/ci/materialize_patch_deps.sh x07.json && x07 pkg lock --project x07.json --check --json=off; then
     break
   fi
 
