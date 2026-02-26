@@ -33,8 +33,8 @@
     },
     {
       "name": "ext-fs",
-      "path": ".x07/deps/ext-fs/0.1.4",
-      "version": "0.1.4"
+      "path": ".x07/deps/ext-fs/0.1.5",
+      "version": "0.1.5"
     },
     {
       "name": "ext-ini-rs",
@@ -47,14 +47,14 @@
       "version": "0.1.4"
     },
     {
+      "name": "ext-mcp-auth",
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.1",
+      "version": "0.4.1"
+    },
+    {
       "name": "ext-mcp-auth-core",
       "path": "$workspace/packages/ext/x07-ext-mcp-auth-core/0.1.1",
       "version": "0.1.1"
-    },
-    {
-      "name": "ext-mcp-auth",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.0",
-      "version": "0.4.0"
     },
     {
       "name": "ext-mcp-core",
@@ -129,5 +129,11 @@
     }
   },
   "schema_version": "x07.project@0.3.0",
-  "world": "run-os"
+  "world": "run-os",
+  "patch": {
+    "ext-net": {
+      "version": "0.1.9",
+      "path": ".x07/deps/ext-net/0.1.9"
+    }
+  }
 }

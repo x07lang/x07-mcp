@@ -48,7 +48,9 @@ Replay verifies:
 
 ## Tasks replay
 
-The `mcp-server-http-tasks` template includes transport-agnostic JSON-RPC transcript fixtures under `tests/fixtures/rr/` (for example `hello_tasks_progress.jsonl`) and replays them via `ext.mcp.rr.replay_from_fs_v1`.
+The `mcp-server-http-tasks` template includes transport-agnostic JSON-RPC transcript fixtures under `tests/fixtures/rr/` (for example `hello_tasks_progress/protocol.jsonl`) and replays them via `ext.mcp.rr.replay_from_fs_v1`.
+
+Template CI runs high-cost replay verification through `tests/replay_logging_audit_entry.x07.json` with elevated solve fuel.
 
 ## Sanitization
 

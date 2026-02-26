@@ -33,4 +33,5 @@ OAuth Protected Resource Metadata (RFC9728) is served at:
 ## Notes
 
 * Tasks are enabled and negotiated via server capabilities + per-tool `execution.taskSupport`.
-* The included RR transcript validates the `hello.wait` task flow end-to-end.
+* The included RR transcripts validate `hello.wait` task flow end-to-end.
+* Heavy RR transcript replay is executed via `tests/replay_logging_audit_entry.x07.json` in CI with elevated solve fuel.

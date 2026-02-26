@@ -44,7 +44,7 @@ x07 pkg lock
 
 The HTTP template includes:
 
-- `config/mcp.server.json` (`x07.mcp.server_config@0.2.0`)
+- `config/mcp.server.json` (`x07.mcp.server_config@0.3.0`)
 - `config/mcp.tools.json` (`x07.mcp.tools_manifest@0.2.0`)
 - `config/mcp.oauth.json` (`x07.mcp.oauth@0.2.0`)
 - `config/mcp.server.dev.json` (noauth dev config)

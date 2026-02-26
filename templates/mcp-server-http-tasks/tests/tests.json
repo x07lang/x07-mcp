@@ -26,12 +26,6 @@
       "expect": "pass"
     },
     {
-      "id": "tasks/replay-progress",
-      "world": "run-os",
-      "entry": "replay_smoke.tasks_replay_progress",
-      "expect": "pass"
-    },
-    {
       "id": "tasks/sqlite-restart",
       "world": "run-os",
       "entry": "smoke.tasks_sqlite_restart",

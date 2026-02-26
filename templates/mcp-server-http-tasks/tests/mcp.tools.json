@@ -1,0 +1,65 @@
+{
+  "schema_version": "x07.mcp.tools_manifest@0.2.0",
+  "tools": [
+    {
+      "name": "hello.echo",
+      "description": "Echoes back a short greeting (taskSupport forbidden).",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": { "text": { "type": "string" } },
+        "required": ["text"]
+      },
+      "x07": { "impl": "mcp.user.call_tool_v1" },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "execution": { "taskSupport": "forbidden" }
+    },
+    {
+      "name": "hello.wait",
+      "title": "Wait (demo)",
+      "description": "Waits N steps, emitting progress.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": { "steps": { "type": "integer", "minimum": 1, "maximum": 10 } },
+        "required": ["steps"]
+      },
+      "x07": { "impl": "mcp.user.call_tool_v1" },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "execution": { "taskSupport": "optional" },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "hello.wait_required",
+      "description": "Demonstrates required task-augmented execution (taskSupport required).",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": { "steps": { "type": "integer", "minimum": 1, "maximum": 10 } },
+        "required": ["steps"]
+      },
+      "x07": { "impl": "mcp.user.call_tool_v1" },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "execution": { "taskSupport": "required" }
+    },
+    {
+      "name": "hello.log",
+      "title": "Log (demo)",
+      "description": "Emits notifications/message logs + an audit tag (Phase-7 observability fixture).",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": { "text": { "type": "string" } },
+        "required": ["text"]
+      },
+      "x07": { "impl": "mcp.user.call_tool_v1" },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "execution": { "taskSupport": "optional" }
+    }
+  ]
+}
