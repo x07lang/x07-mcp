@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://x07.io/spec/x07.mcp.trust.framework.schema.json",
+  "title": "x07.mcp.trust.framework@0.1.0",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "framework_id",
+    "version",
+    "bundles"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "x07.mcp.trust.framework@0.1.0"
+    },
+    "framework_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bundles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "path"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "bundles_data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema_version",
+          "bundle_id",
+          "version",
+          "issuers"
+        ],
+        "properties": {
+          "schema_version": {
+            "const": "x07.mcp.trust.bundle@0.1.0"
+          },
+          "bundle_id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "issuers": {
+            "type": "array"
+          }
+        }
+      }
+    },
+    "resource_policies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "match",
+          "allowed_prm_signers"
+        ],
+        "properties": {
+          "match": {
+            "type": "object",
+            "required": [
+              "kind",
+              "value"
+            ],
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "exact",
+                  "prefix",
+                  "hostSuffix"
+                ]
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "allowed_prm_signers": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^https://[^#]+$"
+            }
+          },
+          "require_signed_prm": {
+            "type": "boolean"
+          },
+          "verify_cfg": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "fail_closed",
+                  "best_effort"
+                ]
+              },
+              "allowed_algs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "max_clock_skew_seconds": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    "defaults": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "require_signed_prm": {
+          "type": "boolean"
+        },
+        "verify_cfg": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [
+                "fail_closed",
+                "best_effort"
+              ]
+            },
+            "allowed_algs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "max_clock_skew_seconds": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

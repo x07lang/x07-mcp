@@ -35,7 +35,7 @@ def main() -> int:
 
     try:
         manifest = read_json(input_path)
-        server_doc = generate_server_doc(manifest, args.schema_url, mcpb_sha)
+        server_doc = generate_server_doc(manifest, args.schema_url, mcpb_sha, input_path)
         validate_schema(server_doc, schema_path)
         validate_non_schema_constraints(server_doc)
         write_canonical_json(output_path, server_doc)

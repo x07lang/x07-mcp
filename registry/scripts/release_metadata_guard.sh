@@ -40,6 +40,31 @@ for server_json in "${server_json_files[@]}"; do
       status=1
     fi
   done < <(jq -r '.packages[]? | select(.registryType=="mcpb") | (.fileSha256 // "")' "${server_json}")
+
+  prm_meta_count="$(jq '[._meta["io.modelcontextprotocol.registry/publisher-provided"]["x07.io/mcp"].prm?] | length' "${server_json}")"
+  if [[ "${prm_meta_count}" -eq 0 ]]; then
+    echo "ERROR: ${server_json} missing _meta publisher trust summary (x07.io/mcp.prm)" >&2
+    status=1
+    continue
+  fi
+
+  require_signed="$(jq -r '._meta["io.modelcontextprotocol.registry/publisher-provided"]["x07.io/mcp"].prm.requireSigned // empty' "${server_json}")"
+  if [[ "${require_signed}" != "true" ]]; then
+    echo "ERROR: ${server_json} requires requireSigned=true in publisher trust summary" >&2
+    status=1
+  fi
+
+  trust_sha="$(jq -r '._meta["io.modelcontextprotocol.registry/publisher-provided"]["x07.io/mcp"].prm.trustFrameworkSha256 // empty' "${server_json}")"
+  if [[ -z "${trust_sha}" ]]; then
+    echo "ERROR: ${server_json} missing trustFrameworkSha256 in publisher trust summary" >&2
+    status=1
+  elif [[ ! "${trust_sha}" =~ ^[0-9a-f]{64}$ ]]; then
+    echo "ERROR: ${server_json} trustFrameworkSha256 must be 64 lowercase hex chars" >&2
+    status=1
+  elif [[ "${trust_sha}" == "${PLACEHOLDER_SHA}" ]]; then
+    echo "ERROR: ${server_json} contains placeholder trustFrameworkSha256" >&2
+    status=1
+  fi
 done
 
 if [[ "${status}" -ne 0 ]]; then

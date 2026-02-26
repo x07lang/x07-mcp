@@ -1,0 +1,29 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "trust/bundle_parse_ok",
+      "world": "run-os",
+      "entry": "smoke_trust.bundle_parse_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust/framework_policy_multi_issuer",
+      "world": "run-os",
+      "entry": "smoke_trust.framework_policy_multi_issuer",
+      "expect": "pass"
+    },
+    {
+      "id": "trust/framework_policy_default_fail_closed",
+      "world": "run-os",
+      "entry": "smoke_trust.framework_policy_default_fail_closed",
+      "expect": "pass"
+    },
+    {
+      "id": "trust/framework_keys_for_issuer",
+      "world": "run-os",
+      "entry": "smoke_trust.framework_keys_for_issuer",
+      "expect": "pass"
+    }
+  ]
+}

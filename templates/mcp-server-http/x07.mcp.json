@@ -1,0 +1,47 @@
+{
+  "schema_version": "x07.mcp.server@0.1.0",
+  "identifier": "io.x07/template-http-mcp",
+  "display_name": "template-http-mcp",
+  "version": "0.1.0",
+  "description": "Template HTTP MCP publish manifest.",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "io.x07/template-http-mcp",
+      "version": "0.1.0",
+      "url": "https://example.com/template-http-mcp-0.1.0.mcpb",
+      "fileSha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "auth": {
+    "prm": {
+      "enabled": true,
+      "require_signed_prm": true,
+      "signed_metadata": {
+        "enabled": true,
+        "issuer": "https://auth.example.com",
+        "alg": "Ed25519",
+        "key_profile": "mcp_prm_signing_dev_ed25519_v1"
+      },
+      "trust_framework": {
+        "path": "trust/frameworks/dev.trust_framework.json"
+      }
+    }
+  },
+  "publish": {
+    "require_signed_prm": true,
+    "prm": {
+      "path": "publish/prm.json"
+    },
+    "trust_framework": {
+      "path": "trust/frameworks/dev.trust_framework.json",
+      "include_in_mcpb": true,
+      "emit_meta_summary": true
+    }
+  },
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "template": true
+    }
+  }
+}

@@ -70,6 +70,72 @@ jobs:
         shell: bash
         run: ./registry/scripts/check_fixtures.sh
 
+  trust-framework:
+    name: ci / trust-framework
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout x07-mcp
+        uses: actions/checkout@v4
+        with:
+          path: x07-mcp
+      - name: Checkout x07 (local deps)
+        uses: actions/checkout@v4
+        with:
+          repository: x07lang/x07
+          ref: ${{ env.X07_TOOLCHAIN_TAG }}
+          path: x07
+      - name: Install system deps
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
+      - name: Cache X07 toolchain
+        uses: actions/cache@v4
+        with:
+          path: ~/.x07
+          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
+      - name: Install X07 (pinned)
+        shell: bash
+        working-directory: x07-mcp
+        run: ./scripts/ci/install_x07_toolchain.sh
+      - name: Unit tests (ext-mcp-trust)
+        shell: bash
+        working-directory: x07-mcp
+        run: |
+          x07_root="$(cd ../x07 && pwd)"
+          (
+            cd packages/ext/x07-ext-mcp-trust/0.1.0
+            x07 test \
+              --manifest tests/tests.json \
+              --module-root modules \
+              --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.4/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.8/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.4/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-fs/0.1.5/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-unicode-rs/0.1.5/modules"
+          )
+      - name: Publish dry-run (template trust)
+        shell: bash
+        working-directory: x07-mcp
+        run: |
+          mkdir -p .agent_cache/trust-framework
+          printf 'template-mcpb-fixture\n' > .agent_cache/trust-framework/template-http.mcpb
+          x07 bundle --project x07.json --profile os --out dist/x07-mcp --json=off
+          ./dist/x07-mcp registry gen \
+            --in templates/mcp-server-http/x07.mcp.json \
+            --out .agent_cache/trust-framework/template.server.json \
+            --mcpb .agent_cache/trust-framework/template-http.mcpb \
+            --schema registry/schema/server.schema.2025-12-11.json \
+            --machine json \
+            >/dev/null
+          ./dist/x07-mcp publish --dry-run \
+            --server-json .agent_cache/trust-framework/template.server.json \
+            --mcpb .agent_cache/trust-framework/template-http.mcpb \
+            --machine json \
+            >/dev/null
+
   publish-dry-run:
     name: ci / publish-dry-run / ${{ matrix.server_id }}
     runs-on: ubuntu-latest

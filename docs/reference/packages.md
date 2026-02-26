@@ -11,6 +11,7 @@
 - `ext-mcp-transport-http@0.2.1`: HTTP MCP transport (`std.mcp.transport.http`) for the legacy server config (`x07.mcp.server_config@0.2.0`)
 - `ext-mcp-auth-core@0.1.1`: pure PRM URL/JSON utilities, Bearer parsing, `WWW-Authenticate` formatting, scope set ops
 - `ext-mcp-auth@0.4.1`: OAuth2 resource server enforcement (introspection + JWT/JWKS) + DPoP + DPoP nonce + signed PRM metadata (HS256 + Ed25519/RS256 with trust anchors) (uses `ext-mcp-auth-core`)
+- `ext-mcp-trust@0.1.0`: pure trust-framework parsing/validation, resource policy resolution (`exact`/`prefix`/`hostSuffix`), issuer key resolution, and deterministic framework SHA-256 fingerprinting
 - `ext-mcp-obs@0.1.3`: audit JSONL + metrics hooks
 - `ext-mcp-rr@0.3.9`: deterministic stdio, HTTP, and HTTP+SSE replay helpers + sanitizers
 

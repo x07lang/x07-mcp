@@ -1,0 +1,10 @@
+{
+  "x07.io/mcp": {
+    "prm": {
+      "requireSigned": true,
+      "resourceMetadataPath": "/.well-known/oauth-protected-resource",
+      "signerIss": "https://auth.example.com",
+      "trustFrameworkSha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    }
+  }
+}

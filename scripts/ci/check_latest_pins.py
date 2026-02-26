@@ -99,6 +99,8 @@ _LATEST_MCP_SCHEMAS: dict[str, str] = {
     "x07.mcp.rr.http_session": "0.1.0",
     "x07.mcp.server_config": "0.3.0",
     "x07.mcp.tools_manifest": "0.2.0",
+    "x07.mcp.trust.bundle": "0.1.0",
+    "x07.mcp.trust.framework": "0.1.0",
     "x07.mcp.trust_anchors": "0.1.0",
 }
 

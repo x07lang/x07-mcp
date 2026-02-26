@@ -13,6 +13,8 @@ from registry_lib import (
     sha256_file,
     validate_non_schema_constraints,
     validate_schema,
+    verify_publish_trust_policy,
+    write_canonical_json,
 )
 
 
@@ -30,6 +32,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Validate server.json + .mcpb for publish dry-run")
     parser.add_argument("--server-json", required=True)
     parser.add_argument("--mcpb", required=True)
+    parser.add_argument("--manifest")
+    parser.add_argument("--prm")
+    parser.add_argument("--trust-framework")
     parser.add_argument("--machine", choices=["json"], default=None)
     parse_common_schema_args(parser)
     args = parser.parse_args()
@@ -37,6 +42,9 @@ def main() -> int:
     server_json_path = pathlib.Path(args.server_json)
     mcpb_path = pathlib.Path(args.mcpb)
     schema_path = pathlib.Path(args.schema_file)
+    manifest_path = pathlib.Path(args.manifest).resolve() if args.manifest else None
+    prm_path = pathlib.Path(args.prm).resolve() if args.prm else None
+    trust_framework_path = pathlib.Path(args.trust_framework).resolve() if args.trust_framework else None
 
     try:
         if not mcpb_path.is_file():
@@ -61,6 +69,19 @@ def main() -> int:
         actual_sha = sha256_file(mcpb_path)
         if actual_sha != file_sha:
             raise ValueError(f"mcpb sha mismatch: expected {file_sha}, got {actual_sha}")
+
+        trust_summary, resolved_manifest_path = verify_publish_trust_policy(
+            server_doc=server_doc,
+            server_json_path=server_json_path,
+            manifest_path=manifest_path,
+            prm_path_override=prm_path,
+            trust_framework_path_override=trust_framework_path,
+        )
+
+        if trust_summary is not None and resolved_manifest_path is not None:
+            meta_summary_path = resolved_manifest_path.parent / "publish" / "meta_summary.json"
+            write_canonical_json(meta_summary_path, trust_summary)
+
     except Exception as exc:
         if args.machine == "json":
             sys.stdout.write(canonical_json_text({"ok": False, "error": str(exc)}))

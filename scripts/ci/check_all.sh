@@ -167,6 +167,7 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-sandbox/0.3.3/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.2/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.3/modules"
+  "packages/ext/x07-ext-mcp-trust/0.1.0/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.2.1/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.3/modules"
@@ -249,6 +250,24 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       --module-root "$data_model_modules" \
       --module-root "$json_modules" \
       --module-root "$url_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
+  step "package tests (ext-mcp-trust)"
+  trust_010_dir="$root/packages/ext/x07-ext-mcp-trust/0.1.0"
+  [[ -d "$trust_010_dir" ]] || { echo "ERROR: missing local package: $trust_010_dir" >&2; exit 2; }
+  (
+    cd "$trust_010_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$crypto_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$fs_modules" \
       --module-root "$unicode_modules" \
       >/dev/null
   )

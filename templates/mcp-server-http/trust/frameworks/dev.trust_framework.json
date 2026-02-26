@@ -1,0 +1,41 @@
+{
+  "schema_version": "x07.mcp.trust.framework@0.1.0",
+  "framework_id": "io.x07/template-trust-framework",
+  "version": "0.1.0",
+  "bundles": [
+    {
+      "path": "../bundles/dev_prm_signers.trust_bundle.json"
+    }
+  ],
+  "resource_policies": [
+    {
+      "match": {
+        "kind": "prefix",
+        "value": "https://server.example.com/mcp"
+      },
+      "allowed_prm_signers": [
+        "https://auth.example.com"
+      ],
+      "require_signed_prm": true,
+      "verify_cfg": {
+        "mode": "fail_closed",
+        "allowed_algs": [
+          "Ed25519",
+          "EdDSA"
+        ],
+        "max_clock_skew_seconds": 60
+      }
+    }
+  ],
+  "defaults": {
+    "require_signed_prm": true,
+    "verify_cfg": {
+      "mode": "fail_closed",
+      "allowed_algs": [
+        "Ed25519",
+        "EdDSA"
+      ],
+      "max_clock_skew_seconds": 60
+    }
+  }
+}

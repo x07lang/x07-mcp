@@ -13,6 +13,10 @@ This template scaffolds a minimal MCP **HTTP** server in X07 with a router/worke
 - `config/mcp.oauth.json`: OAuth config (`x07.mcp.oauth@0.2.0`, `jwt_jwks_v1` + optional DPoP nonce + signed PRM)
 - `config/auth/`: deterministic auth secrets used by template tests/fixtures
 - `config/fixtures/auth/`: JWKS + test JWT/DPoP fixtures used by `jwt_jwks_v1`
+- `trust/bundles/dev_prm_signers.trust_bundle.json`: trust bundle for PRM signer pins
+- `trust/frameworks/dev.trust_framework.json`: resource policy + bundle composition
+- `publish/prm.json`: signed PRM fixture used by publish dry-run validation
+- `publish/server.json`: sample generated `server.json` with publisher trust summary
 - `src/main.x07.json`: router entry
 - `src/worker_main.x07.json`: worker entry
 - `src/mcp/user.x07.json`: dispatch shim for user tools
@@ -75,4 +79,14 @@ Run tests:
 
 ```sh
 x07 test --manifest tests/tests.json
+```
+
+Validate publish trust policy:
+
+```sh
+x07-mcp registry gen \
+  --in x07.mcp.json \
+  --out publish/server.json \
+  --mcpb out/template-http.mcpb
+x07-mcp publish --dry-run --server-json publish/server.json --mcpb out/template-http.mcpb
 ```

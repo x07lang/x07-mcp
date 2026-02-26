@@ -179,6 +179,21 @@ Clients that validate `signed_metadata` use a PRM verify config plus an explicit
 
 The HTTP template ships a sample trust anchor file at `config/auth/prm_trust_anchors.json`.
 
+## Publish trust framework (`x07.mcp.trust.framework@0.1.0`)
+
+Phase 12 adds publish-time trust framework policy with multi-issuer support:
+
+- `auth.prm.trust_framework.path`: trust framework used by runtime PRM trust decisions.
+- `publish.require_signed_prm=true`: unsigned PRM is rejected during publish dry-run.
+- `publish.trust_framework.path`: trust framework used to resolve issuer allowlist + pinned keys.
+- `publish.trust_framework.emit_meta_summary=true`: injects publisher `_meta` trust summary (`requireSigned`, `signerIss`, `trustFrameworkSha256`).
+
+Reference files:
+
+- `trust/bundles/dev_prm_signers.trust_bundle.json`
+- `trust/frameworks/dev.trust_framework.json`
+- `publish/prm.json`
+
 ## PRM endpoints (RFC9728)
 
 Given `resource = http://127.0.0.1:8314/mcp`, the PRM endpoints are:

@@ -1,0 +1,28 @@
+{
+  "schema_version": "x07.mcp.trust.bundle@0.1.0",
+  "bundle_id": "io.x07/template-prm-signers",
+  "version": "0.1.0",
+  "description": "Template trust bundle for signed PRM publish validation.",
+  "issuers": [
+    {
+      "issuer": "https://auth.example.com",
+      "usage": [
+        "prm_signed_metadata"
+      ],
+      "algs": [
+        "Ed25519",
+        "EdDSA"
+      ],
+      "jwks": {
+        "keys": [
+          {
+            "kty": "OKP",
+            "crv": "Ed25519",
+            "kid": "prm-ed25519-2026-01",
+            "x": "A3WWp-lK4V561cvg97VV4VT0PskpQLPZDPpFk72qT88"
+          }
+        ]
+      }
+    }
+  ]
+}
