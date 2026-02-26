@@ -524,7 +524,8 @@
         "ext.u64": "c3ba79f0554026716bfa1feea479c1eaa5b31be0ad7a8d166416a6a35d8b9a43",
         "ext.u64.tests": "f4a739c17deb1dd369d9fb144111a87ce4f7c99f65f28265dfc1ce7f56eff86f"
       },
-      "overridden_by": "ext-u64-rs"
+      "overridden_by": "ext-u64-rs",
+      "yanked": false
     },
     {
       "name": "ext-unicode-rs",
