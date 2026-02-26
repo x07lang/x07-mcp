@@ -350,12 +350,12 @@
     },
     {
       "name": "ext-mcp-transport-stdio",
-      "version": "0.3.1",
-      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.1",
-      "package_manifest_sha256": "a39f5eb23ba1cc45f4509505f38396b82fb4b7863c374f75290ecc0334e49688",
+      "version": "0.3.2",
+      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.2",
+      "package_manifest_sha256": "37fb4bafe4f01eb919bb7622c47296a1698fede3ab44a316e1cd704609acec87",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.transport.stdio": "d9e1467624d4c87fa4f47aacf5e6a450839e9b738fb6537e08f2d20da3591fa0",
+        "std.mcp.transport.stdio": "596e35fa0a3079440210b9780ca5c5d70dedb88a2159c1b18147eece7e2b9c3d",
         "std.mcp.transport.stdio_loop": "3cfaa6fc7ad2cfb5976dbb82f4eaed2b1f4c52594167a409d285bb0460476523"
       }
     },

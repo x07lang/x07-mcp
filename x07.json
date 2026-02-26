@@ -118,8 +118,8 @@
     },
     {
       "name": "ext-mcp-transport-stdio",
-      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.1",
-      "version": "0.3.1"
+      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.2",
+      "version": "0.3.2"
     },
     {
       "name": "ext-mcp-worker",

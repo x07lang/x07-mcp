@@ -6,7 +6,7 @@
 - `ext-mcp-toolkit@0.3.3`: server/tools manifest loaders, schema helpers, shared dispatcher, tool context helpers, progress/status emit APIs
 - `ext-mcp-worker@0.3.3`: worker protocol + worker entrypoint
 - `ext-mcp-sandbox@0.3.3`: router-side sandbox + task stores/executors + worker spawn helpers (streaming/cancel-aware)
-- `ext-mcp-transport-stdio@0.3.1`: stdio MCP transport (tasks, progress, cancellation, subscriptions)
+- `ext-mcp-transport-stdio@0.3.2`: stdio MCP transport (tasks, progress, cancellation, subscriptions)
 - `ext-mcp-transport-http@0.3.9`: HTTP MCP transport (`ext.mcp.server`) + Streamable HTTP SSE
 - `ext-mcp-transport-http@0.2.1`: HTTP MCP transport (`std.mcp.transport.http`) for the legacy server config (`x07.mcp.server_config@0.2.0`)
 - `ext-mcp-auth-core@0.1.1`: pure PRM URL/JSON utilities, Bearer parsing, `WWW-Authenticate` formatting, scope set ops

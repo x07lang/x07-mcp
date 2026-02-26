@@ -3423,6 +3423,28 @@
       "version": "0.3.1"
     },
     {
+      "determinism_tier": "os-world-only",
+      "import_mode": "handwritten",
+      "modules": [
+        {
+          "module_id": "std.mcp.transport.stdio",
+          "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.2/modules/std/mcp/transport/stdio.x07.json",
+          "sha256": "596e35fa0a3079440210b9780ca5c5d70dedb88a2159c1b18147eece7e2b9c3d",
+          "size_bytes": 18226
+        },
+        {
+          "module_id": "std.mcp.transport.stdio_loop",
+          "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.2/modules/std/mcp/transport/stdio_loop.x07.json",
+          "sha256": "3cfaa6fc7ad2cfb5976dbb82f4eaed2b1f4c52594167a409d285bb0460476523",
+          "size_bytes": 1660
+        }
+      ],
+      "name": "ext-mcp-transport-stdio",
+      "package_manifest_sha256": "37fb4bafe4f01eb919bb7622c47296a1698fede3ab44a316e1cd704609acec87",
+      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.2",
+      "version": "0.3.2"
+    },
+    {
       "determinism_tier": "pure",
       "import_mode": "handwritten",
       "modules": [
@@ -3621,6 +3643,6 @@
       "version": "0.3.3"
     }
   ],
-  "packages_hash": "1588c004a8c1a5b485bcb0f49c03dc4008ec9ee8080dc7b883592dc7f493968c",
+  "packages_hash": "477bfdb9852b14899e14bf0f6e4e72dbc4e6601b8ab4331f9c13bb3e8ada6d3a",
   "packages_root": "packages/ext"
 }
