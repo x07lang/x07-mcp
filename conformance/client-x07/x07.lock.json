@@ -9,7 +9,7 @@
       "module_root": "modules",
       "modules_sha256": {
         "std.auth.jose_jws_v1": "e18106883e0bcdc113c4a43a1abd69f47d661222c3529045c44791a923204430",
-        "std.auth.jose_jws_v1.tests": "87f4bfad7200acf5be64d32e036622d7468a7c8b430ecaea2b1b420c65ed4c4d",
+        "std.auth.jose_jws_v1.tests": "2883b105dabe9a7dadaca8bd51464b62ab82d41f05a6c01d1417176c1f374418",
         "std.auth.jwt": "6c0a56abcc61e738c14ebadc395a85ecbcd42b5586d7a71a2e2a8968bf573d5a",
         "std.auth.jwt.tests": "031f1eb200dd5bef4296f5b7a759f5a90a703d0e568fd2fd12fac3042083a8b8",
         "std.auth.pkce": "ae0ac6cc4cf941184974ca6373c1d42664e09a16504d9c7f6c1aef4def9e789d",
@@ -204,7 +204,8 @@
         "std.net.tls": "525a4e5181b94d59f30b2ae055b642421788a00bd776f7cef16376f2f921ea27",
         "std.net.udp": "d632703b7e750934891a60b155ce10f9a9cc21d674f23933b0023b5ea53dad18"
       },
-      "overridden_by": "ext-net"
+      "overridden_by": "ext-net",
+      "yanked": false
     },
     {
       "name": "ext-openssl-c",
