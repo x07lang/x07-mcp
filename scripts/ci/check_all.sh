@@ -660,6 +660,7 @@ x07 bundle --project x07.json --profile os --out dist/x07-mcp >/dev/null
 ./dist/x07-mcp --help >/dev/null
 
 step "conformance client auth scenario (phase11)"
+X07_WORKSPACE_ROOT="$root" ./scripts/ci/materialize_patch_deps.sh conformance/client-x07/x07.json >/dev/null
 X07_WORKSPACE_ROOT="$root" x07 pkg lock --project conformance/client-x07/x07.json --check --json=off >/dev/null
 X07_WORKSPACE_ROOT="$root" x07 bundle --project conformance/client-x07/x07.json --profile os --out dist/x07-mcp-conformance-client --json=off >/dev/null
 python3 conformance/client-auth/run_scenario.py --scenario prm-signed-required-missing --client dist/x07-mcp-conformance-client
