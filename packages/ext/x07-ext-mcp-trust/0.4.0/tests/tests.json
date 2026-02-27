@@ -80,6 +80,24 @@
       "expect": "pass"
     },
     {
+      "id": "trust15/tuf_reject_snapshot_rollback",
+      "world": "run-os",
+      "entry": "smoke_trust_phase15.tuf_reject_snapshot_rollback",
+      "expect": "pass"
+    },
+    {
+      "id": "trust15/tuf_reject_expired_timestamp",
+      "world": "run-os",
+      "entry": "smoke_trust_phase15.tuf_reject_expired_timestamp",
+      "expect": "pass"
+    },
+    {
+      "id": "trust15/tuf_reject_fast_forward",
+      "world": "run-os",
+      "entry": "smoke_trust_phase15.tuf_reject_fast_forward",
+      "expect": "pass"
+    },
+    {
       "id": "trust15/checkpoint_mismatch",
       "world": "run-os",
       "entry": "smoke_trust_phase15.checkpoint_mismatch",

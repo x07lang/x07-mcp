@@ -3751,8 +3751,8 @@
         {
           "module_id": "smoke_trust_phase15",
           "path": "packages/ext/x07-ext-mcp-trust/0.4.0/modules/smoke_trust_phase15.x07.json",
-          "sha256": "2e28f7c4a213fb765ca792f6b9920d25cecb3718fd2f4162e1c76a0920b74480",
-          "size_bytes": 4578
+          "sha256": "1cb2008aaca6321103d8beac3467478a0f1d2dac02d9345cb161fcefbc00ae58",
+          "size_bytes": 10176
         },
         {
           "module_id": "std.mcp.trust.anti_rollback.check_v1",
@@ -4295,6 +4295,6 @@
       "version": "0.3.3"
     }
   ],
-  "packages_hash": "423603dc7eb8e9fb61ead0c1aa4003a074258aaec039115aad06fcd1351dc24f",
+  "packages_hash": "8968bfb13f161a9145e4c7827e05d18679c3e69aca052a81b8d5b78c57998c75",
   "packages_root": "packages/ext"
 }
