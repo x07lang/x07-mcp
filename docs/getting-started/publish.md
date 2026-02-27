@@ -26,7 +26,10 @@ Dry-run checks schema validity, `_meta` limits, package hash integrity, and trus
 - signer key must exist in trust bundles
 - signed trust bundles must verify against framework-pinned bundle publisher keys
 - trust bundle + signature digests must match `trust/trust.lock.json` pins
+- remote trust bundle sources (`source.kind="url"`) must be fully pinned by lock entries (no TOFU)
+- remote lock entries must pin URL + digest pairs (`bundle_url`/`sig_url`, `bundle_sha256`/`sig_sha256`)
 - `_meta.io.modelcontextprotocol.registry/publisher-provided.x07` must match generated trust summary
+- when trust-pack metadata is configured, `_meta...x07.trustPack.packVersion` and `lockSha256` are required
 
 ## Trust Framework Artifacts
 
@@ -36,7 +39,10 @@ The HTTP template includes:
 - `trust/bundles/dev_trust_bundle_v1.trust_bundle.sig.jwt`
 - `trust/frameworks/dev_local_trust_framework_v1.trust_framework.json`
 - `trust/trust.lock.json`
+- `trust/frameworks/dev_remote_pack.trust_framework.json` (optional remote bundle profile)
+- `trust/packs/dev_remote_pack/trust.lock.json` (remote lock v2 pins)
+- `trust/registry/v1/...` (offline trust pack registry fixture tree)
 - `publish/prm.json`
-- `publish/server.json` (publisher trust summary with `trustFrameworkSha256` + `trustLockSha256`)
+- `publish/server.json` (publisher trust summary with `trustFrameworkSha256`, `trustLockSha256`, and optional `trustPack`)
 
 Release tags are guarded against placeholder hashes by `registry/scripts/release_metadata_guard.sh`.

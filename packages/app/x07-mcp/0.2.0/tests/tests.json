@@ -1,0 +1,41 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "publish/validate_ok",
+      "world": "run-os",
+      "entry": "smoke_publish.validate_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "publish/validate_fail_unsigned",
+      "world": "run-os",
+      "entry": "smoke_publish.validate_fail_unsigned",
+      "expect": "pass"
+    },
+    {
+      "id": "publish/validate_fail_missing_pins",
+      "world": "run-os",
+      "entry": "smoke_publish.validate_fail_missing_pins",
+      "expect": "pass"
+    },
+    {
+      "id": "publish/trust_pack_validate_ok",
+      "world": "run-os",
+      "entry": "smoke_publish.trust_pack_validate_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "publish/trust_pack_validate_fail_unsigned_prm",
+      "world": "run-os",
+      "entry": "smoke_publish.trust_pack_validate_fail_unsigned_prm",
+      "expect": "pass"
+    },
+    {
+      "id": "publish/trust_pack_validate_fail_unlocked_remote",
+      "world": "run-os",
+      "entry": "smoke_publish.trust_pack_validate_fail_unlocked_remote",
+      "expect": "pass"
+    }
+  ]
+}

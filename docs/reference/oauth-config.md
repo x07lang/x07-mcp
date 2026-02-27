@@ -179,15 +179,21 @@ Clients that validate `signed_metadata` use a PRM verify config plus an explicit
 
 The HTTP template ships a sample trust anchor file at `config/auth/prm_trust_anchors.json`.
 
-## Publish trust framework (`x07.mcp.trust.framework@0.2.0`) + trust lock (`x07.mcp.trust.lock@0.1.0`)
+## Publish trust framework (`x07.mcp.trust.framework@0.3.0`) + trust lock (`x07.mcp.trust.lock@0.2.0`)
 
-Phase 13 extends publish-time trust policy with signed trust bundles, trust lock pinning, and governed authorization-server selection:
+Phase 14 extends publish-time trust policy with remote-source no-TOFU checks and trust-pack metadata, while remaining compatible with phase-13 local trust inputs:
 
 - `auth.prm.trust_framework.path`: trust framework used by runtime PRM trust decisions.
 - `auth.prm.trust_framework.trust_lock_path`: optional trust lock used to pin bundle/signature digests.
 - `publish.require_signed_prm=true`: unsigned PRM is rejected during publish dry-run.
 - `publish.trust_framework.path`: trust framework used to resolve issuer allowlist + pinned keys.
 - `publish.trust_framework.trust_lock_path`: trust lock used during publish-time verification.
+- if framework bundles use `source.kind="url"`/`sig_source.kind="url"`, publish requires matching lock pins (`bundle_url`, `sig_url`, `bundle_sha256`, `sig_sha256`) and rejects TOFU.
+- `publish.trust_framework.trust_pack` (optional): registry/pack metadata emitted to publisher `_meta`:
+  - `registry`
+  - `packId`
+  - `packVersion`
+  - `lockSha256`
 - `publish.trust_framework.emit_meta_summary=true`: injects publisher `_meta` trust summary under `io.modelcontextprotocol.registry/publisher-provided.x07`:
   - `trustFrameworkSha256`
   - `trustLockSha256`
@@ -206,6 +212,9 @@ Reference files:
 - `trust/bundles/dev_trust_bundle_v1.trust_bundle.sig.jwt`
 - `trust/frameworks/dev_local_trust_framework_v1.trust_framework.json`
 - `trust/trust.lock.json`
+- `trust/frameworks/dev_remote_pack.trust_framework.json`
+- `trust/packs/dev_remote_pack/trust.lock.json`
+- `trust/registry/v1/index.json`
 - `publish/prm.json`
 
 ## PRM endpoints (RFC9728)

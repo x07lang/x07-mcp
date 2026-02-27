@@ -1,0 +1,12 @@
+{
+  "schema_version": "x07.mcp.trust.pack_index@0.1.0",
+  "pack_id": "com.example.trust.packs.acme_prod",
+  "latest": "1.2.0",
+  "versions": {
+    "1.2.0": {
+      "pack_url": "https://trust-registry.example.test/v1/packs/com.example.trust.packs.acme_prod/1.2.0/pack.json",
+      "pack_sha256": "d7b6d7888fbbf86b7f468cf690876dd21ad6e1ac5cc5dc4143027f92d6ccca86",
+      "released_at": "2026-02-17T00:00:00Z"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": "x07.mcp.trust.registry@0.1.0",
+  "registry_id": "com.example.trust.registry",
+  "updated_at": "2026-02-17T00:00:00Z",
+  "packs": [
+    {
+      "pack_id": "com.example.trust.packs.acme_prod",
+      "index_url": "https://trust-registry.example.test/v1/packs/com.example.trust.packs.acme_prod/index.json"
+    }
+  ],
+  "bundles": [
+    {
+      "bundle_id": "dev_trust_bundle_v1",
+      "index_url": "https://trust-registry.example.test/v1/bundles/dev_trust_bundle_v1/index.json"
+    }
+  ]
+}

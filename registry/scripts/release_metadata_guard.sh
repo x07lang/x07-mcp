@@ -85,6 +85,27 @@ for server_json in "${server_json_files[@]}"; do
       status=1
     fi
   fi
+
+  trust_pack_count="$(jq '[._meta["io.modelcontextprotocol.registry/publisher-provided"].x07.trustPack?] | length' "${server_json}")"
+  if [[ "${trust_pack_count}" -gt 0 ]]; then
+    trust_pack_version="$(jq -r '._meta["io.modelcontextprotocol.registry/publisher-provided"].x07.trustPack.packVersion // empty' "${server_json}")"
+    if [[ -z "${trust_pack_version}" ]]; then
+      echo "ERROR: ${server_json} trustPack.packVersion is required when trustPack metadata is present" >&2
+      status=1
+    fi
+
+    trust_pack_lock_sha="$(jq -r '._meta["io.modelcontextprotocol.registry/publisher-provided"].x07.trustPack.lockSha256 // empty' "${server_json}")"
+    if [[ -z "${trust_pack_lock_sha}" ]]; then
+      echo "ERROR: ${server_json} trustPack.lockSha256 is required when trustPack metadata is present" >&2
+      status=1
+    elif [[ ! "${trust_pack_lock_sha}" =~ ^[0-9a-f]{64}$ ]]; then
+      echo "ERROR: ${server_json} trustPack.lockSha256 must be 64 lowercase hex chars" >&2
+      status=1
+    elif [[ "${trust_pack_lock_sha}" == "${PLACEHOLDER_SHA}" ]]; then
+      echo "ERROR: ${server_json} contains placeholder trustPack.lockSha256" >&2
+      status=1
+    fi
+  fi
 done
 
 if [[ "${status}" -ne 0 ]]; then

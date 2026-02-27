@@ -100,9 +100,14 @@ _LATEST_MCP_SCHEMAS: dict[str, str] = {
     "x07.mcp.server_config": "0.3.0",
     "x07.mcp.tools_manifest": "0.2.0",
     "x07.mcp.trust.bundle": "0.1.0",
-    "x07.mcp.trust.framework": "0.2.0",
-    "x07.mcp.trust.lock": "0.1.0",
+    "x07.mcp.trust.framework": "0.3.0",
+    "x07.mcp.trust.lock": "0.2.0",
     "x07.mcp.trust_anchors": "0.1.0",
+}
+
+_MCP_SCHEMA_ALLOWED_VERSIONS: dict[str, set[str]] = {
+    "x07.mcp.trust.framework": {"0.2.0", "0.3.0"},
+    "x07.mcp.trust.lock": {"0.1.0", "0.2.0"},
 }
 
 
@@ -171,6 +176,9 @@ def main() -> int:
         if parsed is None:
             continue
         schema_name, schema_ver = parsed
+        allowed = _MCP_SCHEMA_ALLOWED_VERSIONS.get(schema_name)
+        if allowed is not None and schema_ver in allowed:
+            continue
         want = _LATEST_MCP_SCHEMAS.get(schema_name)
         if want is None:
             continue

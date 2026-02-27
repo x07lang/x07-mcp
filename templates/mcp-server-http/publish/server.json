@@ -22,7 +22,13 @@
         "trustFrameworkSha256": "89554b497bea3255754cd211e26f86ba70bcb31d02e151a2e9810dfe9ba2274a",
         "trustLockSha256": "e9745b2d1e94066adabdd560ef61e1479a793acca5f93e74c9f459930e4f2679",
         "requireSignedPrm": true,
-        "asSelectionStrategy": "prefer_order_v1"
+        "asSelectionStrategy": "prefer_order_v1",
+        "trustPack": {
+          "registry": "https://trust-registry.example.test/v1/index.json",
+          "packId": "com.example.trust.packs.acme_prod",
+          "packVersion": "1.2.0",
+          "lockSha256": "e9745b2d1e94066adabdd560ef61e1479a793acca5f93e74c9f459930e4f2679"
+        }
       }
     }
   }

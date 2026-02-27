@@ -1,0 +1,10 @@
+{
+  "schema_version": "x07.mcp.trust.pack@0.1.0",
+  "pack_id": "com.example.trust.packs.acme_prod",
+  "version": "1.2.0",
+  "framework_url": "https://trust-registry.example.test/v1/packs/com.example.trust.packs.acme_prod/1.2.0/framework.trust_framework.json",
+  "framework_sha256": "406a7ef27699594b3505037c8a245ac7b253d5ed6e3a6ce7737664ea544937b4",
+  "lock_url": "https://trust-registry.example.test/v1/packs/com.example.trust.packs.acme_prod/1.2.0/trust.lock.json",
+  "lock_sha256": "c3b2f95f3055df71fe10c59ce4bfd010c78f4aefc6d57228c13be39184bf5930",
+  "notes": "Example pack used by template replay tests."
+}

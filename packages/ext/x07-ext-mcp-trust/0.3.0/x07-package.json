@@ -1,0 +1,52 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-trust",
+  "version": "0.3.0",
+  "description": "Pure trust framework helpers with remote-source validation, lock v2 pinning, semver trust-pack selection, and bundle verification from pinned lock entries.",
+  "docs": "MCP trust framework helpers.\n\nModules:\n- std.mcp.trust.bundle_v1\n- std.mcp.trust.framework_v1\n- std.mcp.trust.framework_v3\n- std.mcp.trust.resolve_v1\n- std.mcp.trust.fingerprint_v1\n- std.mcp.trust.errors_v1\n- std.mcp.trust.errors_v2\n- std.mcp.trust.bundle_sig_stmt_v1\n- std.mcp.trust.bundle_sig_verify_v1\n- std.mcp.trust.bundle_lock_v1\n- std.mcp.trust.lock_v2\n- std.mcp.trust.remote_source_v1\n- std.mcp.trust.cache_manifest_v1\n- std.mcp.trust.verify_bundle_from_lock_v1\n- std.mcp.trust.registry.registry_index_v1\n- std.mcp.trust.registry.bundle_index_v1\n- std.mcp.trust.registry.pack_index_v1\n- std.mcp.trust.registry.pack_manifest_v1\n- std.mcp.trust.registry.semver_v1\n- std.mcp.trust.registry.semver_range_v1\n- std.mcp.trust.registry.resolve_v1\n- std.mcp.trust.as_select_v1\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.trust.bundle_v1",
+    "std.mcp.trust.framework_v1",
+    "std.mcp.trust.framework_v3",
+    "std.mcp.trust.resolve_v1",
+    "std.mcp.trust.fingerprint_v1",
+    "std.mcp.trust.errors_v1",
+    "std.mcp.trust.errors_v2",
+    "std.mcp.trust.bundle_sig_stmt_v1",
+    "std.mcp.trust.bundle_sig_verify_v1",
+    "std.mcp.trust.bundle_lock_v1",
+    "std.mcp.trust.lock_v2",
+    "std.mcp.trust.remote_source_v1",
+    "std.mcp.trust.cache_manifest_v1",
+    "std.mcp.trust.verify_bundle_from_lock_v1",
+    "std.mcp.trust.registry.registry_index_v1",
+    "std.mcp.trust.registry.bundle_index_v1",
+    "std.mcp.trust.registry.pack_index_v1",
+    "std.mcp.trust.registry.pack_manifest_v1",
+    "std.mcp.trust.registry.semver_v1",
+    "std.mcp.trust.registry.semver_range_v1",
+    "std.mcp.trust.registry.resolve_v1",
+    "std.mcp.trust.as_select_v1"
+  ],
+  "meta": {
+    "determinism_tier": "pure",
+    "worlds_allowed": [
+      "solve-pure",
+      "solve-fs",
+      "solve-rr",
+      "solve-kv",
+      "solve-full",
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-crypto-rs@0.1.4",
+      "ext-data-model@0.1.8",
+      "ext-hex-rs@0.1.4",
+      "ext-json-rs@0.1.4",
+      "ext-url-rs@0.1.4"
+    ],
+    "import_mode": "handwritten"
+  }
+}

@@ -26,8 +26,12 @@ TRUST_BUNDLE_SCHEMA = "x07.mcp.trust.bundle@0.1.0"
 TRUST_FRAMEWORK_SCHEMAS = {
     "x07.mcp.trust.framework@0.1.0",
     "x07.mcp.trust.framework@0.2.0",
+    "x07.mcp.trust.framework@0.3.0",
 }
-TRUST_LOCK_SCHEMA = "x07.mcp.trust.lock@0.1.0"
+TRUST_LOCK_SCHEMAS = {
+    "x07.mcp.trust.lock@0.1.0",
+    "x07.mcp.trust.lock@0.2.0",
+}
 
 ERR_PRM_UNSIGNED = "MCP_PUBLISH_PRM_UNSIGNED"
 ERR_TRUST_POLICY_MISSING = "MCP_PUBLISH_TRUST_POLICY_MISSING"
@@ -45,6 +49,9 @@ class PublishTrustConfig:
     trust_framework_path: str | None
     trust_lock_path: str | None
     emit_meta_summary: bool
+    trust_pack_registry: str | None
+    trust_pack_id: str | None
+    trust_pack_version: str | None
     prm_path: str
     resource_metadata_path: str
     signer_iss_hint: str | None
@@ -535,6 +542,22 @@ def _validate_prm_signed_policy_v2(policy: dict[str, Any], *, field_prefix: str)
             raise ValueError(f"{field_prefix}.allowed_signing_issuers[{idx}] must be HTTPS URL without fragment")
 
 
+def _validate_source_ref_v1(source_any: Any, *, field_prefix: str) -> None:
+    source = _as_object(source_any, field=field_prefix)
+    kind = _as_nonempty_string(source.get("kind"), field=f"{field_prefix}.kind")
+    if kind == "file":
+        path_txt = _as_nonempty_string(source.get("path"), field=f"{field_prefix}.path")
+        if pathlib.Path(path_txt).is_absolute():
+            raise ValueError(f"{field_prefix}.path must be relative")
+        return
+    if kind == "url":
+        url = _as_nonempty_string(source.get("url"), field=f"{field_prefix}.url")
+        if not _is_https_url_no_fragment(url):
+            raise ValueError(f"{field_prefix}.url must be HTTPS URL without fragment")
+        return
+    raise ValueError(f"{field_prefix}.kind must be file or url")
+
+
 def _validate_trust_framework_v2(framework: dict[str, Any], *, field_prefix: str = "framework") -> None:
     mode = framework.get("mode")
     if mode is not None:
@@ -572,15 +595,25 @@ def _validate_trust_framework_v2(framework: dict[str, Any], *, field_prefix: str
     for idx, bundle_ref_any in enumerate(bundles):
         bundle_ref = _as_object(bundle_ref_any, field=f"{field_prefix}.bundles[{idx}]")
         _as_nonempty_string(bundle_ref.get("id"), field=f"{field_prefix}.bundles[{idx}].id")
-        path_txt = _as_nonempty_string(bundle_ref.get("path"), field=f"{field_prefix}.bundles[{idx}].path")
-        if pathlib.Path(path_txt).is_absolute():
-            raise ValueError(f"{field_prefix}.bundles[{idx}].path must be relative")
+        source_any = bundle_ref.get("source")
+        if source_any is not None:
+            _validate_source_ref_v1(source_any, field_prefix=f"{field_prefix}.bundles[{idx}].source")
+        else:
+            path_txt = _as_nonempty_string(bundle_ref.get("path"), field=f"{field_prefix}.bundles[{idx}].path")
+            if pathlib.Path(path_txt).is_absolute():
+                raise ValueError(f"{field_prefix}.bundles[{idx}].path must be relative")
         require_signature = bool(bundle_ref.get("require_signature", False))
-        sig_jwt_path = bundle_ref.get("sig_jwt_path")
         if require_signature:
-            _as_nonempty_string(sig_jwt_path, field=f"{field_prefix}.bundles[{idx}].sig_jwt_path")
-            if pathlib.Path(str(sig_jwt_path)).is_absolute():
-                raise ValueError(f"{field_prefix}.bundles[{idx}].sig_jwt_path must be relative")
+            sig_source_any = bundle_ref.get("sig_source")
+            if sig_source_any is not None:
+                _validate_source_ref_v1(sig_source_any, field_prefix=f"{field_prefix}.bundles[{idx}].sig_source")
+            else:
+                sig_jwt_path = _as_nonempty_string(
+                    bundle_ref.get("sig_jwt_path"),
+                    field=f"{field_prefix}.bundles[{idx}].sig_jwt_path",
+                )
+                if pathlib.Path(sig_jwt_path).is_absolute():
+                    raise ValueError(f"{field_prefix}.bundles[{idx}].sig_jwt_path must be relative")
             publisher_issuer = _as_nonempty_string(
                 bundle_ref.get("publisher_issuer"),
                 field=f"{field_prefix}.bundles[{idx}].publisher_issuer",
@@ -657,12 +690,24 @@ def load_trust_framework_with_bundles(
     bundle_paths: list[pathlib.Path] = []
     for idx, bundle_ref_any in enumerate(_as_array(framework.get("bundles"), field="framework.bundles")):
         bundle_ref = _as_object(bundle_ref_any, field=f"framework.bundles[{idx}]")
-        rel = _as_nonempty_string(bundle_ref.get("path"), field=f"framework.bundles[{idx}].path")
-        bundle_path = _resolve_repo_relative_path(framework_path.parent, rel, repo)
-        if not bundle_path.is_file():
-            raise ValueError(f"trust bundle file not found: {bundle_path}")
-        bundles.append(_load_trust_bundle(bundle_path))
-        bundle_paths.append(bundle_path)
+        bundle_path: pathlib.Path | None = None
+        path_any = bundle_ref.get("path")
+        if isinstance(path_any, str) and path_any:
+            bundle_path = _resolve_repo_relative_path(framework_path.parent, path_any, repo)
+        else:
+            source_any = bundle_ref.get("source")
+            if isinstance(source_any, dict) and str(source_any.get("kind", "")) == "file":
+                source_rel = _as_nonempty_string(source_any.get("path"), field=f"framework.bundles[{idx}].source.path")
+                bundle_path = _resolve_repo_relative_path(framework_path.parent, source_rel, repo)
+
+        if bundle_path is not None:
+            if not bundle_path.is_file():
+                raise ValueError(f"trust bundle file not found: {bundle_path}")
+            bundles.append(_load_trust_bundle(bundle_path))
+            bundle_paths.append(bundle_path)
+        else:
+            bundles.append({})
+            bundle_paths.append(framework_path)
     return LoadedTrustFramework(
         path=framework_path,
         repo_root=repo,
@@ -769,7 +814,7 @@ def _resolve_resource_entry_v2(framework_doc: dict[str, Any], resource_url: str)
 
 def resolve_prm_signed_policy(framework_doc: dict[str, Any], resource_url: str) -> dict[str, Any]:
     schema_version = _framework_schema_version(framework_doc)
-    if schema_version == "x07.mcp.trust.framework@0.2.0":
+    if schema_version in {"x07.mcp.trust.framework@0.2.0", "x07.mcp.trust.framework@0.3.0"}:
         resource_entry = _resolve_resource_entry_v2(framework_doc, resource_url)
         if resource_entry is None:
             return {
@@ -798,7 +843,10 @@ def resolve_prm_signed_policy(framework_doc: dict[str, Any], resource_url: str) 
 
 
 def resolve_as_policy(framework_doc: dict[str, Any], resource_url: str) -> dict[str, Any] | None:
-    if _framework_schema_version(framework_doc) != "x07.mcp.trust.framework@0.2.0":
+    if _framework_schema_version(framework_doc) not in {
+        "x07.mcp.trust.framework@0.2.0",
+        "x07.mcp.trust.framework@0.3.0",
+    }:
         return None
     resource_entry = _resolve_resource_entry_v2(framework_doc, resource_url)
     if resource_entry is None:
@@ -895,7 +943,10 @@ def trust_keys_for_issuer(loaded: LoadedTrustFramework, issuer: str) -> tuple[li
     allowed_algs: list[str] = []
 
     for bundle in loaded.bundles:
-        issuers = _as_array(bundle.get("issuers"), field="bundle.issuers")
+        issuers_any = bundle.get("issuers")
+        if not isinstance(issuers_any, list):
+            continue
+        issuers = _as_array(issuers_any, field="bundle.issuers")
         for issuer_any in issuers:
             issuer_doc = _as_object(issuer_any, field="bundle.issuers[]")
             if str(issuer_doc.get("issuer", "")) != issuer:
@@ -911,6 +962,23 @@ def trust_keys_for_issuer(loaded: LoadedTrustFramework, issuer: str) -> tuple[li
                 jwk = _as_object(key_any, field="bundle.issuers[].jwks.keys[]")
                 _validate_jwk_for_trust(jwk, field_prefix="bundle.issuers[].jwks.keys[]")
                 keys.append(jwk)
+
+    if not keys:
+        publisher = _bundle_publishers_index(loaded.framework).get(issuer)
+        if publisher is not None:
+            jwks_doc = _as_object(publisher.get("jwks"), field="framework.bundle_publishers[].jwks")
+            jwks_keys = _as_array(jwks_doc.get("keys"), field="framework.bundle_publishers[].jwks.keys")
+            for key_any in jwks_keys:
+                jwk = _as_object(key_any, field="framework.bundle_publishers[].jwks.keys[]")
+                _validate_jwk_for_trust(jwk, field_prefix="framework.bundle_publishers[].jwks.keys[]")
+                keys.append(jwk)
+            accepted_algs_any = _as_array(
+                publisher.get("accepted_algs", []),
+                field="framework.bundle_publishers[].accepted_algs",
+            )
+            for alg in accepted_algs_any:
+                if isinstance(alg, str) and alg:
+                    allowed_algs.append(alg)
 
     deduped_keys: list[dict[str, Any]] = []
     seen: set[str] = set()
@@ -935,8 +1003,9 @@ def _read_text(path: pathlib.Path) -> str:
 
 def _validate_trust_lock(lock_doc: dict[str, Any], *, field_prefix: str = "trust_lock") -> None:
     schema_version = _as_nonempty_string(lock_doc.get("schema_version"), field=f"{field_prefix}.schema_version")
-    if schema_version != TRUST_LOCK_SCHEMA:
-        raise ValueError(f"{field_prefix}.schema_version must be {TRUST_LOCK_SCHEMA}")
+    if schema_version not in TRUST_LOCK_SCHEMAS:
+        wanted = ", ".join(sorted(TRUST_LOCK_SCHEMAS))
+        raise ValueError(f"{field_prefix}.schema_version must be one of: {wanted}")
     _as_nonempty_string(lock_doc.get("framework_id"), field=f"{field_prefix}.framework_id")
     _as_nonempty_string(lock_doc.get("generated_at"), field=f"{field_prefix}.generated_at")
 
@@ -946,14 +1015,26 @@ def _validate_trust_lock(lock_doc: dict[str, Any], *, field_prefix: str = "trust
     for idx, bundle_any in enumerate(bundles):
         bundle = _as_object(bundle_any, field=f"{field_prefix}.bundles[{idx}]")
         _as_nonempty_string(bundle.get("id"), field=f"{field_prefix}.bundles[{idx}].id")
-        for rel_key in ("path", "sig_jwt_path"):
-            rel = _as_nonempty_string(bundle.get(rel_key), field=f"{field_prefix}.bundles[{idx}].{rel_key}")
-            if pathlib.Path(rel).is_absolute():
-                raise ValueError(f"{field_prefix}.bundles[{idx}].{rel_key} must be relative")
-        for hash_key in ("bundle_sha256", "sig_jwt_sha256"):
-            h = _as_nonempty_string(bundle.get(hash_key), field=f"{field_prefix}.bundles[{idx}].{hash_key}")
-            if not SHA256_RE.fullmatch(h):
-                raise ValueError(f"{field_prefix}.bundles[{idx}].{hash_key} must be 64 lowercase hex chars")
+        if schema_version == "x07.mcp.trust.lock@0.1.0":
+            for rel_key in ("path", "sig_jwt_path"):
+                rel = _as_nonempty_string(bundle.get(rel_key), field=f"{field_prefix}.bundles[{idx}].{rel_key}")
+                if pathlib.Path(rel).is_absolute():
+                    raise ValueError(f"{field_prefix}.bundles[{idx}].{rel_key} must be relative")
+            for hash_key in ("bundle_sha256", "sig_jwt_sha256"):
+                h = _as_nonempty_string(bundle.get(hash_key), field=f"{field_prefix}.bundles[{idx}].{hash_key}")
+                if not SHA256_RE.fullmatch(h):
+                    raise ValueError(f"{field_prefix}.bundles[{idx}].{hash_key} must be 64 lowercase hex chars")
+        else:
+            bundle_url = _as_nonempty_string(bundle.get("bundle_url"), field=f"{field_prefix}.bundles[{idx}].bundle_url")
+            sig_url = _as_nonempty_string(bundle.get("sig_url"), field=f"{field_prefix}.bundles[{idx}].sig_url")
+            if not _is_https_url_no_fragment(bundle_url):
+                raise ValueError(f"{field_prefix}.bundles[{idx}].bundle_url must be HTTPS URL without fragment")
+            if not _is_https_url_no_fragment(sig_url):
+                raise ValueError(f"{field_prefix}.bundles[{idx}].sig_url must be HTTPS URL without fragment")
+            for hash_key in ("bundle_sha256", "sig_sha256"):
+                h = _as_nonempty_string(bundle.get(hash_key), field=f"{field_prefix}.bundles[{idx}].{hash_key}")
+                if not SHA256_RE.fullmatch(h):
+                    raise ValueError(f"{field_prefix}.bundles[{idx}].{hash_key} must be 64 lowercase hex chars")
         issuer = _as_nonempty_string(bundle.get("publisher_issuer"), field=f"{field_prefix}.bundles[{idx}].publisher_issuer")
         if not _is_https_url_no_fragment(issuer):
             raise ValueError(f"{field_prefix}.bundles[{idx}].publisher_issuer must be HTTPS URL without fragment")
@@ -969,7 +1050,10 @@ def _load_trust_lock(path: pathlib.Path) -> dict[str, Any]:
 
 
 def _framework_requires_signed_bundles(framework_doc: dict[str, Any]) -> bool:
-    if _framework_schema_version(framework_doc) != "x07.mcp.trust.framework@0.2.0":
+    if _framework_schema_version(framework_doc) not in {
+        "x07.mcp.trust.framework@0.2.0",
+        "x07.mcp.trust.framework@0.3.0",
+    }:
         return False
     bundles = _as_array(framework_doc.get("bundles", []), field="framework.bundles")
     for bundle_any in bundles:
@@ -979,8 +1063,26 @@ def _framework_requires_signed_bundles(framework_doc: dict[str, Any]) -> bool:
     return False
 
 
+def _framework_has_remote_sources(framework_doc: dict[str, Any]) -> bool:
+    if _framework_schema_version(framework_doc) != "x07.mcp.trust.framework@0.3.0":
+        return False
+    bundles = _as_array(framework_doc.get("bundles", []), field="framework.bundles")
+    for bundle_any in bundles:
+        bundle_ref = _as_object(bundle_any, field="framework.bundles[]")
+        source = bundle_ref.get("source")
+        if isinstance(source, dict) and str(source.get("kind", "")) == "url":
+            return True
+        sig_source = bundle_ref.get("sig_source")
+        if isinstance(sig_source, dict) and str(sig_source.get("kind", "")) == "url":
+            return True
+    return False
+
+
 def _default_as_selection_strategy(framework_doc: dict[str, Any]) -> str:
-    if _framework_schema_version(framework_doc) != "x07.mcp.trust.framework@0.2.0":
+    if _framework_schema_version(framework_doc) not in {
+        "x07.mcp.trust.framework@0.2.0",
+        "x07.mcp.trust.framework@0.3.0",
+    }:
         return ""
     resources = _as_array(framework_doc.get("resources", []), field="framework.resources")
     for resource_any in resources:
@@ -997,7 +1099,10 @@ def _default_as_selection_strategy(framework_doc: dict[str, Any]) -> str:
 
 def _bundle_publishers_index(framework_doc: dict[str, Any]) -> dict[str, dict[str, Any]]:
     out: dict[str, dict[str, Any]] = {}
-    if _framework_schema_version(framework_doc) != "x07.mcp.trust.framework@0.2.0":
+    if _framework_schema_version(framework_doc) not in {
+        "x07.mcp.trust.framework@0.2.0",
+        "x07.mcp.trust.framework@0.3.0",
+    }:
         return out
     publishers = _as_array(framework_doc.get("bundle_publishers", []), field="framework.bundle_publishers")
     for idx, publisher_any in enumerate(publishers):
@@ -1031,10 +1136,11 @@ def _verify_framework_bundles_with_lock(
     *,
     trust_lock_path: pathlib.Path | None,
 ) -> tuple[str, dict[str, Any] | None]:
-    if _framework_schema_version(loaded.framework) != "x07.mcp.trust.framework@0.2.0":
+    schema_version = _framework_schema_version(loaded.framework)
+    if schema_version not in {"x07.mcp.trust.framework@0.2.0", "x07.mcp.trust.framework@0.3.0"}:
         return PLACEHOLDER_SHA256, None
 
-    requires_lock = _framework_requires_signed_bundles(loaded.framework)
+    requires_lock = _framework_requires_signed_bundles(loaded.framework) or _framework_has_remote_sources(loaded.framework)
     lock_doc: dict[str, Any] | None = None
     lock_sha = PLACEHOLDER_SHA256
     if trust_lock_path is not None:
@@ -1049,6 +1155,53 @@ def _verify_framework_bundles_with_lock(
         raise ValueError(f"{ERR_TRUST_PINS_MISSING}: trust lock path is required for signed trust bundles")
 
     if not requires_lock:
+        return lock_sha, lock_doc
+
+    if schema_version == "x07.mcp.trust.framework@0.3.0":
+        if lock_doc is None:
+            raise ValueError(f"{ERR_TRUST_PINS_MISSING}: trust lock path is required for remote trust sources")
+        lock_index = _lock_entries_by_id(lock_doc)
+        bundles = _as_array(loaded.framework.get("bundles", []), field="framework.bundles")
+        for idx, bundle_ref_any in enumerate(bundles):
+            bundle_ref = _as_object(bundle_ref_any, field=f"framework.bundles[{idx}]")
+            bundle_id = _as_nonempty_string(bundle_ref.get("id"), field=f"framework.bundles[{idx}].id")
+            require_signature = bool(bundle_ref.get("require_signature", False))
+            source = bundle_ref.get("source")
+            sig_source = bundle_ref.get("sig_source")
+
+            source_kind = str(source.get("kind", "")) if isinstance(source, dict) else ""
+            sig_source_kind = str(sig_source.get("kind", "")) if isinstance(sig_source, dict) else ""
+            source_url = str(source.get("url", "")) if source_kind == "url" and isinstance(source, dict) else ""
+            sig_source_url = str(sig_source.get("url", "")) if sig_source_kind == "url" and isinstance(sig_source, dict) else ""
+
+            needs_lock_entry = require_signature or source_kind == "url" or sig_source_kind == "url"
+            if not needs_lock_entry:
+                continue
+            lock_entry = lock_index.get(bundle_id)
+            if lock_entry is None:
+                raise ValueError(f"{ERR_TRUST_PINS_MISSING}: trust lock missing bundle entry for id={bundle_id}")
+
+            if source_kind == "url":
+                if str(lock_entry.get("bundle_url", "")) != source_url:
+                    raise ValueError(f"{ERR_TRUST_PINS_MISSING}: trust lock bundle_url mismatch for bundle {bundle_id}")
+            if sig_source_kind == "url":
+                if str(lock_entry.get("sig_url", "")) != sig_source_url:
+                    raise ValueError(f"{ERR_TRUST_PINS_MISSING}: trust lock sig_url mismatch for bundle {bundle_id}")
+
+            if require_signature:
+                publisher_issuer = _as_nonempty_string(
+                    bundle_ref.get("publisher_issuer"),
+                    field=f"framework.bundles[{idx}].publisher_issuer",
+                )
+                lock_publisher_issuer = _as_nonempty_string(
+                    lock_entry.get("publisher_issuer"),
+                    field=f"trust_lock.bundles[{idx}].publisher_issuer",
+                )
+                if lock_publisher_issuer != publisher_issuer:
+                    raise ValueError(f"{ERR_TRUST_PINS_MISSING}: trust lock publisher_issuer mismatch for bundle {bundle_id}")
+                _as_nonempty_string(lock_entry.get("kid"), field=f"trust_lock.bundles[{idx}].kid")
+                _as_nonempty_string(lock_entry.get("alg"), field=f"trust_lock.bundles[{idx}].alg")
+
         return lock_sha, lock_doc
 
     publisher_index = _bundle_publishers_index(loaded.framework)
@@ -1238,12 +1391,48 @@ def parse_publish_trust_config(manifest: dict[str, Any]) -> PublishTrustConfig:
         require_signed_prm = bool(prm_obj.get("require_signed_prm", False))
 
     emit_meta_summary = bool(trust_framework.get("emit_meta_summary", False))
+    trust_pack_obj = trust_framework.get("trust_pack")
+    trust_pack = trust_pack_obj if isinstance(trust_pack_obj, dict) else {}
+    trust_pack_registry = None
+    trust_pack_id = None
+    trust_pack_version = None
+
+    for cand in (
+        trust_pack.get("registry"),
+        trust_framework.get("trust_pack_registry"),
+    ):
+        if isinstance(cand, str) and cand:
+            trust_pack_registry = cand
+            break
+
+    for cand in (
+        trust_pack.get("pack_id"),
+        trust_pack.get("packId"),
+        trust_framework.get("trust_pack_id"),
+        trust_framework.get("trust_packId"),
+    ):
+        if isinstance(cand, str) and cand:
+            trust_pack_id = cand
+            break
+
+    for cand in (
+        trust_pack.get("pack_version"),
+        trust_pack.get("packVersion"),
+        trust_framework.get("trust_pack_version"),
+        trust_framework.get("trust_packVersion"),
+    ):
+        if isinstance(cand, str) and cand:
+            trust_pack_version = cand
+            break
 
     return PublishTrustConfig(
         require_signed_prm=require_signed_prm,
         trust_framework_path=trust_framework_path,
         trust_lock_path=trust_lock_path,
         emit_meta_summary=emit_meta_summary,
+        trust_pack_registry=trust_pack_registry,
+        trust_pack_id=trust_pack_id,
+        trust_pack_version=trust_pack_version,
         prm_path=prm_path,
         resource_metadata_path=resource_metadata_path,
         signer_iss_hint=signer_iss_hint,
@@ -1256,6 +1445,9 @@ def _build_publish_meta_summary(
     framework_sha256: str,
     trust_lock_sha256: str,
     as_selection_strategy: str,
+    trust_pack_registry: str | None = None,
+    trust_pack_id: str | None = None,
+    trust_pack_version: str | None = None,
 ) -> dict[str, Any]:
     if not SHA256_RE.fullmatch(framework_sha256):
         raise ValueError("trustFrameworkSha256 must match ^[0-9a-f]{64}$")
@@ -1263,14 +1455,26 @@ def _build_publish_meta_summary(
         raise ValueError("trustLockSha256 must match ^[0-9a-f]{64}$")
     if not isinstance(as_selection_strategy, str):
         raise ValueError("asSelectionStrategy must be a string")
-    return {
-        "x07": {
-            "trustFrameworkSha256": framework_sha256,
-            "trustLockSha256": trust_lock_sha256,
-            "requireSignedPrm": bool(require_signed),
-            "asSelectionStrategy": as_selection_strategy,
-        }
+    x07_summary: dict[str, Any] = {
+        "trustFrameworkSha256": framework_sha256,
+        "trustLockSha256": trust_lock_sha256,
+        "requireSignedPrm": bool(require_signed),
+        "asSelectionStrategy": as_selection_strategy,
     }
+
+    if trust_pack_registry or trust_pack_id or trust_pack_version:
+        if not (trust_pack_registry and trust_pack_id and trust_pack_version):
+            raise ValueError("trustPack metadata requires registry, packId, and packVersion")
+        if not _is_https_url_no_fragment(trust_pack_registry):
+            raise ValueError("trustPack.registry must be HTTPS URL without fragment")
+        x07_summary["trustPack"] = {
+            "registry": trust_pack_registry,
+            "packId": trust_pack_id,
+            "packVersion": trust_pack_version,
+            "lockSha256": trust_lock_sha256,
+        }
+
+    return {"x07": x07_summary}
 
 
 def _merge_publisher_meta_summary(server_doc: dict[str, Any], summary: dict[str, Any]) -> None:
@@ -1342,6 +1546,22 @@ def _validate_publish_meta_x07(meta: dict[str, Any]) -> None:
     lock_sha = meta.get("trustLockSha256")
     if lock_sha is not None and (not isinstance(lock_sha, str) or not SHA256_RE.fullmatch(lock_sha)):
         raise ValueError("_meta publisher-provided x07.trustLockSha256 must match ^[0-9a-f]{64}$")
+    trust_pack = meta.get("trustPack")
+    if trust_pack is not None:
+        if not isinstance(trust_pack, dict):
+            raise ValueError("_meta publisher-provided x07.trustPack must be object")
+        registry = trust_pack.get("registry")
+        if not isinstance(registry, str) or not registry or not _is_https_url_no_fragment(registry):
+            raise ValueError("_meta publisher-provided x07.trustPack.registry must be HTTPS URL without fragment")
+        pack_id = trust_pack.get("packId")
+        if not isinstance(pack_id, str) or not pack_id:
+            raise ValueError("_meta publisher-provided x07.trustPack.packId must be non-empty string")
+        pack_version = trust_pack.get("packVersion")
+        if not isinstance(pack_version, str) or not pack_version:
+            raise ValueError("_meta publisher-provided x07.trustPack.packVersion must be non-empty string")
+        lock_sha_pack = trust_pack.get("lockSha256")
+        if not isinstance(lock_sha_pack, str) or not SHA256_RE.fullmatch(lock_sha_pack):
+            raise ValueError("_meta publisher-provided x07.trustPack.lockSha256 must match ^[0-9a-f]{64}$")
 
 
 def _validate_publish_meta_prm_legacy(prm: dict[str, Any]) -> None:
@@ -1462,11 +1682,17 @@ def generate_server_doc(
                 trust_lock_doc = _load_trust_lock(trust_lock_path)
                 trust_lock_sha = _canonical_sha256_hex(trust_lock_doc)
 
+            if (cfg.trust_pack_registry or cfg.trust_pack_id or cfg.trust_pack_version) and trust_lock_sha == PLACEHOLDER_SHA256:
+                raise ValueError(f"{ERR_TRUST_PINS_MISSING}: trust pack metadata requires trust lock sha")
+
             summary = _build_publish_meta_summary(
                 require_signed=cfg.require_signed_prm,
                 framework_sha256=framework_sha,
                 trust_lock_sha256=trust_lock_sha,
                 as_selection_strategy=as_strategy,
+                trust_pack_registry=cfg.trust_pack_registry,
+                trust_pack_id=cfg.trust_pack_id,
+                trust_pack_version=cfg.trust_pack_version,
             )
             _merge_publisher_meta_summary(out, summary)
 
@@ -1659,11 +1885,17 @@ def verify_publish_trust_policy(
                 raise ValueError("as_no_allowed_issuer")
             as_selection_strategy = str(as_policy.get("strategy", as_selection_strategy)) or as_selection_strategy
 
+    if (cfg.trust_pack_registry or cfg.trust_pack_id or cfg.trust_pack_version) and trust_lock_sha == PLACEHOLDER_SHA256:
+        raise ValueError(f"{ERR_TRUST_PINS_MISSING}: trust pack metadata requires trust lock sha")
+
     summary = _build_publish_meta_summary(
         require_signed=cfg.require_signed_prm,
         framework_sha256=framework_sha,
         trust_lock_sha256=trust_lock_sha,
         as_selection_strategy=as_selection_strategy,
+        trust_pack_registry=cfg.trust_pack_registry,
+        trust_pack_id=cfg.trust_pack_id,
+        trust_pack_version=cfg.trust_pack_version,
     )
 
     if cfg.emit_meta_summary:

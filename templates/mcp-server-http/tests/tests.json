@@ -8,6 +8,18 @@
       "expect": "pass"
     },
     {
+      "id": "smoke/trust_remote_pack_replay_fixture_present",
+      "world": "run-os",
+      "entry": "smoke.trust_remote_pack_replay_fixture_present",
+      "expect": "pass"
+    },
+    {
+      "id": "smoke/trust_pack_install_replay_fixture_present",
+      "world": "run-os",
+      "entry": "smoke.trust_pack_install_replay_fixture_present",
+      "expect": "pass"
+    },
+    {
       "id": "compile/app_import",
       "world": "run-os",
       "entry": "compile.app_import",
