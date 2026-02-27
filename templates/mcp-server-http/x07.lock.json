@@ -286,7 +286,7 @@
       "modules_sha256": {
         "std.mcp.sandbox.policy_compile": "a562b11ff8f438ee45691cb8800da813e9abfe2a86290ccdb41db4108adedf22",
         "std.mcp.sandbox.profiles": "44646f9ac97bdf9b2612a6e81e504d789fb227f44a74a053f9570880342f5fe7",
-        "std.mcp.sandbox.router_exec": "418088ab4d65ef65f0f4e9ba1c0029376ddcaeb472f6c8f10917aa0c58576f53",
+        "std.mcp.sandbox.router_exec": "e9e3b73c749c7fb97cdae503eab4c1186112b94ddeb56da7b26b97c9cc374e65",
         "std.mcp.sandbox.task_exec_async_pool_v1": "ee17149c0a4637b67205a25d05538349fe69b281fab670b26d1f51f17092d990",
         "std.mcp.sandbox.task_exec_deterministic_v1": "797835677223407a6b3cf8a9c8f38c5625b1bc1f5828b097f07ede0c6ceed5d8",
         "std.mcp.sandbox.task_store_any_v1": "3bd3da1d44cbbb6e5c133ee7e368b334e917b93a81cbcc4c48a2ef0aa75c9a8d",
@@ -325,9 +325,9 @@
       "package_manifest_sha256": "f6641086db5588a3e1b3a14e3120859ebd3db9c21dbd8fea09ec67f778de5988",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.mcp.server": "b0441798f551877ec8387a04dd82f601be1b88b3d40d00f61911c5e07d3eb720",
+        "ext.mcp.server": "79633e594c6d61c9532d71fd787ae661da900055f7e530007095c24ae8b3f4d6",
         "std.mcp.transport.http": "4f73fefbfd088efa5a6c1a7cf318dde2e0128a9f6ee267472e8858823d875d9f",
-        "std.mcp.transport.http_rules": "69e85ebe4f5a601c2eff0b75e0fdf39aa99c3bb4562f701b02c0754cdad1623a",
+        "std.mcp.transport.http_rules": "24d6cc102d23592f8e0061da46c069a2448b10e82b2ca3f912a1abb43d020eec",
         "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9",
         "std.mcp.transport.http_sse": "5fa7f191dac0e9fe080275ce47152285890c308164b2972093601e0cc35b9f2a",
         "std.mcp.transport.http_sse_outbox_v1": "8831404845f093ab30f98395d0988dc5cfe1a7ffc395c758a72af9bc011e3be1"
@@ -492,8 +492,8 @@
       "package_manifest_sha256": "092c03cc72a4291b28e13807d294b98010f09d44c76c2b2392a49032f863cd9c",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.u64": "c3ba79f0554026716bfa1feea479c1eaa5b31be0ad7a8d166416a6a35d8b9a43",
-        "ext.u64.tests": "f4a739c17deb1dd369d9fb144111a87ce4f7c99f65f28265dfc1ce7f56eff86f"
+        "ext.u64": "782c75d52f6f1b2f25402ee12184e6be049764a918484c39cba00171ce0c34a0",
+        "ext.u64.tests": "5a992a379bf32286c2fb8064886ac410090ea087a2de971eb87b750454b61422"
       },
       "yanked": false
     },

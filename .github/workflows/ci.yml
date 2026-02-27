@@ -176,6 +176,7 @@ jobs:
         run: |
           mkdir -p .agent_cache/trust-framework
           printf 'template-mcpb-fixture\n' > .agent_cache/trust-framework/template-http.mcpb
+          ./scripts/ci/hydrate_root_deps.sh
           x07 bundle --project x07.json --profile os --out dist/x07-mcp --json=off
           ./dist/x07-mcp registry gen \
             --in templates/mcp-server-http/x07.mcp.json \
