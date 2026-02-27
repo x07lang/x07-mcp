@@ -24,15 +24,19 @@ Dry-run checks schema validity, `_meta` limits, package hash integrity, and trus
 - `signed_metadata` is required in PRM
 - signer issuer must match `resource_policies.allowed_prm_signers`
 - signer key must exist in trust bundles
-- `_meta.io.modelcontextprotocol.registry/publisher-provided.x07.io/mcp.prm` must match generated trust summary
+- signed trust bundles must verify against framework-pinned bundle publisher keys
+- trust bundle + signature digests must match `trust/trust.lock.json` pins
+- `_meta.io.modelcontextprotocol.registry/publisher-provided.x07` must match generated trust summary
 
 ## Trust Framework Artifacts
 
 The HTTP template includes:
 
-- `trust/bundles/dev_prm_signers.trust_bundle.json`
-- `trust/frameworks/dev.trust_framework.json`
+- `trust/bundles/dev_trust_bundle_v1.trust_bundle.json`
+- `trust/bundles/dev_trust_bundle_v1.trust_bundle.sig.jwt`
+- `trust/frameworks/dev_local_trust_framework_v1.trust_framework.json`
+- `trust/trust.lock.json`
 - `publish/prm.json`
-- `publish/server.json` (publisher trust summary with `trustFrameworkSha256`)
+- `publish/server.json` (publisher trust summary with `trustFrameworkSha256` + `trustLockSha256`)
 
 Release tags are guarded against placeholder hashes by `registry/scripts/release_metadata_guard.sh`.

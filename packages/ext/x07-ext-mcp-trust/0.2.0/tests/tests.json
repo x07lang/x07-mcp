@@ -1,0 +1,47 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "trust/bundle_parse_ok",
+      "world": "run-os",
+      "entry": "smoke_trust.bundle_parse_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust/framework_policy_multi_issuer",
+      "world": "run-os",
+      "entry": "smoke_trust.framework_policy_multi_issuer",
+      "expect": "pass"
+    },
+    {
+      "id": "trust/framework_policy_default_fail_closed",
+      "world": "run-os",
+      "entry": "smoke_trust.framework_policy_default_fail_closed",
+      "expect": "pass"
+    },
+    {
+      "id": "trust/framework_keys_for_issuer",
+      "world": "run-os",
+      "entry": "smoke_trust.framework_keys_for_issuer",
+      "expect": "pass"
+    },
+    {
+      "id": "trust13/bundle_sig_stmt_sha_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase13.bundle_sig_stmt_sha_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust13/bundle_sig_verify_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase13.bundle_sig_verify_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust13/as_select_prefer_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase13.as_select_prefer_ok",
+      "expect": "pass"
+    }
+  ]
+}

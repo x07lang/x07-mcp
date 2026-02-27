@@ -169,6 +169,8 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-toolkit/0.3.2/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.3/modules"
   "packages/ext/x07-ext-mcp-trust/0.1.0/modules"
+  "packages/ext/x07-ext-mcp-trust/0.2.0/modules"
+  "packages/ext/x07-ext-mcp-trust-os/0.1.0/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.2.1/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.3/modules"
@@ -268,6 +270,41 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       --module-root "$hex_modules" \
       --module-root "$json_modules" \
       --module-root "$url_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
+  step "package tests (ext-mcp-trust@0.2.0)"
+  trust_020_dir="$root/packages/ext/x07-ext-mcp-trust/0.2.0"
+  [[ -d "$trust_020_dir" ]] || { echo "ERROR: missing local package: $trust_020_dir" >&2; exit 2; }
+  (
+    cd "$trust_020_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$crypto_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
+  step "package tests (ext-mcp-trust-os@0.1.0)"
+  trust_os_010_dir="$root/packages/ext/x07-ext-mcp-trust-os/0.1.0"
+  [[ -d "$trust_os_010_dir" ]] || { echo "ERROR: missing local package: $trust_os_010_dir" >&2; exit 2; }
+  (
+    cd "$trust_os_010_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$net_modules" \
+      --module-root "$url_modules" \
+      --module-root "$json_modules" \
+      --module-root "$data_model_modules" \
       --module-root "$fs_modules" \
       --module-root "$unicode_modules" \
       >/dev/null
@@ -697,11 +734,12 @@ mkdir -p dist
 x07 bundle --project x07.json --profile os --out dist/x07-mcp >/dev/null
 ./dist/x07-mcp --help >/dev/null
 
-step "conformance client auth scenario (phase11)"
+step "conformance client auth scenarios (phase11 + phase13)"
 X07_WORKSPACE_ROOT="$root" ./scripts/ci/materialize_patch_deps.sh conformance/client-x07/x07.json >/dev/null
 X07_WORKSPACE_ROOT="$root" x07 pkg lock --project conformance/client-x07/x07.json --check --json=off >/dev/null
 X07_WORKSPACE_ROOT="$root" x07 bundle --project conformance/client-x07/x07.json --profile os --out dist/x07-mcp-conformance-client --json=off >/dev/null
-python3 conformance/client-auth/run_scenario.py --scenario prm-signed-required-missing --client dist/x07-mcp-conformance-client
+./scripts/conformance/run_client_auth_scenario.sh prm-signed-required-missing --client dist/x07-mcp-conformance-client
+./scripts/conformance/run_client_auth_scenario.sh prm-multi-as-select-prefer-order
 
 step "scaffold e2e (mcp-server-stdio)"
 tmp="$(mktemp -d)"

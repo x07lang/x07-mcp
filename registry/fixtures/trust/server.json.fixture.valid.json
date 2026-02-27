@@ -16,13 +16,11 @@
   ],
   "_meta": {
     "io.modelcontextprotocol.registry/publisher-provided": {
-      "x07.io/mcp": {
-        "prm": {
-          "requireSigned": true,
-          "resourceMetadataPath": "/.well-known/oauth-protected-resource",
-          "signerIss": "https://auth.example.com",
-          "trustFrameworkSha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
-        }
+      "x07": {
+        "trustFrameworkSha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+        "trustLockSha256": "89abcdef0123456789abcdef0123456789abcdef0123456789abcdef01234567",
+        "requireSignedPrm": true,
+        "asSelectionStrategy": "prefer_order_v1"
       }
     }
   }

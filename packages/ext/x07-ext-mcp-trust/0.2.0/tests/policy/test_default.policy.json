@@ -1,0 +1,11 @@
+{
+  "strategy": "prefer_order_v1",
+  "allowed_issuers": [
+    "https://as1.example",
+    "https://as2.example"
+  ],
+  "prefer_issuers": [
+    "https://as1.example"
+  ],
+  "mode": "fail_closed"
+}

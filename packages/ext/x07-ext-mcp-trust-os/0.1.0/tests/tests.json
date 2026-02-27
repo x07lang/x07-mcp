@@ -1,0 +1,17 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "trust-os/fetch_bundle_file_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_os.fetch_bundle_file_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust-os/fetch_as_metadata_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_os.fetch_as_metadata_ok",
+      "expect": "pass"
+    }
+  ]
+}

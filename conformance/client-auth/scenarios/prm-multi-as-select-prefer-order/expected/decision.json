@@ -1,0 +1,9 @@
+{
+  "selected_issuer": "https://as1.example",
+  "rejected": [
+    {
+      "issuer": "https://as2.example",
+      "reason_code": "not_preferred"
+    }
+  ]
+}

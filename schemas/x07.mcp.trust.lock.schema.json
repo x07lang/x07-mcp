@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://x07.io/spec/x07.mcp.trust.lock.schema.json",
+  "title": "x07.mcp.trust.lock@0.1.0",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "framework_id",
+    "generated_at",
+    "bundles"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "x07.mcp.trust.lock@0.1.0"
+    },
+    "framework_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bundles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "path",
+          "bundle_sha256",
+          "sig_jwt_path",
+          "sig_jwt_sha256",
+          "publisher_issuer",
+          "kid",
+          "alg"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "bundle_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "sig_jwt_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sig_jwt_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "publisher_issuer": {
+            "type": "string",
+            "pattern": "^https://[^#]+$"
+          },
+          "kid": {
+            "type": "string",
+            "minLength": 1
+          },
+          "alg": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

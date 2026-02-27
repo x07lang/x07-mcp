@@ -1,8 +1,8 @@
 {
   "schema_version": "x07.mcp.trust.bundle@0.1.0",
-  "bundle_id": "io.x07/reference-prm-signers",
+  "bundle_id": "com.example/x07-mcp-dev-prm-signers",
   "version": "0.1.0",
-  "description": "Reference trust bundle for signed PRM publish validation in x07-mcp.",
+  "description": "DEV ONLY. Keys used for signed PRM fixtures.",
   "issuers": [
     {
       "issuer": "https://auth.example.com",
@@ -10,7 +10,6 @@
         "prm_signed_metadata"
       ],
       "algs": [
-        "Ed25519",
         "EdDSA"
       ],
       "jwks": {
@@ -18,8 +17,8 @@
           {
             "kty": "OKP",
             "crv": "Ed25519",
-            "kid": "prm-ed25519-2026-01",
-            "x": "A3WWp-lK4V561cvg97VV4VT0PskpQLPZDPpFk72qT88"
+            "kid": "dev-2026-02-15",
+            "x": "1EgH_hpQHK0aS1isejNLbPo0wtkzNW5zJtp03a9c8Uc"
           }
         ]
       }
@@ -30,7 +29,6 @@
         "prm_signed_metadata"
       ],
       "algs": [
-        "Ed25519",
         "EdDSA"
       ],
       "jwks": {
@@ -38,8 +36,8 @@
           {
             "kty": "OKP",
             "crv": "Ed25519",
-            "kid": "prm-ed25519-2-2026-01",
-            "x": "Qm0JJrli_d4mN7MYh6mp2OKfbR6RrU3l8_y1_nBBa0s"
+            "kid": "dev2-2026-02-15",
+            "x": "4gNpdGfhmL6mk_VblB9Y4Mal4qOTmx2wUlCd5fzctEo"
           }
         ]
       }

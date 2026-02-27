@@ -1,26 +1,78 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://x07.io/spec/x07.mcp.trust.framework.schema.json",
-  "title": "x07.mcp.trust.framework@0.1.0",
+  "title": "x07.mcp.trust.framework@0.2.0",
   "type": "object",
   "additionalProperties": true,
   "required": [
     "schema_version",
     "framework_id",
-    "version",
-    "bundles"
+    "bundle_publishers",
+    "bundles",
+    "resources"
   ],
   "properties": {
     "schema_version": {
-      "const": "x07.mcp.trust.framework@0.1.0"
+      "const": "x07.mcp.trust.framework@0.2.0"
     },
     "framework_id": {
       "type": "string",
       "minLength": 1
     },
-    "version": {
+    "mode": {
       "type": "string",
       "minLength": 1
+    },
+    "bundle_publishers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "issuer",
+          "jwks"
+        ],
+        "properties": {
+          "issuer": {
+            "type": "string",
+            "pattern": "^https://[^#]+$"
+          },
+          "jwks": {
+            "type": "object",
+            "required": [
+              "keys"
+            ],
+            "properties": {
+              "keys": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "kty",
+                    "kid"
+                  ]
+                }
+              }
+            }
+          },
+          "accepted_algs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "max_ttl_secs": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "clock_skew_secs": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
     },
     "bundles": {
       "type": "array",
@@ -28,138 +80,115 @@
       "items": {
         "type": "object",
         "required": [
+          "id",
           "path"
         ],
         "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
           "path": {
             "type": "string",
             "minLength": 1
-          }
-        }
-      }
-    },
-    "bundles_data": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "schema_version",
-          "bundle_id",
-          "version",
-          "issuers"
-        ],
-        "properties": {
-          "schema_version": {
-            "const": "x07.mcp.trust.bundle@0.1.0"
           },
-          "bundle_id": {
-            "type": "string"
+          "sig_jwt_path": {
+            "type": "string",
+            "minLength": 1
           },
-          "version": {
-            "type": "string"
+          "publisher_issuer": {
+            "type": "string",
+            "pattern": "^https://[^#]+$"
           },
-          "issuers": {
-            "type": "array"
-          }
-        }
-      }
-    },
-    "resource_policies": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "match",
-          "allowed_prm_signers"
-        ],
-        "properties": {
-          "match": {
-            "type": "object",
-            "required": [
-              "kind",
-              "value"
-            ],
-            "properties": {
-              "kind": {
-                "type": "string",
-                "enum": [
-                  "exact",
-                  "prefix",
-                  "hostSuffix"
-                ]
-              },
-              "value": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          },
-          "allowed_prm_signers": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "string",
-              "pattern": "^https://[^#]+$"
-            }
-          },
-          "require_signed_prm": {
+          "require_signature": {
             "type": "boolean"
           },
-          "verify_cfg": {
+          "expected_bundle_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "expected_sig_jwt_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "resources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "resource",
+          "authorization_server_policy"
+        ],
+        "properties": {
+          "resource": {
+            "type": "string",
+            "pattern": "^https://[^#]+$"
+          },
+          "authorization_server_policy": {
             "type": "object",
-            "additionalProperties": true,
+            "required": [
+              "strategy",
+              "allowed_issuers",
+              "mode"
+            ],
             "properties": {
+              "strategy": {
+                "type": "string",
+                "enum": [
+                  "prefer_order_v1"
+                ]
+              },
+              "allowed_issuers": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^https://[^#]+$"
+                }
+              },
+              "prefer_issuers": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^https://[^#]+$"
+                }
+              },
+              "require_https": {
+                "type": "boolean"
+              },
               "mode": {
                 "type": "string",
                 "enum": [
                   "fail_closed",
-                  "best_effort"
+                  "fail_open"
                 ]
+              }
+            }
+          },
+          "prm_signed_metadata_policy": {
+            "type": "object",
+            "properties": {
+              "require_signed_metadata": {
+                "type": "boolean"
               },
-              "allowed_algs": {
+              "allowed_signing_issuers": {
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "minLength": 1
+                  "pattern": "^https://[^#]+$"
                 }
               },
-              "max_clock_skew_seconds": {
-                "type": "integer",
-                "minimum": 0
-              }
-            }
-          }
-        }
-      }
-    },
-    "defaults": {
-      "type": "object",
-      "additionalProperties": true,
-      "properties": {
-        "require_signed_prm": {
-          "type": "boolean"
-        },
-        "verify_cfg": {
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-            "mode": {
-              "type": "string",
-              "enum": [
-                "fail_closed",
-                "best_effort"
-              ]
-            },
-            "allowed_algs": {
-              "type": "array",
-              "items": {
+              "mode": {
                 "type": "string",
-                "minLength": 1
+                "enum": [
+                  "fail_closed",
+                  "best_effort",
+                  "fail_open"
+                ]
               }
-            },
-            "max_clock_skew_seconds": {
-              "type": "integer",
-              "minimum": 0
             }
           }
         }

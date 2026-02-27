@@ -1,0 +1,30 @@
+name: Release Guards
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  guard-trust-lock-and-sig:
+    name: release / guard-trust-lock-and-sig
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Guard trust lock + bundle signatures
+        shell: bash
+        run: ./scripts/ci/release_guard_trust_lock_and_sig.sh
+
+  guard-no-test-fixed-nonce:
+    name: release / guard-no-test-fixed-nonce
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Guard against test_fixed_nonce
+        shell: bash
+        run: ./scripts/ci/release_guard_no_test_fixed_nonce.sh

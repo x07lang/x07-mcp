@@ -70,8 +70,8 @@ jobs:
         shell: bash
         run: ./registry/scripts/check_fixtures.sh
 
-  trust-framework:
-    name: ci / trust-framework
+  mcp-trust-tests:
+    name: ci / mcp-trust-tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout x07-mcp
@@ -98,13 +98,13 @@ jobs:
         shell: bash
         working-directory: x07-mcp
         run: ./scripts/ci/install_x07_toolchain.sh
-      - name: Unit tests (ext-mcp-trust)
+      - name: Unit tests (ext-mcp-trust@0.2.0)
         shell: bash
         working-directory: x07-mcp
         run: |
           x07_root="$(cd ../x07 && pwd)"
           (
-            cd packages/ext/x07-ext-mcp-trust/0.1.0
+            cd packages/ext/x07-ext-mcp-trust/0.2.0
             x07 test \
               --manifest tests/tests.json \
               --module-root modules \
@@ -113,6 +113,23 @@ jobs:
               --module-root "$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-fs/0.1.5/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-unicode-rs/0.1.5/modules"
+          )
+      - name: Unit tests (ext-mcp-trust-os@0.1.0)
+        shell: bash
+        working-directory: x07-mcp
+        run: |
+          x07_root="$(cd ../x07 && pwd)"
+          (
+            cd packages/ext/x07-ext-mcp-trust-os/0.1.0
+            x07 test \
+              --manifest tests/tests.json \
+              --module-root modules \
+              --module-root "$x07_root/packages/ext/x07-ext-net/0.1.9/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.4/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.8/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-fs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-unicode-rs/0.1.5/modules"
           )
@@ -317,3 +334,26 @@ jobs:
           npx -y @modelcontextprotocol/conformance@0.1.14 client \
             --command "./dist/x07-mcp-conformance-client" \
             --suite auth
+
+  conformance-client-auth-prm-multi-as:
+    name: ci / conformance-client-auth-prm-multi-as
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install system deps
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
+      - name: Cache X07 toolchain
+        uses: actions/cache@v4
+        with:
+          path: ~/.x07
+          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
+      - name: Install X07 (pinned)
+        shell: bash
+        run: ./scripts/ci/install_x07_toolchain.sh
+      - name: Run conformance scenario (client auth multi-as)
+        shell: bash
+        run: ./scripts/conformance/run_client_auth_scenario.sh prm-multi-as-select-prefer-order

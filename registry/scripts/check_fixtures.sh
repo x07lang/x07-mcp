@@ -82,9 +82,9 @@ if not isinstance(expected_summary, dict):
 
 got_summary = _build_publish_meta_summary(
     require_signed=True,
-    resource_metadata_path="/.well-known/oauth-protected-resource",
-    signer_iss="https://auth.example.com",
     framework_sha256="0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    trust_lock_sha256="89abcdef0123456789abcdef0123456789abcdef0123456789abcdef01234567",
+    as_selection_strategy="prefer_order_v1",
 )
 
 if json.dumps(expected_summary, sort_keys=True, separators=(",", ":")) != json.dumps(

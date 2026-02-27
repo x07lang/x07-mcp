@@ -1,0 +1,7 @@
+{
+  "resource": "https://localhost:8443",
+  "authorization_servers": [
+    "https://as2.example",
+    "https://as1.example"
+  ]
+}

@@ -7,7 +7,6 @@
   "required": [
     "schema_version",
     "bundle_id",
-    "version",
     "issuers"
   ],
   "properties": {
@@ -22,6 +21,10 @@
       "type": "string",
       "minLength": 1
     },
+    "bundle_version": {
+      "type": "string",
+      "minLength": 1
+    },
     "description": {
       "type": "string"
     },
@@ -33,13 +36,19 @@
         "additionalProperties": true,
         "required": [
           "issuer",
-          "algs",
           "jwks"
         ],
         "properties": {
           "issuer": {
             "type": "string",
             "pattern": "^https://[^#]+$"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
           },
           "usage": {
             "type": "array",
@@ -50,7 +59,6 @@
           },
           "algs": {
             "type": "array",
-            "minItems": 1,
             "items": {
               "type": "string",
               "minLength": 1

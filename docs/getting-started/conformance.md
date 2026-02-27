@@ -63,7 +63,15 @@ npx -y @modelcontextprotocol/conformance@0.1.14 client \
 Phase 11 (unsigned PRM must be rejected when fail-closed is enabled):
 
 ```sh
-python3 conformance/client-auth/run_scenario.py \
-  --scenario prm-signed-required-missing \
+./scripts/conformance/run_client_auth_scenario.sh \
+  prm-signed-required-missing \
+  --client dist/x07-mcp-conformance-client
+```
+
+Phase 13 (multi-AS PRM selection must follow trust-policy preference order):
+
+```sh
+./scripts/conformance/run_client_auth_scenario.sh \
+  prm-multi-as-select-prefer-order \
   --client dist/x07-mcp-conformance-client
 ```

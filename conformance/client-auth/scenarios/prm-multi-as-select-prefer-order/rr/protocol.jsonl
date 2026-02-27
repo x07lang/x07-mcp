@@ -1,0 +1,4 @@
+{"t":"case","id":"prm-multi-as-select-prefer-order","v":1}
+{"t":"input","kind":"prm","resource":"https://localhost:8443","authorization_servers":["https://as2.example","https://as1.example"]}
+{"t":"policy","kind":"as_select","allowed":["https://as1.example","https://as2.example"],"prefer":["https://as1.example"],"mode":"fail_closed"}
+{"t":"decision","selected":"https://as1.example","rejected":[{"issuer":"https://as2.example","reason":"not_preferred"}]}

@@ -13,10 +13,13 @@ This template scaffolds a minimal MCP **HTTP** server in X07 with a router/worke
 - `config/mcp.oauth.json`: OAuth config (`x07.mcp.oauth@0.2.0`, `jwt_jwks_v1` + optional DPoP nonce + signed PRM)
 - `config/auth/`: deterministic auth secrets used by template tests/fixtures
 - `config/fixtures/auth/`: JWKS + test JWT/DPoP fixtures used by `jwt_jwks_v1`
-- `trust/bundles/dev_prm_signers.trust_bundle.json`: trust bundle for PRM signer pins
-- `trust/frameworks/dev.trust_framework.json`: resource policy + bundle composition
+- `trust/bundles/dev_trust_bundle_v1.trust_bundle.json`: trust bundle for PRM signer pins
+- `trust/bundles/dev_trust_bundle_v1.trust_bundle.sig.jwt`: signed trust bundle statement
+- `trust/frameworks/dev_local_trust_framework_v1.trust_framework.json`: resource policy + bundle composition + bundle publisher pins
+- `trust/trust.lock.json`: deterministic lock pins for trust bundle/signature digests
 - `publish/prm.json`: signed PRM fixture used by publish dry-run validation
 - `publish/server.json`: sample generated `server.json` with publisher trust summary
+- `fixtures/oauth/prm.multi_as.json`: multi-AS PRM fixture for policy-governed issuer selection
 - `src/main.x07.json`: router entry
 - `src/worker_main.x07.json`: worker entry
 - `src/mcp/user.x07.json`: dispatch shim for user tools
@@ -69,6 +72,12 @@ Phase 10 adds:
 
 - DPoP nonce hardening (RFC9449) exercised by RR test `mcp/http/replay/hello_dpop_nonce`
 - `signed_metadata` in PRM responses (RFC9728) asserted by RR test `mcp/http/replay/golden_prm_signed_200`
+
+Phase 13 adds:
+
+- signed trust bundle verification pinned by trust framework publishers
+- trust lock digest verification (`trust/trust.lock.json`)
+- governed multi-AS PRM selection (`prefer_order_v1`)
 
 OAuth Protected Resource Metadata (RFC9728) is served at:
 

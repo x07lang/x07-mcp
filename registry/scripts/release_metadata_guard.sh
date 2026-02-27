@@ -41,29 +41,49 @@ for server_json in "${server_json_files[@]}"; do
     fi
   done < <(jq -r '.packages[]? | select(.registryType=="mcpb") | (.fileSha256 // "")' "${server_json}")
 
-  prm_meta_count="$(jq '[._meta["io.modelcontextprotocol.registry/publisher-provided"]["x07.io/mcp"].prm?] | length' "${server_json}")"
-  if [[ "${prm_meta_count}" -eq 0 ]]; then
-    echo "ERROR: ${server_json} missing _meta publisher trust summary (x07.io/mcp.prm)" >&2
+  x07_meta_count="$(jq '[._meta["io.modelcontextprotocol.registry/publisher-provided"].x07?] | length' "${server_json}")"
+  legacy_prm_count="$(jq '[._meta["io.modelcontextprotocol.registry/publisher-provided"]["x07.io/mcp"].prm?] | length' "${server_json}")"
+  if [[ "${x07_meta_count}" -eq 0 && "${legacy_prm_count}" -eq 0 ]]; then
+    echo "ERROR: ${server_json} missing _meta publisher trust summary (x07 or x07.io/mcp.prm)" >&2
     status=1
     continue
   fi
 
-  require_signed="$(jq -r '._meta["io.modelcontextprotocol.registry/publisher-provided"]["x07.io/mcp"].prm.requireSigned // empty' "${server_json}")"
+  require_signed="$(jq -r '
+    ._meta["io.modelcontextprotocol.registry/publisher-provided"].x07.requireSignedPrm //
+    ._meta["io.modelcontextprotocol.registry/publisher-provided"]["x07.io/mcp"].prm.requireSigned //
+    empty
+  ' "${server_json}")"
   if [[ "${require_signed}" != "true" ]]; then
-    echo "ERROR: ${server_json} requires requireSigned=true in publisher trust summary" >&2
+    echo "ERROR: ${server_json} requires requireSignedPrm=true in publisher trust summary" >&2
     status=1
   fi
 
-  trust_sha="$(jq -r '._meta["io.modelcontextprotocol.registry/publisher-provided"]["x07.io/mcp"].prm.trustFrameworkSha256 // empty' "${server_json}")"
-  if [[ -z "${trust_sha}" ]]; then
+  trust_framework_sha="$(jq -r '
+    ._meta["io.modelcontextprotocol.registry/publisher-provided"].x07.trustFrameworkSha256 //
+    ._meta["io.modelcontextprotocol.registry/publisher-provided"]["x07.io/mcp"].prm.trustFrameworkSha256 //
+    empty
+  ' "${server_json}")"
+  if [[ -z "${trust_framework_sha}" ]]; then
     echo "ERROR: ${server_json} missing trustFrameworkSha256 in publisher trust summary" >&2
     status=1
-  elif [[ ! "${trust_sha}" =~ ^[0-9a-f]{64}$ ]]; then
+  elif [[ ! "${trust_framework_sha}" =~ ^[0-9a-f]{64}$ ]]; then
     echo "ERROR: ${server_json} trustFrameworkSha256 must be 64 lowercase hex chars" >&2
     status=1
-  elif [[ "${trust_sha}" == "${PLACEHOLDER_SHA}" ]]; then
+  elif [[ "${trust_framework_sha}" == "${PLACEHOLDER_SHA}" ]]; then
     echo "ERROR: ${server_json} contains placeholder trustFrameworkSha256" >&2
     status=1
+  fi
+
+  trust_lock_sha="$(jq -r '._meta["io.modelcontextprotocol.registry/publisher-provided"].x07.trustLockSha256 // empty' "${server_json}")"
+  if [[ -n "${trust_lock_sha}" ]]; then
+    if [[ ! "${trust_lock_sha}" =~ ^[0-9a-f]{64}$ ]]; then
+      echo "ERROR: ${server_json} trustLockSha256 must be 64 lowercase hex chars" >&2
+      status=1
+    elif [[ "${trust_lock_sha}" == "${PLACEHOLDER_SHA}" ]]; then
+      echo "ERROR: ${server_json} contains placeholder trustLockSha256" >&2
+      status=1
+    fi
   fi
 done
 

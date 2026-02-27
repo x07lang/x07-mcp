@@ -179,19 +179,33 @@ Clients that validate `signed_metadata` use a PRM verify config plus an explicit
 
 The HTTP template ships a sample trust anchor file at `config/auth/prm_trust_anchors.json`.
 
-## Publish trust framework (`x07.mcp.trust.framework@0.1.0`)
+## Publish trust framework (`x07.mcp.trust.framework@0.2.0`) + trust lock (`x07.mcp.trust.lock@0.1.0`)
 
-Phase 12 adds publish-time trust framework policy with multi-issuer support:
+Phase 13 extends publish-time trust policy with signed trust bundles, trust lock pinning, and governed authorization-server selection:
 
 - `auth.prm.trust_framework.path`: trust framework used by runtime PRM trust decisions.
+- `auth.prm.trust_framework.trust_lock_path`: optional trust lock used to pin bundle/signature digests.
 - `publish.require_signed_prm=true`: unsigned PRM is rejected during publish dry-run.
 - `publish.trust_framework.path`: trust framework used to resolve issuer allowlist + pinned keys.
-- `publish.trust_framework.emit_meta_summary=true`: injects publisher `_meta` trust summary (`requireSigned`, `signerIss`, `trustFrameworkSha256`).
+- `publish.trust_framework.trust_lock_path`: trust lock used during publish-time verification.
+- `publish.trust_framework.emit_meta_summary=true`: injects publisher `_meta` trust summary under `io.modelcontextprotocol.registry/publisher-provided.x07`:
+  - `trustFrameworkSha256`
+  - `trustLockSha256`
+  - `requireSignedPrm`
+  - `asSelectionStrategy`
+
+When framework bundles set `require_signature=true`, publish/runtime verification requires:
+
+- compact JWS statement (`*.trust_bundle.sig.jwt`)
+- publisher issuer + key (`kid`) pinned in `bundle_publishers`
+- valid `iat/exp` window and `bundle_sha256` claim binding
 
 Reference files:
 
-- `trust/bundles/dev_prm_signers.trust_bundle.json`
-- `trust/frameworks/dev.trust_framework.json`
+- `trust/bundles/dev_trust_bundle_v1.trust_bundle.json`
+- `trust/bundles/dev_trust_bundle_v1.trust_bundle.sig.jwt`
+- `trust/frameworks/dev_local_trust_framework_v1.trust_framework.json`
+- `trust/trust.lock.json`
 - `publish/prm.json`
 
 ## PRM endpoints (RFC9728)
