@@ -1084,7 +1084,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   regex_dir="$x07_root/packages/ext/x07-ext-regex/0.2.4"
   rand_dir="$x07_root/packages/ext/x07-ext-rand/0.1.0"
   time_dir="$x07_root/packages/ext/x07-ext-time-rs/0.1.5"
-  u64_dir="$x07_root/packages/ext/x07-ext-u64-rs/0.1.0"
+  u64_dir="$x07_root/packages/ext/x07-ext-u64-rs/0.1.4"
 
   core_http_dir="$root/packages/ext/x07-ext-mcp-core/0.3.2"
   toolkit_http_dir="$root/packages/ext/x07-ext-mcp-toolkit/0.3.3"
@@ -1174,7 +1174,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_local_pkg ext-time-rs 0.1.5 "$time_dir"
   install_local_pkg ext-math 0.1.4 "$math_dir"
   install_local_pkg ext-pb-rs 0.1.5 "$pb_dir"
-  install_local_pkg ext-u64-rs 0.1.0 "$u64_dir"
+  install_local_pkg ext-u64-rs 0.1.4 "$u64_dir"
   install_local_pkg ext-obs 0.1.2 "$obs_ext_dir"
   install_local_pkg ext-openssl-c 0.1.8 "$openssl_dir"
 
@@ -1191,7 +1191,10 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   tmp_dirs+=("$tmp_manifest")
   jq \
     '.schema_version = "x07.project@0.3.0" |
-     .patch = ((.patch // {}) + {"ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"}})' \
+     .patch = ((.patch // {}) + {
+       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
+       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
+     })' \
     x07.json \
     >"$tmp_manifest"
   mv "$tmp_manifest" x07.json
@@ -1262,7 +1265,10 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   tmp_dirs+=("$tmp_manifest")
   jq \
     '.schema_version = "x07.project@0.3.0" |
-     .patch = ((.patch // {}) + {"ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"}})' \
+     .patch = ((.patch // {}) + {
+       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
+       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
+     })' \
     x07.json \
     >"$tmp_manifest"
   mv "$tmp_manifest" x07.json

@@ -168,8 +168,8 @@
     },
     {
       "name": "ext-u64-rs",
-      "path": ".x07/deps/ext-u64-rs/0.1.0",
-      "version": "0.1.0"
+      "path": ".x07/deps/ext-u64-rs/0.1.4",
+      "version": "0.1.4"
     },
     {
       "name": "ext-unicode-rs",
@@ -198,6 +198,12 @@
     "src",
     "tests"
   ],
+  "patch": {
+    "ext-u64-rs": {
+      "path": ".x07/deps/ext-u64-rs/0.1.4",
+      "version": "0.1.4"
+    }
+  },
   "profiles": {
     "os": {
       "auto_ffi": true,

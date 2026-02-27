@@ -487,15 +487,15 @@
     },
     {
       "name": "ext-u64-rs",
-      "version": "0.1.0",
-      "path": ".x07/deps/ext-u64-rs/0.1.0",
-      "package_manifest_sha256": "092c03cc72a4291b28e13807d294b98010f09d44c76c2b2392a49032f863cd9c",
+      "version": "0.1.4",
+      "path": ".x07/deps/ext-u64-rs/0.1.4",
+      "package_manifest_sha256": "987f20363b550ce49870b1e4d6f574bc222c2a3689f2ed9772cb8e9b884f3d76",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.u64": "782c75d52f6f1b2f25402ee12184e6be049764a918484c39cba00171ce0c34a0",
-        "ext.u64.tests": "5a992a379bf32286c2fb8064886ac410090ea087a2de971eb87b750454b61422"
+        "ext.u64": "c3ba79f0554026716bfa1feea479c1eaa5b31be0ad7a8d166416a6a35d8b9a43",
+        "ext.u64.tests": "f4a739c17deb1dd369d9fb144111a87ce4f7c99f65f28265dfc1ce7f56eff86f"
       },
-      "yanked": false
+      "overridden_by": "ext-u64-rs"
     },
     {
       "name": "ext-unicode-rs",
