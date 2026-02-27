@@ -75,3 +75,11 @@ Phase 13 (multi-AS PRM selection must follow trust-policy preference order):
   prm-multi-as-select-prefer-order \
   --client dist/x07-mcp-conformance-client
 ```
+
+## Trust tlog monitor scenarios (Phase 16)
+
+Run deterministic trust transparency monitor scenarios:
+
+```sh
+./scripts/conformance/run_trust_tlog_scenarios.sh
+```

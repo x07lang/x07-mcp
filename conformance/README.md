@@ -4,6 +4,7 @@ This directory pins and runs the upstream MCP conformance suite:
 
 - **Server mode**: against an x07-mcp Streamable HTTP server.
 - **Client mode**: using `conformance/client-x07/` for the auth suite.
+- **Trust tlog mode**: deterministic phase-16 monitor scenarios via `conformance/trust-tlog/`.
 
 Upstream: `@modelcontextprotocol/conformance` (pinned). The conformance runner supports
 an **expected failures** file; failures not listed there fail the run, and "expected failures"
@@ -28,6 +29,10 @@ that stop failing also fail the run (stale baseline).
    `x07 bundle --project conformance/client-x07/x07.json --profile os --out dist/x07-mcp-conformance-client`
 
    `npx -y @modelcontextprotocol/conformance@0.1.14 client --command "./dist/x07-mcp-conformance-client" --suite auth`
+
+4) Trust tlog monitor scenarios:
+
+   `./conformance/trust-tlog/run.sh`
 
 ## Baseline policy
 

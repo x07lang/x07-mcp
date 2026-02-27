@@ -24,6 +24,43 @@ require_cmd x07
 require_cmd python3
 require_cmd jq
 
+run_with_timeout() {
+  local timeout_secs="${1:-0}"
+  shift
+
+  if ! [[ "$timeout_secs" =~ ^[0-9]+$ ]] || (( timeout_secs <= 0 )); then
+    "$@"
+    return $?
+  fi
+
+  if command -v timeout >/dev/null 2>&1; then
+    timeout "$timeout_secs" "$@"
+    return $?
+  fi
+
+  if command -v gtimeout >/dev/null 2>&1; then
+    gtimeout "$timeout_secs" "$@"
+    return $?
+  fi
+
+  python3 - "$timeout_secs" "$@" <<'PY'
+import subprocess
+import sys
+
+timeout_secs = int(sys.argv[1])
+cmd = sys.argv[2:]
+try:
+    completed = subprocess.run(cmd, check=False, timeout=timeout_secs)
+except subprocess.TimeoutExpired:
+    print(
+        f"ERROR: command timed out after {timeout_secs}s: {' '.join(cmd)}",
+        file=sys.stderr,
+    )
+    raise SystemExit(124)
+raise SystemExit(completed.returncode)
+PY
+}
+
 tmp_dirs=()
 cleanup() {
   for d in "${tmp_dirs[@]:-}"; do
@@ -62,6 +99,13 @@ install_project_local_deps_from_workspace() {
       x07 pkg add "$name@$version" --path "$dst" >/dev/null
     done < <(jq -r '.dependencies[] | "\(.name)\t\(.version)"' x07.json)
   )
+}
+
+pin_project_toolchain() {
+  local project_dir="$1"
+  local pinned_toolchain="$root/x07-toolchain.toml"
+  [[ -f "$pinned_toolchain" ]] || return 0
+  cp "$pinned_toolchain" "$project_dir/x07-toolchain.toml"
 }
 
 step "x07 version"
@@ -146,6 +190,7 @@ lint_dirs=(
   "packages/app/x07-mcp/0.1.0/modules"
   "packages/app/x07-mcp/0.2.0/modules"
   "packages/app/x07-mcp/0.3.0/modules"
+  "packages/app/x07-mcp/0.4.0/modules"
   "packages/ext/x07-ext-mcp-auth-core/0.1.0/modules"
   "packages/ext/x07-ext-mcp-auth-core/0.1.1/modules"
   "packages/ext/x07-ext-mcp-auth/0.2.0/modules"
@@ -174,9 +219,11 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-trust/0.2.0/modules"
   "packages/ext/x07-ext-mcp-trust/0.3.0/modules"
   "packages/ext/x07-ext-mcp-trust/0.4.0/modules"
+  "packages/ext/x07-ext-mcp-trust/0.5.0/modules"
   "packages/ext/x07-ext-mcp-trust-os/0.1.0/modules"
   "packages/ext/x07-ext-mcp-trust-os/0.3.0/modules"
   "packages/ext/x07-ext-mcp-trust-os/0.4.0/modules"
+  "packages/ext/x07-ext-mcp-trust-os/0.5.0/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.2.1/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.3/modules"
@@ -335,6 +382,25 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       >/dev/null
   )
 
+  step "package tests (ext-mcp-trust@0.5.0)"
+  trust_050_dir="$root/packages/ext/x07-ext-mcp-trust/0.5.0"
+  [[ -d "$trust_050_dir" ]] || { echo "ERROR: missing local package: $trust_050_dir" >&2; exit 2; }
+  (
+    cd "$trust_050_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$base64_modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
   step "package tests (ext-mcp-trust-os@0.1.0)"
   trust_os_010_dir="$root/packages/ext/x07-ext-mcp-trust-os/0.1.0"
   [[ -d "$trust_os_010_dir" ]] || { echo "ERROR: missing local package: $trust_os_010_dir" >&2; exit 2; }
@@ -394,6 +460,28 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       >/dev/null
   )
 
+  step "package tests (ext-mcp-trust-os@0.5.0)"
+  trust_os_050_dir="$root/packages/ext/x07-ext-mcp-trust-os/0.5.0"
+  [[ -d "$trust_os_050_dir" ]] || { echo "ERROR: missing local package: $trust_os_050_dir" >&2; exit 2; }
+  (
+    cd "$trust_os_050_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$trust_050_dir/modules" \
+      --module-root "$net_modules" \
+      --module-root "$url_modules" \
+      --module-root "$json_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$unicode_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$base64_modules" \
+      >/dev/null
+  )
+
   step "package tests (x07-mcp publish trust modules)"
   app_pkg_010_dir="$root/packages/app/x07-mcp/0.1.0"
   [[ -d "$app_pkg_010_dir" ]] || { echo "ERROR: missing local package: $app_pkg_010_dir" >&2; exit 2; }
@@ -445,6 +533,29 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       --module-root "$json_modules" \
       --module-root "$url_modules" \
       --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
+  step "package tests (x07-mcp@0.4.0 publish trust modules)"
+  app_pkg_040_dir="$root/packages/app/x07-mcp/0.4.0"
+  [[ -d "$app_pkg_040_dir" ]] || { echo "ERROR: missing local package: $app_pkg_040_dir" >&2; exit 2; }
+  (
+    cd "$app_pkg_040_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$trust_050_dir/modules" \
+      --module-root "$trust_os_050_dir/modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$unicode_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$net_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$base64_modules" \
       >/dev/null
   )
 
@@ -861,9 +972,17 @@ X07_WORKSPACE_ROOT="$root" x07 bundle --project conformance/client-x07/x07.json 
 ./scripts/conformance/run_client_auth_scenario.sh prm-signed-required-missing --client dist/x07-mcp-conformance-client
 ./scripts/conformance/run_client_auth_scenario.sh prm-multi-as-select-prefer-order
 
+step "conformance trust-tlog scenarios"
+if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+  ./scripts/conformance/run_trust_tlog_scenarios.sh
+else
+  echo "skip (requires X07_MCP_LOCAL_DEPS=1)"
+fi
+
 step "scaffold e2e (mcp-server-stdio)"
 tmp="$(mktemp -d)"
 tmp_dirs+=("$tmp")
+scaffold_test_timeout_secs="${X07_MCP_SCAFFOLD_TEST_TIMEOUT_SECS:-900}"
 
 proj_rel="proj"
 (
@@ -871,6 +990,7 @@ proj_rel="proj"
   "$root/dist/x07-mcp" scaffold init --template mcp-server-stdio --dir "$proj_rel" --machine json >"$tmp/report.json"
 )
 proj="$tmp/$proj_rel"
+pin_project_toolchain "$proj"
 python3 - "$tmp/report.json" <<'PY'
 import json
 import sys
@@ -909,7 +1029,7 @@ while IFS= read -r dep_path; do
   worker_bundle_args+=(--module-root "$dep_path/modules")
 done < <(jq -r '.dependencies[].path' x07.json)
 x07 bundle "${worker_bundle_args[@]}" >/dev/null
-x07 test --manifest tests/tests.json >/dev/null
+run_with_timeout "$scaffold_test_timeout_secs" x07 test --manifest tests/tests.json >/dev/null
 
 step "scaffold e2e (mcp-server-http)"
 tmp_http="$(mktemp -d)"
@@ -921,6 +1041,7 @@ proj_http_rel="proj-http"
   "$root/dist/x07-mcp" scaffold init --template mcp-server-http --dir "$proj_http_rel" --machine json >"$tmp_http/report.json"
 )
 proj_http="$tmp_http/$proj_http_rel"
+pin_project_toolchain "$proj_http"
 python3 - "$tmp_http/report.json" <<'PY'
 import json
 import sys
@@ -1103,7 +1224,7 @@ else
 
   x07 pkg lock --project x07.json --json=off >/dev/null
 fi
-x07 test --manifest tests/tests.json >/dev/null
+run_with_timeout "$scaffold_test_timeout_secs" x07 test --manifest tests/tests.json >/dev/null
 
 step "scaffold e2e (mcp-server-http-tasks)"
 tmp_tasks="$(mktemp -d)"
@@ -1115,6 +1236,7 @@ proj_tasks_rel="proj-http-tasks"
   "$root/dist/x07-mcp" scaffold init --template mcp-server-http-tasks --dir "$proj_tasks_rel" --machine json >"$tmp_tasks/report.json"
 )
 proj_tasks="$tmp_tasks/$proj_tasks_rel"
+pin_project_toolchain "$proj_tasks"
 python3 - "$tmp_tasks/report.json" <<'PY'
 import json
 import sys
@@ -1149,7 +1271,7 @@ else
   x07 pkg lock --project x07.json --check --json=off >/dev/null
 fi
 
-x07 test --manifest tests/tests.json >/dev/null
+run_with_timeout "$scaffold_test_timeout_secs" x07 test --manifest tests/tests.json >/dev/null
 
 replay_proj=".agent_cache.replay_logging_audit_entry.project.x07.json"
 jq \

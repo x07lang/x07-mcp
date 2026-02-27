@@ -157,21 +157,34 @@ _LATEST_MCP_SCHEMAS: dict[str, str] = {
     "x07.mcp.mock_as": "0.1.0",
     "x07.mcp.oauth": "0.2.0",
     "x07.mcp.prm_signing": "0.2.0",
+    "x07.mcp.prm_verify": "0.2.0",
     "x07.mcp.prompts_manifest": "0.1.0",
     "x07.mcp.resources_manifest": "0.1.0",
     "x07.mcp.rr.http_session": "0.1.0",
+    "x07.mcp.server": "0.1.0",
     "x07.mcp.server_config": "0.3.0",
     "x07.mcp.tools_manifest": "0.2.0",
     "x07.mcp.trust.bundle": "0.1.0",
+    "x07.mcp.trust.bundle_index": "0.1.0",
     "x07.mcp.trust.framework": "0.3.0",
     "x07.mcp.trust.lock": "0.2.0",
+    "x07.mcp.trust.pack": "0.1.0",
+    "x07.mcp.trust.pack_index": "0.1.0",
+    "x07.mcp.trust.pack_manifest": "0.1.0",
     "x07.mcp.trust.registry": "0.2.0",
+    "x07.mcp.trust.registry_index": "0.2.0",
+    "x07.mcp.trust.registry_root": "0.2.0",
+    "x07.mcp.trust.state": "0.1.0",
+    "x07.mcp.trust.tlog.bundle": "0.1.0",
+    "x07.mcp.trust.tlog.monitor_policy": "0.1.0",
+    "x07.mcp.trust.tlog.monitor_state": "0.1.0",
     "x07.mcp.trust_anchors": "0.1.0",
 }
 
 _MCP_SCHEMA_ALLOWED_VERSIONS: dict[str, set[str]] = {
     "x07.mcp.trust.framework": {"0.2.0", "0.3.0"},
     "x07.mcp.trust.lock": {"0.1.0", "0.2.0"},
+    "x07.mcp.trust.registry_root": {"0.1.0", "0.2.0"},
 }
 
 

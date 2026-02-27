@@ -6,6 +6,7 @@
 - a **router/worker** execution model for tools (per-tool sandbox policies + limits)
 - a **tools manifest** format (tool metadata + schemas + X07 execution metadata)
 - a **record/replay** helper for deterministic golden transcripts
+- a **trust transparency monitor** surface (append-only tlog checks + policy alerts)
 
 The implementation is pinned to MCP protocol version `2025-11-25` (negotiated during `initialize`).
 
@@ -16,3 +17,4 @@ Start here:
 - [Run a stdio server](getting-started/run-stdio.md)
 - [Run conformance](getting-started/conformance.md)
 - [Build `.mcpb` bundles](getting-started/bundle-mcpb.md)
+- [Trust tlog monitor](getting-started/trust-tlog-monitor.md)

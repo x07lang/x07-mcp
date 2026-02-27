@@ -10,6 +10,7 @@
 - [Run conformance](getting-started/conformance.md)
 - [Build `.mcpb` bundles](getting-started/bundle-mcpb.md)
 - [Publish dry-run](getting-started/publish.md)
+- [Trust tlog monitor](getting-started/trust-tlog-monitor.md)
 
 ## Concepts
 - [HTTP SSE](concepts/http-sse.md)

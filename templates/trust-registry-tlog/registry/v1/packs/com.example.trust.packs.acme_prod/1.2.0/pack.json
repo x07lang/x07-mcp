@@ -1,0 +1,1 @@
+{"schema_version":"x07.mcp.trust.pack_manifest@0.1.0","pack_id":"com.example.trust.packs.acme_prod","version":"1.2.0","pack_sha256":"2a8ed2c79da5987826d3c47f2225f1229eb8fbb60dc3a5d106efec04162e4894","framework_ref":"https://trust-registry.example.test/v1/frameworks/acme_prod.json"}
