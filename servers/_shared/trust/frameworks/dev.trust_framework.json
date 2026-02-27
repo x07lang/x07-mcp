@@ -14,7 +14,8 @@
         "value": "https://server.example.com/mcp"
       },
       "allowed_prm_signers": [
-        "https://auth.example.com"
+        "https://auth.example.com",
+        "https://auth2.example.com"
       ],
       "require_signed_prm": true,
       "verify_cfg": {

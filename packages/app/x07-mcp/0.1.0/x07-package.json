@@ -1,0 +1,31 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "x07-mcp",
+  "version": "0.1.0",
+  "description": "Internal x07-mcp publish trust helpers for deterministic signed PRM validation and trust summary generation.",
+  "docs": "Internal x07-mcp publish helpers.\n\nModules:\n- std.mcp.publish.validate_trust_v1\n- std.mcp.publish.meta_summary_v1\n- std.mcp.publish.publish_v1\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.publish.validate_trust_v1",
+    "std.mcp.publish.meta_summary_v1",
+    "std.mcp.publish.publish_v1"
+  ],
+  "meta": {
+    "determinism_tier": "pure",
+    "worlds_allowed": [
+      "solve-pure",
+      "solve-fs",
+      "solve-rr",
+      "solve-kv",
+      "solve-full",
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-mcp-trust@0.1.0",
+      "ext-data-model@0.1.8",
+      "ext-json-rs@0.1.4"
+    ],
+    "import_mode": "handwritten"
+  }
+}

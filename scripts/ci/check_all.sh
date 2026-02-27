@@ -143,6 +143,7 @@ check_asset mcp-server-http-tasks x07.mcp.cli.assets.mcp-server-http-tasks cli/s
 
 step "lint check (publish ext package modules)"
 lint_dirs=(
+  "packages/app/x07-mcp/0.1.0/modules"
   "packages/ext/x07-ext-mcp-auth-core/0.1.0/modules"
   "packages/ext/x07-ext-mcp-auth-core/0.1.1/modules"
   "packages/ext/x07-ext-mcp-auth/0.2.0/modules"
@@ -268,6 +269,24 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       --module-root "$json_modules" \
       --module-root "$url_modules" \
       --module-root "$fs_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
+  step "package tests (x07-mcp publish trust modules)"
+  app_pkg_010_dir="$root/packages/app/x07-mcp/0.1.0"
+  [[ -d "$app_pkg_010_dir" ]] || { echo "ERROR: missing local package: $app_pkg_010_dir" >&2; exit 2; }
+  (
+    cd "$app_pkg_010_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$trust_010_dir/modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
       --module-root "$unicode_modules" \
       >/dev/null
   )

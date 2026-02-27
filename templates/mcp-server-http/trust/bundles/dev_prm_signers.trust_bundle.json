@@ -23,6 +23,26 @@
           }
         ]
       }
+    },
+    {
+      "issuer": "https://auth2.example.com",
+      "usage": [
+        "prm_signed_metadata"
+      ],
+      "algs": [
+        "Ed25519",
+        "EdDSA"
+      ],
+      "jwks": {
+        "keys": [
+          {
+            "kty": "OKP",
+            "crv": "Ed25519",
+            "kid": "prm-ed25519-2-2026-01",
+            "x": "Qm0JJrli_d4mN7MYh6mp2OKfbR6RrU3l8_y1_nBBa0s"
+          }
+        ]
+      }
     }
   ]
 }
