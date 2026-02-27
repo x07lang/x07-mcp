@@ -181,7 +181,7 @@ The HTTP template ships a sample trust anchor file at `config/auth/prm_trust_anc
 
 ## Publish trust framework (`x07.mcp.trust.framework@0.3.0`) + trust lock (`x07.mcp.trust.lock@0.2.0`)
 
-Phase 14 extends publish-time trust policy with remote-source no-TOFU checks and trust-pack metadata, while remaining compatible with phase-13 local trust inputs:
+Phase 15 keeps phase-14 remote-source no-TOFU checks and adds anti-rollback trust-pack metadata fields:
 
 - `auth.prm.trust_framework.path`: trust framework used by runtime PRM trust decisions.
 - `auth.prm.trust_framework.trust_lock_path`: optional trust lock used to pin bundle/signature digests.
@@ -194,6 +194,10 @@ Phase 14 extends publish-time trust policy with remote-source no-TOFU checks and
   - `packId`
   - `packVersion`
   - `lockSha256`
+  - `minSnapshotVersion` (`>0`)
+  - `snapshotSha256` (non-placeholder SHA-256)
+  - `checkpointSha256` (non-placeholder SHA-256)
+  - `root_path` (local `root.json` trust anchor file)
 - `publish.trust_framework.emit_meta_summary=true`: injects publisher `_meta` trust summary under `io.modelcontextprotocol.registry/publisher-provided.x07`:
   - `trustFrameworkSha256`
   - `trustLockSha256`
@@ -215,6 +219,11 @@ Reference files:
 - `trust/frameworks/dev_remote_pack.trust_framework.json`
 - `trust/packs/dev_remote_pack/trust.lock.json`
 - `trust/registry/v1/index.json`
+- `trust/registry/v1/metadata/root.json`
+- `trust/registry/v1/metadata/timestamp.jwt`
+- `trust/registry/v1/metadata/snapshot.jwt`
+- `trust/registry/v1/transparency/checkpoint.jwt`
+- `trust/state.json`
 - `publish/prm.json`
 
 ## PRM endpoints (RFC9728)

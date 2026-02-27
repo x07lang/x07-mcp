@@ -20,6 +20,30 @@
       "expect": "pass"
     },
     {
+      "id": "smoke/trust_tuf_ok_replay_fixture_present",
+      "world": "run-os",
+      "entry": "smoke.trust_tuf_ok_replay_fixture_present",
+      "expect": "pass"
+    },
+    {
+      "id": "smoke/trust_tuf_rollback_timestamp_replay_fixture_present",
+      "world": "run-os",
+      "entry": "smoke.trust_tuf_rollback_timestamp_replay_fixture_present",
+      "expect": "pass"
+    },
+    {
+      "id": "smoke/trust_registry_metadata_root_present",
+      "world": "run-os",
+      "entry": "smoke.trust_registry_metadata_root_present",
+      "expect": "pass"
+    },
+    {
+      "id": "smoke/trust_state_fixture_present",
+      "world": "run-os",
+      "entry": "smoke.trust_state_fixture_present",
+      "expect": "pass"
+    },
+    {
       "id": "compile/app_import",
       "world": "run-os",
       "entry": "compile.app_import",

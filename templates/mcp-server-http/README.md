@@ -17,6 +17,9 @@ This template scaffolds a minimal MCP **HTTP** server in X07 with a router/worke
 - `trust/bundles/dev_trust_bundle_v1.trust_bundle.sig.jwt`: signed trust bundle statement
 - `trust/frameworks/dev_local_trust_framework_v1.trust_framework.json`: resource policy + bundle composition + bundle publisher pins
 - `trust/trust.lock.json`: deterministic lock pins for trust bundle/signature digests
+- `trust/registry/v1/metadata/*`: TUF-lite root/timestamp/snapshot metadata fixtures
+- `trust/registry/v1/transparency/checkpoint.jwt`: witness checkpoint fixture
+- `trust/state.json`: anti-rollback state seed
 - `publish/prm.json`: signed PRM fixture used by publish dry-run validation
 - `publish/server.json`: sample generated `server.json` with publisher trust summary
 - `fixtures/oauth/prm.multi_as.json`: multi-AS PRM fixture for policy-governed issuer selection
@@ -78,6 +81,13 @@ Phase 13 adds:
 - signed trust bundle verification pinned by trust framework publishers
 - trust lock digest verification (`trust/trust.lock.json`)
 - governed multi-AS PRM selection (`prefer_order_v1`)
+
+Phase 15 adds:
+
+- TUF-lite registry metadata fixtures (`root.json`, `timestamp.jwt`, `snapshot.jwt`)
+- witness checkpoint fixture (`transparency/checkpoint.jwt`)
+- anti-rollback trust-pack metadata emitted in publish summary (`minSnapshotVersion`, `snapshotSha256`, `checkpointSha256`)
+- replay fixtures for successful and rollback metadata fetch flows (`trust.tuf_ok`, `trust.tuf_rollback_timestamp`)
 
 OAuth Protected Resource Metadata (RFC9728) is served at:
 

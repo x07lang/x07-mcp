@@ -52,6 +52,10 @@ class PublishTrustConfig:
     trust_pack_registry: str | None
     trust_pack_id: str | None
     trust_pack_version: str | None
+    trust_pack_min_snapshot_version: int | None
+    trust_pack_snapshot_sha256: str | None
+    trust_pack_checkpoint_sha256: str | None
+    trust_pack_root_path: str | None
     prm_path: str
     resource_metadata_path: str
     signer_iss_hint: str | None
@@ -1049,6 +1053,25 @@ def _load_trust_lock(path: pathlib.Path) -> dict[str, Any]:
     return lock_doc
 
 
+def _validate_registry_root_doc(root_doc: dict[str, Any], *, field_prefix: str = "trust_pack.root") -> None:
+    _as_nonempty_string(root_doc.get("registry_id"), field=f"{field_prefix}.registry_id")
+    _as_nonempty_string(root_doc.get("expires"), field=f"{field_prefix}.expires")
+    _as_object(root_doc.get("keys"), field=f"{field_prefix}.keys")
+    roles = _as_object(root_doc.get("roles"), field=f"{field_prefix}.roles")
+    for role_name in ("timestamp", "snapshot", "witness"):
+        if role_name not in roles:
+            raise ValueError(f"{field_prefix}.roles.{role_name} is required")
+        role_obj = _as_object(roles.get(role_name), field=f"{field_prefix}.roles.{role_name}")
+        keyids = _as_array(role_obj.get("keyids"), field=f"{field_prefix}.roles.{role_name}.keyids")
+        if not keyids:
+            raise ValueError(f"{field_prefix}.roles.{role_name}.keyids must not be empty")
+        for idx, kid in enumerate(keyids):
+            _as_nonempty_string(kid, field=f"{field_prefix}.roles.{role_name}.keyids[{idx}]")
+        threshold = role_obj.get("threshold")
+        if not isinstance(threshold, int) or threshold <= 0:
+            raise ValueError(f"{field_prefix}.roles.{role_name}.threshold must be integer > 0")
+
+
 def _framework_requires_signed_bundles(framework_doc: dict[str, Any]) -> bool:
     if _framework_schema_version(framework_doc) not in {
         "x07.mcp.trust.framework@0.2.0",
@@ -1396,6 +1419,10 @@ def parse_publish_trust_config(manifest: dict[str, Any]) -> PublishTrustConfig:
     trust_pack_registry = None
     trust_pack_id = None
     trust_pack_version = None
+    trust_pack_min_snapshot_version: int | None = None
+    trust_pack_snapshot_sha256: str | None = None
+    trust_pack_checkpoint_sha256: str | None = None
+    trust_pack_root_path: str | None = None
 
     for cand in (
         trust_pack.get("registry"),
@@ -1425,6 +1452,46 @@ def parse_publish_trust_config(manifest: dict[str, Any]) -> PublishTrustConfig:
             trust_pack_version = cand
             break
 
+    for cand in (
+        trust_pack.get("min_snapshot_version"),
+        trust_pack.get("minSnapshotVersion"),
+        trust_framework.get("trust_pack_min_snapshot_version"),
+        trust_framework.get("trust_packMinSnapshotVersion"),
+    ):
+        if isinstance(cand, int):
+            trust_pack_min_snapshot_version = cand
+            break
+
+    for cand in (
+        trust_pack.get("snapshot_sha256"),
+        trust_pack.get("snapshotSha256"),
+        trust_framework.get("trust_pack_snapshot_sha256"),
+        trust_framework.get("trust_packSnapshotSha256"),
+    ):
+        if isinstance(cand, str) and cand:
+            trust_pack_snapshot_sha256 = cand
+            break
+
+    for cand in (
+        trust_pack.get("checkpoint_sha256"),
+        trust_pack.get("checkpointSha256"),
+        trust_framework.get("trust_pack_checkpoint_sha256"),
+        trust_framework.get("trust_packCheckpointSha256"),
+    ):
+        if isinstance(cand, str) and cand:
+            trust_pack_checkpoint_sha256 = cand
+            break
+
+    for cand in (
+        trust_pack.get("root_path"),
+        trust_pack.get("rootPath"),
+        trust_framework.get("trust_pack_root_path"),
+        trust_framework.get("trust_packRootPath"),
+    ):
+        if isinstance(cand, str) and cand:
+            trust_pack_root_path = cand
+            break
+
     return PublishTrustConfig(
         require_signed_prm=require_signed_prm,
         trust_framework_path=trust_framework_path,
@@ -1433,6 +1500,10 @@ def parse_publish_trust_config(manifest: dict[str, Any]) -> PublishTrustConfig:
         trust_pack_registry=trust_pack_registry,
         trust_pack_id=trust_pack_id,
         trust_pack_version=trust_pack_version,
+        trust_pack_min_snapshot_version=trust_pack_min_snapshot_version,
+        trust_pack_snapshot_sha256=trust_pack_snapshot_sha256,
+        trust_pack_checkpoint_sha256=trust_pack_checkpoint_sha256,
+        trust_pack_root_path=trust_pack_root_path,
         prm_path=prm_path,
         resource_metadata_path=resource_metadata_path,
         signer_iss_hint=signer_iss_hint,
@@ -1448,6 +1519,9 @@ def _build_publish_meta_summary(
     trust_pack_registry: str | None = None,
     trust_pack_id: str | None = None,
     trust_pack_version: str | None = None,
+    trust_pack_min_snapshot_version: int | None = None,
+    trust_pack_snapshot_sha256: str | None = None,
+    trust_pack_checkpoint_sha256: str | None = None,
 ) -> dict[str, Any]:
     if not SHA256_RE.fullmatch(framework_sha256):
         raise ValueError("trustFrameworkSha256 must match ^[0-9a-f]{64}$")
@@ -1462,16 +1536,49 @@ def _build_publish_meta_summary(
         "asSelectionStrategy": as_selection_strategy,
     }
 
-    if trust_pack_registry or trust_pack_id or trust_pack_version:
-        if not (trust_pack_registry and trust_pack_id and trust_pack_version):
-            raise ValueError("trustPack metadata requires registry, packId, and packVersion")
+    if (
+        trust_pack_registry
+        or trust_pack_id
+        or trust_pack_version
+        or trust_pack_min_snapshot_version is not None
+        or trust_pack_snapshot_sha256
+        or trust_pack_checkpoint_sha256
+    ):
+        if not (
+            trust_pack_registry
+            and trust_pack_id
+            and trust_pack_version
+            and trust_pack_min_snapshot_version is not None
+            and trust_pack_snapshot_sha256
+            and trust_pack_checkpoint_sha256
+        ):
+            raise ValueError(
+                "trustPack metadata requires registry, packId, packVersion, minSnapshotVersion, snapshotSha256, checkpointSha256"
+            )
         if not _is_https_url_no_fragment(trust_pack_registry):
             raise ValueError("trustPack.registry must be HTTPS URL without fragment")
+        if not isinstance(trust_pack_min_snapshot_version, int) or trust_pack_min_snapshot_version <= 0:
+            raise ValueError("trustPack.minSnapshotVersion must be integer > 0")
+        if (
+            not isinstance(trust_pack_snapshot_sha256, str)
+            or not SHA256_RE.fullmatch(trust_pack_snapshot_sha256)
+            or trust_pack_snapshot_sha256 == PLACEHOLDER_SHA256
+        ):
+            raise ValueError("trustPack.snapshotSha256 must match ^[0-9a-f]{64}$ and not be placeholder")
+        if (
+            not isinstance(trust_pack_checkpoint_sha256, str)
+            or not SHA256_RE.fullmatch(trust_pack_checkpoint_sha256)
+            or trust_pack_checkpoint_sha256 == PLACEHOLDER_SHA256
+        ):
+            raise ValueError("trustPack.checkpointSha256 must match ^[0-9a-f]{64}$ and not be placeholder")
         x07_summary["trustPack"] = {
             "registry": trust_pack_registry,
             "packId": trust_pack_id,
             "packVersion": trust_pack_version,
             "lockSha256": trust_lock_sha256,
+            "minSnapshotVersion": trust_pack_min_snapshot_version,
+            "snapshotSha256": trust_pack_snapshot_sha256,
+            "checkpointSha256": trust_pack_checkpoint_sha256,
         }
 
     return {"x07": x07_summary}
@@ -1560,8 +1667,29 @@ def _validate_publish_meta_x07(meta: dict[str, Any]) -> None:
         if not isinstance(pack_version, str) or not pack_version:
             raise ValueError("_meta publisher-provided x07.trustPack.packVersion must be non-empty string")
         lock_sha_pack = trust_pack.get("lockSha256")
-        if not isinstance(lock_sha_pack, str) or not SHA256_RE.fullmatch(lock_sha_pack):
+        if (
+            not isinstance(lock_sha_pack, str)
+            or not SHA256_RE.fullmatch(lock_sha_pack)
+            or lock_sha_pack == PLACEHOLDER_SHA256
+        ):
             raise ValueError("_meta publisher-provided x07.trustPack.lockSha256 must match ^[0-9a-f]{64}$")
+        min_snapshot_version = trust_pack.get("minSnapshotVersion")
+        if not isinstance(min_snapshot_version, int) or min_snapshot_version <= 0:
+            raise ValueError("_meta publisher-provided x07.trustPack.minSnapshotVersion must be integer > 0")
+        snapshot_sha = trust_pack.get("snapshotSha256")
+        if (
+            not isinstance(snapshot_sha, str)
+            or not SHA256_RE.fullmatch(snapshot_sha)
+            or snapshot_sha == PLACEHOLDER_SHA256
+        ):
+            raise ValueError("_meta publisher-provided x07.trustPack.snapshotSha256 must match ^[0-9a-f]{64}$")
+        checkpoint_sha = trust_pack.get("checkpointSha256")
+        if (
+            not isinstance(checkpoint_sha, str)
+            or not SHA256_RE.fullmatch(checkpoint_sha)
+            or checkpoint_sha == PLACEHOLDER_SHA256
+        ):
+            raise ValueError("_meta publisher-provided x07.trustPack.checkpointSha256 must match ^[0-9a-f]{64}$")
 
 
 def _validate_publish_meta_prm_legacy(prm: dict[str, Any]) -> None:
@@ -1682,8 +1810,34 @@ def generate_server_doc(
                 trust_lock_doc = _load_trust_lock(trust_lock_path)
                 trust_lock_sha = _canonical_sha256_hex(trust_lock_doc)
 
-            if (cfg.trust_pack_registry or cfg.trust_pack_id or cfg.trust_pack_version) and trust_lock_sha == PLACEHOLDER_SHA256:
+            trust_pack_enabled = bool(
+                cfg.trust_pack_registry
+                or cfg.trust_pack_id
+                or cfg.trust_pack_version
+                or cfg.trust_pack_min_snapshot_version is not None
+                or cfg.trust_pack_snapshot_sha256
+                or cfg.trust_pack_checkpoint_sha256
+                or cfg.trust_pack_root_path
+            )
+
+            if trust_pack_enabled and trust_lock_sha == PLACEHOLDER_SHA256:
                 raise ValueError(f"{ERR_TRUST_PINS_MISSING}: trust pack metadata requires trust lock sha")
+            if trust_pack_enabled and not cfg.trust_pack_root_path:
+                raise ValueError(f"{ERR_TRUST_PINS_MISSING}: trust pack metadata requires trust_pack.root_path")
+            if trust_pack_enabled and cfg.trust_pack_root_path:
+                repo_root = _discover_repo_root(manifest_path)
+                trust_pack_root_path = _resolve_repo_relative_path(
+                    manifest_path.parent, cfg.trust_pack_root_path, repo_root
+                )
+                if not trust_pack_root_path.is_file():
+                    raise ValueError(f"trust pack root file not found: {trust_pack_root_path}")
+                trust_pack_root_doc = read_json(trust_pack_root_path)
+                trust_pack_root_obj = _as_object(
+                    trust_pack_root_doc, field=f"trust pack root file {trust_pack_root_path}"
+                )
+                _validate_registry_root_doc(
+                    trust_pack_root_obj, field_prefix=f"trust pack root {trust_pack_root_path}"
+                )
 
             summary = _build_publish_meta_summary(
                 require_signed=cfg.require_signed_prm,
@@ -1693,6 +1847,9 @@ def generate_server_doc(
                 trust_pack_registry=cfg.trust_pack_registry,
                 trust_pack_id=cfg.trust_pack_id,
                 trust_pack_version=cfg.trust_pack_version,
+                trust_pack_min_snapshot_version=cfg.trust_pack_min_snapshot_version,
+                trust_pack_snapshot_sha256=cfg.trust_pack_snapshot_sha256,
+                trust_pack_checkpoint_sha256=cfg.trust_pack_checkpoint_sha256,
             )
             _merge_publisher_meta_summary(out, summary)
 
@@ -1885,8 +2042,29 @@ def verify_publish_trust_policy(
                 raise ValueError("as_no_allowed_issuer")
             as_selection_strategy = str(as_policy.get("strategy", as_selection_strategy)) or as_selection_strategy
 
-    if (cfg.trust_pack_registry or cfg.trust_pack_id or cfg.trust_pack_version) and trust_lock_sha == PLACEHOLDER_SHA256:
+    trust_pack_enabled = bool(
+        cfg.trust_pack_registry
+        or cfg.trust_pack_id
+        or cfg.trust_pack_version
+        or cfg.trust_pack_min_snapshot_version is not None
+        or cfg.trust_pack_snapshot_sha256
+        or cfg.trust_pack_checkpoint_sha256
+        or cfg.trust_pack_root_path
+    )
+
+    if trust_pack_enabled and trust_lock_sha == PLACEHOLDER_SHA256:
         raise ValueError(f"{ERR_TRUST_PINS_MISSING}: trust pack metadata requires trust lock sha")
+    if trust_pack_enabled and not cfg.trust_pack_root_path:
+        raise ValueError(f"{ERR_TRUST_PINS_MISSING}: trust pack metadata requires trust_pack.root_path")
+    if trust_pack_enabled and cfg.trust_pack_root_path:
+        trust_pack_root_path = _resolve_repo_relative_path(
+            manifest_candidate.parent, cfg.trust_pack_root_path, repo_root
+        )
+        if not trust_pack_root_path.is_file():
+            raise ValueError(f"trust pack root file not found: {trust_pack_root_path}")
+        trust_pack_root_doc = read_json(trust_pack_root_path)
+        trust_pack_root_obj = _as_object(trust_pack_root_doc, field=f"trust pack root file {trust_pack_root_path}")
+        _validate_registry_root_doc(trust_pack_root_obj, field_prefix=f"trust pack root {trust_pack_root_path}")
 
     summary = _build_publish_meta_summary(
         require_signed=cfg.require_signed_prm,
@@ -1896,6 +2074,9 @@ def verify_publish_trust_policy(
         trust_pack_registry=cfg.trust_pack_registry,
         trust_pack_id=cfg.trust_pack_id,
         trust_pack_version=cfg.trust_pack_version,
+        trust_pack_min_snapshot_version=cfg.trust_pack_min_snapshot_version,
+        trust_pack_snapshot_sha256=cfg.trust_pack_snapshot_sha256,
+        trust_pack_checkpoint_sha256=cfg.trust_pack_checkpoint_sha256,
     )
 
     if cfg.emit_meta_summary:

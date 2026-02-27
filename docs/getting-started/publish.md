@@ -29,7 +29,11 @@ Dry-run checks schema validity, `_meta` limits, package hash integrity, and trus
 - remote trust bundle sources (`source.kind="url"`) must be fully pinned by lock entries (no TOFU)
 - remote lock entries must pin URL + digest pairs (`bundle_url`/`sig_url`, `bundle_sha256`/`sig_sha256`)
 - `_meta.io.modelcontextprotocol.registry/publisher-provided.x07` must match generated trust summary
-- when trust-pack metadata is configured, `_meta...x07.trustPack.packVersion` and `lockSha256` are required
+- when trust-pack metadata is configured, `_meta...x07.trustPack` must include:
+  - `packVersion`
+  - `lockSha256`
+  - `minSnapshotVersion` (`>0`)
+  - `snapshotSha256` and `checkpointSha256` (non-placeholder)
 
 ## Trust Framework Artifacts
 
@@ -41,8 +45,9 @@ The HTTP template includes:
 - `trust/trust.lock.json`
 - `trust/frameworks/dev_remote_pack.trust_framework.json` (optional remote bundle profile)
 - `trust/packs/dev_remote_pack/trust.lock.json` (remote lock v2 pins)
-- `trust/registry/v1/...` (offline trust pack registry fixture tree)
+- `trust/registry/v1/...` (offline trust pack registry fixture tree, including TUF-lite metadata + witness checkpoint)
+- `trust/state.json` (local anti-rollback state seed)
 - `publish/prm.json`
-- `publish/server.json` (publisher trust summary with `trustFrameworkSha256`, `trustLockSha256`, and optional `trustPack`)
+- `publish/server.json` (publisher trust summary with `trustFrameworkSha256`, `trustLockSha256`, and `trustPack` anti-rollback fields when configured)
 
 Release tags are guarded against placeholder hashes by `registry/scripts/release_metadata_guard.sh`.

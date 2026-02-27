@@ -1,0 +1,59 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "trust-os/fetch_bundle_file_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_os.fetch_bundle_file_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust-os/fetch_as_metadata_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_os.fetch_as_metadata_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust-os/ssrf_policy_allows_example_test",
+      "world": "run-os",
+      "entry": "smoke_trust_os.ssrf_policy_allows_example_test",
+      "expect": "pass"
+    },
+    {
+      "id": "trust-os/ssrf_policy_blocks_http",
+      "world": "run-os",
+      "entry": "smoke_trust_os.ssrf_policy_blocks_http",
+      "expect": "pass"
+    },
+    {
+      "id": "trust-os/http_fetch_cached_fixture_then_cache_hit",
+      "world": "run-os",
+      "entry": "smoke_trust_os.http_fetch_cached_fixture_then_cache_hit",
+      "expect": "pass"
+    },
+    {
+      "id": "trust-os-15/fetch_tuf_metadata_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_os_phase15.fetch_tuf_metadata_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust-os-15/fetch_tuf_metadata_rollback_rejected",
+      "world": "run-os",
+      "entry": "smoke_trust_os_phase15.fetch_tuf_metadata_rollback_rejected",
+      "expect": "pass"
+    },
+    {
+      "id": "trust-os-15/witness_checkpoint_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_os_phase15.witness_checkpoint_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust-os-15/state_store_roundtrip",
+      "world": "run-os",
+      "entry": "smoke_trust_os_phase15.state_store_roundtrip",
+      "expect": "pass"
+    }
+  ]
+}

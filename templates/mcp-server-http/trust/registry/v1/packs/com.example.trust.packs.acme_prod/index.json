@@ -1,12 +1,1 @@
-{
-  "schema_version": "x07.mcp.trust.pack_index@0.1.0",
-  "pack_id": "com.example.trust.packs.acme_prod",
-  "latest": "1.2.0",
-  "versions": {
-    "1.2.0": {
-      "pack_url": "https://trust-registry.example.test/v1/packs/com.example.trust.packs.acme_prod/1.2.0/pack.json",
-      "pack_sha256": "d7b6d7888fbbf86b7f468cf690876dd21ad6e1ac5cc5dc4143027f92d6ccca86",
-      "released_at": "2026-02-17T00:00:00Z"
-    }
-  }
-}
+{"latest":"1.2.0","pack_id":"com.example.trust.packs.acme_prod","schema_version":"x07.mcp.trust.pack_index@0.1.0","versions":{"1.1.0":{"pack_sha256":"efc3f68863e730bdc2e259aa4476f885d79d0079157adf9ffbacccce0b906ad0","pack_url":"https://trust-registry.example.test/v1/packs/com.example.trust.packs.acme_prod/1.1.0/pack.json","released_at":"2026-02-10T00:00:00Z"},"1.2.0":{"pack_sha256":"2a8ed2c79da5987826d3c47f2225f1229eb8fbb60dc3a5d106efec04162e4894","pack_url":"https://trust-registry.example.test/v1/packs/com.example.trust.packs.acme_prod/1.2.0/pack.json","released_at":"2026-02-17T00:00:00Z"}}}

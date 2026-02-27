@@ -19,7 +19,11 @@ def _is_nonempty_str(value: object) -> bool:
     return isinstance(value, str) and bool(value)
 
 
-for manifest_path in sorted((ROOT / 'servers').glob('*/x07.mcp.json')):
+manifest_paths: list[Path] = []
+manifest_paths.extend(sorted((ROOT / 'templates').glob('*/x07.mcp.json')))
+manifest_paths.extend(sorted((ROOT / 'servers').glob('*/x07.mcp.json')))
+
+for manifest_path in manifest_paths:
     doc = json.loads(manifest_path.read_text(encoding='utf-8'))
     publish = doc.get('publish') if isinstance(doc, dict) else None
     if not isinstance(publish, dict):
@@ -154,6 +158,44 @@ for manifest_path in sorted((ROOT / 'servers').glob('*/x07.mcp.json')):
         if sig_kind == 'url' and lock_entry.get('sig_url') != sig_source.get('url'):
             errors.append(f'{manifest_path}: trust lock sig_url mismatch for id={bundle_id}')
 
+    trust_pack = tf.get('trust_pack') if isinstance(tf.get('trust_pack'), dict) else None
+    if trust_pack is not None:
+        min_snapshot = trust_pack.get('min_snapshot_version')
+        if min_snapshot is None:
+            min_snapshot = trust_pack.get('minSnapshotVersion')
+        if not isinstance(min_snapshot, int) or min_snapshot <= 0:
+            errors.append(f'{manifest_path}: publish.trust_framework.trust_pack.min_snapshot_version must be integer > 0')
+
+        snapshot_sha = trust_pack.get('snapshot_sha256')
+        if snapshot_sha is None:
+            snapshot_sha = trust_pack.get('snapshotSha256')
+        if not _is_nonempty_str(snapshot_sha):
+            errors.append(f'{manifest_path}: publish.trust_framework.trust_pack.snapshot_sha256 missing')
+        elif len(snapshot_sha) != 64 or any(ch not in '0123456789abcdef' for ch in snapshot_sha):
+            errors.append(f'{manifest_path}: publish.trust_framework.trust_pack.snapshot_sha256 must be 64 lowercase hex chars')
+        elif snapshot_sha == PLACEHOLDER_SHA256:
+            errors.append(f'{manifest_path}: publish.trust_framework.trust_pack.snapshot_sha256 is placeholder all-zero value')
+
+        checkpoint_sha = trust_pack.get('checkpoint_sha256')
+        if checkpoint_sha is None:
+            checkpoint_sha = trust_pack.get('checkpointSha256')
+        if not _is_nonempty_str(checkpoint_sha):
+            errors.append(f'{manifest_path}: publish.trust_framework.trust_pack.checkpoint_sha256 missing')
+        elif len(checkpoint_sha) != 64 or any(ch not in '0123456789abcdef' for ch in checkpoint_sha):
+            errors.append(f'{manifest_path}: publish.trust_framework.trust_pack.checkpoint_sha256 must be 64 lowercase hex chars')
+        elif checkpoint_sha == PLACEHOLDER_SHA256:
+            errors.append(f'{manifest_path}: publish.trust_framework.trust_pack.checkpoint_sha256 is placeholder all-zero value')
+
+        root_path_raw = trust_pack.get('root_path')
+        if root_path_raw is None:
+            root_path_raw = trust_pack.get('rootPath')
+        if not _is_nonempty_str(root_path_raw):
+            errors.append(f'{manifest_path}: publish.trust_framework.trust_pack.root_path missing')
+        else:
+            root_path = (manifest_path.parent / root_path_raw).resolve()
+            if not root_path.is_file():
+                errors.append(f'{manifest_path}: trust pack root file not found: {root_path_raw}')
+
 publish_server_docs: list[Path] = []
 publish_server_docs.extend(sorted((ROOT / 'templates').glob('*/publish/server.json')))
 publish_server_docs.extend(sorted((ROOT / 'servers').glob('*/publish/server.json')))
@@ -185,6 +227,23 @@ for server_path in publish_server_docs:
             errors.append(f'{server_path}: trustPack.lockSha256 missing')
         elif lock_sha == PLACEHOLDER_SHA256:
             errors.append(f'{server_path}: trustPack.lockSha256 is placeholder all-zero value')
+        min_snapshot_version = trust_pack.get('minSnapshotVersion')
+        if not isinstance(min_snapshot_version, int) or min_snapshot_version <= 0:
+            errors.append(f'{server_path}: trustPack.minSnapshotVersion missing or invalid')
+        snapshot_sha = trust_pack.get('snapshotSha256')
+        if not _is_nonempty_str(snapshot_sha):
+            errors.append(f'{server_path}: trustPack.snapshotSha256 missing')
+        elif len(snapshot_sha) != 64 or any(ch not in '0123456789abcdef' for ch in snapshot_sha):
+            errors.append(f'{server_path}: trustPack.snapshotSha256 must be 64 lowercase hex chars')
+        elif snapshot_sha == PLACEHOLDER_SHA256:
+            errors.append(f'{server_path}: trustPack.snapshotSha256 is placeholder all-zero value')
+        checkpoint_sha = trust_pack.get('checkpointSha256')
+        if not _is_nonempty_str(checkpoint_sha):
+            errors.append(f'{server_path}: trustPack.checkpointSha256 missing')
+        elif len(checkpoint_sha) != 64 or any(ch not in '0123456789abcdef' for ch in checkpoint_sha):
+            errors.append(f'{server_path}: trustPack.checkpointSha256 must be 64 lowercase hex chars')
+        elif checkpoint_sha == PLACEHOLDER_SHA256:
+            errors.append(f'{server_path}: trustPack.checkpointSha256 is placeholder all-zero value')
 
 if errors:
     for e in errors:

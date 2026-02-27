@@ -42,7 +42,11 @@
       "trust_pack": {
         "registry": "https://trust-registry.example.test/v1/index.json",
         "pack_id": "com.example.trust.packs.acme_prod",
-        "pack_version": "1.2.0"
+        "pack_version": "1.2.0",
+        "min_snapshot_version": 7,
+        "snapshot_sha256": "3e068551a678fcc18e26b00ec96aa77cb47ce7c0230163eff145114ba846aa1f",
+        "checkpoint_sha256": "041a1760e7143d6a2dc02d9816dc0d82405a314d4a2e4b9927bd0cbd390713f5",
+        "root_path": "trust/registry/v1/metadata/root.json"
       }
     }
   },

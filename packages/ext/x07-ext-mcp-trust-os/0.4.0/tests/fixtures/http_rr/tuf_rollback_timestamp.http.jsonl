@@ -1,0 +1,2 @@
+{"dir":"c2s","req":{"method":"GET","url":"https://trust-registry.example.test/v1/metadata/timestamp.jwt"}}
+{"dir":"s2c","res":{"status":200,"headers":{"Content-Type":"text/plain"},"body":"{\"expires_s\":1771372800,\"registry_id\":\"com.example.trust.registry\",\"snapshot\":{\"sha256\":\"3e068551a678fcc18e26b00ec96aa77cb47ce7c0230163eff145114ba846aa1f\",\"version\":7},\"version\":8}"}}

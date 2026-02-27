@@ -1,0 +1,37 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-trust-os",
+  "version": "0.4.0",
+  "description": "OS-world trust adapters for TUF-lite metadata verification, witness checks, and anti-rollback state persistence.",
+  "docs": "OS trust adapters.\n\nModules:\n- std.mcp.trust.os.fetch_bundle_v1\n- std.mcp.trust.os.fetch_as_metadata_v1\n- std.mcp.trust.os.ssrf_policy_v2\n- std.mcp.trust.os.cache_store_fs_v1\n- std.mcp.trust.os.http_fetch_cached_v1\n- std.mcp.trust.os.clock_v1\n- std.mcp.trust.os.fetch_tuf_metadata_v1\n- std.mcp.trust.os.fetch_witness_checkpoint_v1\n- std.mcp.trust.os.state_store_fs_v1\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.trust.os.fetch_bundle_v1",
+    "std.mcp.trust.os.fetch_as_metadata_v1",
+    "std.mcp.trust.os.ssrf_policy_v2",
+    "std.mcp.trust.os.cache_store_fs_v1",
+    "std.mcp.trust.os.http_fetch_cached_v1",
+    "std.mcp.trust.os.clock_v1",
+    "std.mcp.trust.os.fetch_tuf_metadata_v1",
+    "std.mcp.trust.os.fetch_witness_checkpoint_v1",
+    "std.mcp.trust.os.state_store_fs_v1"
+  ],
+  "meta": {
+    "determinism_tier": "os-world-only",
+    "worlds_allowed": [
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-mcp-trust@0.4.0",
+      "ext-data-model@0.1.8",
+      "ext-json-rs@0.1.4",
+      "ext-url-rs@0.1.4",
+      "ext-crypto-rs@0.1.4",
+      "ext-hex-rs@0.1.4",
+      "ext-fs@0.1.5",
+      "ext-net@0.1.9"
+    ],
+    "import_mode": "handwritten"
+  }
+}

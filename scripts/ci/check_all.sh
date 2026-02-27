@@ -145,6 +145,7 @@ step "lint check (publish ext package modules)"
 lint_dirs=(
   "packages/app/x07-mcp/0.1.0/modules"
   "packages/app/x07-mcp/0.2.0/modules"
+  "packages/app/x07-mcp/0.3.0/modules"
   "packages/ext/x07-ext-mcp-auth-core/0.1.0/modules"
   "packages/ext/x07-ext-mcp-auth-core/0.1.1/modules"
   "packages/ext/x07-ext-mcp-auth/0.2.0/modules"
@@ -172,8 +173,10 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-trust/0.1.0/modules"
   "packages/ext/x07-ext-mcp-trust/0.2.0/modules"
   "packages/ext/x07-ext-mcp-trust/0.3.0/modules"
+  "packages/ext/x07-ext-mcp-trust/0.4.0/modules"
   "packages/ext/x07-ext-mcp-trust-os/0.1.0/modules"
   "packages/ext/x07-ext-mcp-trust-os/0.3.0/modules"
+  "packages/ext/x07-ext-mcp-trust-os/0.4.0/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.2.1/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.3/modules"
@@ -314,6 +317,24 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       >/dev/null
   )
 
+  step "package tests (ext-mcp-trust@0.4.0)"
+  trust_040_dir="$root/packages/ext/x07-ext-mcp-trust/0.4.0"
+  [[ -d "$trust_040_dir" ]] || { echo "ERROR: missing local package: $trust_040_dir" >&2; exit 2; }
+  (
+    cd "$trust_040_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$crypto_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
   step "package tests (ext-mcp-trust-os@0.1.0)"
   trust_os_010_dir="$root/packages/ext/x07-ext-mcp-trust-os/0.1.0"
   [[ -d "$trust_os_010_dir" ]] || { echo "ERROR: missing local package: $trust_os_010_dir" >&2; exit 2; }
@@ -340,6 +361,27 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$trust_030_dir/modules" \
+      --module-root "$net_modules" \
+      --module-root "$url_modules" \
+      --module-root "$json_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$unicode_modules" \
+      --module-root "$curl_modules" \
+      >/dev/null
+  )
+
+  step "package tests (ext-mcp-trust-os@0.4.0)"
+  trust_os_040_dir="$root/packages/ext/x07-ext-mcp-trust-os/0.4.0"
+  [[ -d "$trust_os_040_dir" ]] || { echo "ERROR: missing local package: $trust_os_040_dir" >&2; exit 2; }
+  (
+    cd "$trust_os_040_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$trust_040_dir/modules" \
       --module-root "$net_modules" \
       --module-root "$url_modules" \
       --module-root "$json_modules" \
@@ -379,6 +421,24 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$trust_030_dir/modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
+  step "package tests (x07-mcp@0.3.0 publish trust modules)"
+  app_pkg_030_dir="$root/packages/app/x07-mcp/0.3.0"
+  [[ -d "$app_pkg_030_dir" ]] || { echo "ERROR: missing local package: $app_pkg_030_dir" >&2; exit 2; }
+  (
+    cd "$app_pkg_030_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$trust_040_dir/modules" \
       --module-root "$crypto_modules" \
       --module-root "$data_model_modules" \
       --module-root "$hex_modules" \

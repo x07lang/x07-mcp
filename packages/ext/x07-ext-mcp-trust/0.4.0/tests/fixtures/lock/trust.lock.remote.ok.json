@@ -1,0 +1,17 @@
+{
+  "schema_version": "x07.mcp.trust.lock@0.2.0",
+  "framework_id": "com.example.trust.frameworks.dev_remote_pack",
+  "generated_at": "2026-02-27T00:00:00Z",
+  "bundles": [
+    {
+      "id": "dev_trust_bundle_v1",
+      "bundle_url": "https://trust-registry.example.test/v1/bundles/dev_trust_bundle_v1/1.0.0/bundle.trust_bundle.json",
+      "bundle_sha256": "328eb5366048eb72dbcdd74a3902b2acb4ed678a0cb2d95f9915d1e8ca59d52c",
+      "sig_url": "https://trust-registry.example.test/v1/bundles/dev_trust_bundle_v1/1.0.0/bundle.trust_bundle.sig.jwt",
+      "sig_sha256": "293d3e2f46c805be0c666e41fb1ee57de50e70e6566a3a38e53b1cb3ec5ed331",
+      "publisher_issuer": "https://policy.example",
+      "kid": "a29WijdMcC-VA4yq_fNMUQdpFKiimiXQtiMvRa4M9fA",
+      "alg": "Ed25519"
+    }
+  ]
+}

@@ -105,6 +105,39 @@ for server_json in "${server_json_files[@]}"; do
       echo "ERROR: ${server_json} contains placeholder trustPack.lockSha256" >&2
       status=1
     fi
+
+    trust_pack_min_snapshot="$(jq -r '._meta["io.modelcontextprotocol.registry/publisher-provided"].x07.trustPack.minSnapshotVersion // empty' "${server_json}")"
+    if [[ -z "${trust_pack_min_snapshot}" ]]; then
+      echo "ERROR: ${server_json} trustPack.minSnapshotVersion is required when trustPack metadata is present" >&2
+      status=1
+    elif ! [[ "${trust_pack_min_snapshot}" =~ ^[0-9]+$ ]] || [[ "${trust_pack_min_snapshot}" -le 0 ]]; then
+      echo "ERROR: ${server_json} trustPack.minSnapshotVersion must be an integer > 0" >&2
+      status=1
+    fi
+
+    trust_pack_snapshot_sha="$(jq -r '._meta["io.modelcontextprotocol.registry/publisher-provided"].x07.trustPack.snapshotSha256 // empty' "${server_json}")"
+    if [[ -z "${trust_pack_snapshot_sha}" ]]; then
+      echo "ERROR: ${server_json} trustPack.snapshotSha256 is required when trustPack metadata is present" >&2
+      status=1
+    elif [[ ! "${trust_pack_snapshot_sha}" =~ ^[0-9a-f]{64}$ ]]; then
+      echo "ERROR: ${server_json} trustPack.snapshotSha256 must be 64 lowercase hex chars" >&2
+      status=1
+    elif [[ "${trust_pack_snapshot_sha}" == "${PLACEHOLDER_SHA}" ]]; then
+      echo "ERROR: ${server_json} contains placeholder trustPack.snapshotSha256" >&2
+      status=1
+    fi
+
+    trust_pack_checkpoint_sha="$(jq -r '._meta["io.modelcontextprotocol.registry/publisher-provided"].x07.trustPack.checkpointSha256 // empty' "${server_json}")"
+    if [[ -z "${trust_pack_checkpoint_sha}" ]]; then
+      echo "ERROR: ${server_json} trustPack.checkpointSha256 is required when trustPack metadata is present" >&2
+      status=1
+    elif [[ ! "${trust_pack_checkpoint_sha}" =~ ^[0-9a-f]{64}$ ]]; then
+      echo "ERROR: ${server_json} trustPack.checkpointSha256 must be 64 lowercase hex chars" >&2
+      status=1
+    elif [[ "${trust_pack_checkpoint_sha}" == "${PLACEHOLDER_SHA}" ]]; then
+      echo "ERROR: ${server_json} contains placeholder trustPack.checkpointSha256" >&2
+      status=1
+    fi
   fi
 done
 
