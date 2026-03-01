@@ -15,7 +15,8 @@
         "std.auth.pkce": "ae0ac6cc4cf941184974ca6373c1d42664e09a16504d9c7f6c1aef4def9e789d",
         "std.auth.pkce.tests": "8ded85c071054801cb04861c5e4048d1e6b47f607b516a4d0d741c7ae3521b50",
         "std.crypto.ed25519": "ccebffa3b471320683cce81cc2dbf362514f180f47cb77824df16751b9803234"
-      }
+      },
+      "yanked": false
     },
     {
       "name": "ext-base64-rs",
@@ -87,7 +88,8 @@
         "ext.data_model.xml.tests": "8346ec79e12f8dde83721bab5727da4f1db94d89bed824caea29c8792794eb47",
         "ext.data_model.yaml": "622ecb16fd5b86ba979f3cde95473bda321af74a69bd43a03701407cc3be1abc",
         "ext.data_model.yaml.tests": "03fc345b1dcaf330f813b6d3c2b11f0bb1ea509f3f72c93b6d2e3146a1ed7f50"
-      }
+      },
+      "yanked": false
     },
     {
       "name": "ext-fs",
@@ -126,13 +128,14 @@
         "ext.json.pointer": "658decbd56790023d28bd72ef5f6fe810ed69b0d1ab6275b0c6c54b1f414192a",
         "ext.json.tests": "5ad25069a57e40b87d9ace8f4821d3f2e509df3e56348bd5f4ed914a1bfcdfcd"
       },
-      "overridden_by": "ext-json-rs"
+      "overridden_by": "ext-json-rs",
+      "yanked": false
     },
     {
       "name": "ext-mcp-auth",
-      "version": "0.4.4",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.4",
-      "package_manifest_sha256": "0dc4bcb8483d240e20c60728cd81be764fca56705512e0291143e3b16147d2b8",
+      "version": "0.4.5",
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.5",
+      "package_manifest_sha256": "9876ff2f48c1678442217a3890993a1ec88664d6dc830c933c299ba3699e9d48",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.auth.challenge": "0ef1a2ddc1c00e510c273d9d35bc4488e3963ce2cae29828132bd34d17aff758",
@@ -142,7 +145,7 @@
         "std.mcp.auth.oauth_test_static": "0310fdc9456a7c71b2838390561fe7b2abe424b8b6b64f81e0a271d205683185",
         "std.mcp.auth.prm": "7034b3ff1724e3fe728afd2b6375938e61c34a3ccf7b8ab137217c9579de5a05",
         "std.mcp.auth.prm_signed_asym_v1": "1e33be63519b555067f91cd561835226bbd7434001c0651f1271aac7be4ff5b0",
-        "std.mcp.auth.prm_signed_v1": "f4174a12116a42947042b43c34b265a66638dec86d67ca5ffbdc38e8304b7849",
+        "std.mcp.auth.prm_signed_v1": "c5388f8b94d4ca3278d5a89335930b0252077cf70ac2a074d176ec5ae4209041",
         "std.mcp.auth.prm_signed_verify_v2": "170f80cebfca64e613db5234c776f513b89da702ab4c0cf3c022094221bfaf11",
         "std.mcp.auth.rs_v1": "8b548e86ed9bc887c7fb2404bf8ec51aa64397a9d25ef7b5463ebab349016d06",
         "std.mcp.auth.ssrf_guard_v1": "932675a919c71875af75341989a566c2fa1ed31482b2a95d7a684287c5c60408",
@@ -222,7 +225,8 @@
         "ext.openssl.rand": "0457cd38cec9b2a3723d7dba672128501db1f6986663e95ed0dd737edb933b36",
         "ext.openssl.rsa": "8446f688265627af7088576c84b62de7516bc48a600d31d8c566a62962f3cbaf",
         "ext.openssl.rsa_jwk": "e82bdee4156397a295254e9d927033e5172785293a7364e24625bbe6c70b58ea"
-      }
+      },
+      "yanked": false
     },
     {
       "name": "ext-regex",

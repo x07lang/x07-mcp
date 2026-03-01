@@ -27,11 +27,21 @@ mkdir -p "${OUT_DIR}"
 ROUTER_BIN="${OUT_DIR}/${SERVER_ID}"
 WORKER_BIN="${OUT_DIR}/mcp-worker"
 
+run_quiet() {
+  local log_path="${1:?missing log path}"
+  shift
+  if ! "$@" >"$log_path" 2>&1; then
+    echo "ERROR: command failed: $*" >&2
+    cat "$log_path" >&2 || true
+    return 1
+  fi
+}
+
 if [[ ! -x "${ROUTER_BIN}" || ! -x "${WORKER_BIN}" ]]; then
   "${ROOT}/servers/_shared/ci/install_server_deps.sh" "${SERVER_ROOT}"
 
   echo "==> bundle router + worker (${SERVER_ID})"
-  x07 bundle --project "${SERVER_ROOT}/x07.json" --profile os --out "${ROUTER_BIN}" >/dev/null
+  run_quiet "${OUT_DIR}/bundle.router.log" x07 bundle --project "${SERVER_ROOT}/x07.json" --profile os --out "${ROUTER_BIN}"
   (
     cd "${SERVER_ROOT}"
     WORKER_ENTRY="${OUT_DIR}/_worker_entry_main.x07.json"
@@ -57,12 +67,12 @@ out_path.write_text(
     encoding="utf-8",
 )
 PY
-    x07 bundle \
+    run_quiet "${OUT_DIR}/bundle.worker.log" x07 bundle \
       --project "${WORKER_PROJECT}" \
       --profile sandbox \
       --sandbox-backend os \
       --i-accept-weaker-isolation \
-      --out "${WORKER_BIN}" >/dev/null
+      --out "${WORKER_BIN}"
   )
 else
   echo "==> reuse router + worker (${SERVER_ID})"

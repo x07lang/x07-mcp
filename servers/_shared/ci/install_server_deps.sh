@@ -75,15 +75,10 @@ materialize_local_deps_from_workspace() {
 
 if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   materialize_local_deps_from_workspace "${SERVER_DIR_ABS}"
-  "${ROOT}/scripts/ci/materialize_patch_deps.sh" "${SERVER_DIR_ABS}/x07.json" >/dev/null
   x07 pkg lock --project x07.json --check --offline --json=off >/dev/null
 else
   retries="${X07_MCP_LOCK_RETRIES:-3}"
   delay_secs="${X07_MCP_LOCK_RETRY_DELAY_SECS:-2}"
-  if ! retry "${retries}" "${delay_secs}" "${ROOT}/scripts/ci/materialize_patch_deps.sh" "${SERVER_DIR_ABS}/x07.json"; then
-    echo "ERROR: failed to materialize patched deps for ${SERVER_DIR} after ${retries} attempts" >&2
-    exit 1
-  fi
   if ! retry "${retries}" "${delay_secs}" x07 pkg lock --project x07.json --check --json=off; then
     echo "ERROR: failed to hydrate deps for ${SERVER_DIR} after ${retries} attempts" >&2
     exit 1

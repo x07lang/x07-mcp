@@ -24,6 +24,17 @@ require_cmd x07
 require_cmd python3
 require_cmd jq
 
+run_quiet() {
+  local log_path="${1:-}"
+  shift
+  [[ -n "$log_path" ]] || { echo "ERROR: run_quiet missing log path" >&2; return 2; }
+  if ! "$@" >"$log_path" 2>&1; then
+    echo "ERROR: command failed: $*" >&2
+    cat "$log_path" >&2 || true
+    return 1
+  fi
+}
+
 run_with_timeout() {
   local timeout_secs="${1:-0}"
   shift
@@ -217,6 +228,7 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-auth/0.4.2/modules"
   "packages/ext/x07-ext-mcp-auth/0.4.3/modules"
   "packages/ext/x07-ext-mcp-auth/0.4.4/modules"
+  "packages/ext/x07-ext-mcp-auth/0.4.5/modules"
   "packages/ext/x07-ext-mcp-core/0.3.2/modules"
   "packages/ext/x07-ext-mcp-core/0.3.3/modules"
   "packages/ext/x07-ext-mcp-obs/0.1.1/modules"
@@ -235,6 +247,7 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-rr/0.3.10/modules"
   "packages/ext/x07-ext-mcp-rr/0.3.11/modules"
   "packages/ext/x07-ext-mcp-rr/0.3.12/modules"
+  "packages/ext/x07-ext-mcp-rr/0.3.13/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.2/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.3/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.4/modules"
@@ -262,6 +275,7 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-transport-http/0.3.10/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.11/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.12/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.3.13/modules"
   "packages/ext/x07-ext-mcp-transport-stdio/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-stdio/0.3.3/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.2/modules"
@@ -600,6 +614,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   rr_0310_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.10"
   rr_0311_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.11"
   rr_0312_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.12"
+  rr_0313_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.13"
   [[ -d "$rr_023_dir" ]] || { echo "ERROR: missing local package: $rr_023_dir" >&2; exit 2; }
   [[ -d "$rr_033_dir" ]] || { echo "ERROR: missing local package: $rr_033_dir" >&2; exit 2; }
   [[ -d "$rr_034_dir" ]] || { echo "ERROR: missing local package: $rr_034_dir" >&2; exit 2; }
@@ -609,6 +624,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$rr_0310_dir" ]] || { echo "ERROR: missing local package: $rr_0310_dir" >&2; exit 2; }
   [[ -d "$rr_0311_dir" ]] || { echo "ERROR: missing local package: $rr_0311_dir" >&2; exit 2; }
   [[ -d "$rr_0312_dir" ]] || { echo "ERROR: missing local package: $rr_0312_dir" >&2; exit 2; }
+  [[ -d "$rr_0313_dir" ]] || { echo "ERROR: missing local package: $rr_0313_dir" >&2; exit 2; }
 
   (
     cd "$rr_023_dir"
@@ -720,15 +736,15 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   )
 
   (
-    cd "$rr_0312_dir"
+    cd "$rr_0313_dir"
     x07 test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.3/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.4/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
-      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.4/modules" \
-      --module-root "$root/packages/ext/x07-ext-mcp-transport-http/0.3.12/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.5/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-transport-http/0.3.13/modules" \
       --module-root "$data_model_modules" \
       --module-root "$json_modules" \
       --module-root "$url_modules" \
@@ -748,6 +764,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   auth_042_dir="$root/packages/ext/x07-ext-mcp-auth/0.4.2"
   auth_043_dir="$root/packages/ext/x07-ext-mcp-auth/0.4.3"
   auth_044_dir="$root/packages/ext/x07-ext-mcp-auth/0.4.4"
+  auth_045_dir="$root/packages/ext/x07-ext-mcp-auth/0.4.5"
   [[ -d "$auth_020_dir" ]] || { echo "ERROR: missing local package: $auth_020_dir" >&2; exit 2; }
   [[ -d "$auth_030_dir" ]] || { echo "ERROR: missing local package: $auth_030_dir" >&2; exit 2; }
   [[ -d "$auth_031_dir" ]] || { echo "ERROR: missing local package: $auth_031_dir" >&2; exit 2; }
@@ -756,6 +773,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$auth_042_dir" ]] || { echo "ERROR: missing local package: $auth_042_dir" >&2; exit 2; }
   [[ -d "$auth_043_dir" ]] || { echo "ERROR: missing local package: $auth_043_dir" >&2; exit 2; }
   [[ -d "$auth_044_dir" ]] || { echo "ERROR: missing local package: $auth_044_dir" >&2; exit 2; }
+  [[ -d "$auth_045_dir" ]] || { echo "ERROR: missing local package: $auth_045_dir" >&2; exit 2; }
   (
     cd "$auth_020_dir"
     x07 test \
@@ -936,6 +954,30 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       >/dev/null
   )
 
+  (
+    cd "$auth_045_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.3/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
+      --module-root "$auth_jwt_modules" \
+      --module-root "$openssl_modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$time_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$net_modules" \
+      --module-root "$sockets_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$base64_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$regex_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
   step "package tests (ext-mcp-obs)"
   obs_014_dir="$root/packages/ext/x07-ext-mcp-obs/0.1.4"
   [[ -d "$obs_014_dir" ]] || { echo "ERROR: missing local package: $obs_014_dir" >&2; exit 2; }
@@ -1034,11 +1076,11 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
     fi
   )
 
-  step "package tests (ext-mcp-transport-http)"
-  transport_http_0312_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.12"
-  [[ -d "$transport_http_0312_dir" ]] || { echo "ERROR: missing local package: $transport_http_0312_dir" >&2; exit 2; }
+step "package tests (ext-mcp-transport-http)"
+  transport_http_0313_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.13"
+  [[ -d "$transport_http_0313_dir" ]] || { echo "ERROR: missing local package: $transport_http_0313_dir" >&2; exit 2; }
   (
-    cd "$transport_http_0312_dir"
+    cd "$transport_http_0313_dir"
     # `x07 test --manifest tests/tests.json` runs with CWD=`tests/`, so the socket-level
     # smoke test expects the compiled server solver under `tests/target/...`.
     mkdir -p tests/target/x07test/transport_http_server_smoke
@@ -1054,7 +1096,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.4/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.4/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
-      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.4/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.5/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-obs/0.1.4/modules" \
       --module-root "$auth_jwt_modules" \
       --module-root "$openssl_modules" \
@@ -1091,7 +1133,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.4/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.4/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
-      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.4/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.5/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-obs/0.1.4/modules" \
       --module-root "$auth_jwt_modules" \
       --module-root "$openssl_modules" \
@@ -1128,7 +1170,9 @@ x07 arch check --manifest arch/manifest.x07arch.json --lock arch/manifest.lock.j
 
 step "bundle x07-mcp"
 mkdir -p dist
-x07 bundle --project x07.json --profile os --out dist/x07-mcp >/dev/null
+bundle_log="$(mktemp)"
+tmp_dirs+=("$bundle_log")
+run_quiet "$bundle_log" x07 bundle --project x07.json --profile os --out dist/x07-mcp
 ./dist/x07-mcp --help >/dev/null
 
 step "conformance client auth scenarios (phase11 + phase13)"
@@ -1141,27 +1185,38 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   pin_project_toolchain "$conf_proj"
   x07_root="$(workspace_x07_root)"
   install_project_local_deps_from_workspace "$x07_root" "$conf_proj"
-  X07_WORKSPACE_ROOT="$root" ./scripts/ci/materialize_patch_deps.sh "$conf_proj/x07.json" >/dev/null
+  tmp_manifest="$(mktemp)"
+  tmp_dirs+=("$tmp_manifest")
+  jq \
+    '.patch = ((.patch // {}) + {
+       "ext-json-rs":{"version":"0.1.5","path":".x07/local/ext-json-rs/0.1.5"},
+       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"}
+     })' \
+    "$conf_proj/x07.json" \
+    >"$tmp_manifest"
+  mv "$tmp_manifest" "$conf_proj/x07.json"
   (
     cd "$conf_proj"
     x07 pkg lock --project x07.json --offline >/dev/null
   )
 
-  X07_WORKSPACE_ROOT="$root" x07 bundle \
-    --project "$conf_proj/x07.json" \
-    --profile os \
-    --out dist/x07-mcp-conformance-client \
-    --json=off \
-    >/dev/null
-else
-  X07_WORKSPACE_ROOT="$root" ./scripts/ci/hydrate_project_deps.sh conformance/client-x07/x07.json >/dev/null
-  X07_WORKSPACE_ROOT="$root" x07 bundle \
-    --project conformance/client-x07/x07.json \
-    --profile os \
-    --out dist/x07-mcp-conformance-client \
-    --json=off \
-    >/dev/null
-fi
+  conf_bundle_log="$(mktemp)"
+  tmp_dirs+=("$conf_bundle_log")
+	  X07_WORKSPACE_ROOT="$root" run_quiet "$conf_bundle_log" x07 bundle \
+	    --project "$conf_proj/x07.json" \
+	    --profile os \
+	    --out dist/x07-mcp-conformance-client \
+	    --json=off
+	else
+	  X07_WORKSPACE_ROOT="$root" ./scripts/ci/hydrate_project_deps.sh conformance/client-x07/x07.json >/dev/null
+	  conf_bundle_log="$(mktemp)"
+	  tmp_dirs+=("$conf_bundle_log")
+	  X07_WORKSPACE_ROOT="$root" run_quiet "$conf_bundle_log" x07 bundle \
+	    --project conformance/client-x07/x07.json \
+	    --profile os \
+	    --out dist/x07-mcp-conformance-client \
+	    --json=off
+	fi
 ./scripts/conformance/run_client_auth_scenario.sh prm-signed-required-missing --client dist/x07-mcp-conformance-client
 ./scripts/conformance/run_client_auth_scenario.sh prm-multi-as-select-prefer-order
 
@@ -1212,14 +1267,15 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   mv "$tmp_manifest" x07.json
   x07 pkg lock --project x07.json --offline >/dev/null
 else
-  "$root/scripts/ci/materialize_patch_deps.sh" "$PWD/x07.json" >/dev/null
   if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
     x07 pkg lock --project x07.json --check --json=off >/dev/null
   fi
 fi
 x07 arch check --manifest arch/manifest.x07arch.json --lock arch/manifest.lock.json >/dev/null
 mkdir -p out
-x07 bundle --profile os --out out/mcp-router --json=off >/dev/null
+router_bundle_log="$(mktemp)"
+tmp_dirs+=("$router_bundle_log")
+run_quiet "$router_bundle_log" x07 bundle --profile os --out out/mcp-router --json=off
 worker_entry_tmp="out/worker_main.entry.x07.json"
 jq '.module_id = "main"' src/worker_main.x07.json > "$worker_entry_tmp"
 worker_bundle_args=(
@@ -1234,7 +1290,9 @@ worker_bundle_args=(
 while IFS= read -r dep_path; do
   worker_bundle_args+=(--module-root "$dep_path/modules")
 done < <(jq -r '.dependencies[].path' x07.json)
-x07 bundle "${worker_bundle_args[@]}" >/dev/null
+worker_bundle_log="$(mktemp)"
+tmp_dirs+=("$worker_bundle_log")
+run_quiet "$worker_bundle_log" x07 bundle "${worker_bundle_args[@]}"
 run_with_timeout "$scaffold_test_timeout_secs" x07 test --manifest tests/tests.json >/dev/null
 
 step "scaffold e2e (mcp-server-http)"
@@ -1277,7 +1335,6 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   mv "$tmp_manifest" x07.json
   x07 pkg lock --project x07.json --offline >/dev/null
 else
-  "$root/scripts/ci/materialize_patch_deps.sh" "$PWD/x07.json" >/dev/null
   if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
     x07 pkg lock --project x07.json --check --json=off >/dev/null
   fi
@@ -1332,7 +1389,6 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   mv "$tmp_manifest" x07.json
   x07 pkg lock --project x07.json --offline --json=off >/dev/null
 else
-  "$root/scripts/ci/materialize_patch_deps.sh" "$PWD/x07.json" >/dev/null
   if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
     x07 pkg lock --project x07.json --check --json=off >/dev/null
   fi
@@ -1356,7 +1412,7 @@ jq \
   }' \
   x07.json \
   >"$replay_proj"
-x07 run --project "$replay_proj" --profile os --solve-fuel 2000000000 >/dev/null
-	
-	echo
-	echo "ok: all checks passed"
+	x07 run --project "$replay_proj" --profile os --solve-fuel 2000000000 >/dev/null
+
+echo
+echo "ok: all checks passed"

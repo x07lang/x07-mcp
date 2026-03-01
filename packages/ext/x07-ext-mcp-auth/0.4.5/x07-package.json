@@ -1,0 +1,44 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-auth",
+  "version": "0.4.5",
+  "description": "MCP OAuth resource-server helpers: RS enforcement (test_static + introspection_v1 + jwt_jwks_v1), DPoP nonce hardening, signed PRM support (HS256 + asymmetric), trust anchor policy (pinning + rollover), PRM URL/doc pack helpers, and HTTP auth middleware seams.",
+  "docs": "MCP OAuth resource-server helpers.\n\nModules:\n- std.mcp.auth.challenge\n- std.mcp.auth.dpop_nonce_v1\n- std.mcp.auth.http_middleware_v1\n- std.mcp.auth.introspection_v1\n- std.mcp.auth.oauth_test_static\n- std.mcp.auth.prm\n- std.mcp.auth.prm_signed_v1\n- std.mcp.auth.prm_signed_asym_v1\n- std.mcp.auth.prm_signed_verify_v2\n- std.mcp.auth.rs_v1\n- std.mcp.auth.ssrf_guard_v1\n- std.mcp.auth.trust_anchors_v1\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.auth.challenge",
+    "std.mcp.auth.dpop_nonce_v1",
+    "std.mcp.auth.http_middleware_v1",
+    "std.mcp.auth.introspection_v1",
+    "std.mcp.auth.oauth_test_static",
+    "std.mcp.auth.prm",
+    "std.mcp.auth.prm_signed_v1",
+    "std.mcp.auth.prm_signed_asym_v1",
+    "std.mcp.auth.prm_signed_verify_v2",
+    "std.mcp.auth.rs_v1",
+    "std.mcp.auth.ssrf_guard_v1",
+    "std.mcp.auth.trust_anchors_v1"
+  ],
+  "meta": {
+    "determinism_tier": "os-world-only",
+    "worlds_allowed": [
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-auth-jwt@0.1.5",
+      "ext-curl-c@0.1.6",
+      "ext-crypto-rs@0.1.4",
+      "ext-json-rs@0.1.5",
+      "ext-data-model@0.1.9",
+      "ext-fs@0.1.5",
+      "ext-time-rs@0.1.5",
+      "ext-url-rs@0.1.4",
+      "ext-base64-rs@0.1.4",
+      "ext-net@0.1.9",
+      "ext-mcp-core@0.3.3",
+      "ext-mcp-auth-core@0.1.2"
+    ],
+    "import_mode": "handwritten"
+  }
+}

@@ -24,6 +24,17 @@ require_cmd jq
 require_cmd python3
 require_cmd x07
 
+run_quiet() {
+  local log_path="${1:-}"
+  shift
+  [[ -n "$log_path" ]] || { echo "ERROR: run_quiet missing log path" >&2; return 2; }
+  if ! "$@" >"$log_path" 2>&1; then
+    echo "ERROR: command failed: $*" >&2
+    cat "$log_path" >&2 || true
+    return 1
+  fi
+}
+
 seq_calls="${X07_MCP_PERF_SEQ_CALLS:-200}"
 conc_calls="${X07_MCP_PERF_CONC_CALLS:-50}"
 # Default tool concurrency lower than the request fanout. Each tool call spawns a
@@ -80,7 +91,9 @@ project_dir="$(cd "$project_dir" && pwd)"
 cd "$project_dir"
 
 mkdir -p out
-x07 bundle --profile os --out out/mcp-router --max-memory-bytes "$router_max_mem_bytes" --json=off >/dev/null
+router_bundle_log="$(mktemp out/mcp-router.bundle.XXXXXX.log)"
+tmp_dirs+=("$router_bundle_log")
+run_quiet "$router_bundle_log" x07 bundle --profile os --out out/mcp-router --max-memory-bytes "$router_max_mem_bytes" --json=off
 
 worker_entry_tmp="out/worker_main.entry.x07.json"
 jq '.module_id = "main"' src/worker_main.x07.json >"$worker_entry_tmp"
@@ -100,7 +113,9 @@ done < <(jq -r '.dependencies[].path' x07.json)
 # Bundles produced with `x07 bundle` have a default max-memory cap. This perf smoke uses
 # warm worker pools which can allocate multiple per-process stdout/stderr buffers at once;
 # set a higher cap so the smoke catches perf regressions rather than failing with OOM.
-x07 bundle "${worker_bundle_args[@]}" --max-memory-bytes "$worker_max_mem_bytes" >/dev/null
+worker_bundle_log="$(mktemp out/mcp-worker.bundle.XXXXXX.log)"
+tmp_dirs+=("$worker_bundle_log")
+run_quiet "$worker_bundle_log" x07 bundle "${worker_bundle_args[@]}" --max-memory-bytes "$worker_max_mem_bytes"
 
 port="$(
   python3 - <<'PY'

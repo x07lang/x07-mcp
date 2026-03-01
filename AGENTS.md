@@ -28,8 +28,8 @@ Symptom: jobs fail in dependency hydration with `X07PKG_PATCH_MISSING_DEP` (for 
 
 Mitigation implemented:
 
-- `scripts/ci/materialize_patch_deps.sh` materializes missing `project.patch` dependency paths before lock hydration.
-- `scripts/ci/hydrate_root_deps.sh` and `scripts/ci/hydrate_project_deps.sh` call that helper on every retry attempt.
+- `x07 pkg lock` hydrates patch paths under `.x07/deps/...` during lock hydration (no separate materialize step).
+- `scripts/ci/hydrate_root_deps.sh` and `scripts/ci/hydrate_project_deps.sh` retry `x07 pkg lock --check` to handle transient registry/network failures.
 
 ## Local deps mode (workspace layout)
 
