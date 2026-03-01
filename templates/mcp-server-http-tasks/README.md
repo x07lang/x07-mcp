@@ -1,7 +1,7 @@
 # mcp-server-http-tasks (x07 template)
 
 This template demonstrates MCP Streamable HTTP + Tasks (create/poll/result/cancel rules)
-with deterministic RR fixtures.
+with RR fixtures.
 
 ## Quickstart
 
@@ -24,6 +24,8 @@ By default the server config (`mcp.server.json`) enables OAuth2 Resource Server 
 ```bash
 X07_MCP_CFG_PATH=mcp.server.dev.json x07 run --project x07.json --profile os_dev
 ```
+
+`mcp.server.dev.json` keeps deterministic Task IDs/clock/executor for stable RR replay tests.
 
 OAuth Protected Resource Metadata (RFC9728) is served at:
 

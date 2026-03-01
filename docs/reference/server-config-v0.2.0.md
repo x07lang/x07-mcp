@@ -18,6 +18,14 @@ Common sections:
 - `sandbox.router_base_policy_path`, `sandbox.worker_base_policy_path`
 - `rr.enabled`, `rr.cassette_dir`
 
+## Validation
+
+When loaded via `std.mcp.toolkit.server_cfg_file`, legacy server config is validated strictly:
+
+- `schema_version` must be `x07.mcp.server_config@0.2.0`.
+- Unknown keys are rejected (fail-closed).
+- Type mismatches are rejected (fail-closed).
+
 ## `transport.kind = "stdio"`
 
 - `transport.max_line_bytes`

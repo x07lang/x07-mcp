@@ -3,8 +3,8 @@
   "dependencies": [
     {
       "name": "ext-auth-jwt",
-      "path": ".x07/deps/ext-auth-jwt/0.1.4",
-      "version": "0.1.4"
+      "path": ".x07/deps/ext-auth-jwt/0.1.5",
+      "version": "0.1.5"
     },
     {
       "name": "ext-base64-rs",
@@ -13,8 +13,8 @@
     },
     {
       "name": "ext-cli",
-      "path": ".x07/deps/ext-cli/0.1.12",
-      "version": "0.1.12"
+      "path": ".x07/deps/ext-cli/0.1.13",
+      "version": "0.1.13"
     },
     {
       "name": "ext-crypto-rs",
@@ -33,18 +33,18 @@
     },
     {
       "name": "ext-data-model",
-      "path": ".x07/deps/ext-data-model/0.1.8",
-      "version": "0.1.8"
+      "path": ".x07/deps/ext-data-model/0.1.9",
+      "version": "0.1.9"
     },
     {
       "name": "ext-db-core",
-      "path": ".x07/deps/ext-db-core/0.1.9",
-      "version": "0.1.9"
+      "path": ".x07/deps/ext-db-core/0.1.10",
+      "version": "0.1.10"
     },
     {
       "name": "ext-db-sqlite",
-      "path": ".x07/deps/ext-db-sqlite/0.1.9",
-      "version": "0.1.9"
+      "path": ".x07/deps/ext-db-sqlite/0.1.10",
+      "version": "0.1.10"
     },
     {
       "name": "ext-fs",
@@ -63,8 +63,8 @@
     },
     {
       "name": "ext-json-rs",
-      "path": ".x07/deps/ext-json-rs/0.1.4",
-      "version": "0.1.4"
+      "path": ".x07/deps/ext-json-rs/0.1.5",
+      "version": "0.1.5"
     },
     {
       "name": "ext-jsonschema-rs",
@@ -78,68 +78,68 @@
     },
     {
       "name": "ext-mcp-auth",
-      "path": "packages/ext/x07-ext-mcp-auth/0.4.1",
-      "version": "0.4.1"
+      "path": "packages/ext/x07-ext-mcp-auth/0.4.2",
+      "version": "0.4.2"
     },
     {
       "name": "ext-mcp-auth-core",
-      "path": "packages/ext/x07-ext-mcp-auth-core/0.1.1",
-      "version": "0.1.1"
-    },
-    {
-      "name": "ext-mcp-core",
-      "path": "packages/ext/x07-ext-mcp-core/0.3.2",
-      "version": "0.3.2"
-    },
-    {
-      "name": "ext-mcp-obs",
-      "path": "packages/ext/x07-ext-mcp-obs/0.1.3",
-      "version": "0.1.3"
-    },
-    {
-      "name": "ext-mcp-rr",
-      "path": "packages/ext/x07-ext-mcp-rr/0.3.9",
-      "version": "0.3.9"
-    },
-    {
-      "name": "ext-mcp-sandbox",
-      "path": "packages/ext/x07-ext-mcp-sandbox/0.3.3",
-      "version": "0.3.3"
-    },
-    {
-      "name": "ext-mcp-toolkit",
-      "path": "packages/ext/x07-ext-mcp-toolkit/0.3.3",
-      "version": "0.3.3"
-    },
-    {
-      "name": "ext-mcp-transport-http",
-      "path": "packages/ext/x07-ext-mcp-transport-http/0.3.9",
-      "version": "0.3.9"
-    },
-    {
-      "name": "ext-mcp-transport-stdio",
-      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.2",
-      "version": "0.3.2"
-    },
-    {
-      "name": "ext-mcp-worker",
-      "path": "packages/ext/x07-ext-mcp-worker/0.3.3",
-      "version": "0.3.3"
-    },
-    {
-      "name": "ext-net",
-      "path": ".x07/deps/ext-net/0.1.8",
-      "version": "0.1.8"
-    },
-    {
-      "name": "ext-obs",
-      "path": ".x07/deps/ext-obs/0.1.2",
+      "path": "packages/ext/x07-ext-mcp-auth-core/0.1.2",
       "version": "0.1.2"
     },
     {
+      "name": "ext-mcp-core",
+      "path": "packages/ext/x07-ext-mcp-core/0.3.3",
+      "version": "0.3.3"
+    },
+    {
+      "name": "ext-mcp-obs",
+      "path": "packages/ext/x07-ext-mcp-obs/0.1.4",
+      "version": "0.1.4"
+    },
+    {
+      "name": "ext-mcp-rr",
+      "path": "packages/ext/x07-ext-mcp-rr/0.3.10",
+      "version": "0.3.10"
+    },
+    {
+      "name": "ext-mcp-sandbox",
+      "path": "packages/ext/x07-ext-mcp-sandbox/0.3.4",
+      "version": "0.3.4"
+    },
+    {
+      "name": "ext-mcp-toolkit",
+      "path": "packages/ext/x07-ext-mcp-toolkit/0.3.4",
+      "version": "0.3.4"
+    },
+    {
+      "name": "ext-mcp-transport-http",
+      "path": "packages/ext/x07-ext-mcp-transport-http/0.3.10",
+      "version": "0.3.10"
+    },
+    {
+      "name": "ext-mcp-transport-stdio",
+      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.3",
+      "version": "0.3.3"
+    },
+    {
+      "name": "ext-mcp-worker",
+      "path": "packages/ext/x07-ext-mcp-worker/0.3.4",
+      "version": "0.3.4"
+    },
+    {
+      "name": "ext-net",
+      "path": ".x07/deps/ext-net/0.1.9",
+      "version": "0.1.9"
+    },
+    {
+      "name": "ext-obs",
+      "path": ".x07/deps/ext-obs/0.1.3",
+      "version": "0.1.3"
+    },
+    {
       "name": "ext-openssl-c",
-      "path": ".x07/deps/ext-openssl-c/0.1.8",
-      "version": "0.1.8"
+      "path": ".x07/deps/ext-openssl-c/0.1.9",
+      "version": "0.1.9"
     },
     {
       "name": "ext-pb-rs",
@@ -208,6 +208,14 @@
     "cli/src"
   ],
   "patch": {
+    "ext-json-rs": {
+      "path": ".x07/deps/ext-json-rs/0.1.5",
+      "version": "0.1.5"
+    },
+    "ext-openssl-c": {
+      "path": ".x07/deps/ext-openssl-c/0.1.9",
+      "version": "0.1.9"
+    },
     "ext-u64-rs": {
       "path": ".x07/deps/ext-u64-rs/0.1.4",
       "version": "0.1.4"

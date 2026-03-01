@@ -11,8 +11,9 @@ This template scaffolds a minimal MCP **HTTP** server in X07 with a router/worke
 - `config/mcp.server.dev.json`: no-auth dev config (`auth.mode="none"`)
 - `config/mcp.tools.json`: tools manifest (`x07.mcp.tools_manifest@0.2.0`)
 - `config/mcp.oauth.json`: OAuth config (`x07.mcp.oauth@0.2.0`, `jwt_jwks_v1` + optional DPoP nonce + signed PRM)
-- `config/auth/`: deterministic auth secrets used by template tests/fixtures
+- `config/auth/`: runtime auth secrets generated during `x07-mcp scaffold init`
 - `config/fixtures/auth/`: JWKS + test JWT/DPoP fixtures used by `jwt_jwks_v1`
+- `tests/config/auth/`: deterministic auth fixture secrets used by template tests
 - `trust/bundles/dev_trust_bundle_v1.trust_bundle.json`: trust bundle for PRM signer pins
 - `trust/bundles/dev_trust_bundle_v1.trust_bundle.sig.jwt`: signed trust bundle statement
 - `trust/frameworks/dev_local_trust_framework_v1.trust_framework.json`: resource policy + bundle composition + bundle publisher pins

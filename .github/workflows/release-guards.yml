@@ -9,6 +9,16 @@ permissions:
   contents: read
 
 jobs:
+  guard-no-template-runtime-secrets:
+    name: release / guard-no-template-runtime-secrets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Guard template runtime secrets
+        shell: bash
+        run: ./scripts/ci/check_no_template_runtime_secrets.sh
+
   guard-trust-lock-and-sig:
     name: release / guard-trust-lock-and-sig
     runs-on: ubuntu-latest
@@ -28,3 +38,13 @@ jobs:
       - name: Guard against test_fixed_nonce
         shell: bash
         run: ./scripts/ci/release_guard_no_test_fixed_nonce.sh
+
+  guard-server-json-mcpb-sha:
+    name: release / guard-server-json-mcpb-sha
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Guard server.json mcpb sha consistency
+        shell: bash
+        run: ./scripts/ci/release_guard_server_json_mcpb_sha.sh

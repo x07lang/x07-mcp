@@ -31,6 +31,13 @@ def _repo_root() -> Path:
     return Path(__file__).resolve().parents[2]
 
 
+def _workspace_x07_packages_ext_root(repo_root: Path) -> Path | None:
+    candidate = repo_root.parent / "x07" / "packages" / "ext"
+    if candidate.is_dir():
+        return candidate
+    return None
+
+
 def _latest_local_package_versions(packages_root: Path) -> dict[str, str]:
     out: dict[str, str] = {}
     for pkg_dir in sorted(packages_root.iterdir(), key=lambda p: p.name):
@@ -56,6 +63,19 @@ def _latest_local_package_versions(packages_root: Path) -> dict[str, str]:
     return out
 
 
+def _combined_latest_package_versions(packages_roots: list[Path]) -> dict[str, str]:
+    best: dict[str, tuple[_Semver, str]] = {}
+    for root in packages_roots:
+        for name, ver_s in _latest_local_package_versions(root).items():
+            ver = _parse_semver(ver_s)
+            if ver is None:
+                continue
+            cur = best.get(name)
+            if cur is None or (ver, ver_s) > cur:
+                best[name] = (ver, ver_s)
+    return {name: ver_s for name, (_ver, ver_s) in best.items()}
+
+
 def _load_json(path: Path) -> object:
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
@@ -63,12 +83,11 @@ def _load_json(path: Path) -> object:
 
 def _iter_x07_projects(repo_root: Path) -> list[Path]:
     paths: list[Path] = []
-
     paths.append(repo_root / "x07.json")
     paths.append(repo_root / "conformance" / "client-x07" / "x07.json")
-    paths.extend(sorted((repo_root / "templates").glob("*/x07.json")))
-
-    return [p for p in paths if p.is_file()]
+    paths.extend(sorted((repo_root / "templates").rglob("x07.json")))
+    paths.extend(sorted((repo_root / "servers").rglob("x07.json")))
+    return sorted({p for p in paths if p.is_file()})
 
 
 def _iter_mcp_schema_json_files(repo_root: Path) -> list[Path]:
@@ -104,15 +123,14 @@ def _iter_x07_json_files(repo_root: Path) -> list[Path]:
     app_root = repo_root / "packages" / "app"
     latest_ext = _latest_local_package_versions(ext_root)
     latest_app = _latest_local_package_versions(app_root)
-    trust_ver = latest_ext.get("ext-mcp-trust")
-    if trust_ver:
-        roots.append(ext_root / "x07-ext-mcp-trust" / trust_ver / "modules")
-    trust_os_ver = latest_ext.get("ext-mcp-trust-os")
-    if trust_os_ver:
-        roots.append(ext_root / "x07-ext-mcp-trust-os" / trust_os_ver / "modules")
-    app_mcp_ver = latest_app.get("mcp")
-    if app_mcp_ver:
-        roots.append(app_root / "x07-mcp" / app_mcp_ver / "modules")
+    for name, ver in sorted(latest_ext.items()):
+        base = ext_root / f"x07-{name}" / ver
+        roots.append(base / "modules")
+        roots.append(base / "tests")
+    for name, ver in sorted(latest_app.items()):
+        base = app_root / f"x07-{name}" / ver
+        roots.append(base / "modules")
+        roots.append(base / "tests")
 
     out: list[Path] = []
     for root in roots:
@@ -182,6 +200,7 @@ _LATEST_MCP_SCHEMAS: dict[str, str] = {
 }
 
 _MCP_SCHEMA_ALLOWED_VERSIONS: dict[str, set[str]] = {
+    "x07.mcp.server_config": {"0.2.0", "0.3.0"},
     "x07.mcp.trust.framework": {"0.2.0", "0.3.0"},
     "x07.mcp.trust.lock": {"0.1.0", "0.2.0"},
     "x07.mcp.trust.registry_root": {"0.1.0", "0.2.0"},
@@ -201,8 +220,11 @@ def _parse_schema_id(text: str) -> tuple[str, str] | None:
 
 def main() -> int:
     repo_root = _repo_root()
-    packages_root = repo_root / "packages" / "ext"
-    latest_pkg = _latest_local_package_versions(packages_root)
+    packages_roots = [repo_root / "packages" / "ext"]
+    workspace_x07_ext = _workspace_x07_packages_ext_root(repo_root)
+    if workspace_x07_ext is not None:
+        packages_roots.append(workspace_x07_ext)
+    latest_pkg = _combined_latest_package_versions(packages_roots)
 
     errors: list[str] = []
 

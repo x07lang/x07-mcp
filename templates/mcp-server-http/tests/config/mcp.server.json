@@ -1,5 +1,5 @@
 {
-  "schema_version": "x07.mcp.server_config@0.3.0",
+  "schema_version": "x07.mcp.server_config@0.2.0",
   "server": {
     "name": "x07-mcp-http-template",
     "version": "0.1.0",

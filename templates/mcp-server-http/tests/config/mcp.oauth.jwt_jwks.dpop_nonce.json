@@ -31,7 +31,7 @@
     "mode": "required",
     "ttl_s": 60,
     "rotate_on_success": true,
-    "secret_b64_file": "../config/auth/dpop_nonce.secret.b64",
+    "secret_b64_file": "config/auth/dpop_nonce.secret.b64",
     "bind_to": "jkt",
     "test_fixed_nonce": "test-nonce-0001"
   }

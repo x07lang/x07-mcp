@@ -19,7 +19,7 @@
       "enabled": true,
       "bind": "127.0.0.1:8314",
       "path": "/mcp",
-      "origin_allow_missing": true,
+      "origin_allow_missing": false,
       "origin_allowlist": [
         "http://localhost:*",
         "http://127.0.0.1:*",
@@ -27,6 +27,7 @@
       ],
       "streamable": {
         "enabled": true,
+        "strict_protocol_header": true,
         "sse": { "enabled": true, "max_connections": 64 },
         "session": { "mode": "required", "ttl_seconds": 600, "max": 128 }
       }
@@ -34,7 +35,7 @@
   },
 
   "tools": {
-    "descriptor_path": "config/mcp.tools.json"
+    "descriptor_path": "mcp.tools.json"
   },
 
   "worker_exe_path": "out/mcp-worker",
@@ -54,6 +55,9 @@
           "authorization",
           "cookie",
           "set-cookie",
+          "client_secret",
+          "refresh_token",
+          "id_token",
           "password",
           "secret",
           "token",

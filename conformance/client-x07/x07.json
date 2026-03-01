@@ -3,8 +3,8 @@
   "dependencies": [
     {
       "name": "ext-auth-jwt",
-      "path": ".x07/deps/ext-auth-jwt/0.1.4",
-      "version": "0.1.4"
+      "path": ".x07/deps/ext-auth-jwt/0.1.5",
+      "version": "0.1.5"
     },
     {
       "name": "ext-base64-rs",
@@ -28,8 +28,8 @@
     },
     {
       "name": "ext-data-model",
-      "path": ".x07/deps/ext-data-model/0.1.8",
-      "version": "0.1.8"
+      "path": ".x07/deps/ext-data-model/0.1.9",
+      "version": "0.1.9"
     },
     {
       "name": "ext-fs",
@@ -43,23 +43,23 @@
     },
     {
       "name": "ext-json-rs",
-      "path": ".x07/deps/ext-json-rs/0.1.4",
-      "version": "0.1.4"
+      "path": ".x07/deps/ext-json-rs/0.1.5",
+      "version": "0.1.5"
     },
     {
       "name": "ext-mcp-auth",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.1",
-      "version": "0.4.1"
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.2",
+      "version": "0.4.2"
     },
     {
       "name": "ext-mcp-auth-core",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth-core/0.1.1",
-      "version": "0.1.1"
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth-core/0.1.2",
+      "version": "0.1.2"
     },
     {
       "name": "ext-mcp-core",
-      "path": "$workspace/packages/ext/x07-ext-mcp-core/0.3.2",
-      "version": "0.3.2"
+      "path": "$workspace/packages/ext/x07-ext-mcp-core/0.3.3",
+      "version": "0.3.3"
     },
     {
       "name": "ext-net",
@@ -68,8 +68,8 @@
     },
     {
       "name": "ext-openssl-c",
-      "path": ".x07/deps/ext-openssl-c/0.1.8",
-      "version": "0.1.8"
+      "path": ".x07/deps/ext-openssl-c/0.1.9",
+      "version": "0.1.9"
     },
     {
       "name": "ext-regex",
@@ -131,6 +131,10 @@
   "schema_version": "x07.project@0.3.0",
   "world": "run-os",
   "patch": {
+    "ext-json-rs": {
+      "version": "0.1.5",
+      "path": ".x07/deps/ext-json-rs/0.1.5"
+    },
     "ext-net": {
       "version": "0.1.9",
       "path": ".x07/deps/ext-net/0.1.9"

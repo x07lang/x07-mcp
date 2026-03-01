@@ -1,6 +1,6 @@
 # Run an HTTP server
 
-The HTTP router entrypoint is `std.mcp.transport.http.serve_from_fs_v1`.
+The HTTP router entrypoint is `ext.mcp.server.serve_http_from_fs_v1` (current templates).
 
 ## 1) Bundle router + worker
 
@@ -25,7 +25,7 @@ Default endpoint values from the template:
 - MCP path: `/mcp`
 - PRM insertion path: `/.well-known/oauth-protected-resource/mcp`
 - PRM root alias path (when `serve_root_alias=true`): `/.well-known/oauth-protected-resource`
-- SSE enabled: `transport.sse_enabled=true`
+- SSE enabled: `transports.http.streamable.sse.enabled=true`
 
 ## 3) Run deterministic replay tests
 
@@ -51,6 +51,7 @@ Initialize first and keep the returned `MCP-Session-Id`:
 curl -i \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json,text/event-stream' \
+  -H 'Origin: http://localhost:3000' \
   -H 'MCP-Protocol-Version: 2025-11-25' \
   --data '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"curl","version":"1"}}}' \
   http://127.0.0.1:8314/mcp
@@ -61,6 +62,8 @@ Open a listen stream:
 ```sh
 curl -N \
   -H 'Accept: text/event-stream' \
+  -H 'Origin: http://localhost:3000' \
+  -H 'MCP-Protocol-Version: 2025-11-25' \
   -H "MCP-Session-Id: <session-id>" \
   http://127.0.0.1:8314/mcp
 ```

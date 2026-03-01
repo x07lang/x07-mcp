@@ -13,13 +13,13 @@
     "os": {
       "world": "run-os",
       "auto_ffi": true,
-      "solve_fuel": 500000000
+      "solve_fuel": 50000000000
     },
     "sandbox": {
       "world": "run-os-sandboxed",
       "policy": ".x07/policies/base/worker.sandbox.base.policy.json",
       "auto_ffi": true,
-      "solve_fuel": 500000000
+      "solve_fuel": 50000000000
     }
   }
 }

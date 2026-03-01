@@ -16,6 +16,14 @@ The server config JSON declares:
 - observability (`observability.*`)
 - per-tool sandbox policy wiring (`sandbox.per_tool.*`)
 
+## Validation
+
+When loaded via `std.mcp.toolkit.server_cfg_file`, server config is validated strictly:
+
+- `schema_version` selects the supported schema (`@0.3.0` or legacy `@0.2.0`).
+- Unknown keys are rejected (fail-closed).
+- Type mismatches are rejected (fail-closed).
+
 ## Root
 
 - `schema_version`: must be `x07.mcp.server_config@0.3.0`
@@ -33,6 +41,14 @@ The server config JSON declares:
 - `auth.required_scopes`: array of scopes (strings)
 - `auth.required_scopes_tasks`: array of scopes (strings)
 
+### `auth.oauth_cache` (optional)
+
+OAuth token decision cache bounds (only used when `auth.mode="oauth2"`):
+
+- `auth.oauth_cache.max_entries`: number (default `1024`)
+- `auth.oauth_cache.ttl_s`: number (default `300`)
+- `auth.oauth_cache.negative_ttl_s`: number (default `15`)
+
 ## `transports.http`
 
 - `transports.http.enabled`: boolean
@@ -44,6 +60,10 @@ The server config JSON declares:
 ### `transports.http.streamable`
 
 - `transports.http.streamable.enabled`: boolean
+- `transports.http.streamable.strict_protocol_header`: boolean (missing `MCP-Protocol-Version` => `400`)
+- `transports.http.streamable.max_header_bytes`: number (default `8192`, oversized => `431`)
+- `transports.http.streamable.max_body_bytes`: number (default `1040384`, oversized => `413`)
+- `transports.http.streamable.max_concurrent_requests`: number (default `128`)
 
 #### `transports.http.streamable.sse`
 
@@ -69,7 +89,7 @@ The server config JSON declares:
 ### `observability.clock`
 
 - `observability.clock.mode`: `os_now` | `fixed`
-- `observability.clock.fixed.utc_iso8601`: RFC3339 string
+- `observability.clock.utc`: RFC3339 string (used when `mode="fixed"`)
 
 ### `observability.logging`
 
@@ -155,3 +175,10 @@ For Tasks, the router enforces negotiation using the `initialize` capabilities p
 
 - `sandbox.per_tool.enabled`: boolean
 - `sandbox.per_tool.policy_path`: string (policy JSON for worker isolation)
+
+## `sandbox.router_exec` (optional)
+
+Worker spawn control for isolated tool execution:
+
+- `sandbox.router_exec.max_concurrent_per_tool`: number (default `4`, reject overflow with a tool error)
+- `sandbox.router_exec.warm_pool_size_per_tool`: number (default `0`, keep N idle workers per tool)

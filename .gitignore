@@ -12,6 +12,9 @@ out/
 tmp*/
 tmp*
 
+# x07 test harness artifacts
+**/tests/tests/.tmp/
+
 # Legacy detritus from pre-$workspace path support (should not be committed).
 conformance/client-x07/$workspace/
 

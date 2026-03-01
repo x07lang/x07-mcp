@@ -23,6 +23,7 @@
       "origin_allowlist": ["http://localhost:*", "http://127.0.0.1:*"],
       "streamable": {
         "enabled": true,
+        "strict_protocol_header": false,
         "sse": {
           "enabled": true,
           "max_connections": 64
@@ -64,6 +65,9 @@
           "authorization",
           "cookie",
           "set-cookie",
+          "client_secret",
+          "refresh_token",
+          "id_token",
           "password",
           "secret",
           "token",

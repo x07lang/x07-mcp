@@ -18,18 +18,18 @@
     },
     {
       "name": "ext-data-model",
-      "path": ".x07/deps/ext-data-model/0.1.8",
-      "version": "0.1.8"
+      "path": ".x07/deps/ext-data-model/0.1.9",
+      "version": "0.1.9"
     },
     {
       "name": "ext-db-core",
-      "path": ".x07/deps/ext-db-core/0.1.9",
-      "version": "0.1.9"
+      "path": ".x07/deps/ext-db-core/0.1.10",
+      "version": "0.1.10"
     },
     {
       "name": "ext-db-sqlite",
-      "path": ".x07/deps/ext-db-sqlite/0.1.9",
-      "version": "0.1.9"
+      "path": ".x07/deps/ext-db-sqlite/0.1.10",
+      "version": "0.1.10"
     },
     {
       "name": "ext-fs",
@@ -48,8 +48,8 @@
     },
     {
       "name": "ext-json-rs",
-      "path": ".x07/deps/ext-json-rs/0.1.4",
-      "version": "0.1.4"
+      "path": ".x07/deps/ext-json-rs/0.1.5",
+      "version": "0.1.5"
     },
     {
       "name": "ext-jsonschema-rs",
@@ -58,28 +58,28 @@
     },
     {
       "name": "ext-mcp-core",
-      "path": ".x07/deps/ext-mcp-core/0.3.2",
-      "version": "0.3.2"
+      "path": ".x07/deps/ext-mcp-core/0.3.3",
+      "version": "0.3.3"
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.3",
-      "version": "0.3.3"
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.4",
+      "version": "0.3.4"
     },
     {
       "name": "ext-mcp-toolkit",
-      "path": ".x07/deps/ext-mcp-toolkit/0.3.3",
-      "version": "0.3.3"
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.4",
+      "version": "0.3.4"
     },
     {
       "name": "ext-mcp-transport-stdio",
-      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.2",
-      "version": "0.3.2"
+      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.3",
+      "version": "0.3.3"
     },
     {
       "name": "ext-mcp-worker",
-      "path": ".x07/deps/ext-mcp-worker/0.3.3",
-      "version": "0.3.3"
+      "path": ".x07/deps/ext-mcp-worker/0.3.4",
+      "version": "0.3.4"
     },
     {
       "name": "ext-regex",
@@ -123,16 +123,22 @@
     "src",
     "tests"
   ],
+  "patch": {
+    "ext-json-rs": {
+      "path": ".x07/deps/ext-json-rs/0.1.5",
+      "version": "0.1.5"
+    }
+  },
   "profiles": {
     "os": {
       "auto_ffi": true,
-      "solve_fuel": 500000000,
+      "solve_fuel": 50000000000,
       "world": "run-os"
     },
     "sandbox": {
       "auto_ffi": true,
       "policy": "policy/mcp.worker.base.policy.json",
-      "solve_fuel": 500000000,
+      "solve_fuel": 50000000000,
       "world": "run-os-sandboxed"
     }
   },

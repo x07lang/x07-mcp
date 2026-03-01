@@ -4,7 +4,7 @@
   "alg": "Ed25519",
   "kid": "prm-ed25519-2026-01",
   "iss": "http://127.0.0.1:8314/mcp",
-  "keypair_jwk_path": "../config/auth/prm_signing.ed25519.current.jwk.json",
+  "keypair_jwk_path": "config/auth/prm_signing.ed25519.current.jwk.json",
   "claims_include": [
     "resource",
     "authorization_servers",

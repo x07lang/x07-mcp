@@ -19,10 +19,11 @@
       "enabled": true,
       "bind": "127.0.0.1:8080",
       "path": "/mcp",
-      "origin_allow_missing": true,
+      "origin_allow_missing": false,
       "origin_allowlist": ["http://localhost:*", "http://127.0.0.1:*"],
       "streamable": {
         "enabled": true,
+        "strict_protocol_header": true,
         "sse": {
           "enabled": true,
           "max_connections": 64
@@ -48,8 +49,7 @@
 
   "observability": {
     "clock": {
-      "mode": "fixed",
-      "utc": "2026-02-14T00:00:00Z"
+      "mode": "os_now"
     },
     "logging": {
       "enabled": true,
@@ -64,6 +64,9 @@
           "authorization",
           "cookie",
           "set-cookie",
+          "client_secret",
+          "refresh_token",
+          "id_token",
           "password",
           "secret",
           "token",
@@ -94,24 +97,15 @@
     },
 
     "id": {
-      "mode": "deterministic",
-      "deterministic": { "prefix": "task_", "start": 1 }
+      "mode": "random"
     },
 
     "clock": {
-      "mode": "fixed",
-      "fixed": {
-        "start_iso8601": "2026-02-14T00:00:00Z",
-        "step_ms": 1000
-      }
+      "mode": "os_now"
     },
 
     "executor": {
-      "mode": "deterministic",
-      "deterministic": {
-        "complete_after_ticks": 3,
-        "advance_on": ["tasks/get", "tasks/list", "tasks/result"]
-      }
+      "mode": "async_pool"
     },
 
     "retention": {

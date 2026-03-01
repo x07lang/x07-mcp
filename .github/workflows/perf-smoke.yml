@@ -1,0 +1,51 @@
+name: Perf Smoke
+
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+env:
+  X07_MCP_LOCK_RETRIES: "5"
+  X07_MCP_LOCK_RETRY_DELAY_SECS: "3"
+  X07_TOOLCHAIN_TAG: "v0.1.44"
+  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-v0.1.44-x86_64-unknown-linux-gnu.tar.gz"
+  X07_MCP_PERF_SEQ_CALLS: "200"
+  X07_MCP_PERF_CONC_CALLS: "50"
+
+jobs:
+  perf-smoke:
+    name: ci / perf-smoke
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout x07-mcp
+        uses: actions/checkout@v4
+        with:
+          path: x07-mcp
+      - name: Checkout x07 (local deps)
+        uses: actions/checkout@v4
+        with:
+          repository: x07lang/x07
+          ref: ${{ env.X07_TOOLCHAIN_TAG }}
+          path: x07
+      - name: Install system deps
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev jq curl
+      - name: Cache X07 toolchain
+        uses: actions/cache@v4
+        with:
+          path: ~/.x07
+          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
+      - name: Install X07 (pinned)
+        shell: bash
+        working-directory: x07-mcp
+        run: ./scripts/ci/install_x07_toolchain.sh
+      - name: Perf smoke (full gate)
+        shell: bash
+        working-directory: x07-mcp
+        run: X07_MCP_LOCAL_DEPS=1 X07_MCP_PERF_SMOKE=1 ./scripts/ci/check_all.sh
