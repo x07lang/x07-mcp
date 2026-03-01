@@ -10,8 +10,8 @@ permissions:
 env:
   X07_MCP_LOCK_RETRIES: "5"
   X07_MCP_LOCK_RETRY_DELAY_SECS: "3"
-  X07_TOOLCHAIN_TAG: "v0.1.44"
-  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-v0.1.44-x86_64-unknown-linux-gnu.tar.gz"
+  X07_TOOLCHAIN_TAG: "v0.1.46"
+  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-v0.1.46-x86_64-unknown-linux-gnu.tar.gz"
 
 jobs:
   check:
@@ -110,9 +110,9 @@ jobs:
               --module-root modules \
               --module-root "$x07_root/packages/ext/x07-ext-base64-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.8/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.9/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.4/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-fs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-unicode-rs/0.1.5/modules"
@@ -132,8 +132,8 @@ jobs:
               --module-root "$x07_root/packages/ext/x07-ext-base64-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-net/0.1.9/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.8/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.5/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.9/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-fs/0.1.5/modules" \
@@ -157,8 +157,8 @@ jobs:
               --module-root "$x07_root/packages/ext/x07-ext-base64-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-net/0.1.9/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.8/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.5/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.9/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-fs/0.1.5/modules" \

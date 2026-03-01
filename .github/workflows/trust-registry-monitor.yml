@@ -9,8 +9,8 @@ permissions:
   contents: read
 
 env:
-  X07_TOOLCHAIN_TAG: "v0.1.44"
-  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-v0.1.44-x86_64-unknown-linux-gnu.tar.gz"
+  X07_TOOLCHAIN_TAG: "v0.1.46"
+  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-v0.1.46-x86_64-unknown-linux-gnu.tar.gz"
 
 jobs:
   monitor:
