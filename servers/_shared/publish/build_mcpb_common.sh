@@ -10,11 +10,23 @@ OUT_FILE="${OUT_DIR}/${SERVER_ID}.mcpb"
 
 mkdir -p "${OUT_DIR}"
 
+bundle_quiet_or_dump() {
+  local log
+  log="$(mktemp)"
+  if ! x07 bundle "$@" >"${log}" 2>&1; then
+    cat "${log}" >&2
+    rm -f "${log}"
+    return 1
+  fi
+  rm -f "${log}"
+  return 0
+}
+
 ROUTER_BIN="${SERVER_ROOT}/out/${SERVER_ID}"
 WORKER_BIN="${SERVER_ROOT}/out/mcp-worker"
 
 if [[ ! -x "${ROUTER_BIN}" ]]; then
-  x07 bundle --project "${SERVER_ROOT}/x07.json" --profile os --out "${ROUTER_BIN}" >/dev/null
+  bundle_quiet_or_dump --project "${SERVER_ROOT}/x07.json" --profile os --out "${ROUTER_BIN}"
 fi
 if [[ ! -x "${WORKER_BIN}" ]]; then
   (
@@ -42,12 +54,12 @@ out_path.write_text(
     encoding="utf-8",
 )
 PY
-    x07 bundle \
+    bundle_quiet_or_dump \
       --project "${WORKER_PROJECT}" \
       --profile sandbox \
       --sandbox-backend os \
       --i-accept-weaker-isolation \
-      --out "${WORKER_BIN}" >/dev/null
+      --out "${WORKER_BIN}"
   )
 fi
 

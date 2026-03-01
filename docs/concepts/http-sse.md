@@ -1,6 +1,6 @@
 # HTTP SSE
 
-`ext-mcp-transport-http@0.3.1` implements MCP Streamable HTTP, including SSE framing, buffering, and resumability.
+`ext-mcp-transport-http` implements MCP Streamable HTTP, including SSE framing, buffering, and resumability.
 
 ## Modes
 

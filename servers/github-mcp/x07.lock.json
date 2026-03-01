@@ -199,23 +199,24 @@
     },
     {
       "name": "ext-mcp-auth",
-      "version": "0.4.2",
-      "path": ".x07/deps/ext-mcp-auth/0.4.2",
-      "package_manifest_sha256": "cb42a439f598cedb541e0e309e9a20dc4a545b8e7ef0ca3a0ff80bcd9e32ddad",
+      "version": "0.4.4",
+      "path": ".x07/deps/ext-mcp-auth/0.4.4",
+      "package_manifest_sha256": "0dc4bcb8483d240e20c60728cd81be764fca56705512e0291143e3b16147d2b8",
       "module_root": "modules",
       "modules_sha256": {
+        "std.mcp.auth.challenge": "0ef1a2ddc1c00e510c273d9d35bc4488e3963ce2cae29828132bd34d17aff758",
         "std.mcp.auth.dpop_nonce_v1": "fb45e67f5cf1d1dd961e15d44642f9d88215ca7bea3d6f15f6f6dab6ad32a18b",
         "std.mcp.auth.http_middleware_v1": "3d832f452dbd97dd2724436afa2a69002f2ace9d2699b19aaaab0e41645cb7fd",
         "std.mcp.auth.introspection_v1": "abe22a570e6c667210d7e77ce74912740d0d9431d2f1d9650d6662489837e761",
         "std.mcp.auth.oauth_test_static": "0310fdc9456a7c71b2838390561fe7b2abe424b8b6b64f81e0a271d205683185",
+        "std.mcp.auth.prm": "7034b3ff1724e3fe728afd2b6375938e61c34a3ccf7b8ab137217c9579de5a05",
         "std.mcp.auth.prm_signed_asym_v1": "1e33be63519b555067f91cd561835226bbd7434001c0651f1271aac7be4ff5b0",
         "std.mcp.auth.prm_signed_v1": "f4174a12116a42947042b43c34b265a66638dec86d67ca5ffbdc38e8304b7849",
         "std.mcp.auth.prm_signed_verify_v2": "170f80cebfca64e613db5234c776f513b89da702ab4c0cf3c022094221bfaf11",
         "std.mcp.auth.rs_v1": "8b548e86ed9bc887c7fb2404bf8ec51aa64397a9d25ef7b5463ebab349016d06",
         "std.mcp.auth.ssrf_guard_v1": "932675a919c71875af75341989a566c2fa1ed31482b2a95d7a684287c5c60408",
         "std.mcp.auth.trust_anchors_v1": "e861f0e7720f45b840d87aee974704622ec7158fbb935ad35743232815019c4d"
-      },
-      "yanked": false
+      }
     },
     {
       "name": "ext-mcp-auth-core",
@@ -270,9 +271,9 @@
     },
     {
       "name": "ext-mcp-rr",
-      "version": "0.3.10",
-      "path": ".x07/deps/ext-mcp-rr/0.3.10",
-      "package_manifest_sha256": "eae5e5b210ab3a2219c76eec076c3c571e02b06fe4cfb1b189a0c1a81c00c7e1",
+      "version": "0.3.12",
+      "path": ".x07/deps/ext-mcp-rr/0.3.12",
+      "package_manifest_sha256": "804fb7ae2a6fab2a55d50b334a16c4459ec3e33a3a746fd72fb0c11758a2a669",
       "module_root": "modules",
       "modules_sha256": {
         "ext.mcp.rr": "1baf60bcdbd99d6d86bd2d5f8f6c93476d16829b5f0f20ffaa888f4d662de8d4",
@@ -281,8 +282,7 @@
         "std.mcp.rr.sanitize": "5f0d149dd93ba46c4d7faefd405cb8f3b5de9fd708f5220fafecd73fad7bb3a3",
         "std.mcp.rr.sanitize_profile": "b2447c4f4bdd5394d445058e4d340e3fccf1fb557f1eb9459d3c92ac63cb0d22",
         "std.mcp.rr.session": "1603b1e53affd9fc5b7bfad8d650575759e3d2c27f1cdb913ba662038db5922a"
-      },
-      "yanked": false
+      }
     },
     {
       "name": "ext-mcp-sandbox",
@@ -329,9 +329,9 @@
     },
     {
       "name": "ext-mcp-transport-http",
-      "version": "0.3.10",
-      "path": ".x07/deps/ext-mcp-transport-http/0.3.10",
-      "package_manifest_sha256": "952caef7c5238814c41b5286d482ae500101de1cb5c5619e7572de4b1beab494",
+      "version": "0.3.12",
+      "path": ".x07/deps/ext-mcp-transport-http/0.3.12",
+      "package_manifest_sha256": "732432fc2d6b7a6b98b4e08583e8276958ed0847c57dfa9399d253bcc214d885",
       "module_root": "modules",
       "modules_sha256": {
         "ext.mcp.server": "8d86318585026206c9030daa57bc154acd33cac3090f0904d62f8c03dff2cfd1",
@@ -340,8 +340,7 @@
         "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9",
         "std.mcp.transport.http_sse": "5fa7f191dac0e9fe080275ce47152285890c308164b2972093601e0cc35b9f2a",
         "std.mcp.transport.http_sse_outbox_v1": "8831404845f093ab30f98395d0988dc5cfe1a7ffc395c758a72af9bc011e3be1"
-      },
-      "yanked": false
+      }
     },
     {
       "name": "ext-mcp-worker",
@@ -512,7 +511,8 @@
         "ext.u64": "c3ba79f0554026716bfa1feea479c1eaa5b31be0ad7a8d166416a6a35d8b9a43",
         "ext.u64.tests": "f4a739c17deb1dd369d9fb144111a87ce4f7c99f65f28265dfc1ce7f56eff86f"
       },
-      "overridden_by": "ext-u64-rs"
+      "overridden_by": "ext-u64-rs",
+      "yanked": false
     },
     {
       "name": "ext-unicode-rs",
