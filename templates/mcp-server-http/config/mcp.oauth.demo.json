@@ -13,6 +13,7 @@
       "issuer": "https://auth.example.com",
       "audiences": ["http://127.0.0.1:8314/mcp"],
       "clock_skew_s": 180,
+      "clock": { "kind": "fixed_v1", "now_s": 1700000005 },
       "accepted_algs": ["RS256"],
       "jwks_source": {
         "kind": "file",

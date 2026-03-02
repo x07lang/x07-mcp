@@ -28,8 +28,7 @@
     "origin_allow_missing": true,
     "origin_allowlist": [
       "http://localhost:*",
-      "http://127.0.0.1:*",
-      "https://mcp.example.com"
+      "http://127.0.0.1:*"
     ],
     "session_mode": "required",
     "session_ttl_seconds": 600,
@@ -38,7 +37,9 @@
   "auth": {
     "mode": "oauth2",
     "oauth_config_path": "config/mcp.oauth.jwt_jwks.dpop_nonce.json",
-    "required_scopes": ["mcp:tools"]
+    "required_scopes": [
+      "mcp:tools"
+    ]
   },
   "obs": {
     "sink": "stdout_jsonl",

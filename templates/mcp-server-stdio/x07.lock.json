@@ -59,7 +59,8 @@
         "ext.data_model.xml.tests": "8346ec79e12f8dde83721bab5727da4f1db94d89bed824caea29c8792794eb47",
         "ext.data_model.yaml": "622ecb16fd5b86ba979f3cde95473bda321af74a69bd43a03701407cc3be1abc",
         "ext.data_model.yaml.tests": "03fc345b1dcaf330f813b6d3c2b11f0bb1ea509f3f72c93b6d2e3146a1ed7f50"
-      }
+      },
+      "yanked": false
     },
     {
       "name": "ext-db-core",
@@ -73,7 +74,8 @@
         "std.db.params": "7cfd2e5038d23a08a502fd15fb7b5927a1f1499266c17e8f5b7f7fdac3146215",
         "std.db.pool": "d072995ccf88503bfb6dfd368e70a6bdd3725fd2ca8acc9c2ab356748a6714fb",
         "std.db.spec": "eda1a91783a0dc523d7887f3b87166bcfa76a1d4ac87ce76d45ef2f97b08853c"
-      }
+      },
+      "yanked": false
     },
     {
       "name": "ext-db-sqlite",
@@ -85,7 +87,8 @@
         "std.db.sqlite": "2850c6117f50825effa7247f043d37206db89c2041c19bceb3cc4787ff798cb5",
         "std.db.sqlite.pool": "e2d5f6674a5777b5a127ca79e78c14beaa961ee7f3a8fe1338e74b0a4f2409f9",
         "std.db.sqlite.spec": "3983ebd84894e96297026d1c5af37e48e1864fc07990ea40c0b1d6d2ddaebfa2"
-      }
+      },
+      "yanked": false
     },
     {
       "name": "ext-fs",
@@ -136,7 +139,8 @@
         "ext.json.pointer": "658decbd56790023d28bd72ef5f6fe810ed69b0d1ab6275b0c6c54b1f414192a",
         "ext.json.tests": "5ad25069a57e40b87d9ace8f4821d3f2e509df3e56348bd5f4ed914a1bfcdfcd"
       },
-      "overridden_by": "ext-json-rs"
+      "overridden_by": "ext-json-rs",
+      "yanked": false
     },
     {
       "name": "ext-jsonschema-rs",
@@ -152,15 +156,15 @@
     },
     {
       "name": "ext-mcp-core",
-      "version": "0.3.3",
-      "path": ".x07/deps/ext-mcp-core/0.3.3",
-      "package_manifest_sha256": "8299231744cb582f2f6596a9124a6f592a9353e4938354f258d8bad63de5e955",
+      "version": "0.3.4",
+      "path": ".x07/deps/ext-mcp-core/0.3.4",
+      "package_manifest_sha256": "6d5e3ceac1d7ef0a1880e0ecefd55e8715351d397a3f7a00bda34e664703eb3a",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.cache.ttl_bytes_v1": "7745e325a6c66ca4950b47e535f0ac33ce0b70308db4dbff2890800aaead021e",
+        "std.mcp.cache.ttl_bytes_v1": "4e4c80cae20ada7841448c44a6a873eae97733fa2c30ae29c543c50e6d1e81ca",
         "std.mcp.ctx": "8cfcb31d6d2448436acd85456b93c1978904dd9962edba9608ea5d716db6022c",
-        "std.mcp.diag": "8e1f6931bfe65880fdb5570bc7d4e0a2aa5775ea669346be3f667998738e18f1",
-        "std.mcp.jsonrpc": "b369452205c724ffe2060af7c3b1df20c92550e7ed958684ceb13c7747ac2e86",
+        "std.mcp.diag": "5cd826c1fed2c70fae7808e91402a6f001d39b6255dc6b1d9611aafcd9932440",
+        "std.mcp.jsonrpc": "e45b33072edc9d102cd1832533fbbcbc227365df35ba0787e852e55b493cd9eb",
         "std.mcp.logging": "92f179d339afb6bb142424343ef171dfe62ef83606a593f03397d97251c0ab03",
         "std.mcp.notifications": "702cd717ee10c2bc952e8b5767da1679c13a9dc1b9f6a1185495ea3d1df289da",
         "std.mcp.progress_registry": "d76a635d213b04cdba774bfdebb4ba68b07fab6e90ca59ccaf21c9a3698c1432",
@@ -168,16 +172,17 @@
         "std.mcp.redact": "c4d3289483796a19e63583140031b08a4d5ee8d7aa4a3f2ba67cf7afe91e5f4b",
         "std.mcp.sse": "2d2af24c8efb02a358297555e0e0ade89e1b6ac01a9ad06e37bddc3847dab8c8",
         "std.mcp.tool": "bc13c2078cdcd9b79b7f822e0232f56bf193ae85c9264c4dc80379154b0afd85",
-        "std.mcp.tool.errors": "c617965ffcda142f4bdb577ed09f953a1d18caff9be5f44075df080f0bf6352f",
-        "std.mcp.tool.result": "cf3291b3e03a568dba889b1ac63bd91da9cfcf880d3356abe7f9441ae8f98200",
+        "std.mcp.tool.errors": "6f458edfeaa0179711c10ce7f9cda3179a5d15eb5259723131d6a1333fb64a40",
+        "std.mcp.tool.result": "7b06e6d636552a8a835ec31ff80c1b1dfbaeccb0fc0534fc54845c4b9cc29014",
         "std.mcp.util.json": "81c289f3987178fe4a14c948e772cdf663be0eca6f9c4f6a850cfe832d8bb97f"
-      }
+      },
+      "yanked": false
     },
     {
       "name": "ext-mcp-sandbox",
-      "version": "0.3.4",
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.4",
-      "package_manifest_sha256": "29ecac1125129a15b5e2912c736b8e4864b8ed0848595c2997ad8cc5d6363b92",
+      "version": "0.3.5",
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.5",
+      "package_manifest_sha256": "f0f321c47a98079e7479cdfa7b89ae73d962c93d99dfa5e700005b2cf0c5ff9e",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.sandbox.policy_compile": "a562b11ff8f438ee45691cb8800da813e9abfe2a86290ccdb41db4108adedf22",
@@ -188,13 +193,14 @@
         "std.mcp.sandbox.task_store_any_v1": "3bd3da1d44cbbb6e5c133ee7e368b334e917b93a81cbcc4c48a2ef0aa75c9a8d",
         "std.mcp.sandbox.task_store_mem_v1": "9bd49ac2653e05bd465d6a8f2ad72c191f1f9d642557876c65388f825551912c",
         "std.mcp.sandbox.task_store_sqlite_v1": "71a9cd0236c3be62e686b43631ce26d36ce884b174347b6f1c185f76623c3897"
-      }
+      },
+      "yanked": false
     },
     {
       "name": "ext-mcp-toolkit",
-      "version": "0.3.4",
-      "path": ".x07/deps/ext-mcp-toolkit/0.3.4",
-      "package_manifest_sha256": "a784eb947a0e0c099f492e1b727adc40efa6b2de5b394542224188ec9487528a",
+      "version": "0.3.6",
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.6",
+      "package_manifest_sha256": "781a2e0ec88be249bc0b1a92e692ea0d7a38cace1d985f97f3d57f7634d4a138",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.toolkit.audit": "201b94ad48ed3fb3880cfbe8d351434f421963b79c8228fd4bdf69c78e1ff3e5",
@@ -203,38 +209,41 @@
         "std.mcp.toolkit.log": "eacd953398df99c1accaf76b594938c8fda8e6834a802409321f2822fd813293",
         "std.mcp.toolkit.oob_chan": "73dd3e5de03bfa135fc87cb40daa1f3ad9f3c3dd4855799eb20d706cb8b71f3d",
         "std.mcp.toolkit.progress": "71940dc72b22a0efe4760911090e08401824e7555debb97601ab1ff4f897f0fc",
-        "std.mcp.toolkit.prompts_file": "6c505f9f725edec6f45fa8b7ffe17f9f07a93b5df08b5d388c6831cd1df7f023",
-        "std.mcp.toolkit.resources_file": "a1ee694df26c8345bbf51fd15d48f705c330b5937c71edccce84df05addbbf52",
+        "std.mcp.toolkit.prompts_file": "caa75d9b5ca23721719e4bd40bde31ff5d7aeb7d38410a1a6a8aa59a97cbd6ba",
+        "std.mcp.toolkit.resources_file": "ab6cd0843813701267a1a1b89098f9ae8b29e82c6d24502d7caa7b714a5a9815",
         "std.mcp.toolkit.schema_subset": "00bd91967510d4514ff709f7e070c195cebe267678a5fef397a9460696f6380f",
-        "std.mcp.toolkit.server_cfg_file": "09e5af2152d823a03bfd80885615e21e2f1814041299b55b41c6c9ab77532cbf",
-        "std.mcp.toolkit.stdio_dispatch": "b45acad270e343e70963769d86b809500e6c7472de3863ecac687465d758badc",
+        "std.mcp.toolkit.server_cfg_file": "c56c1939534445452254af47d5b80f5c6999019fad6fba67964732541268b963",
+        "std.mcp.toolkit.stdio_dispatch": "ea276255d51ce060c0223ec3b680f58f81ab7406d0b4c75b5c4aeb9284d132e7",
         "std.mcp.toolkit.task": "8080c14d8e6a1620a3fce4b9658b88174d650784b54902068652ee6bbdc483c5",
         "std.mcp.toolkit.task_status_v1": "17c6ee5cba8c7831be9f2d84f452e442d4da4ba1b673629d5518ea53dde4030e",
         "std.mcp.toolkit.toolctx": "65d9cb952226521d0acd5fa63c2bf99210f5963b43c8008c9f9e3b691ff1333b",
-        "std.mcp.toolkit.tools_file": "0a08716e8d75cda7e414abdedf0b8f2f066cadff67f3aa2192dd40c2ef29e3b3"
-      }
+        "std.mcp.toolkit.tools_file": "78073d7e876c37850ecfcdf7fcd1cb80797f1e2813cb0eaac9ab5b74022c188b"
+      },
+      "yanked": false
     },
     {
       "name": "ext-mcp-transport-stdio",
-      "version": "0.3.3",
-      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.3",
-      "package_manifest_sha256": "bb0ba134851885ae2cd7cdef690c68331fae7e57173d9e436addd2469bf9ee7f",
+      "version": "0.3.4",
+      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.4",
+      "package_manifest_sha256": "5fdb4f05c356f9860fdb283fe2e01eb9637f1f35091454f432a1549cd15bf40e",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.transport.stdio": "92f9536e7b21f0e5bbdb5d85394c8504677bb7062ae66663f6013859161e8c80",
         "std.mcp.transport.stdio_loop": "3cfaa6fc7ad2cfb5976dbb82f4eaed2b1f4c52594167a409d285bb0460476523"
-      }
+      },
+      "yanked": false
     },
     {
       "name": "ext-mcp-worker",
-      "version": "0.3.4",
-      "path": ".x07/deps/ext-mcp-worker/0.3.4",
-      "package_manifest_sha256": "4a2569477f664974e8e9e8dd93366ffdf643e0ad0efa74450165b7f8cccce969",
+      "version": "0.3.5",
+      "path": ".x07/deps/ext-mcp-worker/0.3.5",
+      "package_manifest_sha256": "098b777fdd17653daf6e9dcd1d30212228df57df0e03a6be4ba76539b571dfef",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.sandbox.worker_main": "d68ef82c57ebe8ae3188308419afa5ab3ca3ea940890a4c7a81ce1e55188c52c",
         "std.mcp.sandbox.worker_proto": "ade13db976bb3c5225a1211b6abb557d220013dd6c420e8392b976bb20a1e52b"
-      }
+      },
+      "yanked": false
     },
     {
       "name": "ext-regex",

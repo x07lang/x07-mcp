@@ -2,6 +2,8 @@
 
 The HTTP templates use an OAuth config file (usually `mcp.oauth.json` or `config/mcp.oauth.json`) when `auth.mode="oauth2"`.
 
+The `mcp-server-http` template ships `config/mcp.oauth.json` (OS time) and `config/mcp.oauth.demo.json` (fixed clock for deterministic demos/tests).
+
 ## Schema
 
 ```jsonc
@@ -53,7 +55,8 @@ The HTTP templates use an OAuth config file (usually `mcp.oauth.json` or `config
       "audiences": ["http://127.0.0.1:8314/mcp"],
       "clock_skew_s": 180,
 
-      // Optional: deterministic tests / RR (defaults to OS time)
+      // Optional: deterministic tests / RR (defaults to OS time).
+      // CI release guards reject fixed clocks in non-test configs.
       "clock": { "kind": "fixed_v1", "now_s": 1700000005 },
 
       "accepted_algs": ["RS256"],

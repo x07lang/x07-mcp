@@ -245,6 +245,36 @@ for server_path in publish_server_docs:
         elif checkpoint_sha == PLACEHOLDER_SHA256:
             errors.append(f'{server_path}: trustPack.checkpointSha256 is placeholder all-zero value')
 
+def _is_release_guarded_oauth_cfg(path: Path) -> bool:
+    if path.name.endswith('.demo.json'):
+        return False
+    if 'tests' in path.parts:
+        return False
+    if 'fixtures' in path.parts:
+        return False
+    return True
+
+
+oauth_cfg_paths: list[Path] = []
+oauth_cfg_paths.extend(sorted((ROOT / 'templates').rglob('mcp.oauth*.json')))
+oauth_cfg_paths.extend(sorted((ROOT / 'servers').rglob('mcp.oauth*.json')))
+
+for cfg_path in oauth_cfg_paths:
+    if not _is_release_guarded_oauth_cfg(cfg_path):
+        continue
+    doc = json.loads(cfg_path.read_text(encoding='utf-8'))
+    validation = doc.get('validation') if isinstance(doc, dict) else None
+    if not isinstance(validation, dict):
+        continue
+    jwt = validation.get('jwt_jwks_v1')
+    if not isinstance(jwt, dict):
+        continue
+    clock = jwt.get('clock')
+    if not isinstance(clock, dict):
+        continue
+    if clock.get('kind') == 'fixed_v1':
+        errors.append(f'{cfg_path}: jwt_jwks_v1.clock.kind fixed_v1 is not allowed (use demo/tests only)')
+
 if errors:
     for e in errors:
         print(f'ERROR: {e}')

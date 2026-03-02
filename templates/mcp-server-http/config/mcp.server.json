@@ -22,8 +22,7 @@
       "origin_allow_missing": false,
       "origin_allowlist": [
         "http://localhost:*",
-        "http://127.0.0.1:*",
-        "https://mcp.example.com"
+        "http://127.0.0.1:*"
       ],
       "streamable": {
         "enabled": true,

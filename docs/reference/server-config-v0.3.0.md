@@ -54,8 +54,8 @@ OAuth token decision cache bounds (only used when `auth.mode="oauth2"`):
 - `transports.http.enabled`: boolean
 - `transports.http.bind`: string (`"host:port"`)
 - `transports.http.path`: string (default templates use `"/mcp"`)
-- `transports.http.origin_allow_missing`: boolean
-- `transports.http.origin_allowlist`: array of origin patterns (strings)
+- `transports.http.origin_allow_missing`: boolean (default `false`)
+- `transports.http.origin_allowlist`: array of origin patterns (strings, default `["http://localhost:*","http://127.0.0.1:*"]`)
 
 ### `transports.http.streamable`
 
@@ -68,7 +68,7 @@ OAuth token decision cache bounds (only used when `auth.mode="oauth2"`):
 #### `transports.http.streamable.sse`
 
 - `transports.http.streamable.sse.enabled`: boolean
-- `transports.http.streamable.sse.max_connections`: number
+- `transports.http.streamable.sse.max_connections`: number (default `64`, `0` means no limit)
 
 #### `transports.http.streamable.session`
 

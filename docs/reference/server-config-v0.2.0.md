@@ -36,7 +36,8 @@ When loaded via `std.mcp.toolkit.server_cfg_file`, legacy server config is valid
 - `transport.bind_port`
 - `transport.mcp_path`
 - `transport.sse_enabled` (current templates default to `false`)
-- `transport.origin_allow_missing`
+- `transport.sse_max_connections`: number (default `64`, `0` means no limit)
+- `transport.origin_allow_missing`: boolean (default `false`)
 - `transport.origin_allowlist`
 - `transport.session_mode`
 - `transport.session_ttl_seconds`
