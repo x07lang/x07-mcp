@@ -229,8 +229,10 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-auth/0.4.3/modules"
   "packages/ext/x07-ext-mcp-auth/0.4.4/modules"
   "packages/ext/x07-ext-mcp-auth/0.4.5/modules"
+  "packages/ext/x07-ext-mcp-auth/0.4.6/modules"
   "packages/ext/x07-ext-mcp-core/0.3.2/modules"
   "packages/ext/x07-ext-mcp-core/0.3.3/modules"
+  "packages/ext/x07-ext-mcp-core/0.3.4/modules"
   "packages/ext/x07-ext-mcp-obs/0.1.1/modules"
   "packages/ext/x07-ext-mcp-obs/0.1.2/modules"
   "packages/ext/x07-ext-mcp-obs/0.1.3/modules"
@@ -248,12 +250,17 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-rr/0.3.11/modules"
   "packages/ext/x07-ext-mcp-rr/0.3.12/modules"
   "packages/ext/x07-ext-mcp-rr/0.3.13/modules"
+  "packages/ext/x07-ext-mcp-rr/0.3.14/modules"
+  "packages/ext/x07-ext-mcp-rr/0.3.15/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.2/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.3/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.4/modules"
+  "packages/ext/x07-ext-mcp-sandbox/0.3.5/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.2/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.3/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.4/modules"
+  "packages/ext/x07-ext-mcp-toolkit/0.3.5/modules"
+  "packages/ext/x07-ext-mcp-toolkit/0.3.6/modules"
   "packages/ext/x07-ext-mcp-trust/0.1.0/modules"
   "packages/ext/x07-ext-mcp-trust/0.2.0/modules"
   "packages/ext/x07-ext-mcp-trust/0.3.0/modules"
@@ -276,11 +283,16 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-transport-http/0.3.11/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.12/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.13/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.3.14/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.3.15/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.3.16/modules"
   "packages/ext/x07-ext-mcp-transport-stdio/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-stdio/0.3.3/modules"
+  "packages/ext/x07-ext-mcp-transport-stdio/0.3.4/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.2/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.3/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.4/modules"
+  "packages/ext/x07-ext-mcp-worker/0.3.5/modules"
 )
 for d in "${lint_dirs[@]}"; do
   [[ -d "$d" ]] || { echo "ERROR: missing lint dir: $d" >&2; exit 2; }
@@ -615,6 +627,8 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   rr_0311_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.11"
   rr_0312_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.12"
   rr_0313_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.13"
+  rr_0314_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.14"
+  rr_0315_dir="$root/packages/ext/x07-ext-mcp-rr/0.3.15"
   [[ -d "$rr_023_dir" ]] || { echo "ERROR: missing local package: $rr_023_dir" >&2; exit 2; }
   [[ -d "$rr_033_dir" ]] || { echo "ERROR: missing local package: $rr_033_dir" >&2; exit 2; }
   [[ -d "$rr_034_dir" ]] || { echo "ERROR: missing local package: $rr_034_dir" >&2; exit 2; }
@@ -625,6 +639,8 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$rr_0311_dir" ]] || { echo "ERROR: missing local package: $rr_0311_dir" >&2; exit 2; }
   [[ -d "$rr_0312_dir" ]] || { echo "ERROR: missing local package: $rr_0312_dir" >&2; exit 2; }
   [[ -d "$rr_0313_dir" ]] || { echo "ERROR: missing local package: $rr_0313_dir" >&2; exit 2; }
+  [[ -d "$rr_0314_dir" ]] || { echo "ERROR: missing local package: $rr_0314_dir" >&2; exit 2; }
+  [[ -d "$rr_0315_dir" ]] || { echo "ERROR: missing local package: $rr_0315_dir" >&2; exit 2; }
 
   (
     cd "$rr_023_dir"
@@ -755,6 +771,46 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       >/dev/null
   )
 
+  (
+    cd "$rr_0314_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.6/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.6/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-transport-http/0.3.15/modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$base64_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$regex_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
+  (
+    cd "$rr_0315_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.6/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.6/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-transport-http/0.3.16/modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$base64_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$regex_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
   step "package tests (ext-mcp-auth)"
   auth_020_dir="$root/packages/ext/x07-ext-mcp-auth/0.2.0"
   auth_030_dir="$root/packages/ext/x07-ext-mcp-auth/0.3.0"
@@ -765,6 +821,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   auth_043_dir="$root/packages/ext/x07-ext-mcp-auth/0.4.3"
   auth_044_dir="$root/packages/ext/x07-ext-mcp-auth/0.4.4"
   auth_045_dir="$root/packages/ext/x07-ext-mcp-auth/0.4.5"
+  auth_046_dir="$root/packages/ext/x07-ext-mcp-auth/0.4.6"
   [[ -d "$auth_020_dir" ]] || { echo "ERROR: missing local package: $auth_020_dir" >&2; exit 2; }
   [[ -d "$auth_030_dir" ]] || { echo "ERROR: missing local package: $auth_030_dir" >&2; exit 2; }
   [[ -d "$auth_031_dir" ]] || { echo "ERROR: missing local package: $auth_031_dir" >&2; exit 2; }
@@ -774,6 +831,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$auth_043_dir" ]] || { echo "ERROR: missing local package: $auth_043_dir" >&2; exit 2; }
   [[ -d "$auth_044_dir" ]] || { echo "ERROR: missing local package: $auth_044_dir" >&2; exit 2; }
   [[ -d "$auth_045_dir" ]] || { echo "ERROR: missing local package: $auth_045_dir" >&2; exit 2; }
+  [[ -d "$auth_046_dir" ]] || { echo "ERROR: missing local package: $auth_046_dir" >&2; exit 2; }
   (
     cd "$auth_020_dir"
     x07 test \
@@ -978,6 +1036,30 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       >/dev/null
   )
 
+  (
+    cd "$auth_046_dir"
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
+      --module-root "$auth_jwt_modules" \
+      --module-root "$openssl_modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$time_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$net_modules" \
+      --module-root "$sockets_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$base64_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$regex_modules" \
+      --module-root "$unicode_modules" \
+      >/dev/null
+  )
+
   step "package tests (ext-mcp-obs)"
   obs_014_dir="$root/packages/ext/x07-ext-mcp-obs/0.1.4"
   [[ -d "$obs_014_dir" ]] || { echo "ERROR: missing local package: $obs_014_dir" >&2; exit 2; }
@@ -1001,21 +1083,21 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       >/dev/null
   )
 
-  step "package tests (ext-mcp-sandbox)"
-  sandbox_034_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.4"
-  [[ -d "$sandbox_034_dir" ]] || { echo "ERROR: missing local package: $sandbox_034_dir" >&2; exit 2; }
-  (
-    cd "$sandbox_034_dir"
-	    x07 test \
-	      --manifest tests/tests.json \
-	      --module-root modules \
-	      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.3/modules" \
-	      --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.4/modules" \
-	      --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.4/modules" \
-	      --module-root "$data_model_modules" \
-	      --module-root "$json_modules" \
-	      --module-root "$stdio_modules" \
-	      --module-root "$unicode_modules" \
+	  step "package tests (ext-mcp-sandbox)"
+	  sandbox_035_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.5"
+	  [[ -d "$sandbox_035_dir" ]] || { echo "ERROR: missing local package: $sandbox_035_dir" >&2; exit 2; }
+	  (
+	    cd "$sandbox_035_dir"
+		    x07 test \
+		      --manifest tests/tests.json \
+		      --module-root modules \
+		      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+		      --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.6/modules" \
+		      --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.5/modules" \
+		      --module-root "$data_model_modules" \
+		      --module-root "$json_modules" \
+		      --module-root "$stdio_modules" \
+		      --module-root "$unicode_modules" \
 	      --module-root "$fs_modules" \
 	      >/dev/null
 
@@ -1025,16 +1107,16 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       (
         cd tests
         x07-os-runner \
-          --program router_exec_streaming_deadlock_entry.x07.json \
-          --world run-os \
-          --module-root ../modules \
-          --module-root . \
-          --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.3/modules" \
-          --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.4/modules" \
-          --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.4/modules" \
-          --module-root "$data_model_modules" \
-          --module-root "$json_modules" \
-          --module-root "$stdio_modules" \
+	          --program router_exec_streaming_deadlock_entry.x07.json \
+	          --world run-os \
+	          --module-root ../modules \
+	          --module-root . \
+	          --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+	          --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.6/modules" \
+	          --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.5/modules" \
+	          --module-root "$data_model_modules" \
+	          --module-root "$json_modules" \
+	          --module-root "$stdio_modules" \
           --module-root "$unicode_modules" \
           --module-root "$fs_modules" \
           --auto-ffi
@@ -1052,16 +1134,16 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       (
         cd tests
         x07-os-runner \
-          --program router_exec_spawn_caps_entry.x07.json \
-          --world run-os \
-          --module-root ../modules \
-          --module-root . \
-          --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.3/modules" \
-          --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.4/modules" \
-          --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.4/modules" \
-          --module-root "$data_model_modules" \
-          --module-root "$json_modules" \
-          --module-root "$stdio_modules" \
+	          --program router_exec_spawn_caps_entry.x07.json \
+	          --world run-os \
+	          --module-root ../modules \
+	          --module-root . \
+	          --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+	          --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.6/modules" \
+	          --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.5/modules" \
+	          --module-root "$data_model_modules" \
+	          --module-root "$json_modules" \
+	          --module-root "$stdio_modules" \
           --module-root "$unicode_modules" \
           --module-root "$fs_modules" \
           --auto-ffi
@@ -1078,7 +1160,11 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
 step "package tests (ext-mcp-transport-http)"
   transport_http_0313_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.13"
+  transport_http_0314_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.14"
+  transport_http_0315_dir="$root/packages/ext/x07-ext-mcp-transport-http/0.3.15"
   [[ -d "$transport_http_0313_dir" ]] || { echo "ERROR: missing local package: $transport_http_0313_dir" >&2; exit 2; }
+  [[ -d "$transport_http_0314_dir" ]] || { echo "ERROR: missing local package: $transport_http_0314_dir" >&2; exit 2; }
+  [[ -d "$transport_http_0315_dir" ]] || { echo "ERROR: missing local package: $transport_http_0315_dir" >&2; exit 2; }
   (
     cd "$transport_http_0313_dir"
     # `x07 test --manifest tests/tests.json` runs with CWD=`tests/`, so the socket-level
@@ -1134,6 +1220,170 @@ step "package tests (ext-mcp-transport-http)"
       --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.4/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.5/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-obs/0.1.4/modules" \
+      --module-root "$auth_jwt_modules" \
+      --module-root "$openssl_modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$time_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$db_core_modules" \
+      --module-root "$db_sqlite_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$json_modules" \
+      --module-root "$jsonschema_modules" \
+      --module-root "$url_modules" \
+      --module-root "$base64_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$regex_modules" \
+      --module-root "$unicode_modules" \
+      --module-root "$pb_modules" \
+      --module-root "$u64_modules" \
+      --module-root "$math_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$rand_modules" \
+      --module-root "$net_modules" \
+      --module-root "$sockets_modules" \
+      --module-root "$obs_ext_modules" \
+      --module-root "$stdio_modules" \
+      >/dev/null
+  )
+  (
+    cd "$transport_http_0314_dir"
+    # `x07 test --manifest tests/tests.json` runs with CWD=`tests/`, so the socket-level
+    # smoke test expects the compiled server solver under `tests/target/...`.
+    mkdir -p tests/target/x07test/transport_http_server_smoke
+    x07-os-runner \
+      --program tests/socket_server_main.x07.json \
+      --compiled-out tests/target/x07test/transport_http_server_smoke/socket_server_solver \
+      --compile-only \
+      --solve-fuel 500000000 \
+      --module-root modules \
+      --module-root tests \
+      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.3/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.5/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.5/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.5/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.6/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-obs/0.1.4/modules" \
+      --module-root "$auth_jwt_modules" \
+      --module-root "$openssl_modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$time_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$db_core_modules" \
+      --module-root "$db_sqlite_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$json_modules" \
+      --module-root "$jsonschema_modules" \
+      --module-root "$url_modules" \
+      --module-root "$base64_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$regex_modules" \
+      --module-root "$unicode_modules" \
+      --module-root "$pb_modules" \
+      --module-root "$u64_modules" \
+      --module-root "$math_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$rand_modules" \
+      --module-root "$net_modules" \
+      --module-root "$sockets_modules" \
+      --module-root "$obs_ext_modules" \
+      --module-root "$stdio_modules" \
+      --auto-ffi \
+      >/dev/null
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root tests \
+      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.3/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.5/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.5/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.5/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.6/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-obs/0.1.4/modules" \
+      --module-root "$auth_jwt_modules" \
+      --module-root "$openssl_modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$time_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$db_core_modules" \
+      --module-root "$db_sqlite_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$json_modules" \
+      --module-root "$jsonschema_modules" \
+      --module-root "$url_modules" \
+      --module-root "$base64_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$regex_modules" \
+      --module-root "$unicode_modules" \
+      --module-root "$pb_modules" \
+      --module-root "$u64_modules" \
+      --module-root "$math_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$rand_modules" \
+      --module-root "$net_modules" \
+      --module-root "$sockets_modules" \
+      --module-root "$obs_ext_modules" \
+      --module-root "$stdio_modules" \
+      >/dev/null
+  )
+  (
+    cd "$transport_http_0315_dir"
+    # `x07 test --manifest tests/tests.json` runs with CWD=`tests/`, so the socket-level
+    # smoke test expects the compiled server solver under `tests/target/...`.
+    mkdir -p tests/target/x07test/transport_http_server_smoke
+    x07-os-runner \
+      --program tests/socket_server_main.x07.json \
+      --compiled-out tests/target/x07test/transport_http_server_smoke/socket_server_solver \
+      --compile-only \
+      --solve-fuel 500000000 \
+      --module-root modules \
+      --module-root tests \
+      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.6/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.5/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.5/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.6/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-obs/0.1.4/modules" \
+      --module-root "$auth_jwt_modules" \
+      --module-root "$openssl_modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$time_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$db_core_modules" \
+      --module-root "$db_sqlite_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$json_modules" \
+      --module-root "$jsonschema_modules" \
+      --module-root "$url_modules" \
+      --module-root "$base64_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$regex_modules" \
+      --module-root "$unicode_modules" \
+      --module-root "$pb_modules" \
+      --module-root "$u64_modules" \
+      --module-root "$math_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$rand_modules" \
+      --module-root "$net_modules" \
+      --module-root "$sockets_modules" \
+      --module-root "$obs_ext_modules" \
+      --module-root "$stdio_modules" \
+      --auto-ffi \
+      >/dev/null
+    x07 test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root tests \
+      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.6/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.5/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.5/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.6/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-obs/0.1.4/modules" \
       --module-root "$auth_jwt_modules" \
       --module-root "$openssl_modules" \

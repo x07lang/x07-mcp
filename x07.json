@@ -78,8 +78,8 @@
     },
     {
       "name": "ext-mcp-auth",
-      "path": "packages/ext/x07-ext-mcp-auth/0.4.5",
-      "version": "0.4.5"
+      "path": "packages/ext/x07-ext-mcp-auth/0.4.6",
+      "version": "0.4.6"
     },
     {
       "name": "ext-mcp-auth-core",
@@ -88,8 +88,8 @@
     },
     {
       "name": "ext-mcp-core",
-      "path": "packages/ext/x07-ext-mcp-core/0.3.3",
-      "version": "0.3.3"
+      "path": "packages/ext/x07-ext-mcp-core/0.3.4",
+      "version": "0.3.4"
     },
     {
       "name": "ext-mcp-obs",
@@ -98,33 +98,33 @@
     },
     {
       "name": "ext-mcp-rr",
-      "path": "packages/ext/x07-ext-mcp-rr/0.3.13",
-      "version": "0.3.13"
+      "path": "packages/ext/x07-ext-mcp-rr/0.3.15",
+      "version": "0.3.15"
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": "packages/ext/x07-ext-mcp-sandbox/0.3.4",
-      "version": "0.3.4"
+      "path": "packages/ext/x07-ext-mcp-sandbox/0.3.5",
+      "version": "0.3.5"
     },
     {
       "name": "ext-mcp-toolkit",
-      "path": "packages/ext/x07-ext-mcp-toolkit/0.3.4",
-      "version": "0.3.4"
+      "path": "packages/ext/x07-ext-mcp-toolkit/0.3.6",
+      "version": "0.3.6"
     },
     {
       "name": "ext-mcp-transport-http",
-      "path": "packages/ext/x07-ext-mcp-transport-http/0.3.13",
-      "version": "0.3.13"
+      "path": "packages/ext/x07-ext-mcp-transport-http/0.3.16",
+      "version": "0.3.16"
     },
     {
       "name": "ext-mcp-transport-stdio",
-      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.3",
-      "version": "0.3.3"
+      "path": "packages/ext/x07-ext-mcp-transport-stdio/0.3.4",
+      "version": "0.3.4"
     },
     {
       "name": "ext-mcp-worker",
-      "path": "packages/ext/x07-ext-mcp-worker/0.3.4",
-      "version": "0.3.4"
+      "path": "packages/ext/x07-ext-mcp-worker/0.3.5",
+      "version": "0.3.5"
     },
     {
       "name": "ext-net",
