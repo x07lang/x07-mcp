@@ -239,10 +239,10 @@
       "package_manifest_sha256": "6d5e3ceac1d7ef0a1880e0ecefd55e8715351d397a3f7a00bda34e664703eb3a",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.cache.ttl_bytes_v1": "7ac338dec3cac270b0b7b8e54fb58ef059eb895fb6c4a9e51a09df3e365d6d3f",
+        "std.mcp.cache.ttl_bytes_v1": "4e4c80cae20ada7841448c44a6a873eae97733fa2c30ae29c543c50e6d1e81ca",
         "std.mcp.ctx": "8cfcb31d6d2448436acd85456b93c1978904dd9962edba9608ea5d716db6022c",
-        "std.mcp.diag": "c36a444bd7f46358282d689ea74202df7739152827f4f9d5f947d4460356dcc3",
-        "std.mcp.jsonrpc": "152712555e23e7b3eaec3d769dd3b980bf356907f89ca45d0dd29fedbaae4b8e",
+        "std.mcp.diag": "5cd826c1fed2c70fae7808e91402a6f001d39b6255dc6b1d9611aafcd9932440",
+        "std.mcp.jsonrpc": "e45b33072edc9d102cd1832533fbbcbc227365df35ba0787e852e55b493cd9eb",
         "std.mcp.logging": "92f179d339afb6bb142424343ef171dfe62ef83606a593f03397d97251c0ab03",
         "std.mcp.notifications": "702cd717ee10c2bc952e8b5767da1679c13a9dc1b9f6a1185495ea3d1df289da",
         "std.mcp.progress_registry": "d76a635d213b04cdba774bfdebb4ba68b07fab6e90ca59ccaf21c9a3698c1432",
@@ -317,15 +317,15 @@
         "std.mcp.toolkit.log": "eacd953398df99c1accaf76b594938c8fda8e6834a802409321f2822fd813293",
         "std.mcp.toolkit.oob_chan": "73dd3e5de03bfa135fc87cb40daa1f3ad9f3c3dd4855799eb20d706cb8b71f3d",
         "std.mcp.toolkit.progress": "71940dc72b22a0efe4760911090e08401824e7555debb97601ab1ff4f897f0fc",
-        "std.mcp.toolkit.prompts_file": "951f01498c7349fa967e9bde78203bf1b891a6decc213cc3710308482a5b9cd6",
-        "std.mcp.toolkit.resources_file": "1648dfec1c27649434769a0edadbdc32059366f0c0fabb44d40a05543d074911",
+        "std.mcp.toolkit.prompts_file": "caa75d9b5ca23721719e4bd40bde31ff5d7aeb7d38410a1a6a8aa59a97cbd6ba",
+        "std.mcp.toolkit.resources_file": "ab6cd0843813701267a1a1b89098f9ae8b29e82c6d24502d7caa7b714a5a9815",
         "std.mcp.toolkit.schema_subset": "00bd91967510d4514ff709f7e070c195cebe267678a5fef397a9460696f6380f",
         "std.mcp.toolkit.server_cfg_file": "c56c1939534445452254af47d5b80f5c6999019fad6fba67964732541268b963",
-        "std.mcp.toolkit.stdio_dispatch": "856cffb50a340121008b97c39c2b5a505afabaa84f657537496e6342eb802775",
+        "std.mcp.toolkit.stdio_dispatch": "ea276255d51ce060c0223ec3b680f58f81ab7406d0b4c75b5c4aeb9284d132e7",
         "std.mcp.toolkit.task": "8080c14d8e6a1620a3fce4b9658b88174d650784b54902068652ee6bbdc483c5",
         "std.mcp.toolkit.task_status_v1": "17c6ee5cba8c7831be9f2d84f452e442d4da4ba1b673629d5518ea53dde4030e",
         "std.mcp.toolkit.toolctx": "65d9cb952226521d0acd5fa63c2bf99210f5963b43c8008c9f9e3b691ff1333b",
-        "std.mcp.toolkit.tools_file": "323d23a41f2a415a1515a1117162096ab50f7fb01880e01bb0fb44660afecc25"
+        "std.mcp.toolkit.tools_file": "78073d7e876c37850ecfcdf7fcd1cb80797f1e2813cb0eaac9ab5b74022c188b"
       },
       "yanked": false
     },
