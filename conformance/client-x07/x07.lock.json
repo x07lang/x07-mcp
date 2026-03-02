@@ -133,9 +133,9 @@
     },
     {
       "name": "ext-mcp-auth",
-      "version": "0.4.5",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.5",
-      "package_manifest_sha256": "9876ff2f48c1678442217a3890993a1ec88664d6dc830c933c299ba3699e9d48",
+      "version": "0.4.6",
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.6",
+      "package_manifest_sha256": "98a3bfdfc9fa79fff242f2d7aa4c199bd7abf02aa1bd379e8972f2a022e7599b",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.auth.challenge": "0ef1a2ddc1c00e510c273d9d35bc4488e3963ce2cae29828132bd34d17aff758",
@@ -147,7 +147,7 @@
         "std.mcp.auth.prm_signed_asym_v1": "1e33be63519b555067f91cd561835226bbd7434001c0651f1271aac7be4ff5b0",
         "std.mcp.auth.prm_signed_v1": "c5388f8b94d4ca3278d5a89335930b0252077cf70ac2a074d176ec5ae4209041",
         "std.mcp.auth.prm_signed_verify_v2": "170f80cebfca64e613db5234c776f513b89da702ab4c0cf3c022094221bfaf11",
-        "std.mcp.auth.rs_v1": "8b548e86ed9bc887c7fb2404bf8ec51aa64397a9d25ef7b5463ebab349016d06",
+        "std.mcp.auth.rs_v1": "f9613839c4ad86217da2c2838f617a5a807e18aa011e71932f23facc62cfb73c",
         "std.mcp.auth.ssrf_guard_v1": "932675a919c71875af75341989a566c2fa1ed31482b2a95d7a684287c5c60408",
         "std.mcp.auth.trust_anchors_v1": "e861f0e7720f45b840d87aee974704622ec7158fbb935ad35743232815019c4d"
       }
@@ -166,15 +166,15 @@
     },
     {
       "name": "ext-mcp-core",
-      "version": "0.3.3",
-      "path": "$workspace/packages/ext/x07-ext-mcp-core/0.3.3",
-      "package_manifest_sha256": "8299231744cb582f2f6596a9124a6f592a9353e4938354f258d8bad63de5e955",
+      "version": "0.3.4",
+      "path": "$workspace/packages/ext/x07-ext-mcp-core/0.3.4",
+      "package_manifest_sha256": "6d5e3ceac1d7ef0a1880e0ecefd55e8715351d397a3f7a00bda34e664703eb3a",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.cache.ttl_bytes_v1": "7745e325a6c66ca4950b47e535f0ac33ce0b70308db4dbff2890800aaead021e",
+        "std.mcp.cache.ttl_bytes_v1": "4e4c80cae20ada7841448c44a6a873eae97733fa2c30ae29c543c50e6d1e81ca",
         "std.mcp.ctx": "8cfcb31d6d2448436acd85456b93c1978904dd9962edba9608ea5d716db6022c",
-        "std.mcp.diag": "8e1f6931bfe65880fdb5570bc7d4e0a2aa5775ea669346be3f667998738e18f1",
-        "std.mcp.jsonrpc": "b369452205c724ffe2060af7c3b1df20c92550e7ed958684ceb13c7747ac2e86",
+        "std.mcp.diag": "5cd826c1fed2c70fae7808e91402a6f001d39b6255dc6b1d9611aafcd9932440",
+        "std.mcp.jsonrpc": "e45b33072edc9d102cd1832533fbbcbc227365df35ba0787e852e55b493cd9eb",
         "std.mcp.logging": "92f179d339afb6bb142424343ef171dfe62ef83606a593f03397d97251c0ab03",
         "std.mcp.notifications": "702cd717ee10c2bc952e8b5767da1679c13a9dc1b9f6a1185495ea3d1df289da",
         "std.mcp.progress_registry": "d76a635d213b04cdba774bfdebb4ba68b07fab6e90ca59ccaf21c9a3698c1432",
@@ -182,8 +182,8 @@
         "std.mcp.redact": "c4d3289483796a19e63583140031b08a4d5ee8d7aa4a3f2ba67cf7afe91e5f4b",
         "std.mcp.sse": "2d2af24c8efb02a358297555e0e0ade89e1b6ac01a9ad06e37bddc3847dab8c8",
         "std.mcp.tool": "bc13c2078cdcd9b79b7f822e0232f56bf193ae85c9264c4dc80379154b0afd85",
-        "std.mcp.tool.errors": "c617965ffcda142f4bdb577ed09f953a1d18caff9be5f44075df080f0bf6352f",
-        "std.mcp.tool.result": "cf3291b3e03a568dba889b1ac63bd91da9cfcf880d3356abe7f9441ae8f98200",
+        "std.mcp.tool.errors": "6f458edfeaa0179711c10ce7f9cda3179a5d15eb5259723131d6a1333fb64a40",
+        "std.mcp.tool.result": "7b06e6d636552a8a835ec31ff80c1b1dfbaeccb0fc0534fc54845c4b9cc29014",
         "std.mcp.util.json": "81c289f3987178fe4a14c948e772cdf663be0eca6f9c4f6a850cfe832d8bb97f"
       }
     },

@@ -48,8 +48,8 @@
     },
     {
       "name": "ext-mcp-auth",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.5",
-      "version": "0.4.5"
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.6",
+      "version": "0.4.6"
     },
     {
       "name": "ext-mcp-auth-core",
@@ -58,8 +58,8 @@
     },
     {
       "name": "ext-mcp-core",
-      "path": "$workspace/packages/ext/x07-ext-mcp-core/0.3.3",
-      "version": "0.3.3"
+      "path": "$workspace/packages/ext/x07-ext-mcp-core/0.3.4",
+      "version": "0.3.4"
     },
     {
       "name": "ext-net",

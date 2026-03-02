@@ -6,6 +6,54 @@
       "expect": "pass",
       "id": "smoke/pass",
       "world": "run-os"
+    },
+    {
+      "entry": "app_unit.as_oauth_metadata_url_root",
+      "expect": "pass",
+      "id": "app/as_oauth_metadata_url_root",
+      "world": "run-os"
+    },
+    {
+      "entry": "app_unit.as_oauth_metadata_url_tenant",
+      "expect": "pass",
+      "id": "app/as_oauth_metadata_url_tenant",
+      "world": "run-os"
+    },
+    {
+      "entry": "app_unit.as_openid_metadata_url_tenant",
+      "expect": "pass",
+      "id": "app/as_openid_metadata_url_tenant",
+      "world": "run-os"
+    },
+    {
+      "entry": "app_unit.url_base_includes_port",
+      "expect": "pass",
+      "id": "app/url_base_includes_port",
+      "world": "run-os"
+    },
+    {
+      "entry": "app_unit.url_path_trim_trailing_slash",
+      "expect": "pass",
+      "id": "app/url_path_trim_trailing_slash",
+      "world": "run-os"
+    },
+    {
+      "entry": "app_unit.url_query_param_get",
+      "expect": "pass",
+      "id": "app/url_query_param_get",
+      "world": "run-os"
+    },
+    {
+      "entry": "app_unit.www_auth_param_quoted",
+      "expect": "pass",
+      "id": "app/www_auth_param_quoted",
+      "world": "run-os"
+    },
+    {
+      "entry": "app_unit.www_auth_param_unquoted",
+      "expect": "pass",
+      "id": "app/www_auth_param_unquoted",
+      "world": "run-os"
     }
   ]
 }
