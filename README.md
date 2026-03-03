@@ -1,17 +1,31 @@
-# x07-mcp (WIP)
+# x07-mcp
 
-`x07-mcp` is the MCP kit companion tool for the X07 toolchain.
+A toolkit for building [MCP](https://modelcontextprotocol.io/) servers in [X07](https://github.com/x07lang/x07) with secure-by-default execution, agent-native contracts, and operational trust.
 
-It currently provides **project scaffolding**, and is invoked by `x07` via delegation:
+## Why x07-mcp
 
-- `x07 mcp ...` delegates to `x07-mcp ...`
-- `x07 init --template mcp-server|mcp-server-stdio|mcp-server-http` delegates to `x07-mcp scaffold init ...`
+Most MCP frameworks give you a transport layer and leave security, isolation, and testing as an exercise. x07-mcp ships opinions on all three:
 
-Documentation is in `docs/`.
+- **Per-tool sandbox isolation.** Each tool runs in its own worker process under an explicit sandbox policy (filesystem allowlists, host allowlists, resource caps). Default-deny, not default-allow.
+- **OAuth 2.1 resource-server out of the box.** HTTP servers get RFC 9728 Protected Resource Metadata, audience-bound token validation, DPoP nonce support, and scope-to-tool mapping without writing auth plumbing.
+- **Deterministic record/replay testing.** Capture live MCP sessions as JSONL cassettes, replay them in CI with byte-exact golden output, automatic token sanitization.
+- **Trust transparency.** TUF-lite anti-rollback, append-only transparency log monitoring, signed publish metadata, and CI gates that fail on capability drift.
+- **Agent-native outputs everywhere.** Stable-ordered JSON, structured diagnostics with quickfixes (`x07diag`), machine-readable CLI (`--machine json`). No scraping needed.
 
-## Install (local dev)
+## What it includes
 
-Build and put `x07-mcp` on your `PATH`:
+| Surface | Description |
+|---------|-------------|
+| **Library** (`ext-mcp-*`) | Server core, stdio + HTTP transports, OAuth resource-server helpers, schema validation, sandbox/budget wiring, record/replay, trust framework |
+| **CLI** (`x07-mcp`) | Scaffold, run, conformance check, bundle `.mcpb`, publish dry-run, trust tlog monitor |
+| **Templates** | `mcp-server-stdio`, `mcp-server-http`, `mcp-server-http-tasks` — each with config, replay fixtures, and test harness |
+| **Reference servers** | github-mcp, slack-mcp, jira-mcp, postgres-mcp, redis-mcp, s3-mcp, kubernetes-mcp, stripe-mcp, smtp-mcp, http-proxy-mcp |
+
+## Quick start
+
+### Install
+
+Requires X07 toolchain and a C compiler (clang or gcc) on `PATH`.
 
 ```sh
 x07 bundle --project x07.json --profile os --out dist/x07-mcp
@@ -19,16 +33,91 @@ x07 bundle --project x07.json --profile os --out dist/x07-mcp
 
 Put `dist/x07-mcp` on your `PATH`.
 
-## Scaffolding
-
-Generate a new project skeleton:
+### Scaffold a new server
 
 ```sh
-x07-mcp scaffold init --template mcp-server-stdio --dir ./my-mcp-server
+x07-mcp scaffold init --template mcp-server-stdio --dir ./my-server
 ```
 
-Machine-readable output:
+Templates: `mcp-server-stdio` | `mcp-server-http` | `mcp-server-http-tasks`
+
+### Run (stdio)
 
 ```sh
-x07-mcp scaffold init --template mcp-server-stdio --dir ./my-mcp-server --machine json
+cd my-server
+x07 bundle --project x07.json --profile os --out dist/router
+x07 bundle --project x07.json --profile os --out dist/worker --entry src/worker_main.x07.json
+dist/router
 ```
+
+### Run (HTTP)
+
+```sh
+dist/router            # listens on 127.0.0.1:8314/mcp by default
+curl -X POST http://127.0.0.1:8314/mcp \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json, text/event-stream' \
+  -H 'MCP-Protocol-Version: 2025-11-25' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-11-25","clientInfo":{"name":"curl","version":"1"},"capabilities":{}}}'
+```
+
+### Run conformance
+
+```sh
+x07 mcp conformance --url http://127.0.0.1:8314/mcp
+```
+
+## For agents
+
+All CLI commands support `--machine json` for structured output. Key commands:
+
+```sh
+x07-mcp scaffold init --template <T> --dir <D> --machine json
+x07-mcp run --transport stdio|http --machine json
+x07-mcp conformance --url <URL> --machine json
+x07-mcp bundle --mcpb --server-dir <D>
+x07-mcp publish --dry-run --machine json
+x07-mcp trust tlog-monitor --machine json
+```
+
+Diagnostics are emitted as `x07diag` JSON with stable error codes and optional JSON Patch quickfixes.
+
+## Architecture
+
+```
+Host (IDE / agent runtime)
+  └─ MCP client
+       └─ Transport (stdio | HTTP+SSE)
+            └─ x07-mcp router
+                 ├─ Lifecycle + JSON-RPC dispatch
+                 ├─ Auth layer (OAuth 2.1 RS, DPoP, scope mapping)
+                 ├─ Feature modules (tools, resources, prompts, logging, completion, tasks)
+                 └─ Worker pool
+                      └─ Worker process (per-tool sandbox policy + resource caps)
+```
+
+The **router** handles transport framing, protocol dispatch, and auth. **Workers** execute tool calls under `run-os-sandboxed` with per-tool policies — filesystem roots, host allowlists, CPU/memory/output caps.
+
+See [Router/worker model](docs/concepts/router-worker.md) and [Sandbox policy](docs/concepts/sandbox.md).
+
+## Documentation
+
+Full docs live in [`docs/`](docs/SUMMARY.md):
+
+- **Getting started:** [Install](docs/getting-started/install.md) · [Scaffold](docs/getting-started/scaffold.md) · [Run stdio](docs/getting-started/run-stdio.md) · [Run HTTP](docs/getting-started/run-http.md) · [Conformance](docs/getting-started/conformance.md) · [Bundle .mcpb](docs/getting-started/bundle-mcpb.md) · [Publish](docs/getting-started/publish.md) · [Trust tlog monitor](docs/getting-started/trust-tlog-monitor.md)
+- **Concepts:** [Router/worker](docs/concepts/router-worker.md) · [Tool schemas](docs/concepts/tool-schemas.md) · [Sandbox](docs/concepts/sandbox.md) · [Tasks](docs/concepts/tasks.md) · [Record/replay](docs/concepts/record-replay.md) · [HTTP SSE](docs/concepts/http-sse.md)
+- **Reference:** [Server config](docs/reference/server-config.md) · [OAuth config](docs/reference/oauth-config.md) · [Tools manifest](docs/reference/tools-manifest.md) · [Packages](docs/reference/packages.md) · [Pins](docs/reference/pins.md) · [Reference servers](docs/reference/servers.md)
+
+## Protocol
+
+Pinned to MCP protocol version **2025-11-25** (backward-compatible with 2025-06-18, negotiated at `initialize`).
+
+## Links
+
+- [X07 toolchain](https://github.com/x07lang/x07)
+- [MCP specification](https://modelcontextprotocol.io/specification/2025-11-25)
+- [X07 website](https://x07lang.org)
+
+## License
+
+Dual-licensed under [Apache 2.0](LICENSE-APACHE) and [MIT](LICENSE).
