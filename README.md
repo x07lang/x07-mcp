@@ -2,6 +2,12 @@
 
 A toolkit for building [MCP](https://modelcontextprotocol.io/) servers in [X07](https://github.com/x07lang/x07) with secure-by-default execution, agent-native contracts, and operational trust.
 
+x07-mcp is designed for **100% agentic coding** — an AI coding agent scaffolds, implements, tests, and publishes an MCP server entirely on its own using the kit's structured contracts and machine-readable outputs. No human needs to write X07 by hand.
+
+## Prerequisites
+
+The [X07 toolchain](https://github.com/x07lang/x07) must be installed before using x07-mcp. If you (or your agent) are new to X07, start with the **[Agent Quickstart](https://x07lang.org/docs/getting-started/agent-quickstart)** — it covers toolchain setup, project structure, and the workflow conventions an agent needs to be productive.
+
 ## Why x07-mcp
 
 Most MCP frameworks give you a transport layer and leave security, isolation, and testing as an exercise. x07-mcp ships opinions on all three:
@@ -69,6 +75,8 @@ x07 mcp conformance --url http://127.0.0.1:8314/mcp
 
 ## For agents
 
+The intended workflow is fully agentic: an AI agent uses the kit to scaffold a server from a template, implement tool handlers, run conformance, and publish — without human intervention. Start with the [Agent Quickstart](https://x07lang.org/docs/getting-started/agent-quickstart) to set up the X07 toolchain, then use the commands below.
+
 All CLI commands support `--machine json` for structured output. Key commands:
 
 ```sh
@@ -114,6 +122,7 @@ Pinned to MCP protocol version **2025-11-25** (backward-compatible with 2025-06-
 
 ## Links
 
+- [X07 Agent Quickstart](https://x07lang.org/docs/getting-started/agent-quickstart) — start here
 - [X07 toolchain](https://github.com/x07lang/x07)
 - [MCP specification](https://modelcontextprotocol.io/specification/2025-11-25)
 - [X07 website](https://x07lang.org)
