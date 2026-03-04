@@ -1,0 +1,302 @@
+{
+  "schema_version": "x07.mcp.tools_manifest@0.2.0",
+  "tools": [
+    {
+      "name": "x07.search_v1",
+      "description": "Token-efficient search across x07 resources + local docs/skills (and optional cached remote indices).",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "query": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "domain": {
+            "type": "string",
+            "enum": ["resources", "docs", "skills", "examples", "stdlib", "packages", "all"],
+            "default": "all"
+          },
+          "repo_root": { "type": "string", "minLength": 0, "maxLength": 1024, "default": "" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 20, "default": 5 },
+          "max_files": { "type": "integer", "minimum": 1, "maximum": 2000, "default": 400 },
+          "max_read_bytes": { "type": "integer", "minimum": 256, "maximum": 65536, "default": 8192 },
+          "snippet_max_bytes": { "type": "integer", "minimum": 32, "maximum": 1024, "default": 240 }
+        },
+        "required": ["query"]
+      },
+      "annotations": { "readOnlyHint": true, "idempotentHint": true },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_readonly_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": ["config", ".", "/Users/", "/home/", "/tmp/", "/private/tmp/", "/var/folders/"],
+            "write_roots": [".x07"]
+          },
+          "net": {},
+          "env": {}
+        }
+      }
+    },
+    {
+      "name": "x07.resource_snippet_v1",
+      "description": "Return a bounded UTF-8 window from a resource body (by uri).",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "uri": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "start": { "type": "integer", "minimum": 0, "maximum": 100000000, "default": 0 },
+          "max_bytes": { "type": "integer", "minimum": 1, "maximum": 8192, "default": 512 }
+        },
+        "required": ["uri"]
+      },
+      "annotations": { "readOnlyHint": true, "idempotentHint": true },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_readonly_v1",
+        "sandbox": {
+          "fs": { "read_roots": ["config"], "write_roots": [] },
+          "net": {},
+          "env": {}
+        }
+      }
+    },
+    {
+      "name": "x07.doc_v1",
+      "description": "Run `x07 doc` and return a compact summary.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "query": { "type": "string", "minLength": 1, "maxLength": 512 },
+          "project_path": { "type": "string", "minLength": 0, "maxLength": 512, "default": "" },
+          "report_path": { "type": "string", "minLength": 1, "maxLength": 512, "default": ".x07/artifacts/mcp/doc/report.json" },
+          "max_exports": { "type": "integer", "minimum": 0, "maximum": 64, "default": 12 },
+          "timeout_ms": { "type": "integer", "minimum": 1, "maximum": 120000, "default": 10000 }
+        },
+        "required": ["query"]
+      },
+      "annotations": { "readOnlyHint": true, "idempotentHint": true },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_readonly_v1",
+        "sandbox": {
+          "fs": { "read_roots": ["."], "write_roots": ["target", ".x07"] },
+          "net": {},
+          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+        }
+      }
+    },
+    {
+      "name": "x07.cli.describe_v1",
+      "description": "Filtered lookup over `x07 --cli-specrows` (cached).",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "query": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "k": { "type": "integer", "minimum": 1, "maximum": 25, "default": 10 },
+          "timeout_ms": { "type": "integer", "minimum": 1, "maximum": 120000, "default": 8000 },
+          "cache_path": { "type": "string", "minLength": 1, "maxLength": 512, "default": ".x07/artifacts/mcp/cache/cli.specrows.json" }
+        },
+        "required": ["query"]
+      },
+      "annotations": { "readOnlyHint": true, "idempotentHint": true },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_readonly_v1",
+        "sandbox": {
+          "fs": { "read_roots": ["."], "write_roots": ["target", ".x07"] },
+          "net": {},
+          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+        }
+      }
+    },
+    {
+      "name": "x07.exec_v1",
+      "description": "Run a bounded x07 invocation (no network). Prefer dedicated tools when available.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "oneOf": [
+          {
+            "required": ["args"]
+          },
+          {
+            "required": ["argv"]
+          }
+        ],
+        "properties": {
+          "args": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": { "type": "string", "minLength": 1, "maxLength": 128 }
+          },
+          "argv": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": { "type": "string", "minLength": 1, "maxLength": 128 }
+          },
+          "cwd": { "type": "string", "minLength": 0, "maxLength": 512, "default": "" },
+          "stdin": { "type": "string", "maxLength": 8192, "default": "" },
+          "timeout_ms": { "type": "integer", "minimum": 1, "maximum": 600000, "default": 60000 },
+          "max_stdout_bytes": { "type": "integer", "minimum": 0, "maximum": 262144, "default": 16384 },
+          "max_stderr_bytes": { "type": "integer", "minimum": 0, "maximum": 262144, "default": 16384 },
+          "stdout_path": { "type": "string", "minLength": 1, "maxLength": 512, "default": ".x07/artifacts/mcp/exec/stdout.txt" },
+          "stderr_path": { "type": "string", "minLength": 1, "maxLength": 512, "default": ".x07/artifacts/mcp/exec/stderr.txt" }
+        }
+      },
+      "annotations": { "readOnlyHint": false, "idempotentHint": false },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "fs": { "read_roots": ["."], "write_roots": ["."] },
+          "net": {},
+          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+        }
+      }
+    },
+    {
+      "name": "x07.patch_apply_v1",
+      "description": "Apply an x07.patchset@0.1.0 to a repo root (deterministic JSON Patch).",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "repo_root": { "type": "string", "minLength": 1, "maxLength": 1024 },
+          "mode": { "type": "string", "enum": ["write", "check"], "default": "write" },
+          "write": { "type": "boolean", "default": true, "description": "Deprecated; prefer mode." },
+          "patchset_path": { "type": "string", "minLength": 1, "maxLength": 1024, "default": ".x07/artifacts/mcp/patch/patchset.json" },
+          "patchset": { "type": "object" }
+        },
+        "required": ["repo_root", "patchset"]
+      },
+      "annotations": { "readOnlyHint": false, "idempotentHint": false },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "fs": { "read_roots": ["."], "write_roots": ["."] },
+          "net": {},
+          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+        }
+      }
+    },
+    {
+      "name": "x07.fmt_write_v1",
+      "description": "Format x07AST JSON files in-place via `x07 fmt --write`.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "oneOf": [{ "required": ["path"] }, { "required": ["paths"] }],
+        "properties": {
+          "path": { "type": "string", "minLength": 1, "maxLength": 1024 },
+          "paths": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 64,
+            "items": { "type": "string", "minLength": 1, "maxLength": 1024 }
+          }
+        }
+      },
+      "annotations": { "readOnlyHint": false, "idempotentHint": false },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "fs": { "read_roots": ["."], "write_roots": ["."] },
+          "net": {},
+          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+        }
+      }
+    },
+    {
+      "name": "x07.lint_report_v1",
+      "description": "Run `x07 lint` and write a JSON report to report_path.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "input_path": { "type": "string", "minLength": 1, "maxLength": 1024 },
+          "report_path": { "type": "string", "minLength": 1, "maxLength": 1024, "default": ".x07/artifacts/mcp/lint/report.json" }
+        },
+        "required": ["input_path"]
+      },
+      "annotations": { "readOnlyHint": false, "idempotentHint": false },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "fs": { "read_roots": ["."], "write_roots": ["."] },
+          "net": {},
+          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+        }
+      }
+    },
+    {
+      "name": "x07.context_pack_v1",
+      "description": "Generate a bounded, token-efficient agent context pack from a diagnostics report.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "diag_path": { "type": "string", "minLength": 1, "maxLength": 1024 },
+          "project_path": { "type": "string", "minLength": 1, "maxLength": 1024, "default": "x07.json" },
+          "out_path": { "type": "string", "minLength": 1, "maxLength": 1024, "default": ".x07/artifacts/mcp/context/pack.json" },
+          "max_bytes": { "type": "integer", "minimum": 1024, "maximum": 1048576, "default": 100000 },
+          "max_nodes": { "type": "integer", "minimum": 100, "maximum": 200000, "default": 2000 },
+          "enclosure": { "type": "string", "enum": ["decl", "defn", "module"], "default": "decl" },
+          "closure": { "type": "string", "enum": ["locals", "types", "imports", "all"], "default": "imports" }
+        },
+        "required": ["diag_path"]
+      },
+      "annotations": { "readOnlyHint": false, "idempotentHint": false },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "fs": { "read_roots": ["."], "write_roots": ["."] },
+          "net": {},
+          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+        }
+      }
+    },
+    {
+      "name": "x07.artifact_snippet_v1",
+      "description": "Read a bounded window of a file (repo-relative); optionally extract a JSON Pointer subvalue.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string", "minLength": 1, "maxLength": 1024 },
+          "start": { "type": "integer", "minimum": 0, "maximum": 100000000, "default": 0 },
+          "max_bytes": { "type": "integer", "minimum": 1, "maximum": 65536, "default": 4096 },
+          "ptr": { "type": "string", "minLength": 0, "maxLength": 2048, "default": "" }
+        },
+        "required": ["path"]
+      },
+      "annotations": { "readOnlyHint": true, "idempotentHint": true },
+      "auth": { "required_scopes": ["mcp:tools"] },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_readonly_v1",
+        "sandbox": {
+          "fs": { "read_roots": ["."], "write_roots": [] },
+          "net": {},
+          "env": { "allowlist": ["PATH"] }
+        }
+      }
+    }
+  ]
+}

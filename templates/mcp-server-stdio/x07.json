@@ -63,23 +63,23 @@
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.5",
-      "version": "0.3.5"
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.7",
+      "version": "0.3.7"
     },
     {
       "name": "ext-mcp-toolkit",
-      "path": ".x07/deps/ext-mcp-toolkit/0.3.6",
-      "version": "0.3.6"
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.7",
+      "version": "0.3.7"
     },
     {
       "name": "ext-mcp-transport-stdio",
-      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.4",
-      "version": "0.3.4"
+      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.5",
+      "version": "0.3.5"
     },
     {
       "name": "ext-mcp-worker",
-      "path": ".x07/deps/ext-mcp-worker/0.3.5",
-      "version": "0.3.5"
+      "path": ".x07/deps/ext-mcp-worker/0.3.6",
+      "version": "0.3.6"
     },
     {
       "name": "ext-regex",

@@ -1,0 +1,4 @@
+{"dir":"c2s","req":{"method":"GET","url":"https://trust-registry.example.test/v1/metadata/timestamp.jwt","headers":{"Accept":"text/plain"}}}
+{"dir":"s2c","res":{"status":200,"headers":{"Content-Type":"text/plain"},"body_file":"../fixtures/registry/metadata/timestamp.rollback.jwt"}}
+{"dir":"c2s","req":{"method":"GET","url":"https://trust-registry.example.test/v1/metadata/snapshot.jwt","headers":{"Accept":"text/plain"}}}
+{"dir":"s2c","res":{"status":200,"headers":{"Content-Type":"text/plain"},"body_file":"../fixtures/registry/metadata/snapshot.rollback.jwt"}}

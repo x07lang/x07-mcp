@@ -23,3 +23,4 @@ Notes:
 
 - `prompts` may be empty.
 - v1 uses deterministic static text prompts.
+- If a prompt named `mcp.instructions_v1` is present, its `text` is returned as `InitializeResult.instructions` (keep it short).

@@ -256,6 +256,7 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-sandbox/0.3.3/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.4/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.5/modules"
+  "packages/ext/x07-ext-mcp-sandbox/0.3.6/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.2/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.3/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.4/modules"
@@ -1084,10 +1085,10 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   )
 
 	  step "package tests (ext-mcp-sandbox)"
-	  sandbox_035_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.5"
-	  [[ -d "$sandbox_035_dir" ]] || { echo "ERROR: missing local package: $sandbox_035_dir" >&2; exit 2; }
+	  sandbox_036_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.6"
+	  [[ -d "$sandbox_036_dir" ]] || { echo "ERROR: missing local package: $sandbox_036_dir" >&2; exit 2; }
 	  (
-	    cd "$sandbox_035_dir"
+	    cd "$sandbox_036_dir"
 		    x07 test \
 		      --manifest tests/tests.json \
 		      --module-root modules \

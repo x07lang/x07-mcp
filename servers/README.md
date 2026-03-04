@@ -2,6 +2,7 @@
 
 This directory contains deterministic reference MCP servers.
 
+- `x07lang-mcp` (`io.x07/x07lang-mcp`)
 - `github-mcp` (`io.x07/github-mcp`)
 - `slack-mcp` (`io.x07/slack-mcp`)
 - `jira-mcp` (`io.x07/jira-mcp`)

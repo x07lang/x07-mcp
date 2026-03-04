@@ -1,0 +1,8 @@
+{"dir":"c2s","req":{"method":"GET","url":"https://trust-registry.example.test/v1/index.json","headers":{"Accept":"application/json"}}}
+{"dir":"s2c","res":{"status":200,"headers":{"Content-Type":"application/json"},"body_file":"../../../trust/registry/v1/index.json"}}
+{"dir":"c2s","req":{"method":"GET","url":"https://trust-registry.example.test/v1/packs/com.example.trust.packs.acme_prod/index.json","headers":{"Accept":"application/json"}}}
+{"dir":"s2c","res":{"status":200,"headers":{"Content-Type":"application/json"},"body_file":"../../../trust/registry/v1/packs/com.example.trust.packs.acme_prod/index.json"}}
+{"dir":"c2s","req":{"method":"GET","url":"https://trust-registry.example.test/v1/packs/com.example.trust.packs.acme_prod/1.2.0/pack.json","headers":{"Accept":"application/json"}}}
+{"dir":"s2c","res":{"status":200,"headers":{"Content-Type":"application/json"},"body_file":"../../../trust/registry/v1/packs/com.example.trust.packs.acme_prod/1.2.0/pack.json"}}
+{"dir":"c2s","req":{"method":"GET","url":"https://trust-registry.example.test/v1/packs/com.example.trust.packs.acme_prod/1.2.0/trust.lock.json","headers":{"Accept":"application/json"}}}
+{"dir":"s2c","res":{"status":200,"headers":{"Content-Type":"application/json"},"body_file":"../../../trust/packs/dev_remote_pack/trust.lock.json"}}

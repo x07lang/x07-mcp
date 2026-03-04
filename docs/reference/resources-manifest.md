@@ -14,7 +14,9 @@
     {
       "uri": "about:example",
       "name": "about",
+      "description": "About this server",
       "mimeType": "text/plain",
+      "size": 2,
       "text": "ok"
     }
   ]
@@ -25,3 +27,4 @@ Notes:
 
 - `resources` may be empty.
 - v1 supports inline `text` payloads.
+- `size` is optional; when present it is returned in `resources/list` items (bytes).

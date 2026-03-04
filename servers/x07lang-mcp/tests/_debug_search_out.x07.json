@@ -1,0 +1,1 @@
+{"decls":[],"imports":["mcp.user","std.bytes"],"kind":"entry","module_id":"main","schema_version":"x07.x07ast@0.5.0","solve":["mcp.user._tool_search_v1",["bytes.view_lit","{}"],["bytes.view_lit","{\"query\":\"frobnicate\",\"domain\":\"docs\",\"repo_root\":\"fixtures/search_ws\",\"limit\":5,\"max_files\":50,\"max_read_bytes\":4096,\"snippet_max_bytes\":120}"]]}

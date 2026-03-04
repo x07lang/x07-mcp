@@ -1,0 +1,1 @@
+{"schema_version":"x07.x07ast@0.5.0","kind":"module","module_id":"main","imports":["does.not.exist"],"decls":[{"kind":"export","names":["main.one"]},{"kind":"defn","name":"main.one","params":[],"result":"i32","body":1}]}

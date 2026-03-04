@@ -1,0 +1,43 @@
+{
+  "schema_version": "x07.mcp.trust.bundle@0.1.0",
+  "bundle_id": "dev_trust_bundle_v1",
+  "bundle_version": "2026-02-16",
+  "issuers": [
+    {
+      "issuer": "https://as1.example",
+      "roles": [
+        "authorization_server",
+        "prm_signer"
+      ],
+      "jwks": {
+        "keys": [
+          {
+            "kty": "OKP",
+            "crv": "Ed25519",
+            "x": "A3WWp-lK4V561cvg97VV4VT0PskpQLPZDPpFk72qT88",
+            "kid": "prm-ed25519-2026-01",
+            "use": "sig"
+          }
+        ]
+      }
+    },
+    {
+      "issuer": "https://as2.example",
+      "roles": [
+        "authorization_server",
+        "prm_signer"
+      ],
+      "jwks": {
+        "keys": [
+          {
+            "kty": "OKP",
+            "crv": "Ed25519",
+            "x": "Qm0JJrli_d4mN7MYh6mp2OKfbR6RrU3l8_y1_nBBa0s",
+            "kid": "prm-ed25519-2-2026-01",
+            "use": "sig"
+          }
+        ]
+      }
+    }
+  ]
+}

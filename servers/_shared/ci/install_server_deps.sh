@@ -54,6 +54,7 @@ copy_local_pkg_if_present() {
 materialize_local_deps_from_workspace() {
   local server_dir_abs="$1"
   local x07_root="${ROOT}/../x07"
+  local refresh="${X07_MCP_LOCAL_DEPS_REFRESH:-0}"
 
   if [[ ! -d "${x07_root}" ]]; then
     echo "ERROR: local-deps mode requires x07 checkout at ${x07_root}" >&2
@@ -63,7 +64,7 @@ materialize_local_deps_from_workspace() {
   while IFS=$'\t' read -r name version path_value; do
     [[ -n "${name}" && -n "${version}" && -n "${path_value}" ]] || continue
     local dst="${server_dir_abs}/${path_value}"
-    if [[ -d "${dst}" ]]; then
+    if [[ -d "${dst}" && "${refresh}" != "1" ]]; then
       continue
     fi
     if ! copy_local_pkg_if_present "${name}" "${version}" "${dst}"; then

@@ -1,0 +1,6 @@
+{"kind":"meta","schema_version":"x07.mcp.rr.http_sse_session@0.1.0","mcp_path":"/mcp"}
+{"kind":"http.request","method":"GET","path":"/mcp"}
+{"kind":"http.response.head","status":200,"content_type":"text/event-stream"}
+{"kind":"sse.event","event_id":"sess_test_0002/get_listen/listen/0","prime":1}
+{"kind":"sse.event","event_id":"sess_test_0002/get_listen/listen/1","message_method":"notifications/resources/updated"}
+{"kind":"sse.close"}

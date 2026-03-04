@@ -1,0 +1,36 @@
+{
+  "schema_version": "x07.mcp.oauth@0.2.0",
+  "resource": "http://127.0.0.1:8314/mcp",
+  "serve_root_alias": true,
+  "authorization_servers": ["https://auth.example.com"],
+  "scopes_supported": ["mcp:tools", "mcp:tasks"],
+  "bearer_methods_supported": ["header"],
+  "validation": {
+    "kind": "test_static",
+    "static_tokens": [
+      {
+        "token": "TOKEN_OK",
+        "sub": "dev-user",
+        "scope": "mcp:tools"
+      },
+      {
+        "token": "TOKEN_NO_SCOPE",
+        "sub": "dev-user",
+        "scope": "profile"
+      }
+    ]
+  },
+  "prm_signed_v1": {
+    "enabled": false,
+    "alg": "HS256",
+    "iss": "https://auth.example.test",
+    "ttl_s": 3600,
+    "secret_b64_file": "config/auth/prm_signed.secret.b64",
+    "include_iat_exp": true,
+    "clock": { "kind": "fixed_v1", "now_s": 1760000000 }
+  },
+  "prm_signing_v2": {
+    "enabled": true,
+    "cfg_path": "config/auth/prm_signing.v2.json"
+  }
+}

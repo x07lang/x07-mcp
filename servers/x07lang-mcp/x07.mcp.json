@@ -1,0 +1,59 @@
+{
+  "schema_version": "x07.mcp.server@0.1.0",
+  "identifier": "io.x07/x07lang-mcp",
+  "display_name": "x07lang-mcp",
+  "version": "0.1.0",
+  "description": "Official MCP server for the X07 language.",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "io.x07/x07lang-mcp",
+      "version": "0.1.0",
+      "url": "https://example.com/x07lang-mcp-0.1.0.mcpb",
+      "fileSha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "auth": {
+    "prm": {
+      "enabled": true,
+      "require_signed_prm": true,
+      "signed_metadata": {
+        "enabled": true,
+        "issuer": "https://as1.example",
+        "alg": "Ed25519",
+        "key_profile": "mcp_prm_signing_dev_ed25519_v1"
+      },
+      "trust_framework": {
+        "path": "trust/frameworks/dev_local_trust_framework_v1.trust_framework.json",
+        "trust_lock_path": "trust/trust.lock.json"
+      }
+    }
+  },
+  "publish": {
+    "require_signed_prm": true,
+    "prm": {
+      "path": "publish/prm.json"
+    },
+    "trust_framework": {
+      "path": "trust/frameworks/dev_local_trust_framework_v1.trust_framework.json",
+      "include_in_mcpb": true,
+      "emit_meta_summary": true,
+      "trust_lock_path": "trust/trust.lock.json",
+      "trust_pack": {
+        "registry": "https://trust-registry.example.test/v1/index.json",
+        "pack_id": "com.example.trust.packs.acme_prod",
+        "pack_version": "1.2.0",
+        "min_snapshot_version": 7,
+        "snapshot_sha256": "3e068551a678fcc18e26b00ec96aa77cb47ce7c0230163eff145114ba846aa1f",
+        "checkpoint_sha256": "041a1760e7143d6a2dc02d9816dc0d82405a314d4a2e4b9927bd0cbd390713f5",
+        "root_path": "trust/registry/v1/metadata/root.json"
+      }
+    }
+  },
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "x07_official": true,
+      "server_id": "x07lang-mcp"
+    }
+  }
+}

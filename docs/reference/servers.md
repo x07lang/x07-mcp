@@ -2,6 +2,7 @@
 
 `x07-mcp` ships these publish-ready reference servers:
 
+- [`x07lang-mcp`](../../servers/x07lang-mcp/README.md) — `x07.search_v1`, `x07.exec_v1`
 - [`github-mcp`](../../servers/github-mcp/README.md) — `github.list_repos`, `github.get_issue`
 - [`slack-mcp`](../../servers/slack-mcp/README.md) — `slack.list_channels`, `slack.post_message`
 - [`jira-mcp`](../../servers/jira-mcp/README.md) — `jira.search_issues`, `jira.get_issue`

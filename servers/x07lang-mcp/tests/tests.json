@@ -1,0 +1,275 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "smoke/pass",
+      "world": "run-os",
+      "entry": "smoke.pass",
+      "expect": "pass"
+    },
+    {
+      "id": "smoke/trust_remote_pack_replay_fixture_present",
+      "world": "run-os",
+      "entry": "smoke.trust_remote_pack_replay_fixture_present",
+      "expect": "pass"
+    },
+    {
+      "id": "smoke/trust_pack_install_replay_fixture_present",
+      "world": "run-os",
+      "entry": "smoke.trust_pack_install_replay_fixture_present",
+      "expect": "pass"
+    },
+    {
+      "id": "smoke/trust_tuf_ok_replay_fixture_present",
+      "world": "run-os",
+      "entry": "smoke.trust_tuf_ok_replay_fixture_present",
+      "expect": "pass"
+    },
+    {
+      "id": "smoke/trust_tuf_rollback_timestamp_replay_fixture_present",
+      "world": "run-os",
+      "entry": "smoke.trust_tuf_rollback_timestamp_replay_fixture_present",
+      "expect": "pass"
+    },
+    {
+      "id": "smoke/trust_registry_metadata_root_present",
+      "world": "run-os",
+      "entry": "smoke.trust_registry_metadata_root_present",
+      "expect": "pass"
+    },
+    {
+      "id": "smoke/trust_state_fixture_present",
+      "world": "run-os",
+      "entry": "smoke.trust_state_fixture_present",
+      "expect": "pass"
+    },
+    {
+      "id": "compile/app_import",
+      "world": "run-os",
+      "entry": "compile.app_import",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dev",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dev_tools_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev_tools_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dev_resources_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev_resources_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dev_prompts_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev_prompts_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dev_tools_call",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dev_tools_call",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_insufficient_scope",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_insufficient_scope",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_insufficient_scope_resources_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_insufficient_scope_resources_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_insufficient_scope_prompts_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_insufficient_scope_prompts_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_success",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_success",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_success_resources_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_success_resources_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_oauth_success_prompts_list",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_oauth_success_prompts_list",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_jwt",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_jwt",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dpop",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dpop",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/hello_dpop_nonce",
+      "world": "run-os",
+      "entry": "mcp_http_replay.hello_dpop_nonce",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_prm_200",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_prm_200",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_prm_signed_200",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_prm_signed_200",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_missing_authorization_401",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_missing_authorization_401",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_dpop_missing_proof_401",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_dpop_missing_proof_401",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_dpop_invalid_htu_401",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_dpop_invalid_htu_401",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_dpop_bound_token_as_bearer_401",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_dpop_bound_token_as_bearer_401",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_access_token_in_query_400",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_access_token_in_query_400",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_missing_session_id",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_missing_session_id",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_invalid_protocol_version",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_invalid_protocol_version",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_malformed_protocol_version",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_malformed_protocol_version",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http/replay/golden_get_not_supported",
+      "world": "run-os",
+      "entry": "mcp_http_replay.golden_get_not_supported",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http_sse/replay/post_progress_poll_resume",
+      "world": "run-os",
+      "entry": "mcp_http_replay.http_sse_post_progress_poll_resume",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http_sse/replay/get_listen_resources_updated",
+      "world": "run-os",
+      "entry": "mcp_http_replay.http_sse_get_listen_resources_updated",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http_sse/replay/cancelled_tool_call",
+      "world": "run-os",
+      "entry": "mcp_http_replay.http_sse_cancelled_tool_call",
+      "expect": "pass"
+    },
+    {
+      "id": "mcp/http_sse/replay/origin_invalid_403",
+      "world": "run-os",
+      "entry": "mcp_http_replay.http_sse_origin_invalid_403",
+      "expect": "pass"
+    },
+    {
+      "id": "search/local_docs_v1",
+      "world": "run-os",
+      "entry": "search.local_docs_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "search/local_skills_v1",
+      "world": "run-os",
+      "entry": "search.local_skills_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "search/remote_skills_cache_v1",
+      "world": "run-os",
+      "entry": "search.remote_skills_cache_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "search/remote_ssrf_guard_v1",
+      "world": "run-os",
+      "entry": "search.remote_ssrf_guard_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "gates/mcp_list_footprint_v1",
+      "world": "run-os",
+      "entry": "gates.mcp_list_footprint_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "gates/initialize_instructions_v1",
+      "world": "run-os",
+      "entry": "gates.initialize_instructions_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "gates/bounded_defaults_v1",
+      "world": "run-os",
+      "entry": "gates.bounded_defaults_v1",
+      "expect": "pass"
+    }
+  ]
+}

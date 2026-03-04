@@ -1,0 +1,21 @@
+{
+  "schema_version": "x07.mcp.prompts_manifest@0.1.0",
+  "prompts": [
+    {
+      "name": "mcp.instructions_v1",
+      "text": "Use x07.search_v1 for discovery.\nRun the toolchain via x07.exec_v1 (prefer --json=canon + --report-out + --quiet-json).\nOn failures: x07.context_pack_v1 -> x07.patch_apply_v1 -> re-run x07.exec_v1.\nOutputs are bounded; use x07.artifact_snippet_v1 or resources/read for full details.\n"
+    },
+    {
+      "name": "x07.agent.playbook_v1",
+      "text": "Preferred loop (token-efficient):\n1) Use x07.search_v1 for discovery.\n2) Run x07 via x07.exec_v1 with argv/args and prefer --json=canon + --report-out + --quiet-json.\n3) On failure, generate a focused pack via x07.context_pack_v1.\n4) Apply fixes via x07.patch_apply_v1, then re-run x07.exec_v1.\n"
+    },
+    {
+      "name": "x07.ast.output_rules_v1",
+      "text": "When emitting X07 x07AST JSON:\n- Output JSON only (no prose).\n- Include schema_version.\n- Keep patches minimal and deterministic.\n"
+    },
+    {
+      "name": "x07.debug.loop_v1",
+      "text": "Debug loop:\ncheck/test -> context pack -> patch -> recheck.\nPrefer context packs over dumping files.\n"
+    }
+  ]
+}

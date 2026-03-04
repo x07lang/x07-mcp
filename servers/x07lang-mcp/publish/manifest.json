@@ -1,0 +1,19 @@
+{
+  "manifest_version": "0.3",
+  "name": "x07lang-mcp",
+  "display_name": "x07lang-mcp",
+  "version": "0.1.0",
+  "description": "Official MCP server for the X07 language.",
+  "author": {
+    "name": "x07"
+  },
+  "server": {
+    "type": "binary",
+    "entry_point": "server/x07lang-mcp",
+    "mcp_config": {
+      "command": "${__dirname}/server/x07lang-mcp",
+      "args": []
+    }
+  }
+}
+

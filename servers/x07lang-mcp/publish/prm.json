@@ -1,0 +1,8 @@
+{
+  "resource": "https://localhost:8443",
+  "signed_metadata": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoicHJtLWVkMjU1MTktMjAyNi0wMSIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemF0aW9uX3NlcnZlcnMiOlsiaHR0cHM6Ly9hczIuZXhhbXBsZSIsImh0dHBzOi8vYXMxLmV4YW1wbGUiXSwiZHBvcF9ib3VuZF9hY2Nlc3NfdG9rZW5zX3JlcXVpcmVkIjpmYWxzZSwiZHBvcF9zaWduaW5nX2FsZ192YWx1ZXNfc3VwcG9ydGVkIjpbIkVkMjU1MTkiXSwiZXhwIjoyNTI0NjA4MDAwLCJpYXQiOjE3NzExMTM2MDAsImlzcyI6Imh0dHBzOi8vYXMxLmV4YW1wbGUiLCJyZXNvdXJjZSI6Imh0dHBzOi8vbG9jYWxob3N0Ojg0NDMiLCJzY29wZXNfc3VwcG9ydGVkIjpbIm1jcDp0b29scyJdfQ.UIZVf9UY7TbjDZCDVVc3N_4Yt0W1lPJIWc6IQ3gmrPCihsaSNj47N0loEr57FiG4VrsmhX3tC-KvkpwSfNScAw",
+  "authorization_servers": [
+    "https://as2.example",
+    "https://as1.example"
+  ]
+}

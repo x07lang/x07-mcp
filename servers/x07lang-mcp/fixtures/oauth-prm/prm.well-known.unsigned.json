@@ -1,0 +1,6 @@
+{
+  "resource": "http://127.0.0.1:8314/mcp",
+  "authorization_servers": ["https://auth.example.com"],
+  "scopes_supported": ["mcp:tools", "mcp:tasks"],
+  "bearer_methods_supported": ["header"]
+}

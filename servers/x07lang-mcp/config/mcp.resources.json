@@ -1,0 +1,26 @@
+{
+  "schema_version": "x07.mcp.resources_manifest@0.1.0",
+  "resources": [
+    {
+      "uri": "x07://about",
+      "name": "About x07lang-mcp",
+      "mimeType": "text/plain; charset=utf-8",
+      "text": "Official MCP server for the X07 language.\n\nPrimary goal: token-efficient agent coding loops.\n\nSafety:\n- No network by default.\n- File access is sandboxed per tool.\n",
+      "size": 164
+    },
+    {
+      "uri": "x07://agent/playbook",
+      "name": "Agent playbook (token-efficient)",
+      "mimeType": "text/plain; charset=utf-8",
+      "text": "Preferred agent loop (bounded by design):\n1) x07.exec_v1: run x07 with argv/args (use --json=canon + --report-out + --quiet-json when possible).\n2) On failure: x07.context_pack_v1 (x07 agent context): focus the model on only the relevant code + diagnostics.\n3) Fix via x07.patch_apply_v1 (x07.patchset@0.1.0).\n4) Repeat x07.exec_v1.\n\nMinimize tokens:\n- Use x07.search_v1 for discovery (small hits list).\n- Use resources/read for full text only when needed.\n- Prefer context packs over dumping files into chat.\n",
+      "size": 510
+    },
+    {
+      "uri": "x07://agent/index-roots",
+      "name": "Index roots",
+      "mimeType": "application/json; charset=utf-8",
+      "text": "{\"schema_version\":\"x07lang.index_roots@0.1.0\",\"roots\":[\".agent/docs\",\".agent/skills\",\"x07/docs\",\"x07/skills/pack/.agent/skills\"],\"remote_agent_portal\":{\"enabled\":false,\"base_url\":\"https://x07lang.org/agent/latest/\"}}\n",
+      "size": 217
+    }
+  ]
+}

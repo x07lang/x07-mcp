@@ -1,0 +1,60 @@
+{
+  "schema_version": "x07.mcp.server_config@0.3.0",
+
+  "server": {
+    "name": "io.x07/x07lang-mcp",
+    "version": "0.1.0",
+    "protocolVersion": "2025-11-25"
+  },
+
+  "auth": {
+    "mode": "none"
+  },
+
+  "transports": { "http": { "enabled": false } },
+
+  "tools": {
+    "descriptor_path": "mcp.tools.json"
+  },
+
+  "worker_exe_path": "out/mcp-worker",
+
+  "observability": {
+    "clock": { "mode": "os_now" },
+    "logging": {
+      "enabled": true,
+      "declare_capability": true,
+      "default_client_level": "error",
+      "client_level_floor": "notice",
+      "rate_limit_per_sec": 25,
+      "max_data_bytes": 16384,
+      "emit": { "tool_start": true, "tool_finish": true },
+      "redaction": {
+        "redact_keys": [
+          "authorization",
+          "cookie",
+          "set-cookie",
+          "client_secret",
+          "refresh_token",
+          "id_token",
+          "password",
+          "secret",
+          "token",
+          "apiKey"
+        ],
+        "redact_patterns": ["(?i)bearer\\s+[A-Za-z0-9._-]+"],
+        "redacted_value": "<redacted>"
+      }
+    },
+    "audit": {
+      "enabled": true,
+      "sinks": [{ "kind": "stderr_jsonl_v1" }, { "kind": "rr_sidecar_v1" }],
+      "allow_tool_tags": ["cache.hit"]
+    },
+    "metrics": { "enabled": false }
+  },
+
+  "sandbox": {
+    "per_tool": { "enabled": true, "policy_path": "policy/mcp.worker.base.policy.json" }
+  }
+}

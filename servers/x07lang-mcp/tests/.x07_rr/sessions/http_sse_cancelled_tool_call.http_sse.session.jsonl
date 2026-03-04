@@ -1,0 +1,7 @@
+{"kind":"meta","schema_version":"x07.mcp.rr.http_sse_session@0.1.0","mcp_path":"/mcp"}
+{"kind":"http.request","method":"POST","path":"/mcp","progress_requested":1}
+{"kind":"http.response.head","status":200,"content_type":"text/event-stream"}
+{"kind":"sse.event","event_id":"sess_test_0003/post/2/0","prime":1}
+{"kind":"sse.event","event_id":"sess_test_0003/post/2/1","message_method":"notifications/progress"}
+{"kind":"http.request","method":"POST","path":"/mcp","cancelled":1}
+{"kind":"sse.close"}
