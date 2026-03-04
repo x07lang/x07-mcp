@@ -8,6 +8,16 @@ x07-mcp is designed for **100% agentic coding** — an AI coding agent scaffolds
 
 The [X07 toolchain](https://github.com/x07lang/x07) must be installed before using x07-mcp. If you (or your agent) are new to X07, start with the **[Agent Quickstart](https://x07lang.org/docs/getting-started/agent-quickstart)** — it covers toolchain setup, project structure, and the workflow conventions an agent needs to be productive.
 
+## Use the official X07 MCP server (for coding X07)
+
+If you want an MCP server for writing and repairing X07 programs (instead of building your own MCP server), install the official server: `io.x07/x07lang-mcp`.
+
+- Install the X07 toolchain (the server shells out to the local `x07` CLI).
+- Download the published `.mcpb` bundle from the `x07lang-mcp` server README.
+- Configure your MCP client to install the `.mcpb`, or unzip it and run `server/x07lang-mcp` with `cwd` set to the extracted bundle root.
+
+Details (release URL, SHA-256, client config notes): `servers/x07lang-mcp/README.md`.
+
 ## Why x07-mcp
 
 Most MCP frameworks give you a transport layer and leave security, isolation, and testing as an exercise. x07-mcp ships opinions on all three:
@@ -25,7 +35,7 @@ Most MCP frameworks give you a transport layer and leave security, isolation, an
 | **Library** (`ext-mcp-*`) | Server core, stdio + HTTP transports, OAuth resource-server helpers, schema validation, sandbox/budget wiring, record/replay, trust framework |
 | **CLI** (`x07-mcp`) | Scaffold, run, conformance check, bundle `.mcpb`, publish dry-run, trust tlog monitor |
 | **Templates** | `mcp-server-stdio`, `mcp-server-http`, `mcp-server-http-tasks` — each with config, replay fixtures, and test harness |
-| **Reference servers** | github-mcp, slack-mcp, jira-mcp, postgres-mcp, redis-mcp, s3-mcp, kubernetes-mcp, stripe-mcp, smtp-mcp, http-proxy-mcp |
+| **Reference servers** | x07lang-mcp, github-mcp, slack-mcp, jira-mcp, postgres-mcp, redis-mcp, s3-mcp, kubernetes-mcp, stripe-mcp, smtp-mcp, http-proxy-mcp |
 
 ## Quick start
 

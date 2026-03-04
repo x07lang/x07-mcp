@@ -3,7 +3,7 @@
 
   "server": {
     "name": "io.x07/x07lang-mcp",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "protocolVersion": "2025-11-25"
   },
 
@@ -34,7 +34,7 @@
   },
 
   "tools": {
-    "descriptor_path": "mcp.tools.json"
+    "descriptor_path": "config/mcp.tools.json"
   },
 
   "worker_exe_path": "out/mcp-worker",
