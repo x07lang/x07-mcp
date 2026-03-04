@@ -288,20 +288,21 @@
     },
     {
       "name": "ext-mcp-sandbox",
-      "version": "0.3.7",
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.7",
-      "package_manifest_sha256": "5317c4a25dd47029cc8a6fd978281442ac379aa26ba230aff69d4c8f5124e331",
+      "version": "0.3.8",
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.8",
+      "package_manifest_sha256": "c5027bfb03ff485448325dec3c71c8a0be879522d908ff58fcb62cc2b4d380ce",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.sandbox.policy_compile": "e09f622baccf3fa5af1b6211001a963de2eee736a33c0d0449821d26fb194c2a",
         "std.mcp.sandbox.profiles": "44646f9ac97bdf9b2612a6e81e504d789fb227f44a74a053f9570880342f5fe7",
-        "std.mcp.sandbox.router_exec": "1680e903987f3c844a23f30b0fe00449a500249bf6008bf8b9fcc9ff627d6a7e",
+        "std.mcp.sandbox.router_exec": "9c1b1eb87a96c5ffe387f75edf7e53fa438ffc7fdffb1126ed71eca086c755ae",
         "std.mcp.sandbox.task_exec_async_pool_v1": "ee17149c0a4637b67205a25d05538349fe69b281fab670b26d1f51f17092d990",
         "std.mcp.sandbox.task_exec_deterministic_v1": "797835677223407a6b3cf8a9c8f38c5625b1bc1f5828b097f07ede0c6ceed5d8",
         "std.mcp.sandbox.task_store_any_v1": "3bd3da1d44cbbb6e5c133ee7e368b334e917b93a81cbcc4c48a2ef0aa75c9a8d",
         "std.mcp.sandbox.task_store_mem_v1": "9bd49ac2653e05bd465d6a8f2ad72c191f1f9d642557876c65388f825551912c",
         "std.mcp.sandbox.task_store_sqlite_v1": "71a9cd0236c3be62e686b43631ce26d36ce884b174347b6f1c185f76623c3897"
       },
+      "overridden_by": "ext-mcp-sandbox",
       "yanked": false
     },
     {

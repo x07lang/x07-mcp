@@ -63,8 +63,8 @@
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.7",
-      "version": "0.3.7"
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.8",
+      "version": "0.3.8"
     },
     {
       "name": "ext-mcp-toolkit",
@@ -73,8 +73,8 @@
     },
     {
       "name": "ext-mcp-transport-stdio",
-      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.5",
-      "version": "0.3.5"
+      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.6",
+      "version": "0.3.6"
     },
     {
       "name": "ext-mcp-worker",
@@ -127,6 +127,10 @@
     "ext-json-rs": {
       "path": ".x07/deps/ext-json-rs/0.1.5",
       "version": "0.1.5"
+    },
+    "ext-mcp-sandbox": {
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.8",
+      "version": "0.3.8"
     }
   },
   "profiles": {

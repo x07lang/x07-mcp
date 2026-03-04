@@ -257,6 +257,7 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-sandbox/0.3.4/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.5/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.6/modules"
+  "packages/ext/x07-ext-mcp-sandbox/0.3.8/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.2/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.3/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.4/modules"
@@ -290,6 +291,8 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-transport-stdio/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-stdio/0.3.3/modules"
   "packages/ext/x07-ext-mcp-transport-stdio/0.3.4/modules"
+  "packages/ext/x07-ext-mcp-transport-stdio/0.3.5/modules"
+  "packages/ext/x07-ext-mcp-transport-stdio/0.3.6/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.2/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.3/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.4/modules"
@@ -1084,69 +1087,96 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       >/dev/null
   )
 
-	  step "package tests (ext-mcp-sandbox)"
-	  sandbox_036_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.6"
-	  [[ -d "$sandbox_036_dir" ]] || { echo "ERROR: missing local package: $sandbox_036_dir" >&2; exit 2; }
-	  (
-	    cd "$sandbox_036_dir"
-		    x07 test \
-		      --manifest tests/tests.json \
-		      --module-root modules \
-		      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
-		      --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.6/modules" \
-		      --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.5/modules" \
-		      --module-root "$data_model_modules" \
-		      --module-root "$json_modules" \
-		      --module-root "$stdio_modules" \
-		      --module-root "$unicode_modules" \
-	      --module-root "$fs_modules" \
-	      >/dev/null
+		  step "package tests (ext-mcp-sandbox)"
+		  sandbox_038_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.8"
+		  [[ -d "$sandbox_038_dir" ]] || { echo "ERROR: missing local package: $sandbox_038_dir" >&2; exit 2; }
+		  (
+		    cd "$sandbox_038_dir"
+			    x07 test \
+			      --manifest tests/tests.json \
+			      --module-root modules \
+			      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+			      --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.7/modules" \
+			      --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.6/modules" \
+			      --module-root "$data_model_modules" \
+			      --module-root "$json_modules" \
+			      --module-root "$stdio_modules" \
+			      --module-root "$unicode_modules" \
+		      --module-root "$fs_modules" \
+		      >/dev/null
 
-    # x07 test entrypoints are synchronous (`result_i32`/status-bytes), so keep
-    # the async router stream deadlock regression as an explicit run-os smoke.
-    stream_smoke_json="$(
-      (
-        cd tests
-        x07-os-runner \
-	          --program router_exec_streaming_deadlock_entry.x07.json \
-	          --world run-os \
-	          --module-root ../modules \
-	          --module-root . \
-	          --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
-	          --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.6/modules" \
-	          --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.5/modules" \
-	          --module-root "$data_model_modules" \
-	          --module-root "$json_modules" \
-	          --module-root "$stdio_modules" \
-          --module-root "$unicode_modules" \
-          --module-root "$fs_modules" \
-          --auto-ffi
-      )
-    )"
-    stream_smoke_ok="$(printf '%s' "$stream_smoke_json" | jq -r '.solve.ok // false')"
-    stream_smoke_out="$(printf '%s' "$stream_smoke_json" | jq -r '(.solve.solve_output_b64 // "") | @base64d')"
-    if [[ "$stream_smoke_ok" != "true" || "$stream_smoke_out" != "ok" ]]; then
-      echo "ERROR: ext-mcp-sandbox streaming deadlock regression failed (ok=$stream_smoke_ok out=$stream_smoke_out)" >&2
-      echo "$stream_smoke_json" >&2
-      exit 2
-    fi
+	    # x07 test entrypoints are synchronous (`result_i32`/status-bytes), so keep
+	    # async router stream regressions as explicit run-os smokes.
+	    stream_smoke_json="$(
+	      (
+	        cd tests
+	        x07-os-runner \
+		          --program router_exec_streaming_deadlock_entry.x07.json \
+		          --world run-os \
+		          --module-root ../modules \
+		          --module-root . \
+		          --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+		          --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.7/modules" \
+		          --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.6/modules" \
+		          --module-root "$data_model_modules" \
+		          --module-root "$json_modules" \
+		          --module-root "$stdio_modules" \
+	          --module-root "$unicode_modules" \
+	          --module-root "$fs_modules" \
+	          --auto-ffi
+	      )
+	    )"
+	    stream_smoke_ok="$(printf '%s' "$stream_smoke_json" | jq -r '.solve.ok // false')"
+	    stream_smoke_out="$(printf '%s' "$stream_smoke_json" | jq -r '(.solve.solve_output_b64 // "") | @base64d')"
+	    if [[ "$stream_smoke_ok" != "true" || "$stream_smoke_out" != "ok" ]]; then
+	      echo "ERROR: ext-mcp-sandbox streaming deadlock regression failed (ok=$stream_smoke_ok out=$stream_smoke_out)" >&2
+	      echo "$stream_smoke_json" >&2
+	      exit 2
+	    fi
 
-    spawn_caps_smoke_json="$(
-      (
-        cd tests
-        x07-os-runner \
-	          --program router_exec_spawn_caps_entry.x07.json \
-	          --world run-os \
-	          --module-root ../modules \
-	          --module-root . \
-	          --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
-	          --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.6/modules" \
-	          --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.5/modules" \
-	          --module-root "$data_model_modules" \
-	          --module-root "$json_modules" \
-	          --module-root "$stdio_modules" \
-          --module-root "$unicode_modules" \
-          --module-root "$fs_modules" \
+	    stdin_close_pending_smoke_json="$(
+	      (
+	        cd tests
+	        x07-os-runner \
+		          --program router_exec_streaming_stdin_close_pending_entry.x07.json \
+		          --world run-os \
+		          --module-root ../modules \
+		          --module-root . \
+		          --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+		          --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.7/modules" \
+		          --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.6/modules" \
+		          --module-root "$data_model_modules" \
+		          --module-root "$json_modules" \
+		          --module-root "$stdio_modules" \
+	          --module-root "$unicode_modules" \
+	          --module-root "$fs_modules" \
+	          --auto-ffi
+	      )
+	    )"
+	    stdin_close_pending_smoke_ok="$(printf '%s' "$stdin_close_pending_smoke_json" | jq -r '.solve.ok // false')"
+	    stdin_close_pending_smoke_out="$(printf '%s' "$stdin_close_pending_smoke_json" | jq -r '(.solve.solve_output_b64 // "") | @base64d')"
+	    if [[ "$stdin_close_pending_smoke_ok" != "true" || "$stdin_close_pending_smoke_out" != "ok" ]]; then
+	      echo "ERROR: ext-mcp-sandbox streaming stdin-close regression failed (ok=$stdin_close_pending_smoke_ok out=$stdin_close_pending_smoke_out)" >&2
+	      echo "$stdin_close_pending_smoke_json" >&2
+	      exit 2
+	    fi
+
+	    spawn_caps_smoke_json="$(
+	      (
+	        cd tests
+	        x07-os-runner \
+		          --program router_exec_spawn_caps_entry.x07.json \
+		          --world run-os \
+		          --module-root ../modules \
+		          --module-root . \
+		          --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+		          --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.7/modules" \
+		          --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.6/modules" \
+		          --module-root "$data_model_modules" \
+		          --module-root "$json_modules" \
+		          --module-root "$stdio_modules" \
+	          --module-root "$unicode_modules" \
+	          --module-root "$fs_modules" \
           --auto-ffi
       )
     )"
@@ -1511,7 +1541,8 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   tmp_dirs+=("$tmp_manifest")
   jq \
     '.patch = ((.patch // {}) + {
-       "ext-json-rs":{"version":"0.1.5","path":".x07/local/ext-json-rs/0.1.5"}
+       "ext-json-rs":{"version":"0.1.5","path":".x07/local/ext-json-rs/0.1.5"},
+       "ext-mcp-sandbox":{"version":"0.3.8","path":".x07/local/ext-mcp-sandbox/0.3.8"}
      })' \
     x07.json \
     >"$tmp_manifest"
@@ -1574,14 +1605,15 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_project_local_deps_from_workspace "$x07_root" "$PWD"
   tmp_manifest="$(mktemp)"
   tmp_dirs+=("$tmp_manifest")
-  jq \
-    '.schema_version = "x07.project@0.3.0" |
-     .patch = ((.patch // {}) + {
-       "ext-json-rs":{"version":"0.1.5","path":".x07/local/ext-json-rs/0.1.5"},
-       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
-       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
-     })' \
-    x07.json \
+	  jq \
+	    '.schema_version = "x07.project@0.3.0" |
+	     .patch = ((.patch // {}) + {
+	       "ext-json-rs":{"version":"0.1.5","path":".x07/local/ext-json-rs/0.1.5"},
+	       "ext-mcp-sandbox":{"version":"0.3.8","path":".x07/local/ext-mcp-sandbox/0.3.8"},
+	       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
+	       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
+	     })' \
+	    x07.json \
     >"$tmp_manifest"
   mv "$tmp_manifest" x07.json
   x07 pkg lock --project x07.json --offline >/dev/null
@@ -1628,14 +1660,15 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_project_local_deps_from_workspace "$x07_root" "$PWD"
   tmp_manifest="$(mktemp)"
   tmp_dirs+=("$tmp_manifest")
-  jq \
-    '.schema_version = "x07.project@0.3.0" |
-     .patch = ((.patch // {}) + {
-       "ext-json-rs":{"version":"0.1.5","path":".x07/local/ext-json-rs/0.1.5"},
-       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
-       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
-     })' \
-    x07.json \
+	  jq \
+	    '.schema_version = "x07.project@0.3.0" |
+	     .patch = ((.patch // {}) + {
+	       "ext-json-rs":{"version":"0.1.5","path":".x07/local/ext-json-rs/0.1.5"},
+	       "ext-mcp-sandbox":{"version":"0.3.8","path":".x07/local/ext-mcp-sandbox/0.3.8"},
+	       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
+	       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
+	     })' \
+	    x07.json \
     >"$tmp_manifest"
   mv "$tmp_manifest" x07.json
   x07 pkg lock --project x07.json --offline --json=off >/dev/null

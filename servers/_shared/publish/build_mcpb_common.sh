@@ -63,6 +63,12 @@ PY
   )
 fi
 
+if [[ "${X07_MCP_BUILD_BINS_ONLY:-0}" == "1" ]]; then
+  echo "built ${ROUTER_BIN}"
+  echo "built ${WORKER_BIN}"
+  exit 0
+fi
+
 STAGE="$(mktemp -d)"
 TMP_OUT_FILE=""
 cleanup() {
@@ -73,10 +79,10 @@ cleanup() {
 }
 trap cleanup EXIT
 
-mkdir -p "${STAGE}/server" "${STAGE}/config" "${STAGE}/policy" "${STAGE}/arch/budgets"
+mkdir -p "${STAGE}/server" "${STAGE}/out" "${STAGE}/config" "${STAGE}/policy" "${STAGE}/arch/budgets"
 cp "${SERVER_ROOT}/publish/manifest.json" "${STAGE}/manifest.json"
 cp "${ROUTER_BIN}" "${STAGE}/server/${SERVER_ID}"
-cp "${WORKER_BIN}" "${STAGE}/server/mcp-worker"
+cp "${WORKER_BIN}" "${STAGE}/out/mcp-worker"
 cp -R "${SERVER_ROOT}/config/." "${STAGE}/config/"
 cp -R "${SERVER_ROOT}/policy/." "${STAGE}/policy/"
 cp -R "${SERVER_ROOT}/arch/budgets/." "${STAGE}/arch/budgets/"
