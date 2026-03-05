@@ -1501,7 +1501,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   tmp_dirs+=("$tmp_manifest")
   jq \
     '.patch = ((.patch // {}) + {
-       "ext-json-rs":{"version":"0.1.5","path":".x07/local/ext-json-rs/0.1.5"},
+       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
        "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"}
      })' \
     "$conf_proj/x07.json" \

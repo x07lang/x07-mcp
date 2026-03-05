@@ -343,7 +343,7 @@
       "package_manifest_sha256": "1c163f2c6993b02e033d2e55c408e52f15feb43e2250a12c65364fff9e1d6697",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.mcp.server": "e95b9909f1ee8dbb1de011ed7d2159be46d1abd2aa86d8742dfc07a07ebbe2b9",
+        "ext.mcp.server": "b6fd849247788032634ffa5b1f8f6bf253301db888c8069cafeef15ac33ee6bf",
         "std.mcp.transport.http": "8087f75ead8a810b9da32a52c6db5a6b04102fc488a58f6ae9b08632c0402cb7",
         "std.mcp.transport.http_rules": "ab63c9564d0320ba73b14c1b993297ec3172b5f4e08cef9aa9c5fa12ac70e5dd",
         "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9",

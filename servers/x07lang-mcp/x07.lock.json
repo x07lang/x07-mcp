@@ -359,7 +359,7 @@
       "package_manifest_sha256": "3298d02402baa1f8803d155ada766c9b99d24fea56ecc0d1e29867b93d571ceb",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.transport.stdio": "4ec926ed4ddc81dd0bcce77b4ab1c2a5056e5efa6d864f97b9c00f9b8a7913f8",
+        "std.mcp.transport.stdio": "26138916a31f9146a5574d5d657bd168936bbc2989b3d0e91d40ea6a11c4b130",
         "std.mcp.transport.stdio_loop": "3cfaa6fc7ad2cfb5976dbb82f4eaed2b1f4c52594167a409d285bb0460476523"
       },
       "overridden_by": "ext-mcp-transport-stdio",
