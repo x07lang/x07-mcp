@@ -1582,7 +1582,14 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
     x07.json \
     >"$tmp_manifest"
   mv "$tmp_manifest" x07.json
-  x07 pkg lock --project x07.json --offline >/dev/null
+
+  patch_deps_log="$(mktemp)"
+  tmp_dirs+=("$patch_deps_log")
+  X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" "$root/scripts/ci/materialize_patch_deps.sh" "$PWD/x07.json"
+
+  proj_lock_log="$(mktemp)"
+  tmp_dirs+=("$proj_lock_log")
+  X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project x07.json --offline --json=off
 else
   if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
     x07 pkg lock --project x07.json --check --json=off >/dev/null
@@ -1640,23 +1647,30 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_project_local_deps_from_workspace "$x07_root" "$PWD"
   tmp_manifest="$(mktemp)"
   tmp_dirs+=("$tmp_manifest")
-	  jq \
-	    '.schema_version = "x07.project@0.3.0" |
-	     .patch = ((.patch // {}) + {
-	       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-	       "ext-mcp-sandbox":{"version":"0.3.10","path":".x07/local/ext-mcp-sandbox/0.3.10"},
-	       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
-	       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
-	     })' \
-	    x07.json \
-    >"$tmp_manifest"
-  mv "$tmp_manifest" x07.json
-  x07 pkg lock --project x07.json --offline >/dev/null
-else
-  if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
-    x07 pkg lock --project x07.json --check --json=off >/dev/null
-  fi
-fi
+		  jq \
+		    '.schema_version = "x07.project@0.3.0" |
+		     .patch = ((.patch // {}) + {
+		       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
+		       "ext-mcp-sandbox":{"version":"0.3.10","path":".x07/local/ext-mcp-sandbox/0.3.10"},
+		       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
+		       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
+		     })' \
+		    x07.json \
+	    >"$tmp_manifest"
+	  mv "$tmp_manifest" x07.json
+
+	  patch_deps_log="$(mktemp)"
+	  tmp_dirs+=("$patch_deps_log")
+	  X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" "$root/scripts/ci/materialize_patch_deps.sh" "$PWD/x07.json"
+
+	  proj_lock_log="$(mktemp)"
+	  tmp_dirs+=("$proj_lock_log")
+	  X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project x07.json --offline --json=off
+	else
+	  if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
+	    x07 pkg lock --project x07.json --check --json=off >/dev/null
+	  fi
+	fi
 run_with_timeout "$scaffold_http_test_timeout_secs" x07 test --manifest tests/tests.json >/dev/null
 
 step "perf smoke (mcp-server-http)"
@@ -1695,22 +1709,29 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   install_project_local_deps_from_workspace "$x07_root" "$PWD"
   tmp_manifest="$(mktemp)"
   tmp_dirs+=("$tmp_manifest")
-	  jq \
-	    '.schema_version = "x07.project@0.3.0" |
-	     .patch = ((.patch // {}) + {
-	       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-	       "ext-mcp-sandbox":{"version":"0.3.10","path":".x07/local/ext-mcp-sandbox/0.3.10"},
-	       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
-	       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
-	     })' \
-	    x07.json \
-    >"$tmp_manifest"
-  mv "$tmp_manifest" x07.json
-  x07 pkg lock --project x07.json --offline --json=off >/dev/null
-else
-  if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
-    x07 pkg lock --project x07.json --check --json=off >/dev/null
-  fi
+		  jq \
+		    '.schema_version = "x07.project@0.3.0" |
+		     .patch = ((.patch // {}) + {
+		       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
+		       "ext-mcp-sandbox":{"version":"0.3.10","path":".x07/local/ext-mcp-sandbox/0.3.10"},
+		       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
+		       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
+		     })' \
+		    x07.json \
+	    >"$tmp_manifest"
+	  mv "$tmp_manifest" x07.json
+
+	  patch_deps_log="$(mktemp)"
+	  tmp_dirs+=("$patch_deps_log")
+	  X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" "$root/scripts/ci/materialize_patch_deps.sh" "$PWD/x07.json"
+
+	  proj_lock_log="$(mktemp)"
+	  tmp_dirs+=("$proj_lock_log")
+	  X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project x07.json --offline --json=off
+	else
+	  if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
+	    x07 pkg lock --project x07.json --check --json=off >/dev/null
+	  fi
 fi
 
 run_with_timeout "$scaffold_test_timeout_secs" x07 test --manifest tests/tests.json >/dev/null
