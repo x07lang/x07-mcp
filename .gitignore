@@ -7,6 +7,7 @@ target/
 /.x07/
 .x07/
 .agent_cache/
+.agent_cache.*
 dist/
 out/
 tmp*/

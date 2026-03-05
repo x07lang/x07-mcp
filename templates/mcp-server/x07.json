@@ -21,5 +21,39 @@
       "auto_ffi": true,
       "solve_fuel": 50000000000
     }
+  },
+  "patch": {
+    "ext-crypto-rs": {
+      "path": ".x07/deps/ext-crypto-rs/0.1.5",
+      "version": "0.1.5"
+    },
+    "ext-data-model": {
+      "path": ".x07/deps/ext-data-model/0.1.10",
+      "version": "0.1.10"
+    },
+    "ext-json-rs": {
+      "path": ".x07/deps/ext-json-rs/0.1.6",
+      "version": "0.1.6"
+    },
+    "ext-time-rs": {
+      "path": ".x07/deps/ext-time-rs/0.1.6",
+      "version": "0.1.6"
+    },
+    "ext-auth-jwt": {
+      "path": ".x07/deps/ext-auth-jwt/0.1.6",
+      "version": "0.1.6"
+    },
+    "ext-obs": {
+      "path": ".x07/deps/ext-obs/0.1.4",
+      "version": "0.1.4"
+    },
+    "ext-db-core": {
+      "path": ".x07/deps/ext-db-core/0.1.11",
+      "version": "0.1.11"
+    },
+    "ext-db-sqlite": {
+      "path": ".x07/deps/ext-db-sqlite/0.1.11",
+      "version": "0.1.11"
+    }
   }
 }

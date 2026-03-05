@@ -257,7 +257,10 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-sandbox/0.3.4/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.5/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.6/modules"
+  "packages/ext/x07-ext-mcp-sandbox/0.3.7/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.8/modules"
+  "packages/ext/x07-ext-mcp-sandbox/0.3.9/modules"
+  "packages/ext/x07-ext-mcp-sandbox/0.3.10/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.2/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.3/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.4/modules"
@@ -308,27 +311,27 @@ done < <(find "${lint_dirs[@]}" -type f -name '*.x07.json' -print0)
 step "package tests (ext-mcp-rr sanitizer)"
 if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   x07_root="$(cd "$root/../x07" && pwd)"
-  auth_jwt_modules="$x07_root/packages/ext/x07-ext-auth-jwt/0.1.5/modules"
+  auth_jwt_modules="$x07_root/packages/ext/x07-ext-auth-jwt/0.1.6/modules"
   base64_modules="$x07_root/packages/ext/x07-ext-base64-rs/0.1.4/modules"
-  crypto_modules="$x07_root/packages/ext/x07-ext-crypto-rs/0.1.4/modules"
+  crypto_modules="$x07_root/packages/ext/x07-ext-crypto-rs/0.1.5/modules"
   curl_modules="$x07_root/packages/ext/x07-ext-curl-c/0.1.6/modules"
-  data_model_modules="$x07_root/packages/ext/x07-ext-data-model/0.1.9/modules"
-  db_core_modules="$x07_root/packages/ext/x07-ext-db-core/0.1.10/modules"
-  db_sqlite_modules="$x07_root/packages/ext/x07-ext-db-sqlite/0.1.10/modules"
+  data_model_modules="$x07_root/packages/ext/x07-ext-data-model/0.1.10/modules"
+  db_core_modules="$x07_root/packages/ext/x07-ext-db-core/0.1.11/modules"
+  db_sqlite_modules="$x07_root/packages/ext/x07-ext-db-sqlite/0.1.11/modules"
   fs_modules="$x07_root/packages/ext/x07-ext-fs/0.1.5/modules"
   hex_modules="$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules"
-  json_modules="$x07_root/packages/ext/x07-ext-json-rs/0.1.5/modules"
+  json_modules="$x07_root/packages/ext/x07-ext-json-rs/0.1.6/modules"
   jsonschema_modules="$x07_root/packages/ext/x07-ext-jsonschema-rs/0.1.0/modules"
   math_modules="$x07_root/packages/ext/x07-ext-math/0.1.4/modules"
   net_modules="$x07_root/packages/ext/x07-ext-net/0.1.9/modules"
-  obs_ext_modules="$x07_root/packages/ext/x07-ext-obs/0.1.3/modules"
+  obs_ext_modules="$x07_root/packages/ext/x07-ext-obs/0.1.4/modules"
   openssl_modules="$x07_root/packages/ext/x07-ext-openssl-c/0.1.9/modules"
   pb_modules="$x07_root/packages/ext/x07-ext-pb-rs/0.1.5/modules"
   rand_modules="$x07_root/packages/ext/x07-ext-rand/0.1.0/modules"
   regex_modules="$x07_root/packages/ext/x07-ext-regex/0.2.4/modules"
   sockets_modules="$x07_root/packages/ext/x07-ext-sockets-c/0.1.6/modules"
   stdio_modules="$x07_root/packages/ext/x07-ext-stdio/0.1.0/modules"
-  time_modules="$x07_root/packages/ext/x07-ext-time-rs/0.1.5/modules"
+  time_modules="$x07_root/packages/ext/x07-ext-time-rs/0.1.6/modules"
   u64_modules="$x07_root/packages/ext/x07-ext-u64-rs/0.1.4/modules"
   unicode_modules="$x07_root/packages/ext/x07-ext-unicode-rs/0.1.5/modules"
   url_modules="$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules"
@@ -1088,10 +1091,10 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   )
 
 		  step "package tests (ext-mcp-sandbox)"
-		  sandbox_038_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.8"
-		  [[ -d "$sandbox_038_dir" ]] || { echo "ERROR: missing local package: $sandbox_038_dir" >&2; exit 2; }
+		  sandbox_039_dir="$root/packages/ext/x07-ext-mcp-sandbox/0.3.9"
+		  [[ -d "$sandbox_039_dir" ]] || { echo "ERROR: missing local package: $sandbox_039_dir" >&2; exit 2; }
 		  (
-		    cd "$sandbox_038_dir"
+		    cd "$sandbox_039_dir"
 			    x07 test \
 			      --manifest tests/tests.json \
 			      --module-root modules \
@@ -1131,6 +1134,34 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 	    if [[ "$stream_smoke_ok" != "true" || "$stream_smoke_out" != "ok" ]]; then
 	      echo "ERROR: ext-mcp-sandbox streaming deadlock regression failed (ok=$stream_smoke_ok out=$stream_smoke_out)" >&2
 	      echo "$stream_smoke_json" >&2
+	      exit 2
+	    fi
+
+	    stream_wait_smoke_json="$(
+	      (
+	        cd tests
+	        x07-os-runner \
+		          --program router_exec_streaming_waits_for_worker_output_entry.x07.json \
+		          --world run-os \
+		          --solve-fuel 500000000 \
+		          --module-root ../modules \
+		          --module-root . \
+		          --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
+		          --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.7/modules" \
+		          --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.6/modules" \
+		          --module-root "$data_model_modules" \
+		          --module-root "$json_modules" \
+		          --module-root "$stdio_modules" \
+	          --module-root "$unicode_modules" \
+	          --module-root "$fs_modules" \
+	          --auto-ffi
+	      )
+	    )"
+	    stream_wait_smoke_ok="$(printf '%s' "$stream_wait_smoke_json" | jq -r '.solve.ok // false')"
+	    stream_wait_smoke_out="$(printf '%s' "$stream_wait_smoke_json" | jq -r '(.solve.solve_output_b64 // "") | @base64d')"
+	    if [[ "$stream_wait_smoke_ok" != "true" || "$stream_wait_smoke_out" != "ok" ]]; then
+	      echo "ERROR: ext-mcp-sandbox streaming wait regression failed (ok=$stream_wait_smoke_ok out=$stream_wait_smoke_out)" >&2
+	      echo "$stream_wait_smoke_json" >&2
 	      exit 2
 	    fi
 
@@ -1541,8 +1572,8 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   tmp_dirs+=("$tmp_manifest")
   jq \
     '.patch = ((.patch // {}) + {
-       "ext-json-rs":{"version":"0.1.5","path":".x07/local/ext-json-rs/0.1.5"},
-       "ext-mcp-sandbox":{"version":"0.3.8","path":".x07/local/ext-mcp-sandbox/0.3.8"}
+       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
+       "ext-mcp-sandbox":{"version":"0.3.10","path":".x07/local/ext-mcp-sandbox/0.3.10"}
      })' \
     x07.json \
     >"$tmp_manifest"
@@ -1608,8 +1639,8 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 	  jq \
 	    '.schema_version = "x07.project@0.3.0" |
 	     .patch = ((.patch // {}) + {
-	       "ext-json-rs":{"version":"0.1.5","path":".x07/local/ext-json-rs/0.1.5"},
-	       "ext-mcp-sandbox":{"version":"0.3.8","path":".x07/local/ext-mcp-sandbox/0.3.8"},
+	       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
+	       "ext-mcp-sandbox":{"version":"0.3.10","path":".x07/local/ext-mcp-sandbox/0.3.10"},
 	       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
 	       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
 	     })' \
@@ -1663,8 +1694,8 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 	  jq \
 	    '.schema_version = "x07.project@0.3.0" |
 	     .patch = ((.patch // {}) + {
-	       "ext-json-rs":{"version":"0.1.5","path":".x07/local/ext-json-rs/0.1.5"},
-	       "ext-mcp-sandbox":{"version":"0.3.8","path":".x07/local/ext-mcp-sandbox/0.3.8"},
+	       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
+	       "ext-mcp-sandbox":{"version":"0.3.10","path":".x07/local/ext-mcp-sandbox/0.3.10"},
 	       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
 	       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
 	     })' \
