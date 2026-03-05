@@ -1507,10 +1507,14 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
     "$conf_proj/x07.json" \
     >"$tmp_manifest"
   mv "$tmp_manifest" "$conf_proj/x07.json"
-  (
-    cd "$conf_proj"
-    x07 pkg lock --project x07.json --offline >/dev/null
-  )
+
+  patch_deps_log="$(mktemp)"
+  tmp_dirs+=("$patch_deps_log")
+  X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" ./scripts/ci/materialize_patch_deps.sh "$conf_proj/x07.json"
+
+  conf_lock_log="$(mktemp)"
+  tmp_dirs+=("$conf_lock_log")
+  X07_WORKSPACE_ROOT="$root" run_quiet "$conf_lock_log" x07 pkg lock --project "$conf_proj/x07.json" --offline --json=off
 
   conf_bundle_log="$(mktemp)"
   tmp_dirs+=("$conf_bundle_log")
