@@ -84,6 +84,22 @@ if bool(publisher_meta.get("x07_official", False)):
         raise SystemExit(
             f"x07.mcp.json package url mismatch: got={pkg.get('url')!r} want={expected_url!r}"
         )
+
+for rel_dir in ("config", "tests/config"):
+    cfg_root = server_root / rel_dir
+    if not cfg_root.is_dir():
+        continue
+    for cfg_path in sorted(cfg_root.glob("mcp.server*.json")):
+        cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+        server_meta = cfg.get("server")
+        if not isinstance(server_meta, dict):
+            raise SystemExit(f"{cfg_path.relative_to(server_root)} missing server object")
+        cfg_version = str(server_meta.get("version", ""))
+        if cfg_version != version:
+            raise SystemExit(
+                f"{cfg_path.relative_to(server_root)} version mismatch: "
+                f"got={cfg_version!r} want={version!r}"
+            )
 PY
 }
 

@@ -2,7 +2,7 @@
   "schema_version": "x07.mcp.server_config@0.3.0",
   "server": {
     "name": "io.x07/x07lang-mcp",
-    "version": "0.2.1",
+    "version": "0.2.3",
     "protocolVersion": "2025-11-25"
   },
   "auth": {

@@ -60,6 +60,28 @@ def _assert_initialize_protocol(resp: dict, requested_protocol: str) -> None:
         )
 
 
+def _assert_initialize_server_version(resp: dict, expected_version: str) -> None:
+    result = resp.get("result")
+    if not isinstance(result, dict):
+        raise AssertionError(f"initialize missing result payload: {resp!r}")
+    server_info = result.get("serverInfo")
+    if not isinstance(server_info, dict):
+        raise AssertionError(f"initialize missing serverInfo payload: {resp!r}")
+    got = server_info.get("version")
+    if got != expected_version:
+        raise AssertionError(
+            f"initialize server version mismatch: expected={expected_version!r} got={got!r}"
+        )
+
+
+def expected_server_version(server_root: Path) -> str:
+    doc = json.loads((server_root / "x07.mcp.json").read_text(encoding="utf-8"))
+    version = doc.get("version")
+    if not isinstance(version, str) or not version:
+        raise RuntimeError("x07.mcp.json missing version")
+    return version
+
+
 def build_bins(server_root: Path) -> None:
     env = os.environ.copy()
     env["X07_MCP_BUILD_BINS_ONLY"] = "1"
@@ -109,7 +131,9 @@ def hydrate_server_deps(server_root: Path, env: dict[str, str]) -> None:
     )
 
 
-def run_stdio_smoke(server_exe: Path, cwd: Path, fixture_root: Path) -> None:
+def run_stdio_smoke(
+    server_exe: Path, cwd: Path, fixture_root: Path, expected_version: str
+) -> None:
     proc = subprocess.Popen(
         [str(server_exe)],
         cwd=cwd,
@@ -136,6 +160,7 @@ def run_stdio_smoke(server_exe: Path, cwd: Path, fixture_root: Path) -> None:
             )
             resp = _wait_for_response_id(proc, 1, 10.0)
             _assert_initialize_protocol(resp, requested_protocol)
+            _assert_initialize_server_version(resp, expected_version)
             if requested_protocol == "2025-11-25":
                 break
 

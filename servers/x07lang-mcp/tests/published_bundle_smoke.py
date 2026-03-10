@@ -7,12 +7,13 @@ import tempfile
 import zipfile
 from pathlib import Path
 
-from stdio_smoke_lib import build_bundle, run_stdio_smoke
+from stdio_smoke_lib import build_bundle, expected_server_version, run_stdio_smoke
 
 
 def main() -> int:
     server_root = Path(__file__).resolve().parents[1]
     bundle_path = build_bundle(server_root)
+    want_version = expected_server_version(server_root)
     fixture_root = server_root / "tests" / "fixtures" / "search_ws"
 
     with tempfile.TemporaryDirectory(prefix="x07lang-mcp-bundle-smoke-") as tmp_dir:
@@ -27,7 +28,7 @@ def main() -> int:
             raise RuntimeError(f"missing bundled worker binary: {worker_exe}")
         server_exe.chmod(server_exe.stat().st_mode | 0o755)
         worker_exe.chmod(worker_exe.stat().st_mode | 0o755)
-        run_stdio_smoke(server_exe, extracted_root, fixture_root)
+        run_stdio_smoke(server_exe, extracted_root, fixture_root, want_version)
     return 0
 
 

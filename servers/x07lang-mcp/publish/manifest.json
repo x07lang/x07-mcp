@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "x07lang-mcp",
   "display_name": "x07lang-mcp",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Official MCP server for the X07 language.",
   "author": {
     "name": "x07"
