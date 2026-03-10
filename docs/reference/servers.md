@@ -2,7 +2,7 @@
 
 `x07-mcp` ships these publish-ready reference servers:
 
-- [`x07lang-mcp`](../../servers/x07lang-mcp/README.md) — `x07.search_v1`, `x07.exec_v1`
+- [`x07lang-mcp`](../../servers/x07lang-mcp/README.md) — official X07 ecosystem server with core editing tools plus capability-gated `x07.pkg.*`, `x07.wasm.*`, `x07.web_ui.*`, `x07.device.*`, `x07.app.*`, and `lp.*`
 - [`github-mcp`](../../servers/github-mcp/README.md) — `github.list_repos`, `github.get_issue`
 - [`slack-mcp`](../../servers/slack-mcp/README.md) — `slack.list_channels`, `slack.post_message`
 - [`jira-mcp`](../../servers/jira-mcp/README.md) — `jira.search_issues`, `jira.get_issue`
@@ -21,3 +21,5 @@ Each server includes:
 - resources/prompts manifests (`config/mcp.resources.json`, `config/mcp.prompts.json`)
 - replay tests (`tests/mcp_http_replay.x07.json`)
 - publish recipe (`publish/build_mcpb.sh`)
+
+`x07lang-mcp` also generates effective runtime descriptors under `.x07/artifacts/mcp/runtime/` so its advertised surface matches the installed X07 packs.

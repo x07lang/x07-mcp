@@ -1,26 +1,46 @@
 {
   "schema_version": "x07.mcp.server_config@0.3.0",
-
   "server": {
     "name": "io.x07/x07lang-mcp",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "protocolVersion": "2025-11-25"
   },
-
   "auth": {
     "mode": "none"
   },
-
-  "transports": { "http": { "enabled": false } },
-
-  "tools": {
-    "descriptor_path": "config/mcp.tools.json"
+  "transports": {
+    "http": {
+      "enabled": false
+    }
   },
-
+  "capabilities": {
+    "tools": {
+      "listChanged": false
+    },
+    "tasks": {
+      "list": {},
+      "cancel": {},
+      "requests": {
+        "tools": {
+          "call": {}
+        }
+      }
+    }
+  },
+  "tools": {
+    "descriptor_path": ".x07/artifacts/mcp/runtime/mcp.tools.json"
+  },
+  "resources": {
+    "descriptor_path": ".x07/artifacts/mcp/runtime/mcp.resources.json"
+  },
+  "prompts": {
+    "descriptor_path": ".x07/artifacts/mcp/runtime/mcp.prompts.json"
+  },
   "worker_exe_path": "out/mcp-worker",
-
   "observability": {
-    "clock": { "mode": "os_now" },
+    "clock": {
+      "mode": "os_now"
+    },
     "logging": {
       "enabled": true,
       "declare_capability": true,
@@ -28,7 +48,10 @@
       "client_level_floor": "notice",
       "rate_limit_per_sec": 25,
       "max_data_bytes": 16384,
-      "emit": { "tool_start": true, "tool_finish": true },
+      "emit": {
+        "tool_start": true,
+        "tool_finish": true
+      },
       "redaction": {
         "redact_keys": [
           "authorization",
@@ -42,19 +65,53 @@
           "token",
           "apiKey"
         ],
-        "redact_patterns": ["(?i)bearer\\s+[A-Za-z0-9._-]+"],
+        "redact_patterns": [
+          "(?i)bearer\\s+[A-Za-z0-9._-]+"
+        ],
         "redacted_value": "<redacted>"
       }
     },
     "audit": {
       "enabled": true,
-      "sinks": [{ "kind": "stderr_jsonl_v1" }, { "kind": "rr_sidecar_v1" }],
-      "allow_tool_tags": ["cache.hit"]
+      "sinks": [
+        {
+          "kind": "stderr_jsonl_v1"
+        },
+        {
+          "kind": "rr_sidecar_v1"
+        }
+      ],
+      "allow_tool_tags": [
+        "cache.hit"
+      ]
     },
-    "metrics": { "enabled": false }
+    "metrics": {
+      "enabled": false
+    }
   },
-
+  "tasks": {
+    "enabled": true,
+    "defaults": {
+      "ttl_ms": 600000,
+      "poll_interval_ms": 250
+    },
+    "id": {
+      "mode": "random"
+    },
+    "clock": {
+      "mode": "os_now"
+    },
+    "executor": {
+      "mode": "async_pool"
+    },
+    "retention": {
+      "max_tasks": 256
+    }
+  },
   "sandbox": {
-    "per_tool": { "enabled": true, "policy_path": "policy/mcp.worker.base.policy.json" }
+    "per_tool": {
+      "enabled": true,
+      "policy_path": "policy/mcp.worker.base.policy.json"
+    }
   }
 }

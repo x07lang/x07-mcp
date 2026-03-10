@@ -11,15 +11,15 @@ Prerequisites:
 - Ensure you have an absolute path to `x07` (no PATH search in `execve`): `command -v x07`.
 
 Download:
-- GitHub release: `x07lang-mcp-v0.1.1`
-- `.mcpb` URL: https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.1.1/x07lang-mcp.mcpb
-- `.mcpb` SHA-256: `814d31a2eb617dcafe353c444674d7d7521305f8943f4f148fc6015ba8bb622b`
+- GitHub release: `x07lang-mcp-v0.2.0`
+- `.mcpb` URL: https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.2.0/x07lang-mcp.mcpb
+- `.mcpb` SHA-256: `3db22d93a34bfc4498de0d298e7e0b4f071cbe13dad17bcef04cf7ef6e3f4c61`
 
 Verify (macOS / Linux):
 
 ```bash
 got="$(shasum -a 256 x07lang-mcp.mcpb | awk '{print $1}')"
-test "$got" = "814d31a2eb617dcafe353c444674d7d7521305f8943f4f148fc6015ba8bb622b"
+test "$got" = "3db22d93a34bfc4498de0d298e7e0b4f071cbe13dad17bcef04cf7ef6e3f4c61"
 ```
 
 Configure your MCP client:
@@ -36,16 +36,36 @@ Configure your MCP client:
   - env (recommended): `X07_MCP_X07_EXE=/absolute/path/to/x07`
 
 ## Tools
-- `x07.search_v1`
-- `x07.resource_snippet_v1`
-- `x07.doc_v1`
-- `x07.cli.describe_v1`
-- `x07.patch_apply_v1`
-- `x07.fmt_write_v1`
-- `x07.lint_report_v1`
-- `x07.context_pack_v1`
-- `x07.exec_v1`
-- `x07.artifact_snippet_v1`
+- Core:
+  - `x07.search_v1`
+  - `x07.resource_snippet_v1`
+  - `x07.doc_v1`
+  - `x07.cli.describe_v1`
+  - `x07.patch_apply_v1`
+  - `x07.fmt_write_v1`
+  - `x07.lint_report_v1`
+  - `x07.context_pack_v1`
+  - `x07.exec_v1`
+  - `x07.artifact_snippet_v1`
+- Discovery:
+  - `x07.ecosystem.status_v1`
+  - `x07.pkg.provides_v1`
+  - `x07.pkg.catalog_v1`
+- Optional packs:
+  - `x07.wasm.core_v1`
+  - `x07.web_ui.exec_v1`
+  - `x07.device.exec_v1`
+  - `x07.app.exec_v1`
+  - `lp.query_v1`
+  - `lp.control_v1`
+
+`x07lang-mcp` writes an effective runtime server config plus filtered tools/resources/prompts manifests under `.x07/artifacts/mcp/runtime/`. The advertised surface is gated by the installed toolchain:
+
+- core/search/pkg when `x07` is available
+- wasm/web-ui/device/app when `x07-wasm` is available
+- `lp.*` when `x07lp` is available
+
+Dedicated pack tools return bounded summaries with file-backed reports and artifacts. Use `x07.artifact_snippet_v1` or resource reads to inspect the full output only when needed.
 
 ## Run (from source)
 
@@ -61,6 +81,7 @@ Run:
 ## Test
 - `x07 test --manifest tests/tests.json`
 - stdio smoke: `python3 tests/stdio_smoke.py`
+- package lock refresh: `x07 pkg lock --project x07.json`
 
 ## Build `.mcpb`
 - `./publish/build_mcpb.sh`

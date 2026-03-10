@@ -1,1 +1,70 @@
-{"schema_version":"x07.mcp.rr.http_session@0.1.0","id":"hello.jwt","profile":"prod","project_files":{"server":"config/mcp.server.jwt_jwks.json","tools":"config/mcp.tools.json","oauth":"config/mcp.oauth.jwt_jwks.json","resources":"config/mcp.resources.json","prompts":"config/mcp.prompts.json"},"base_url":"http://127.0.0.1:8314","mcp_path":"/mcp","steps":[{"name":"initialize_with_bearer_jwt_gets_session","req":{"method":"POST","path":"/mcp","headers":{"Origin":"http://localhost:3000","Accept":"application/json, text/event-stream","Content-Type":"application/json","MCP-Protocol-Version":"2025-11-25","Authorization":"Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6InRlc3QtcnMyNTYtMSIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6Im1jcDp0b29scyIsInN1YiI6InVzZXItMTIzIiwiaXNzIjoiaHR0cHM6Ly9hdXRoLmV4YW1wbGUuY29tIiwiYXVkIjoiaHR0cDovLzEyNy4wLjAuMTo4MzE0L21jcCIsImlhdCI6MTcwMDAwMDAwMCwiZXhwIjoxNzAwMDAzNjAwfQ.ZeQtnPnBt1RdNYf0MvAXEAEs7afyWuLVpNNgEdmtO2Qb7Z6xSPFIXzUeAUBtUiTcljU7hN9ToaELS2jd4ONFMCsa1VxTv_tsBbXHE3mrMzVDbftky7bfG5l2gcEI-mQpj_ytAncDYWaesAovYPStTt7JImei2Bzn0YWzLzLV58s85csjasist4X-yxn33CPfjr6LSW_xxeDyHmHRw3s_ytyM2ksA_4nJfxY-AH9YiPPH0BckTwBT88TDvHIUHjTE78iT1X-it2qbbsIuqX3_kFVcem-MjPmpYXQCDpBXOuz1G_42v95m9vuipxLkVRURRrfnA3XAFwg2PkefMz4niQ"},"body_json":{"jsonrpc":"2.0","id":21,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{}}}},"res":{"status":200,"headers":{"MCP-Session-Id":"sess_test_0001"}}},{"name":"bearer_jwt_with_scope_succeeds","req":{"method":"POST","path":"/mcp","headers":{"Origin":"http://localhost:3000","Accept":"application/json, text/event-stream","Content-Type":"application/json","MCP-Protocol-Version":"2025-11-25","MCP-Session-Id":"sess_test_0001","Authorization":"Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6InRlc3QtcnMyNTYtMSIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6Im1jcDp0b29scyIsInN1YiI6InVzZXItMTIzIiwiaXNzIjoiaHR0cHM6Ly9hdXRoLmV4YW1wbGUuY29tIiwiYXVkIjoiaHR0cDovLzEyNy4wLjAuMTo4MzE0L21jcCIsImlhdCI6MTcwMDAwMDAwMCwiZXhwIjoxNzAwMDAzNjAwfQ.ZeQtnPnBt1RdNYf0MvAXEAEs7afyWuLVpNNgEdmtO2Qb7Z6xSPFIXzUeAUBtUiTcljU7hN9ToaELS2jd4ONFMCsa1VxTv_tsBbXHE3mrMzVDbftky7bfG5l2gcEI-mQpj_ytAncDYWaesAovYPStTt7JImei2Bzn0YWzLzLV58s85csjasist4X-yxn33CPfjr6LSW_xxeDyHmHRw3s_ytyM2ksA_4nJfxY-AH9YiPPH0BckTwBT88TDvHIUHjTE78iT1X-it2qbbsIuqX3_kFVcem-MjPmpYXQCDpBXOuz1G_42v95m9vuipxLkVRURRrfnA3XAFwg2PkefMz4niQ"},"body_json":{"jsonrpc":"2.0","id":23,"method":"tools/list","params":{}}},"res":{"status":200,"headers":{}}}]}
+{
+  "schema_version": "x07.mcp.rr.http_session@0.1.0",
+  "id": "hello.jwt",
+  "profile": "prod",
+  "project_files": {
+    "server": "config/mcp.server.jwt_jwks.json",
+    "tools": "config/mcp.tools.json",
+    "oauth": "config/mcp.oauth.jwt_jwks.json",
+    "resources": "config/mcp.resources.json",
+    "prompts": "config/mcp.prompts.json"
+  },
+  "base_url": "http://127.0.0.1:8314",
+  "mcp_path": "/mcp",
+  "steps": [
+    {
+      "name": "initialize_with_bearer_jwt_gets_session",
+      "req": {
+        "method": "POST",
+        "path": "/mcp",
+        "headers": {
+          "Origin": "http://localhost:3000",
+          "Accept": "application/json, text/event-stream",
+          "Content-Type": "application/json",
+          "MCP-Protocol-Version": "2025-11-25",
+          "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6InRlc3QtcnMyNTYtMSIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6Im1jcDp0b29scyIsInN1YiI6InVzZXItMTIzIiwiaXNzIjoiaHR0cHM6Ly9hdXRoLmV4YW1wbGUuY29tIiwiYXVkIjoiaHR0cDovLzEyNy4wLjAuMTo4MzE0L21jcCIsImlhdCI6MTcwMDAwMDAwMCwiZXhwIjoxNzAwMDAzNjAwfQ.ZeQtnPnBt1RdNYf0MvAXEAEs7afyWuLVpNNgEdmtO2Qb7Z6xSPFIXzUeAUBtUiTcljU7hN9ToaELS2jd4ONFMCsa1VxTv_tsBbXHE3mrMzVDbftky7bfG5l2gcEI-mQpj_ytAncDYWaesAovYPStTt7JImei2Bzn0YWzLzLV58s85csjasist4X-yxn33CPfjr6LSW_xxeDyHmHRw3s_ytyM2ksA_4nJfxY-AH9YiPPH0BckTwBT88TDvHIUHjTE78iT1X-it2qbbsIuqX3_kFVcem-MjPmpYXQCDpBXOuz1G_42v95m9vuipxLkVRURRrfnA3XAFwg2PkefMz4niQ"
+        },
+        "body_json": {
+          "jsonrpc": "2.0",
+          "id": 21,
+          "method": "initialize",
+          "params": {
+            "protocolVersion": "2025-11-25",
+            "capabilities": {}
+          }
+        }
+      },
+      "res": {
+        "status": 200,
+        "headers": {
+          "MCP-Session-Id": "sess_test_0001"
+        }
+      }
+    },
+    {
+      "name": "bearer_jwt_with_scope_succeeds",
+      "req": {
+        "method": "POST",
+        "path": "/mcp",
+        "headers": {
+          "Origin": "http://localhost:3000",
+          "Accept": "application/json, text/event-stream",
+          "Content-Type": "application/json",
+          "MCP-Protocol-Version": "2025-11-25",
+          "MCP-Session-Id": "sess_test_0001",
+          "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6InRlc3QtcnMyNTYtMSIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6Im1jcDp0b29scyIsInN1YiI6InVzZXItMTIzIiwiaXNzIjoiaHR0cHM6Ly9hdXRoLmV4YW1wbGUuY29tIiwiYXVkIjoiaHR0cDovLzEyNy4wLjAuMTo4MzE0L21jcCIsImlhdCI6MTcwMDAwMDAwMCwiZXhwIjoxNzAwMDAzNjAwfQ.ZeQtnPnBt1RdNYf0MvAXEAEs7afyWuLVpNNgEdmtO2Qb7Z6xSPFIXzUeAUBtUiTcljU7hN9ToaELS2jd4ONFMCsa1VxTv_tsBbXHE3mrMzVDbftky7bfG5l2gcEI-mQpj_ytAncDYWaesAovYPStTt7JImei2Bzn0YWzLzLV58s85csjasist4X-yxn33CPfjr6LSW_xxeDyHmHRw3s_ytyM2ksA_4nJfxY-AH9YiPPH0BckTwBT88TDvHIUHjTE78iT1X-it2qbbsIuqX3_kFVcem-MjPmpYXQCDpBXOuz1G_42v95m9vuipxLkVRURRrfnA3XAFwg2PkefMz4niQ"
+        },
+        "body_json": {
+          "jsonrpc": "2.0",
+          "id": 23,
+          "method": "tools/list",
+          "params": {}
+        }
+      },
+      "res": {
+        "status": 200,
+        "headers": {}
+      }
+    }
+  ]
+}

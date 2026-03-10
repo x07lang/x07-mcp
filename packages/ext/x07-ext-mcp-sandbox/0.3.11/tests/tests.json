@@ -1,0 +1,29 @@
+{
+  "schema_version": "x07.tests_manifest@0.1.0",
+  "tests": [
+    {
+      "id": "std.mcp.sandbox/router_exec_streaming_deadlock_regression",
+      "world": "run-os",
+      "entry": "smoke_router_exec_streaming.deadlock_regression",
+      "expect": "pass"
+    },
+    {
+      "id": "std.mcp.sandbox/policy_compile_env_allowlist_passthrough",
+      "world": "run-os",
+      "entry": "smoke_policy_compile_env.allowlist_env_passthrough_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "std.mcp.sandbox/policy_compile_process_projection",
+      "world": "run-os",
+      "entry": "smoke_policy_compile_env.process_policy_projection_v1",
+      "expect": "pass"
+    },
+    {
+      "id": "std.mcp.sandbox/custom_limits_profile",
+      "world": "run-os",
+      "entry": "smoke_policy_compile_env.custom_limits_profile_v1",
+      "expect": "pass"
+    }
+  ]
+}

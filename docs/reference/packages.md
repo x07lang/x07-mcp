@@ -3,11 +3,11 @@
 `x07-mcp` publishes these MCP kit packages:
 
 - `ext-mcp-core@0.3.4`: protocol constants, JSON-RPC helpers, diagnostics, progress token registry, SSE/event-id helpers
-- `ext-mcp-toolkit@0.3.6`: server/tools manifest loaders, schema helpers, shared dispatcher, tool context helpers, progress/status emit APIs
+- `ext-mcp-toolkit@0.3.8`: server/tools/resources/prompts loaders, descriptor-path aware server config helpers, shared dispatcher, tool context helpers, progress/status emit APIs
 - `ext-mcp-worker@0.3.5`: worker protocol + worker entrypoint
-- `ext-mcp-sandbox@0.3.6`: router-side sandbox + task stores/executors + worker spawn helpers (streaming/cancel-aware)
-- `ext-mcp-transport-stdio@0.3.4`: stdio MCP transport (tasks, progress, cancellation, subscriptions)
-- `ext-mcp-transport-http@0.3.16`: HTTP MCP transport (`ext.mcp.server`) + Streamable HTTP SSE
+- `ext-mcp-sandbox@0.3.11`: router-side sandbox + task stores/executors + worker spawn helpers (streaming/cancel-aware), custom limits profiles, and per-tool process allowlists
+- `ext-mcp-transport-stdio@0.3.7`: stdio MCP transport (tasks, progress, cancellation, subscriptions) with runtime descriptor-path support
+- `ext-mcp-transport-http@0.3.18`: HTTP MCP transport (`ext.mcp.server`) + Streamable HTTP SSE with runtime descriptor-path support
 - `ext-mcp-transport-http@0.2.1`: HTTP MCP transport (`std.mcp.transport.http`) for the legacy server config (`x07.mcp.server_config@0.2.0`)
 - `ext-mcp-auth-core@0.1.2`: pure PRM URL/JSON utilities, Bearer parsing, `WWW-Authenticate` formatting, scope set ops
 - `ext-mcp-auth@0.4.6`: OAuth2 resource server enforcement (introspection + JWT/JWKS) + DPoP + DPoP nonce + signed PRM metadata (HS256 + Ed25519/RS256 with trust anchors) (uses `ext-mcp-auth-core`)
@@ -23,7 +23,7 @@
 - `x07-mcp@0.4.0` (app package): trust-pack install/update + publish trust-pack validation/meta summary + trust tlog monitor command surface (`app.mcp.cli.trust_tlog_monitor_v1`)
 - `x07-mcp@0.3.0` (app package): trust-pack install/update phase-15 helpers + publish trust-pack validation/meta summary v3 (`minSnapshotVersion`, `snapshotSha256`, `checkpointSha256`)
 - `ext-mcp-obs@0.1.4`: audit JSONL + metrics hooks
-- `ext-mcp-rr@0.3.15`: deterministic stdio, HTTP, and HTTP+SSE replay helpers + sanitizers
+- `ext-mcp-rr@0.3.17`: deterministic stdio, HTTP, and HTTP+SSE replay helpers + sanitizers with runtime descriptor-path support
 
 ## Lockfiles
 

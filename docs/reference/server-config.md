@@ -12,6 +12,8 @@ Config files are loaded via `std.mcp.toolkit.server_cfg_file` and validated stri
 - JSON is canonicalized before parsing.
 - Unknown keys and type mismatches are rejected (fail-closed).
 
+Reference servers can materialize effective runtime descriptors before the transport starts. `x07lang-mcp` uses this to write filtered server/tools/resources/prompts manifests under `.x07/artifacts/mcp/runtime/` and then launches stdio/HTTP against those generated files.
+
 See:
 
 - `docs/reference/server-config-v0.3.0.md`

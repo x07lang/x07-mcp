@@ -6,6 +6,7 @@ import base64
 import hashlib
 import hmac
 import json
+import os
 import pathlib
 import re
 import shutil
@@ -286,8 +287,34 @@ def _ed25519_public_pem_from_jwk_x(x_b64u: str) -> str:
     return f"-----BEGIN PUBLIC KEY-----\n{wrapped}\n-----END PUBLIC KEY-----\n"
 
 
+def _openssl_candidates() -> list[str]:
+    candidates: list[str] = []
+    seen: set[str] = set()
+
+    def add(candidate: str | None) -> None:
+        if not candidate:
+            return
+        if candidate in seen:
+            return
+        if not os.path.isfile(candidate):
+            return
+        if not os.access(candidate, os.X_OK):
+            return
+        seen.add(candidate)
+        candidates.append(candidate)
+
+    add(os.environ.get("X07_MCP_OPENSSL_BIN"))
+    add(os.environ.get("OPENSSL_BIN"))
+    add("/opt/homebrew/bin/openssl")
+    add("/usr/local/bin/openssl")
+    add("/opt/local/bin/openssl")
+    add(shutil.which("openssl"))
+    return candidates
+
+
 def _verify_ed25519_openssl(signing_input: bytes, signature: bytes, jwk: dict[str, Any]) -> bool:
-    if shutil.which("openssl") is None:
+    openssl_bins = _openssl_candidates()
+    if not openssl_bins:
         raise ValueError("openssl is required to verify EdDSA signed_metadata")
     if str(jwk.get("kty", "")) != "OKP":
         return False
@@ -307,24 +334,27 @@ def _verify_ed25519_openssl(signing_input: bytes, signature: bytes, jwk: dict[st
         sig_path.write_bytes(signature)
         msg_path.write_bytes(signing_input)
 
-        proc = subprocess.run(
-            [
-                "openssl",
-                "pkeyutl",
-                "-verify",
-                "-pubin",
-                "-inkey",
-                str(pem_path),
-                "-sigfile",
-                str(sig_path),
-                "-rawin",
-                "-in",
-                str(msg_path),
-            ],
-            capture_output=True,
-            text=True,
-        )
-        return proc.returncode == 0
+        for openssl_bin in openssl_bins:
+            proc = subprocess.run(
+                [
+                    openssl_bin,
+                    "pkeyutl",
+                    "-verify",
+                    "-pubin",
+                    "-inkey",
+                    str(pem_path),
+                    "-sigfile",
+                    str(sig_path),
+                    "-rawin",
+                    "-in",
+                    str(msg_path),
+                ],
+                capture_output=True,
+                text=True,
+            )
+            if proc.returncode == 0:
+                return True
+        return False
 
 
 def _verify_signed_metadata_with_keys(

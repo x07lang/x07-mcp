@@ -21,8 +21,9 @@
 - [Record/replay](concepts/record-replay.md)
 
 ## Reference
-- [Server config (v0.2.0)](reference/server-config.md)
+- [Server config overview](reference/server-config.md)
 - [Server config (v0.3.0)](reference/server-config-v0.3.0.md)
+- [x07lang-mcp](reference/x07lang-mcp.md)
 - [OAuth config](reference/oauth-config.md)
 - [Tools manifest](reference/tools-manifest.md)
 - [Registry manifest](reference/registry-manifest.md)

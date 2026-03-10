@@ -3,7 +3,7 @@
   "name": "io.x07/x07lang-mcp",
   "title": "x07lang-mcp",
   "description": "Official MCP server for the X07 language.",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "websiteUrl": "https://x07lang.org",
   "repository": {
     "source": "github",
@@ -14,9 +14,9 @@
   "packages": [
     {
       "registryType": "mcpb",
-      "identifier": "https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.1.1/x07lang-mcp.mcpb",
-      "version": "0.1.1",
-      "fileSha256": "814d31a2eb617dcafe353c444674d7d7521305f8943f4f148fc6015ba8bb622b",
+      "identifier": "https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.2.0/x07lang-mcp.mcpb",
+      "version": "0.2.0",
+      "fileSha256": "3db22d93a34bfc4498de0d298e7e0b4f071cbe13dad17bcef04cf7ef6e3f4c61",
       "transport": { "type": "stdio" }
     }
   ]

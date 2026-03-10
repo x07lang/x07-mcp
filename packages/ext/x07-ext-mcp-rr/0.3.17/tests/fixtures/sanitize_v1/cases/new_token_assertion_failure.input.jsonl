@@ -1,0 +1,2 @@
+{"dir":"s2c","msg":{"jsonrpc":"2.0","method":"notifications/message","params":{"data":{"note":"new token type: ghp_0123456789abcdefghijklmnopqrstuvwx"},"level":"warning","logger":"unit.sanitize"}}}
+

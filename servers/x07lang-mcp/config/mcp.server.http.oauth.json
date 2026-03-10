@@ -3,7 +3,7 @@
 
   "server": {
     "name": "io.x07/x07lang-mcp",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "protocolVersion": "2025-11-25"
   },
 
@@ -33,8 +33,23 @@
     }
   },
 
+  "capabilities": {
+    "tools": { "listChanged": false },
+    "tasks": {
+      "list": {},
+      "cancel": {},
+      "requests": { "tools": { "call": {} } }
+    }
+  },
+
   "tools": {
-    "descriptor_path": "config/mcp.tools.json"
+    "descriptor_path": ".x07/artifacts/mcp/runtime/mcp.tools.json"
+  },
+  "resources": {
+    "descriptor_path": ".x07/artifacts/mcp/runtime/mcp.resources.json"
+  },
+  "prompts": {
+    "descriptor_path": ".x07/artifacts/mcp/runtime/mcp.prompts.json"
   },
 
   "worker_exe_path": "out/mcp-worker",
@@ -72,6 +87,26 @@
       "allow_tool_tags": ["cache.hit"]
     },
     "metrics": { "enabled": false }
+  },
+
+  "tasks": {
+    "enabled": true,
+    "defaults": {
+      "ttl_ms": 600000,
+      "poll_interval_ms": 250
+    },
+    "id": {
+      "mode": "random"
+    },
+    "clock": {
+      "mode": "os_now"
+    },
+    "executor": {
+      "mode": "async_pool"
+    },
+    "retention": {
+      "max_tasks": 256
+    }
   },
 
   "sandbox": {

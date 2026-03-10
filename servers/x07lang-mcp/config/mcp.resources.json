@@ -21,6 +21,66 @@
       "mimeType": "application/json; charset=utf-8",
       "text": "{\"schema_version\":\"x07lang.index_roots@0.1.0\",\"roots\":[\".agent/docs\",\".agent/skills\",\"x07/docs\",\"x07/skills/pack/.agent/skills\"],\"remote_agent_portal\":{\"enabled\":false,\"base_url\":\"https://x07lang.org/agent/latest/\"}}\n",
       "size": 217
+    },
+    {
+      "uri": "x07://wasm/profiles",
+      "name": "WASM profile entrypoints",
+      "mimeType": "application/json; charset=utf-8",
+      "text": "{\"schema_version\":\"x07lang.mcp.resource@0.1.0\",\"pack\":\"wasm\",\"index\":\"arch/wasm/index.x07wasm.json\",\"component_index\":\"arch/wasm/component/index.x07wasm.component.json\",\"wit_index\":\"arch/wit/index.x07wit.json\",\"docs\":[\"x07/docs/toolchain/wasm.md\"],\"commands\":[\"x07 wasm profile validate\",\"x07 wasm component profile validate\",\"x07 wasm build\",\"x07 wasm run\"]}\n",
+      "size": 360,
+      "x07": {
+        "pack": "wasm"
+      }
+    },
+    {
+      "uri": "x07://web-ui/contracts",
+      "name": "Web UI contracts and traces",
+      "mimeType": "application/json; charset=utf-8",
+      "text": "{\"schema_version\":\"x07lang.mcp.resource@0.1.0\",\"pack\":\"web_ui\",\"index\":\"arch/web_ui/index.x07webui.json\",\"fixtures_glob\":\"arch/web_ui/contracts/**/*.json\",\"docs\":[\"x07/docs/toolchain/wasm.md\"],\"commands\":[\"x07 wasm web-ui contracts validate\",\"x07 wasm web-ui build\",\"x07 wasm web-ui test\",\"x07 wasm web-ui regress from-incident\"]}\n",
+      "size": 331,
+      "x07": {
+        "pack": "web_ui"
+      }
+    },
+    {
+      "uri": "x07://device/host-abi",
+      "name": "Device host ABI and packaging",
+      "mimeType": "application/json; charset=utf-8",
+      "text": "{\"schema_version\":\"x07lang.mcp.resource@0.1.0\",\"pack\":\"device\",\"index\":\"arch/device/index.x07device.json\",\"host_binary\":\"x07-device-host-desktop\",\"docs\":[\"x07/docs/toolchain/wasm.md\"],\"commands\":[\"x07 wasm device build\",\"x07 wasm device verify\",\"x07 wasm device run\",\"x07 wasm device package\",\"x07 wasm device provenance attest\"]}\n",
+      "size": 331,
+      "x07": {
+        "pack": "device"
+      }
+    },
+    {
+      "uri": "x07://platform/contracts",
+      "name": "Platform contract surface",
+      "mimeType": "application/json; charset=utf-8",
+      "text": "{\"schema_version\":\"x07lang.mcp.resource@0.1.0\",\"pack\":\"platform\",\"docs\":[\"x07/docs/agent/platform.md\"],\"contracts\":[\"lp.deploy.query.result@0.1.0\",\"lp.incident.query.result@0.1.0\",\"lp.control.action.result@0.1.0\",\"lp.app.list.result@0.1.0\"],\"namespace\":\"lp.*\"}\n",
+      "size": 261,
+      "x07": {
+        "pack": "platform"
+      }
+    },
+    {
+      "uri": "x07://registry/catalog",
+      "name": "Registry catalog endpoint",
+      "mimeType": "application/json; charset=utf-8",
+      "text": "{\"schema_version\":\"x07lang.mcp.resource@0.1.0\",\"pack\":\"pkg\",\"url\":\"https://registry.x07.io/index/catalog.json\",\"cache_path\":\".x07/artifacts/mcp/cache/registry.catalog.json\",\"docs\":[\"x07/docs/agent/contract.md\"]}\n",
+      "size": 212,
+      "x07": {
+        "pack": "pkg"
+      }
+    },
+    {
+      "uri": "x07://agent-portal/index",
+      "name": "Agent portal canonical endpoints",
+      "mimeType": "application/json; charset=utf-8",
+      "text": "{\"schema_version\":\"x07lang.mcp.resource@0.1.0\",\"pack\":\"ecosystem\",\"base_url\":\"https://x07lang.org/agent/latest/\",\"entrypoints\":[\"entrypoints.json\",\"index.json\",\"manifest.json\",\"catalog/index.json\",\"catalog/capabilities.json\",\"packages/index.json\",\"skills/index.json\",\"examples/index.json\",\"stdlib/index.json\"],\"cache_paths\":[\".x07/artifacts/mcp/cache/agent.portal.packages.index.json\",\".x07/artifacts/mcp/cache/agent.portal.catalog.index.json\"],\"docs\":[\"x07/docs/agent/contract.md\"]}\n",
+      "size": 484,
+      "x07": {
+        "pack": "ecosystem"
+      }
     }
   ]
 }

@@ -1,1 +1,45 @@
-{"schema_version":"x07.mcp.rr.http_session@0.1.0","id":"golden.dpop_missing_proof_401","profile":"prod","project_files":{"server":"config/mcp.server.jwt_jwks.json","tools":"config/mcp.tools.json","oauth":"config/mcp.oauth.jwt_jwks.json","resources":"config/mcp.resources.json","prompts":"config/mcp.prompts.json"},"base_url":"http://127.0.0.1:8314","mcp_path":"/mcp","steps":[{"name":"dpop_token_missing_proof_gets_401","req":{"method":"POST","path":"/mcp","headers":{"Origin":"http://localhost:3000","Accept":"application/json, text/event-stream","Content-Type":"application/json","MCP-Protocol-Version":"2025-11-25","Authorization":"DPoP eyJhbGciOiJSUzI1NiIsImtpZCI6InRlc3QtcnMyNTYtMSIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6Im1jcDp0b29scyIsInN1YiI6InVzZXItMTIzIiwiY25mIjp7ImprdCI6IlVTVlBZb3RmYl80Yk5VclBzY0RmbHNiem1EcW1PZFo3WlkwaFhhWFU1MGcifSwiaXNzIjoiaHR0cHM6Ly9hdXRoLmV4YW1wbGUuY29tIiwiYXVkIjoiaHR0cDovLzEyNy4wLjAuMTo4MzE0L21jcCIsImlhdCI6MTcwMDAwMDAwMCwiZXhwIjoxNzAwMDAzNjAwfQ.URIMafgDwYuuLe9sQLvyUEujju0yBGW7okC8Wr8sTgXD7nuh0vUq1dfTowsbULV5DZE1T4fldd26PFmXZSFhbrW9Nfqf-zgECmcNdLxchntAHe1cmzqnE79ZYZiUf3ibdJGl7zEBqjwQL2yvtKQn63LkljM9bldQ6IDTFfjwxHm5F-pOexOdIW7_O60us4UMTwA4Oe8j0c_mJ_arneXbH__gVMWLMj8OhhurSVCVipczTixL9zLglWDiL7gwon5TGU_jJEoZgYifBWW2AwjtdiKYv6bfbQGLBtU1J2HVwx2h-kG4E0XM_g3OZBPgb74BPTyoR6eu_PDtRtkAiTJ45w"},"body_json":{"jsonrpc":"2.0","id":41,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{}}}},"res":{"status":401,"headers":{"WWW-Authenticate":"DPoP realm=\"x07-mcp\", algs=\"ES256\", resource_metadata=\"http://127.0.0.1:8314/.well-known/oauth-protected-resource/mcp\", scope=\"mcp:tools\""}}}]}
+{
+  "schema_version": "x07.mcp.rr.http_session@0.1.0",
+  "id": "golden.dpop_missing_proof_401",
+  "profile": "prod",
+  "project_files": {
+    "server": "config/mcp.server.jwt_jwks.json",
+    "tools": "config/mcp.tools.json",
+    "oauth": "config/mcp.oauth.jwt_jwks.json",
+    "resources": "config/mcp.resources.json",
+    "prompts": "config/mcp.prompts.json"
+  },
+  "base_url": "http://127.0.0.1:8314",
+  "mcp_path": "/mcp",
+  "steps": [
+    {
+      "name": "dpop_token_missing_proof_gets_401",
+      "req": {
+        "method": "POST",
+        "path": "/mcp",
+        "headers": {
+          "Origin": "http://localhost:3000",
+          "Accept": "application/json, text/event-stream",
+          "Content-Type": "application/json",
+          "MCP-Protocol-Version": "2025-11-25",
+          "Authorization": "DPoP eyJhbGciOiJSUzI1NiIsImtpZCI6InRlc3QtcnMyNTYtMSIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6Im1jcDp0b29scyIsInN1YiI6InVzZXItMTIzIiwiY25mIjp7ImprdCI6IlVTVlBZb3RmYl80Yk5VclBzY0RmbHNiem1EcW1PZFo3WlkwaFhhWFU1MGcifSwiaXNzIjoiaHR0cHM6Ly9hdXRoLmV4YW1wbGUuY29tIiwiYXVkIjoiaHR0cDovLzEyNy4wLjAuMTo4MzE0L21jcCIsImlhdCI6MTcwMDAwMDAwMCwiZXhwIjoxNzAwMDAzNjAwfQ.URIMafgDwYuuLe9sQLvyUEujju0yBGW7okC8Wr8sTgXD7nuh0vUq1dfTowsbULV5DZE1T4fldd26PFmXZSFhbrW9Nfqf-zgECmcNdLxchntAHe1cmzqnE79ZYZiUf3ibdJGl7zEBqjwQL2yvtKQn63LkljM9bldQ6IDTFfjwxHm5F-pOexOdIW7_O60us4UMTwA4Oe8j0c_mJ_arneXbH__gVMWLMj8OhhurSVCVipczTixL9zLglWDiL7gwon5TGU_jJEoZgYifBWW2AwjtdiKYv6bfbQGLBtU1J2HVwx2h-kG4E0XM_g3OZBPgb74BPTyoR6eu_PDtRtkAiTJ45w"
+        },
+        "body_json": {
+          "jsonrpc": "2.0",
+          "id": 41,
+          "method": "initialize",
+          "params": {
+            "protocolVersion": "2025-11-25",
+            "capabilities": {}
+          }
+        }
+      },
+      "res": {
+        "status": 401,
+        "headers": {
+          "WWW-Authenticate": "DPoP realm=\"x07-mcp\", algs=\"ES256\", resource_metadata=\"http://127.0.0.1:8314/.well-known/oauth-protected-resource/mcp\", scope=\"mcp:tools\""
+        }
+      }
+    }
+  ]
+}
