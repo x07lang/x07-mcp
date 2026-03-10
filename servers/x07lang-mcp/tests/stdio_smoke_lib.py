@@ -49,6 +49,17 @@ def _wait_for_response_id(
             return msg
 
 
+def _assert_initialize_protocol(resp: dict, requested_protocol: str) -> None:
+    result = resp.get("result")
+    if not isinstance(result, dict):
+        raise AssertionError(f"initialize missing result payload: {resp!r}")
+    negotiated = result.get("protocolVersion")
+    if negotiated != requested_protocol:
+        raise AssertionError(
+            f"initialize protocol mismatch: requested={requested_protocol!r} got={negotiated!r}"
+        )
+
+
 def build_bins(server_root: Path) -> None:
     env = os.environ.copy()
     env["X07_MCP_BUILD_BINS_ONLY"] = "1"
@@ -110,16 +121,42 @@ def run_stdio_smoke(server_exe: Path, cwd: Path, fixture_root: Path) -> None:
         env=stdio_env(),
     )
     try:
-        _send_json_line(
-            proc,
-            {
-                "jsonrpc": "2.0",
-                "id": 1,
-                "method": "initialize",
-                "params": {"protocolVersion": "2025-11-25", "capabilities": {}},
-            },
-        )
-        _wait_for_response_id(proc, 1, 10.0)
+        for requested_protocol in ("2025-03-26", "2025-11-25"):
+            _send_json_line(
+                proc,
+                {
+                    "jsonrpc": "2.0",
+                    "id": 1,
+                    "method": "initialize",
+                    "params": {
+                        "protocolVersion": requested_protocol,
+                        "capabilities": {},
+                    },
+                },
+            )
+            resp = _wait_for_response_id(proc, 1, 10.0)
+            _assert_initialize_protocol(resp, requested_protocol)
+            if requested_protocol == "2025-11-25":
+                break
+
+            if proc.poll() is None:
+                proc.terminate()
+                try:
+                    proc.wait(timeout=2.0)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                    proc.wait(timeout=2.0)
+
+            proc = subprocess.Popen(
+                [str(server_exe)],
+                cwd=cwd,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                bufsize=1,
+                env=stdio_env(),
+            )
 
         _send_json_line(proc, {"jsonrpc": "2.0", "method": "notifications/initialized"})
 

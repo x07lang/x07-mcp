@@ -128,7 +128,7 @@ Full docs live in [`docs/`](docs/SUMMARY.md):
 
 ## Protocol
 
-Pinned to MCP protocol version **2025-11-25** (backward-compatible with 2025-06-18, negotiated at `initialize`).
+Pinned to MCP protocol version **2025-11-25** (backward-compatible with `2025-06-18` and `2025-03-26`, negotiated at `initialize`).
 
 ## Links
 

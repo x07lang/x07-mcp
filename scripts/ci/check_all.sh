@@ -266,6 +266,7 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-toolkit/0.3.4/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.5/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.6/modules"
+  "packages/ext/x07-ext-mcp-toolkit/0.3.9/modules"
   "packages/ext/x07-ext-mcp-trust/0.1.0/modules"
   "packages/ext/x07-ext-mcp-trust/0.2.0/modules"
   "packages/ext/x07-ext-mcp-trust/0.3.0/modules"

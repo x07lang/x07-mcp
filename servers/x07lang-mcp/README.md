@@ -11,15 +11,15 @@ Prerequisites:
 - Ensure you have an absolute path to `x07` (no PATH search in `execve`): `command -v x07`.
 
 Download:
-- GitHub release: `x07lang-mcp-v0.2.1`
-- `.mcpb` URL: https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.2.1/x07lang-mcp.mcpb
-- `.mcpb` SHA-256: `0b2cae0b47adff478f05fc7f7323fa0e333a21ec22fd5dcc7bede72fa88c93e5`
+- GitHub release: `x07lang-mcp-v0.2.2`
+- `.mcpb` URL: https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.2.2/x07lang-mcp.mcpb
+- `.mcpb` SHA-256: `ca21831c09a04419e3a4bf32c90b74310119d01218c995b52263c60d00376da6`
 
 Verify (macOS / Linux):
 
 ```bash
 got="$(shasum -a 256 x07lang-mcp.mcpb | awk '{print $1}')"
-test "$got" = "0b2cae0b47adff478f05fc7f7323fa0e333a21ec22fd5dcc7bede72fa88c93e5"
+test "$got" = "ca21831c09a04419e3a4bf32c90b74310119d01218c995b52263c60d00376da6"
 ```
 
 Configure your MCP client:
