@@ -23,6 +23,7 @@ fi
 
 project_dir="$(cd "$(dirname "${project_abs}")" && pwd)"
 workspace_root="${X07_WORKSPACE_ROOT:-${ROOT}}"
+use_workspace_patch_deps="${X07_MCP_USE_WORKSPACE_PATCH_DEPS:-1}"
 
 copy_local_package_if_present() {
   local name="$1"
@@ -30,10 +31,7 @@ copy_local_package_if_present() {
   local target_dir="$3"
   local candidate
 
-  for candidate in \
-    "${ROOT}/packages/ext/x07-${name}/${version}" \
-    "${ROOT}/../x07/packages/ext/x07-${name}/${version}"
-  do
+  for candidate in "${ROOT}/packages/ext/x07-${name}/${version}"; do
     if [[ -d "${candidate}" ]]; then
       mkdir -p "$(dirname "${target_dir}")"
       rm -rf "${target_dir}"
@@ -41,6 +39,16 @@ copy_local_package_if_present() {
       return 0
     fi
   done
+
+  if [[ "${use_workspace_patch_deps}" == "1" ]]; then
+    candidate="${ROOT}/../x07/packages/ext/x07-${name}/${version}"
+    if [[ -d "${candidate}" ]]; then
+      mkdir -p "$(dirname "${target_dir}")"
+      rm -rf "${target_dir}"
+      cp -R "${candidate}" "${target_dir}"
+      return 0
+    fi
+  fi
 
   return 1
 }

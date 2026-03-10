@@ -29,7 +29,7 @@ Symptom: jobs that validate checked-in template/server locks fail with `X07PKG_L
 Mitigation implemented:
 
 - `.github/workflows/ci.yml` keeps the strict `scripts/ci/hydrate_project_deps.sh` check in `template-mcp-server-http-tests`, so GitHub still rejects stale checked-in locks.
-- `scripts/ci/check_all.sh` now runs the same `materialize_patch_deps.sh` + `x07 pkg lock --check` flow across all checked-in patched projects under `conformance/`, `templates/`, and `servers/`, so the drift is caught locally before push.
+- `scripts/ci/check_all.sh` now runs the same `materialize_patch_deps.sh` + `x07 pkg lock --check` flow across all checked-in patched projects under `conformance/`, `templates/`, and `servers/`, with sibling `../x07` fallback disabled so the guard checks the committed locks against the published dependency graph plus `x07-mcp`'s own local packages.
 
 ## CI failure mode: missing patch dependency paths
 

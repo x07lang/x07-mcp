@@ -143,7 +143,7 @@ step "patched project locks (check)"
 while IFS= read -r proj; do
   patch_deps_log="$(mktemp)"
   tmp_dirs+=("$patch_deps_log")
-  X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" ./scripts/ci/materialize_patch_deps.sh "$proj"
+  X07_MCP_USE_WORKSPACE_PATCH_DEPS=0 X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" ./scripts/ci/materialize_patch_deps.sh "$proj"
 
   proj_lock_log="$(mktemp)"
   tmp_dirs+=("$proj_lock_log")
