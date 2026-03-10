@@ -293,9 +293,9 @@
     },
     {
       "name": "ext-mcp-sandbox",
-      "version": "0.3.11",
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.11",
-      "package_manifest_sha256": "98ce99d8b2c113882c18beeeb5931a80e717478c16939204d690b204e5547082",
+      "version": "0.3.12",
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.12",
+      "package_manifest_sha256": "4bb661a2d4f91cb5c33d5bff1f72a47019bb43cf815b5c8dd6ea46a6d2484520",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.sandbox.policy_compile": "6aae7358962304354858d690ac1aaeabbbeaf266a6ff9cb63323ffd20f41ec0a",
@@ -313,9 +313,9 @@
     },
     {
       "name": "ext-mcp-toolkit",
-      "version": "0.3.9",
-      "path": ".x07/deps/ext-mcp-toolkit/0.3.9",
-      "package_manifest_sha256": "0d9b2ff538cbc9251ec9e00ea97e4f638f8f7c64bb43c8ef807ad3980d605186",
+      "version": "0.3.10",
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.10",
+      "package_manifest_sha256": "951dcf082e7d15ec21e61acd25814513482db70baa218d6e512d5502230d8bfe",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.toolkit.audit": "201b94ad48ed3fb3880cfbe8d351434f421963b79c8228fd4bdf69c78e1ff3e5",
@@ -339,9 +339,9 @@
     },
     {
       "name": "ext-mcp-transport-http",
-      "version": "0.3.18",
-      "path": ".x07/deps/ext-mcp-transport-http/0.3.18",
-      "package_manifest_sha256": "10c3a60d4dfc2d1cb40700087a15410d4b62050ad0e61b62fee0bc7836201f11",
+      "version": "0.3.19",
+      "path": ".x07/deps/ext-mcp-transport-http/0.3.19",
+      "package_manifest_sha256": "6ddc1d5e51dc3e4be332d870ce318f5c8a19b3fce84138d5764f6ce63774df9a",
       "module_root": "modules",
       "modules_sha256": {
         "ext.mcp.server": "62c47b56626e64b099fbcdaf82ee677e2d0d79e611f26865aa6db1942c1d0b48",
@@ -351,6 +351,7 @@
         "std.mcp.transport.http_sse": "5fa7f191dac0e9fe080275ce47152285890c308164b2972093601e0cc35b9f2a",
         "std.mcp.transport.http_sse_outbox_v1": "baeb3adf7a12181011ff1daadd4747df635acca0ce5f22a8f034922810b8f80b"
       },
+      "overridden_by": "ext-mcp-transport-http",
       "yanked": false
     },
     {

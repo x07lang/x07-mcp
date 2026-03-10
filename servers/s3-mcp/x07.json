@@ -98,18 +98,18 @@
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.11",
-      "version": "0.3.11"
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.12",
+      "version": "0.3.12"
     },
     {
       "name": "ext-mcp-toolkit",
-      "path": ".x07/deps/ext-mcp-toolkit/0.3.9",
-      "version": "0.3.9"
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.10",
+      "version": "0.3.10"
     },
     {
       "name": "ext-mcp-transport-http",
-      "path": ".x07/deps/ext-mcp-transport-http/0.3.18",
-      "version": "0.3.18"
+      "path": ".x07/deps/ext-mcp-transport-http/0.3.19",
+      "version": "0.3.19"
     },
     {
       "name": "ext-mcp-worker",
@@ -204,12 +204,12 @@
       "version": "0.1.6"
     },
     "ext-mcp-sandbox": {
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.11",
-      "version": "0.3.11"
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.12",
+      "version": "0.3.12"
     },
     "ext-mcp-toolkit": {
-      "path": ".x07/deps/ext-mcp-toolkit/0.3.9",
-      "version": "0.3.9"
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.10",
+      "version": "0.3.10"
     },
     "ext-u64-rs": {
       "path": ".x07/deps/ext-u64-rs/0.1.4",
@@ -242,6 +242,10 @@
     "ext-db-sqlite": {
       "path": ".x07/deps/ext-db-sqlite/0.1.11",
       "version": "0.1.11"
+    },
+    "ext-mcp-transport-http": {
+      "path": ".x07/deps/ext-mcp-transport-http/0.3.19",
+      "version": "0.3.19"
     }
   },
   "profiles": {

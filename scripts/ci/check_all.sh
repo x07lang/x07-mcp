@@ -35,6 +35,32 @@ run_quiet() {
   fi
 }
 
+run_quiet_retry() {
+  local log_path="${1:-}"
+  shift
+  [[ -n "$log_path" ]] || { echo "ERROR: run_quiet_retry missing log path" >&2; return 2; }
+
+  local retries="${X07_MCP_LOCK_RETRIES:-3}"
+  local delay_secs="${X07_MCP_LOCK_RETRY_DELAY_SECS:-2}"
+  local attempt=1
+
+  while true; do
+    if "$@" >"$log_path" 2>&1; then
+      return 0
+    fi
+
+    if [[ "${attempt}" -ge "${retries}" ]]; then
+      echo "ERROR: command failed: $*" >&2
+      cat "$log_path" >&2 || true
+      return 1
+    fi
+
+    echo "WARN: command failed (attempt ${attempt}/${retries}): $*" >&2
+    sleep "${delay_secs}"
+    attempt="$((attempt + 1))"
+  done
+}
+
 run_with_timeout() {
   local timeout_secs="${1:-0}"
   shift
@@ -128,6 +154,37 @@ pin_project_toolchain() {
   cp "$pinned_toolchain" "$project_dir/x07-toolchain.toml"
 }
 
+iter_patched_lock_projects() {
+  find conformance/client-x07 templates servers -name x07.json -print | while IFS= read -r p; do
+    jq -e '
+      (.patch | type == "object" and length > 0) and
+      (.lockfile | type == "string" and length > 0)
+    ' "$p" >/dev/null && printf '%s\n' "$p"
+  done
+}
+
+project_uses_workspace_paths() {
+  local project_json="$1"
+  grep -Fq '$workspace/' "$project_json"
+}
+
+check_project_lock_clean_registry() {
+  local proj="$1"
+  local proj_dir="$root/$(dirname "$proj")"
+  local tmp_proj
+  local log_path
+
+  tmp_proj="$(mktemp -d)"
+  tmp_dirs+=("$tmp_proj")
+  cp -R "$proj_dir"/. "$tmp_proj/"
+  rm -rf "$tmp_proj/.x07"
+  pin_project_toolchain "$tmp_proj"
+
+  log_path="$(mktemp)"
+  tmp_dirs+=("$log_path")
+  run_quiet_retry "$log_path" bash -lc "cd \"$tmp_proj\" && x07 pkg lock --project x07.json --check --json=off"
+}
+
 step "x07 version"
 x07 --version
 
@@ -139,7 +196,15 @@ else
   x07 pkg lock --project x07.json --check --offline >/dev/null
 fi
 
-step "patched project locks (check)"
+step "published project locks (clean registry check)"
+while IFS= read -r proj; do
+  if project_uses_workspace_paths "$proj"; then
+    continue
+  fi
+  check_project_lock_clean_registry "$proj"
+done < <(iter_patched_lock_projects)
+
+step "patched project locks (check, local packages)"
 while IFS= read -r proj; do
   patch_deps_log="$(mktemp)"
   tmp_dirs+=("$patch_deps_log")
@@ -151,11 +216,7 @@ while IFS= read -r proj; do
   proj_lock_log="$(mktemp)"
   tmp_dirs+=("$proj_lock_log")
   X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project "$proj" --check --json=off
-done < <(
-  find conformance/client-x07 templates servers -name x07.json -print | while IFS= read -r p; do
-    jq -e '.patch | type == "object" and length > 0' "$p" >/dev/null && printf '%s\n' "$p"
-  done
-)
+done < <(iter_patched_lock_projects)
 
 step "external-packages lock (check)"
 python3 scripts/generate_external_packages_lock.py --packages-root packages/ext --out locks/external-packages.lock --check >/dev/null
@@ -279,12 +340,15 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-sandbox/0.3.8/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.9/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.10/modules"
+  "packages/ext/x07-ext-mcp-sandbox/0.3.11/modules"
+  "packages/ext/x07-ext-mcp-sandbox/0.3.12/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.2/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.3/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.4/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.5/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.6/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.9/modules"
+  "packages/ext/x07-ext-mcp-toolkit/0.3.10/modules"
   "packages/ext/x07-ext-mcp-trust/0.1.0/modules"
   "packages/ext/x07-ext-mcp-trust/0.2.0/modules"
   "packages/ext/x07-ext-mcp-trust/0.3.0/modules"
@@ -310,11 +374,16 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-transport-http/0.3.14/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.15/modules"
   "packages/ext/x07-ext-mcp-transport-http/0.3.16/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.3.17/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.3.18/modules"
+  "packages/ext/x07-ext-mcp-transport-http/0.3.19/modules"
   "packages/ext/x07-ext-mcp-transport-stdio/0.3.2/modules"
   "packages/ext/x07-ext-mcp-transport-stdio/0.3.3/modules"
   "packages/ext/x07-ext-mcp-transport-stdio/0.3.4/modules"
   "packages/ext/x07-ext-mcp-transport-stdio/0.3.5/modules"
   "packages/ext/x07-ext-mcp-transport-stdio/0.3.6/modules"
+  "packages/ext/x07-ext-mcp-transport-stdio/0.3.7/modules"
+  "packages/ext/x07-ext-mcp-transport-stdio/0.3.8/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.2/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.3/modules"
   "packages/ext/x07-ext-mcp-worker/0.3.4/modules"

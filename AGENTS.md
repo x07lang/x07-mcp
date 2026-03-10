@@ -24,12 +24,13 @@ Mitigation implemented:
 
 ## CI failure mode: patched project lock drift
 
-Symptom: jobs that validate checked-in template/server locks fail with `X07PKG_LOCK_MISMATCH` after local patch package contents change (for example `templates/mcp-server-http/x07.lock.json` after `ext-mcp-sandbox@0.3.11` or `ext-mcp-toolkit@0.3.9` module updates).
+Symptom: jobs that validate checked-in template/server locks fail with `X07PKG_LOCK_MISMATCH` after local patch package contents change under an already-published version (for example `templates/mcp-server-http/x07.lock.json` after `ext-mcp-sandbox@0.3.12` or `ext-mcp-toolkit@0.3.10` work is copied into a stale versioned package directory).
 
 Mitigation implemented:
 
 - `.github/workflows/ci.yml` keeps the strict `scripts/ci/hydrate_project_deps.sh` check in `template-mcp-server-http-tests`, so GitHub still rejects stale checked-in locks.
-- `scripts/ci/check_all.sh` now runs the same `materialize_patch_deps.sh` + `x07 pkg lock --check` flow across all checked-in patched projects under `conformance/`, `templates/`, and `servers/`, with sibling `../x07` fallback disabled so the guard checks the committed locks against the published dependency graph plus `x07-mcp`'s own local packages.
+- `scripts/ci/check_all.sh` now runs a clean temp-copy `x07 pkg lock --check` across all checked-in patched projects under `conformance/`, `templates/`, and `servers/`, so the committed locks must match the registry-resolved graph without any local `x07-mcp/packages` fallback.
+- `scripts/ci/check_all.sh` still runs the `materialize_patch_deps.sh` + `x07 pkg lock --check` flow afterward, with sibling `../x07` fallback disabled, so local-deps mode is validated separately from the published graph.
 
 ## CI failure mode: missing patch dependency paths
 
