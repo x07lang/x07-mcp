@@ -22,6 +22,15 @@ Mitigation implemented:
 
 - `.github/workflows/ci.yml` runs `scripts/ci/hydrate_project_deps.sh conformance/client-x07/x07.json` (retry loop) before bundling the conformance client.
 
+## CI failure mode: patched project lock drift
+
+Symptom: jobs that validate checked-in template/server locks fail with `X07PKG_LOCK_MISMATCH` after local patch package contents change (for example `templates/mcp-server-http/x07.lock.json` after `ext-mcp-sandbox@0.3.11` or `ext-mcp-toolkit@0.3.9` module updates).
+
+Mitigation implemented:
+
+- `.github/workflows/ci.yml` keeps the strict `scripts/ci/hydrate_project_deps.sh` check in `template-mcp-server-http-tests`, so GitHub still rejects stale checked-in locks.
+- `scripts/ci/check_all.sh` now runs the same `materialize_patch_deps.sh` + `x07 pkg lock --check` flow across all checked-in patched projects under `conformance/`, `templates/`, and `servers/`, so the drift is caught locally before push.
+
 ## CI failure mode: missing patch dependency paths
 
 Symptom: jobs fail in dependency hydration with `X07PKG_PATCH_MISSING_DEP` (for example `ext-u64-rs@0.1.4` in root `x07.json`, or `ext-net@0.1.9` in `conformance/client-x07/x07.json`).
@@ -29,6 +38,7 @@ Symptom: jobs fail in dependency hydration with `X07PKG_PATCH_MISSING_DEP` (for 
 Mitigation implemented:
 
 - `x07 pkg lock` hydrates patch paths under `.x07/deps/...` during lock hydration (no separate materialize step).
+- `scripts/ci/materialize_patch_deps.sh` pre-populates patch paths for jobs that run from a clean checkout without workspace-local `.x07/deps`.
 - `scripts/ci/hydrate_root_deps.sh` and `scripts/ci/hydrate_project_deps.sh` retry `x07 pkg lock --check` to handle transient registry/network failures.
 
 ## Local deps mode (workspace layout)

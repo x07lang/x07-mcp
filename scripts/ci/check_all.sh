@@ -139,6 +139,21 @@ else
   x07 pkg lock --project x07.json --check --offline >/dev/null
 fi
 
+step "patched project locks (check)"
+while IFS= read -r proj; do
+  patch_deps_log="$(mktemp)"
+  tmp_dirs+=("$patch_deps_log")
+  X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" ./scripts/ci/materialize_patch_deps.sh "$proj"
+
+  proj_lock_log="$(mktemp)"
+  tmp_dirs+=("$proj_lock_log")
+  X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project "$proj" --check --json=off
+done < <(
+  find conformance/client-x07 templates servers -name x07.json -print | while IFS= read -r p; do
+    jq -e '.patch | type == "object" and length > 0' "$p" >/dev/null && printf '%s\n' "$p"
+  done
+)
+
 step "external-packages lock (check)"
 python3 scripts/generate_external_packages_lock.py --packages-root packages/ext --out locks/external-packages.lock --check >/dev/null
 
