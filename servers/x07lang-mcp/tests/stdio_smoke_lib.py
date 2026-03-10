@@ -52,6 +52,7 @@ def _wait_for_response_id(
 def build_bins(server_root: Path) -> None:
     env = os.environ.copy()
     env["X07_MCP_BUILD_BINS_ONLY"] = "1"
+    hydrate_server_deps(server_root, env)
     subprocess.run(
         [str(server_root / "publish" / "build_mcpb.sh")],
         cwd=server_root,
@@ -62,9 +63,12 @@ def build_bins(server_root: Path) -> None:
 
 
 def build_bundle(server_root: Path) -> Path:
+    env = os.environ.copy()
+    hydrate_server_deps(server_root, env)
     subprocess.run(
         [str(server_root / "publish" / "build_mcpb.sh")],
         cwd=server_root,
+        env=env,
         check=True,
         stdout=subprocess.DEVNULL,
     )
@@ -80,6 +84,18 @@ def stdio_env() -> dict[str, str]:
     if x07_exe:
         env["X07_MCP_X07_EXE"] = x07_exe
     return env
+
+
+def hydrate_server_deps(server_root: Path, env: dict[str, str]) -> None:
+    repo_root = server_root.parents[1]
+    install_script = repo_root / "servers" / "_shared" / "ci" / "install_server_deps.sh"
+    subprocess.run(
+        [str(install_script), str(server_root)],
+        cwd=repo_root,
+        env=env,
+        check=True,
+        stdout=subprocess.DEVNULL,
+    )
 
 
 def run_stdio_smoke(server_exe: Path, cwd: Path, fixture_root: Path) -> None:
