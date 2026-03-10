@@ -63,18 +63,18 @@
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.10",
-      "version": "0.3.10"
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.11",
+      "version": "0.3.11"
     },
     {
       "name": "ext-mcp-toolkit",
-      "path": ".x07/deps/ext-mcp-toolkit/0.3.7",
-      "version": "0.3.7"
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.8",
+      "version": "0.3.8"
     },
     {
       "name": "ext-mcp-transport-stdio",
-      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.6",
-      "version": "0.3.6"
+      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.7",
+      "version": "0.3.7"
     },
     {
       "name": "ext-mcp-worker",
@@ -129,8 +129,12 @@
       "version": "0.1.6"
     },
     "ext-mcp-sandbox": {
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.10",
-      "version": "0.3.10"
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.11",
+      "version": "0.3.11"
+    },
+    "ext-mcp-toolkit": {
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.8",
+      "version": "0.3.8"
     },
     "ext-crypto-rs": {
       "path": ".x07/deps/ext-crypto-rs/0.1.5",
