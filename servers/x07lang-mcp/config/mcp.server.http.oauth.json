@@ -3,7 +3,7 @@
 
   "server": {
     "name": "io.x07/x07lang-mcp",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "protocolVersion": "2025-11-25"
   },
 

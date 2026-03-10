@@ -283,7 +283,7 @@
       "module_root": "modules",
       "modules_sha256": {
         "ext.mcp.rr": "1baf60bcdbd99d6d86bd2d5f8f6c93476d16829b5f0f20ffaa888f4d662de8d4",
-        "std.mcp.rr.http": "80c9d8184789a60db7beaf2f498fc7c264a3b3209224c7a5351401a54854dd0e",
+        "std.mcp.rr.http": "ea06a5ab41c4041768f0e16341bc2e4c2d292580f3a064abb91fc415736b51b9",
         "std.mcp.rr.http_sse": "be282e3c8f6c26da1fcd9b4f70111a0dc770fc18ec76a41ec5296d6225a1142f",
         "std.mcp.rr.sanitize": "5f0d149dd93ba46c4d7faefd405cb8f3b5de9fd708f5220fafecd73fad7bb3a3",
         "std.mcp.rr.sanitize_profile": "b2447c4f4bdd5394d445058e4d340e3fccf1fb557f1eb9459d3c92ac63cb0d22",
@@ -299,7 +299,7 @@
       "package_manifest_sha256": "98ce99d8b2c113882c18beeeb5931a80e717478c16939204d690b204e5547082",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.sandbox.policy_compile": "38b47425dd580d12baff8fca1e0f6ca2a1888fcb934e533ae20474b06ddad18f",
+        "std.mcp.sandbox.policy_compile": "577e69372ec26895ce6debc1246e83aa30a143123d77fe8c86a949ed8026da98",
         "std.mcp.sandbox.profiles": "63cb87177f4c71c1e4d3ada9e1eaca5eda50c9ad4ecd9d1a2aa2f894ce2f1e48",
         "std.mcp.sandbox.router_exec": "378ae565a3d0aea3a1a19c61f76b072f56ee0e5d3d9fa451e4fb92c70ba7ad21",
         "std.mcp.sandbox.status_doc_v1": "47ced0f5e91ede77f0273724f9ab245e27bd389934119bfe6c057059cc14ec2f",
@@ -345,7 +345,7 @@
       "package_manifest_sha256": "10c3a60d4dfc2d1cb40700087a15410d4b62050ad0e61b62fee0bc7836201f11",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.mcp.server": "0b8d6ca7fccc88061d38c9ede45a470b5c766f6b6b8867d0be75296df057a5f0",
+        "ext.mcp.server": "62c47b56626e64b099fbcdaf82ee677e2d0d79e611f26865aa6db1942c1d0b48",
         "std.mcp.transport.http": "8087f75ead8a810b9da32a52c6db5a6b04102fc488a58f6ae9b08632c0402cb7",
         "std.mcp.transport.http_rules": "ab63c9564d0320ba73b14c1b993297ec3172b5f4e08cef9aa9c5fa12ac70e5dd",
         "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9",

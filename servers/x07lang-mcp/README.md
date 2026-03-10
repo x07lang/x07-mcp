@@ -11,15 +11,15 @@ Prerequisites:
 - Ensure you have an absolute path to `x07` (no PATH search in `execve`): `command -v x07`.
 
 Download:
-- GitHub release: `x07lang-mcp-v0.2.0`
-- `.mcpb` URL: https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.2.0/x07lang-mcp.mcpb
-- `.mcpb` SHA-256: `3db22d93a34bfc4498de0d298e7e0b4f071cbe13dad17bcef04cf7ef6e3f4c61`
+- GitHub release: `x07lang-mcp-v0.2.1`
+- `.mcpb` URL: https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.2.1/x07lang-mcp.mcpb
+- `.mcpb` SHA-256: `0b2cae0b47adff478f05fc7f7323fa0e333a21ec22fd5dcc7bede72fa88c93e5`
 
 Verify (macOS / Linux):
 
 ```bash
 got="$(shasum -a 256 x07lang-mcp.mcpb | awk '{print $1}')"
-test "$got" = "3db22d93a34bfc4498de0d298e7e0b4f071cbe13dad17bcef04cf7ef6e3f4c61"
+test "$got" = "0b2cae0b47adff478f05fc7f7323fa0e333a21ec22fd5dcc7bede72fa88c93e5"
 ```
 
 Configure your MCP client:
@@ -73,6 +73,8 @@ Build router + worker binaries:
 - Binaries only: `X07_MCP_BUILD_BINS_ONLY=1 ./publish/build_mcpb.sh`
 - Or build `.mcpb` (also builds binaries): `./publish/build_mcpb.sh`
 
+`./publish/build_mcpb.sh` always rebuilds the router and worker binaries before packing, then refreshes `dist/server.json` from `x07.mcp.json` against the newly built bundle.
+
 Run:
 - Stdio (default): `X07_MCP_CFG_PATH=config/mcp.server.json out/x07lang-mcp`
 - HTTP (no-auth dev): `X07_MCP_CFG_PATH=config/mcp.server.dev.json out/x07lang-mcp`
@@ -81,6 +83,7 @@ Run:
 ## Test
 - `x07 test --manifest tests/tests.json`
 - stdio smoke: `python3 tests/stdio_smoke.py`
+- published bundle smoke: `python3 tests/published_bundle_smoke.py`
 - package lock refresh: `x07 pkg lock --project x07.json`
 
 ## Build `.mcpb`
