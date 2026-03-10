@@ -298,9 +298,9 @@
       "package_manifest_sha256": "98ce99d8b2c113882c18beeeb5931a80e717478c16939204d690b204e5547082",
       "module_root": "modules",
       "modules_sha256": {
-        "std.mcp.sandbox.policy_compile": "6aae7358962304354858d690ac1aaeabbbeaf266a6ff9cb63323ffd20f41ec0a",
-        "std.mcp.sandbox.profiles": "d784612d4e7e24c1abe226c428e3032c59eadcac31789a087312a102a233167a",
-        "std.mcp.sandbox.router_exec": "02b46da1a2ac003d1db52a5c03f142eeb6b0318b5c1a3d4b3c86b285d61352c9",
+        "std.mcp.sandbox.policy_compile": "577e69372ec26895ce6debc1246e83aa30a143123d77fe8c86a949ed8026da98",
+        "std.mcp.sandbox.profiles": "63cb87177f4c71c1e4d3ada9e1eaca5eda50c9ad4ecd9d1a2aa2f894ce2f1e48",
+        "std.mcp.sandbox.router_exec": "378ae565a3d0aea3a1a19c61f76b072f56ee0e5d3d9fa451e4fb92c70ba7ad21",
         "std.mcp.sandbox.status_doc_v1": "47ced0f5e91ede77f0273724f9ab245e27bd389934119bfe6c057059cc14ec2f",
         "std.mcp.sandbox.task_exec_async_pool_v1": "57d8873ecff83cb0e42b117459bef63fb1a594b05e47968ab08b47f22dd8694c",
         "std.mcp.sandbox.task_exec_deterministic_v1": "66f5f18563bb8b2045cd907889fe38f8a6f91708adf471abfd6346683ce28c97",
