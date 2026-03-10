@@ -5025,8 +5025,8 @@
         {
           "module_id": "std.mcp.toolkit.stdio_dispatch",
           "path": "packages/ext/x07-ext-mcp-toolkit/0.3.9/modules/std/mcp/toolkit/stdio_dispatch.x07.json",
-          "sha256": "a6fa2bc501215d4c17bd97ea42818e6269917b26d0cbef23afe2a47754f44021",
-          "size_bytes": 57531
+          "sha256": "d3c35ae3c7f4882069b53897111aaa81ee908406291b67cb4e42ae80d113b38c",
+          "size_bytes": 57532
         },
         {
           "module_id": "std.mcp.toolkit.task",
@@ -7741,6 +7741,6 @@
       "version": "0.3.6"
     }
   ],
-  "packages_hash": "a273980f386df8f9215aad6969155477453da7fdc59066b9e111c6ab92b565b7",
+  "packages_hash": "8f6b042e9985b7b06469c3f6f9359a9bfd1db42fb3205972498d7481149fc214",
   "packages_root": "packages/ext"
 }

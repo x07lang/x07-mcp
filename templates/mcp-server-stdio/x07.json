@@ -68,8 +68,8 @@
     },
     {
       "name": "ext-mcp-toolkit",
-      "path": ".x07/deps/ext-mcp-toolkit/0.3.8",
-      "version": "0.3.8"
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.9",
+      "version": "0.3.9"
     },
     {
       "name": "ext-mcp-transport-stdio",
@@ -133,8 +133,8 @@
       "version": "0.3.11"
     },
     "ext-mcp-toolkit": {
-      "path": ".x07/deps/ext-mcp-toolkit/0.3.8",
-      "version": "0.3.8"
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.9",
+      "version": "0.3.9"
     },
     "ext-crypto-rs": {
       "path": ".x07/deps/ext-crypto-rs/0.1.5",
