@@ -72,17 +72,41 @@ if str(pkg.get("version", "")) != version:
         f"x07.mcp.json package version mismatch: got={pkg.get('version')!r} want={version!r}"
     )
 
-expected_url = (
-    f"https://github.com/x07lang/x07-mcp/releases/download/{server_id}-v{version}/{server_id}.mcpb"
+publisher_meta = (
+    x07_mcp.get("_meta", {})
+    .get("io.modelcontextprotocol.registry/publisher-provided", {})
 )
-if str(pkg.get("url", "")) != expected_url:
-    raise SystemExit(
-        f"x07.mcp.json package url mismatch: got={pkg.get('url')!r} want={expected_url!r}"
+if bool(publisher_meta.get("x07_official", False)):
+    expected_url = (
+        f"https://github.com/x07lang/x07-mcp/releases/download/{server_id}-v{version}/{server_id}.mcpb"
     )
+    if str(pkg.get("url", "")) != expected_url:
+        raise SystemExit(
+            f"x07.mcp.json package url mismatch: got={pkg.get('url')!r} want={expected_url!r}"
+        )
 PY
 }
 
 generate_server_json() {
+  local is_official
+  is_official="$(
+    python3 - "${SERVER_ROOT}/x07.mcp.json" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+doc = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+publisher_meta = (
+    doc.get("_meta", {})
+    .get("io.modelcontextprotocol.registry/publisher-provided", {})
+)
+print("1" if bool(publisher_meta.get("x07_official", False)) else "0")
+PY
+  )"
+  if [[ "${is_official}" != "1" ]]; then
+    return 0
+  fi
+
   (
     cd "${ROOT}"
     python3 registry/scripts/registry_gen.py \
