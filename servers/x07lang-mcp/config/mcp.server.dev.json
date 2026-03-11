@@ -3,13 +3,13 @@
 
   "server": {
     "name": "io.x07/x07lang-mcp",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "protocolVersion": "2025-11-25"
   },
 
   "auth": {
     "mode": "none",
-    "oauth_config_path": "config/mcp.oauth.json",
+    "oauth_config_path": "mcp.oauth.json",
     "required_scopes": ["mcp:tools"],
     "required_scopes_tasks": ["mcp:tasks"]
   },
@@ -43,16 +43,16 @@
   },
 
   "tools": {
-    "descriptor_path": ".x07/artifacts/mcp/runtime/mcp.tools.json"
+    "descriptor_path": "../.x07/artifacts/mcp/runtime/mcp.tools.json"
   },
   "resources": {
-    "descriptor_path": ".x07/artifacts/mcp/runtime/mcp.resources.json"
+    "descriptor_path": "../.x07/artifacts/mcp/runtime/mcp.resources.json"
   },
   "prompts": {
-    "descriptor_path": ".x07/artifacts/mcp/runtime/mcp.prompts.json"
+    "descriptor_path": "../.x07/artifacts/mcp/runtime/mcp.prompts.json"
   },
 
-  "worker_exe_path": "out/mcp-worker",
+  "worker_exe_path": "../out/mcp-worker",
 
   "observability": {
     "clock": { "mode": "os_now" },
@@ -106,10 +106,16 @@
     },
     "retention": {
       "max_tasks": 256
+    },
+    "store": {
+      "mode": "sqlite",
+      "sqlite": {
+        "path": "tasks.dev.sqlite"
+      }
     }
   },
 
   "sandbox": {
-    "per_tool": { "enabled": true, "policy_path": "policy/mcp.worker.base.policy.json" }
+    "per_tool": { "enabled": true, "policy_path": "../policy/mcp.worker.base.policy.json" }
   }
 }

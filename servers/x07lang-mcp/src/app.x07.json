@@ -1,1 +1,227 @@
-{"decls":[{"kind":"export","names":["app.router_main_v1","app.worker_main_v1"]},{"body":["std.mcp.sandbox.worker_main.run_v1","in_bytes"],"kind":"defn","name":"app.worker_main_v1","params":[{"name":"in_bytes","ty":"bytes_view"}],"result":"bytes"},{"body":["begin",["let","_","in_bytes"],["let","cfg_default",["bytes.lit","config/mcp.server.json"]],["let","cfg_env",["std.os.env.get",["bytes.lit","X07_MCP_CFG_PATH"]]],["let","cfg_path",["if",[">",["bytes.len","cfg_env"],0],"cfg_env","cfg_default"]],["let","cfg_json",["std.fs.read",["bytes.view","cfg_path"]]],["let","runtime_err",["mcp.runtime.prepare_v1"]],["if",[">",["bytes.len",["bytes.view","runtime_err"]],0],["begin",["let","caps0",["std.os.stdio.spec.caps_default_v1"]],["std.os.stdio.write_stderr_v1","runtime_err","caps0"],["process.set_exit_code_v1",1],0],0],["let","http_enabled",["std.mcp.toolkit.server_cfg_file.transport_http_enabled_v1",["bytes.view","cfg_json"]]],["let","err",["if",["=","http_enabled",1],["await",["ext.mcp.server.serve_http_from_fs_v1",["bytes.view","cfg_path"]]],["await",["std.mcp.transport.stdio.serve_from_fs_v1",["bytes.view","cfg_path"]]]]],["if",[">",["bytes.len",["bytes.view","err"]],0],["begin",["let","caps0",["std.os.stdio.spec.caps_default_v1"]],["std.os.stdio.write_stderr_v1","err","caps0"],["process.set_exit_code_v1",1],0],0],["bytes.alloc",0]],"kind":"defasync","name":"app.router_main_v1","params":[{"name":"in_bytes","ty":"bytes_view"}],"result":"bytes"}],"imports":["ext.mcp.server","mcp.runtime","std.fs","std.mcp.sandbox.worker_main","std.mcp.toolkit.server_cfg_file","std.mcp.transport.stdio","std.os.env","std.os.stdio","std.os.stdio.spec"],"kind":"module","module_id":"app","schema_version":"x07.x07ast@0.5.0"}
+{
+  "decls": [
+    {
+      "kind": "export",
+      "names": [
+        "app.router_main_v1",
+        "app.worker_main_v1"
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "app._cfg_is_repo_config_v1",
+      "params": [
+        {
+          "name": "cfg_path",
+          "ty": "bytes_view"
+        }
+      ],
+      "result": "i32",
+      "body": [
+        "begin",
+        ["let", "prefix0", ["bytes.lit", "config/"]],
+        ["let", "prefix1", ["bytes.lit", "./config/"]],
+        ["if", ["=", ["std.bytes.starts_with", "cfg_path", ["bytes.view", "prefix0"]], 1], ["return", 1], 0],
+        ["if", ["=", ["std.bytes.starts_with", "cfg_path", ["bytes.view", "prefix1"]], 1], ["return", 1], 0],
+        0
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "app._replace_all_v1",
+      "params": [
+        {
+          "name": "hay",
+          "ty": "bytes_view"
+        },
+        {
+          "name": "needle",
+          "ty": "bytes_view"
+        },
+        {
+          "name": "repl",
+          "ty": "bytes_view"
+        }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "hay_len", ["bytes.len", "hay"]],
+        ["let", "needle_len", ["bytes.len", "needle"]],
+        ["if", ["<=", "needle_len", 0], ["return", ["std.bytes.copy", "hay"]], 0],
+        ["let", "out", ["vec_u8.with_capacity", "hay_len"]],
+        ["let", "i", 0],
+        ["for", "_", 0, "hay_len", [
+          "begin",
+          [
+            "if",
+            [">=u", "i", "hay_len"],
+            0,
+            [
+              "begin",
+              ["let", "remaining", ["-", "hay_len", "i"]],
+              ["let", "matched", 0],
+              [
+                "if",
+                [">=", "remaining", "needle_len"],
+                [
+                  "if",
+                  ["=", ["std.bytes.cmp_range", "hay", "i", "needle_len", "needle", 0, "needle_len"], 0],
+                  ["set", "matched", 1],
+                  0
+                ],
+                0
+              ],
+              [
+                "if",
+                ["=", "matched", 1],
+                [
+                  "begin",
+                  ["set", "out", ["vec_u8.extend_bytes", "out", "repl"]],
+                  ["set", "i", ["+", "i", "needle_len"]],
+                  0
+                ],
+                [
+                  "begin",
+                  ["set", "out", ["vec_u8.push", "out", ["bytes.get_u8", "hay", "i"]]],
+                  ["set", "i", ["+", "i", 1]],
+                  0
+                ]
+              ]
+            ]
+          ],
+          0
+        ]],
+        ["vec_u8.into_bytes", "out"]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "app._rewrite_cfg_json_v1",
+      "params": [
+        {
+          "name": "cfg_json_raw",
+          "ty": "bytes_view"
+        }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "out", ["std.bytes.copy", "cfg_json_raw"]],
+        ["set", "out", ["app._replace_all_v1", ["bytes.view", "out"], ["bytes.view_lit", "../.x07/"], ["bytes.view_lit", ".x07/"]]],
+        ["set", "out", ["app._replace_all_v1", ["bytes.view", "out"], ["bytes.view_lit", "../out/"], ["bytes.view_lit", "out/"]]],
+        ["set", "out", ["app._replace_all_v1", ["bytes.view", "out"], ["bytes.view_lit", "../policy/"], ["bytes.view_lit", "policy/"]]],
+        ["set", "out", ["app._replace_all_v1", ["bytes.view", "out"], ["bytes.view_lit", "\"mcp.oauth.json\""], ["bytes.view_lit", "\"config/mcp.oauth.json\""]]],
+        ["set", "out", ["app._replace_all_v1", ["bytes.view", "out"], ["bytes.view_lit", "\"mcp.oauth.jwt_jwks.json\""], ["bytes.view_lit", "\"config/mcp.oauth.jwt_jwks.json\""]]],
+        ["set", "out", ["app._replace_all_v1", ["bytes.view", "out"], ["bytes.view_lit", "\"mcp.oauth.jwt_jwks.dpop_nonce.json\""], ["bytes.view_lit", "\"config/mcp.oauth.jwt_jwks.dpop_nonce.json\""]]],
+        ["set", "out", ["app._replace_all_v1", ["bytes.view", "out"], ["bytes.view_lit", "\"mcp.oauth.prm_signed.json\""], ["bytes.view_lit", "\"config/mcp.oauth.prm_signed.json\""]]],
+        ["set", "out", ["app._replace_all_v1", ["bytes.view", "out"], ["bytes.view_lit", "\"tasks.sqlite\""], ["bytes.view_lit", "\"config/tasks.sqlite\""]]],
+        ["set", "out", ["app._replace_all_v1", ["bytes.view", "out"], ["bytes.view_lit", "\"tasks.dev.sqlite\""], ["bytes.view_lit", "\"config/tasks.dev.sqlite\""]]],
+        "out"
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "app._effective_cfg_path_v1",
+      "params": [
+        {
+          "name": "cfg_path",
+          "ty": "bytes_view"
+        },
+        {
+          "name": "cfg_json_raw",
+          "ty": "bytes_view"
+        }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["if", ["=", ["app._cfg_is_repo_config_v1", "cfg_path"], 1], 0, ["return", ["std.bytes.copy", "cfg_path"]]],
+        ["let", "effective_path", ["bytes.lit", ".mcp.server.effective.json"]],
+        ["let", "effective_json", ["app._rewrite_cfg_json_v1", "cfg_json_raw"]],
+        ["let", "caps_fs", ["std.os.fs.spec.caps_default_v1"]],
+        ["let", "wr", ["std.os.fs.write_all_v1", ["std.bytes.copy", ["bytes.view", "effective_path"]], "effective_json", ["std.bytes.copy", ["bytes.view", "caps_fs"]]]],
+        ["if", ["=", ["result_i32.is_ok", "wr"], 1], "effective_path", ["bytes.alloc", 0]]
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "app._write_stderr_v1",
+      "params": [
+        {
+          "name": "msg",
+          "ty": "bytes_view"
+        }
+      ],
+      "result": "i32",
+      "body": [
+        "begin",
+        ["let", "caps", ["std.os.stdio.spec.caps_default_v1"]],
+        ["let", "_write", ["std.os.stdio.write_stderr_v1", ["std.bytes.copy", "msg"], "caps"]],
+        0
+      ]
+    },
+    {
+      "kind": "defn",
+      "name": "app.worker_main_v1",
+      "params": [
+        {
+          "name": "in_bytes",
+          "ty": "bytes_view"
+        }
+      ],
+      "result": "bytes",
+      "body": [
+        "std.mcp.sandbox.worker_main.run_v1",
+        "in_bytes"
+      ]
+    },
+    {
+      "kind": "defasync",
+      "name": "app.router_main_v1",
+      "params": [
+        {
+          "name": "in_bytes",
+          "ty": "bytes_view"
+        }
+      ],
+      "result": "bytes",
+      "body": [
+        "begin",
+        ["let", "_", "in_bytes"],
+        ["let", "cfg_default", ["bytes.lit", "config/mcp.server.json"]],
+        ["let", "cfg_env", ["std.os.env.get", ["bytes.lit", "X07_MCP_CFG_PATH"]]],
+        ["let", "cfg_path", ["if", [">", ["bytes.len", "cfg_env"], 0], "cfg_env", "cfg_default"]],
+        ["let", "caps_fs", ["std.os.fs.spec.caps_default_v1"]],
+        ["let", "cfg_read", ["std.os.fs.read_all_v1", ["std.bytes.copy", ["bytes.view", "cfg_path"]], ["std.bytes.copy", ["bytes.view", "caps_fs"]]]],
+        ["if", ["!=", ["result_bytes.err_code", "cfg_read"], 0], ["begin", ["let", "_w_cfg_read", ["app._write_stderr_v1", ["bytes.view_lit", "invalid server config"]]], ["process.set_exit_code_v1", 1], ["return", ["bytes.alloc", 0]]], 0],
+        ["let", "cfg_json_raw", ["result_bytes.unwrap_or", "cfg_read", ["bytes.alloc", 0]]],
+        ["let", "cfg_res", ["std.mcp.toolkit.server_cfg_file.load_server_cfg_from_json_v1", ["bytes.view", "cfg_json_raw"]]],
+        ["if", ["!=", ["result_bytes.err_code", "cfg_res"], 0], ["begin", ["let", "_w_cfg", ["app._write_stderr_v1", ["bytes.view_lit", "invalid server config"]]], ["process.set_exit_code_v1", 1], ["return", ["bytes.alloc", 0]]], 0],
+        ["let", "cfg_json", ["result_bytes.unwrap_or", "cfg_res", ["bytes.alloc", 0]]],
+        ["let", "effective_cfg_path", ["app._effective_cfg_path_v1", ["bytes.view", "cfg_path"], ["bytes.view", "cfg_json_raw"]]],
+        ["if", ["=", ["bytes.len", ["bytes.view", "effective_cfg_path"]], 0], ["begin", ["let", "_w_cfg_write", ["app._write_stderr_v1", ["bytes.view_lit", "failed to prepare effective config"]]], ["process.set_exit_code_v1", 1], ["return", ["bytes.alloc", 0]]], 0],
+        ["let", "runtime_err", ["mcp.runtime.prepare_v1"]],
+        ["if", [">", ["bytes.len", ["bytes.view", "runtime_err"]], 0], ["begin", ["let", "_w_runtime", ["app._write_stderr_v1", ["bytes.view", "runtime_err"]]], ["process.set_exit_code_v1", 1], ["return", ["bytes.alloc", 0]]], 0],
+        ["let", "http_enabled", ["std.mcp.toolkit.server_cfg_file.transport_http_enabled_v1", ["bytes.view", "cfg_json"]]],
+        ["if", ["=", "http_enabled", 1], ["begin", ["let", "http_err", ["await", ["ext.mcp.server.serve_http_from_fs_v1", ["bytes.view", "effective_cfg_path"]]]], ["if", [">", ["bytes.len", ["bytes.view", "http_err"]], 0], ["begin", ["let", "_w_http", ["app._write_stderr_v1", ["bytes.view", "http_err"]]], ["process.set_exit_code_v1", 1]], 0], ["return", ["bytes.alloc", 0]]], ["begin", ["let", "stdio_err", ["await", ["std.mcp.transport.stdio.serve_from_fs_v1", ["bytes.view", "effective_cfg_path"]]]], ["if", [">", ["bytes.len", ["bytes.view", "stdio_err"]], 0], ["begin", ["let", "_w_stdio", ["app._write_stderr_v1", ["bytes.view", "stdio_err"]]], ["process.set_exit_code_v1", 1]], 0], ["return", ["bytes.alloc", 0]]]]
+      ]
+    }
+  ],
+  "imports": [
+    "ext.mcp.server",
+    "mcp.runtime",
+    "std.bytes",
+    "std.mcp.sandbox.worker_main",
+    "std.mcp.toolkit.server_cfg_file",
+    "std.mcp.transport.stdio",
+    "std.os.env",
+    "std.os.fs",
+    "std.os.fs.spec",
+    "std.os.stdio",
+    "std.os.stdio.spec"
+  ],
+  "kind": "module",
+  "module_id": "app",
+  "schema_version": "x07.x07ast@0.5.0"
+}

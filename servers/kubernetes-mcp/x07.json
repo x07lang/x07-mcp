@@ -108,8 +108,8 @@
     },
     {
       "name": "ext-mcp-transport-http",
-      "path": ".x07/deps/ext-mcp-transport-http/0.3.19",
-      "version": "0.3.19"
+      "path": ".x07/deps/ext-mcp-transport-http/0.3.20",
+      "version": "0.3.20"
     },
     {
       "name": "ext-mcp-worker",
@@ -244,8 +244,8 @@
       "version": "0.1.11"
     },
     "ext-mcp-transport-http": {
-      "path": ".x07/deps/ext-mcp-transport-http/0.3.19",
-      "version": "0.3.19"
+      "path": ".x07/deps/ext-mcp-transport-http/0.3.20",
+      "version": "0.3.20"
     }
   },
   "profiles": {

@@ -33,7 +33,7 @@ Most MCP frameworks give you a transport layer and leave security, isolation, an
 | Surface | Description |
 |---------|-------------|
 | **Library** (`ext-mcp-*`) | Server core, stdio + HTTP transports, OAuth resource-server helpers, schema validation, sandbox/budget wiring, record/replay, trust framework |
-| **CLI** (`x07-mcp`) | Scaffold, run, conformance check, bundle `.mcpb`, publish dry-run, trust tlog monitor |
+| **CLI** (`x07-mcp`) | Scaffold, `dev`, conformance check, `inspect`, `catalog`, bundle `.mcpb`, publish dry-run, trust summaries |
 | **Templates** | `mcp-server-stdio`, `mcp-server-http`, `mcp-server-http-tasks` — each with config, replay fixtures, and test harness |
 | **Reference servers** | x07lang-mcp, github-mcp, slack-mcp, jira-mcp, postgres-mcp, redis-mcp, s3-mcp, kubernetes-mcp, stripe-mcp, smtp-mcp, http-proxy-mcp |
 
@@ -80,7 +80,7 @@ curl -X POST http://127.0.0.1:8314/mcp \
 ### Run conformance
 
 ```sh
-x07 mcp conformance --url http://127.0.0.1:8314/mcp
+x07-mcp conformance --url http://127.0.0.1:8314/mcp --out .x07/artifacts/mcp/conformance/summary.json
 ```
 
 ## For agents
@@ -91,10 +91,13 @@ All CLI commands support `--machine json` for structured output. Key commands:
 
 ```sh
 x07-mcp scaffold init --template <T> --dir <D> --machine json
-x07-mcp run --transport stdio|http --machine json
+x07-mcp dev --dir <D>
 x07-mcp conformance --url <URL> --machine json
+x07-mcp inspect tools --url <URL> --machine json
+x07-mcp catalog templates --machine json
 x07-mcp bundle --mcpb --server-dir <D>
 x07-mcp publish --dry-run --machine json
+x07-mcp trust summary --machine json
 x07-mcp trust tlog-monitor --machine json
 ```
 

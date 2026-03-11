@@ -10,7 +10,7 @@ x07 test --manifest tests/tests.json
 ```
 
 ```sh
-cd packages/app/x07-mcp/0.4.0
+cd packages/app/x07-mcp/0.4.1
 x07 test --manifest tests/tests.json
 ```
 

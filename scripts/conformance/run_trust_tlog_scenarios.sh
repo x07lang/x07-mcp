@@ -2,8 +2,13 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-APP_DIR="$ROOT/packages/app/x07-mcp/0.4.0"
+APP_DIR="$(find "$ROOT/packages/app/x07-mcp" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)"
 X07_ROOT="${X07_ROOT:-$ROOT/../x07}"
+
+if [[ -z "$APP_DIR" || ! -d "$APP_DIR" ]]; then
+  echo "ERROR: missing x07-mcp app package directory under $ROOT/packages/app/x07-mcp" >&2
+  exit 2
+fi
 
 if [[ ! -d "$X07_ROOT" ]]; then
   echo "ERROR: missing x07 checkout for local deps: $X07_ROOT" >&2

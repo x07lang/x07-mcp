@@ -1,0 +1,62 @@
+{
+  "schema_version": "x07.mcp.trust.framework@0.3.0",
+  "framework_id": "com.example.trust.frameworks.dev_remote_pack",
+  "mode": "test",
+  "bundle_publishers": [
+    {
+      "issuer": "https://policy.example",
+      "accepted_algs": [
+        "Ed25519"
+      ],
+      "jwks": {
+        "keys": [
+          {
+            "kty": "OKP",
+            "crv": "Ed25519",
+            "x": "GaOOhpPUQ2K0_1UosjdUflzxnEqzih_sCal_vJwrLaA",
+            "kid": "eokmEcTTjDIp7c76C3Qsja4y39vkZ_S7TVyMhxMnKIw",
+            "use": "sig"
+          }
+        ]
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "id": "dev_trust_bundle_v1",
+      "source": {
+        "kind": "url",
+        "url": "https://trust-registry.example.test/v1/bundles/dev_trust_bundle_v1/1.0.0/bundle.trust_bundle.json"
+      },
+      "sig_source": {
+        "kind": "url",
+        "url": "https://trust-registry.example.test/v1/bundles/dev_trust_bundle_v1/1.0.0/bundle.trust_bundle.sig.jwt"
+      },
+      "publisher_issuer": "https://policy.example",
+      "require_signature": true
+    }
+  ],
+  "resources": [
+    {
+      "resource": "https://localhost:8443",
+      "authorization_server_policy": {
+        "strategy": "prefer_order_v1",
+        "allowed_issuers": [
+          "https://as1.example"
+        ],
+        "prefer_issuers": [
+          "https://as1.example"
+        ],
+        "require_https": true,
+        "mode": "fail_closed"
+      },
+      "prm_signed_metadata_policy": {
+        "require_signed_metadata": true,
+        "allowed_signing_issuers": [
+          "https://as1.example"
+        ],
+        "mode": "fail_closed"
+      }
+    }
+  ]
+}

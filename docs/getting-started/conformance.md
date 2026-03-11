@@ -14,6 +14,15 @@ Equivalent direct call:
 x07-mcp conformance --url http://127.0.0.1:8080/mcp
 ```
 
+Write the normalized summary artifact explicitly when you want a stable path:
+
+```sh
+x07-mcp conformance \
+  --url http://127.0.0.1:8080/mcp \
+  --out .x07/artifacts/mcp/conformance/summary.json \
+  --machine json
+```
+
 ## Spawn a reference server
 
 ```sh

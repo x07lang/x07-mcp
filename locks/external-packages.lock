@@ -6082,6 +6082,64 @@
       "modules": [
         {
           "module_id": "ext.mcp.server",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.20/modules/ext/mcp/server.x07.json",
+          "sha256": "0950fc7de170db67c7fd835ded0410dc8e03c5ee84ac4ebf3b5be5ef86fb483a",
+          "size_bytes": 307514
+        },
+        {
+          "module_id": "smoke_transport_http_rules",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.20/modules/smoke_transport_http_rules.x07.json",
+          "sha256": "e7494732cb26c65083c4e4691e4398d3dd9ef8901becb3ebd52bdb98667938e8",
+          "size_bytes": 2029
+        },
+        {
+          "module_id": "smoke_transport_http_server",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.20/modules/smoke_transport_http_server.x07.json",
+          "sha256": "ea2d90271f9020554240deb54506d9fe7216642b089ca25255d83085e5f7be20",
+          "size_bytes": 24360
+        },
+        {
+          "module_id": "std.mcp.transport.http",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.20/modules/std/mcp/transport/http.x07.json",
+          "sha256": "8087f75ead8a810b9da32a52c6db5a6b04102fc488a58f6ae9b08632c0402cb7",
+          "size_bytes": 51740
+        },
+        {
+          "module_id": "std.mcp.transport.http_rules",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.20/modules/std/mcp/transport/http_rules.x07.json",
+          "sha256": "ab63c9564d0320ba73b14c1b993297ec3172b5f4e08cef9aa9c5fa12ac70e5dd",
+          "size_bytes": 7788
+        },
+        {
+          "module_id": "std.mcp.transport.http_session",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.20/modules/std/mcp/transport/http_session.x07.json",
+          "sha256": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9",
+          "size_bytes": 1917
+        },
+        {
+          "module_id": "std.mcp.transport.http_sse",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.20/modules/std/mcp/transport/http_sse.x07.json",
+          "sha256": "5fa7f191dac0e9fe080275ce47152285890c308164b2972093601e0cc35b9f2a",
+          "size_bytes": 675
+        },
+        {
+          "module_id": "std.mcp.transport.http_sse_outbox_v1",
+          "path": "packages/ext/x07-ext-mcp-transport-http/0.3.20/modules/std/mcp/transport/http_sse_outbox_v1.x07.json",
+          "sha256": "baeb3adf7a12181011ff1daadd4747df635acca0ce5f22a8f034922810b8f80b",
+          "size_bytes": 11917
+        }
+      ],
+      "name": "ext-mcp-transport-http",
+      "package_manifest_sha256": "ab79d15a8493a1c23a3dccb9280cc562ec5de2c8077fb20dc9f9acfd0b155ac0",
+      "path": "packages/ext/x07-ext-mcp-transport-http/0.3.20",
+      "version": "0.3.20"
+    },
+    {
+      "determinism_tier": "os-world-only",
+      "import_mode": "handwritten",
+      "modules": [
+        {
+          "module_id": "ext.mcp.server",
           "path": "packages/ext/x07-ext-mcp-transport-http/0.3.3/modules/ext/mcp/server.x07.json",
           "sha256": "912dfe3191fecca98caf15d7051903808dac91fdc4b883fc6d09f2e09ff9c7b6",
           "size_bytes": 238482
@@ -8003,6 +8061,6 @@
       "version": "0.3.6"
     }
   ],
-  "packages_hash": "bf707712d7f9138420e4d597bddca297c5ba4e77404a65ef02bbe567c80c029c",
+  "packages_hash": "b99205106667105e358529983c483d9c267357f7b161f6624882b0fe5378f2c9",
   "packages_root": "packages/ext"
 }

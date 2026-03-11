@@ -1,0 +1,44 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "x07-mcp",
+  "version": "0.4.1",
+  "description": "Internal x07-mcp trust-pack and trust-tlog monitor helpers for publish/install/update validation.",
+  "docs": "Internal x07-mcp publish + trust monitor helpers.\n\nModules:\n- std.mcp.cli.trust_pack_cmd_v1\n- std.mcp.cli.trust_pack_install_v1\n- std.mcp.cli.trust_pack_install_v2\n- std.mcp.cli.trust_pack_update_v1\n- std.mcp.cli.trust_pack_verify_v1\n- std.mcp.publish.validate_trust_v1\n- std.mcp.publish.validate_trust_pack_v1\n- std.mcp.publish.validate_trust_pack_v3\n- std.mcp.publish.meta_summary_v1\n- std.mcp.publish.meta_summary_v2\n- std.mcp.publish.meta_summary_v3\n- std.mcp.publish.publish_v1\n- app.mcp.cli.trust_tlog_monitor_v1\n",
+  "module_root": "modules",
+  "modules": [
+    "std.mcp.cli.trust_pack_cmd_v1",
+    "std.mcp.cli.trust_pack_install_v1",
+    "std.mcp.cli.trust_pack_install_v2",
+    "std.mcp.cli.trust_pack_update_v1",
+    "std.mcp.cli.trust_pack_verify_v1",
+    "std.mcp.publish.validate_trust_v1",
+    "std.mcp.publish.validate_trust_pack_v1",
+    "std.mcp.publish.validate_trust_pack_v3",
+    "std.mcp.publish.meta_summary_v1",
+    "std.mcp.publish.meta_summary_v2",
+    "std.mcp.publish.meta_summary_v3",
+    "std.mcp.publish.publish_v1",
+    "app.mcp.cli.trust_tlog_monitor_v1"
+  ],
+  "meta": {
+    "determinism_tier": "pure",
+    "worlds_allowed": [
+      "solve-pure",
+      "solve-fs",
+      "solve-rr",
+      "solve-kv",
+      "solve-full",
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-mcp-trust@0.5.0",
+      "ext-data-model@0.1.8",
+      "ext-json-rs@0.1.4",
+      "ext-crypto-rs@0.1.4",
+      "ext-hex-rs@0.1.4",
+      "ext-mcp-trust-os@0.5.0"
+    ],
+    "import_mode": "handwritten"
+  }
+}
