@@ -308,7 +308,6 @@ jobs:
   release-metadata-guard:
     name: ci / release-metadata-guard
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
     needs: [publish-dry-run]
     steps:
       - name: Checkout
