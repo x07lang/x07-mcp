@@ -41,8 +41,8 @@ for server_json in "${server_json_files[@]}"; do
     fi
   done < <(jq -r '.packages[]? | select(.registryType=="mcpb") | (.fileSha256 // "")' "${server_json}")
 
-  x07_meta_count="$(jq '[._meta["io.modelcontextprotocol.registry/publisher-provided"].x07?] | length' "${server_json}")"
-  legacy_prm_count="$(jq '[._meta["io.modelcontextprotocol.registry/publisher-provided"]["x07.io/mcp"].prm?] | length' "${server_json}")"
+  x07_meta_count="$(jq '[._meta["io.modelcontextprotocol.registry/publisher-provided"].x07? | select(type=="object")] | length' "${server_json}")"
+  legacy_prm_count="$(jq '[._meta["io.modelcontextprotocol.registry/publisher-provided"]["x07.io/mcp"].prm? | select(type=="object")] | length' "${server_json}")"
   if [[ "${x07_meta_count}" -eq 0 && "${legacy_prm_count}" -eq 0 ]]; then
     echo "ERROR: ${server_json} missing _meta publisher trust summary (x07 or x07.io/mcp.prm)" >&2
     status=1
@@ -86,7 +86,7 @@ for server_json in "${server_json_files[@]}"; do
     fi
   fi
 
-  trust_pack_count="$(jq '[._meta["io.modelcontextprotocol.registry/publisher-provided"].x07.trustPack?] | length' "${server_json}")"
+  trust_pack_count="$(jq '[._meta["io.modelcontextprotocol.registry/publisher-provided"].x07.trustPack? | select(type=="object")] | length' "${server_json}")"
   if [[ "${trust_pack_count}" -gt 0 ]]; then
     trust_pack_version="$(jq -r '._meta["io.modelcontextprotocol.registry/publisher-provided"].x07.trustPack.packVersion // empty' "${server_json}")"
     if [[ -z "${trust_pack_version}" ]]; then

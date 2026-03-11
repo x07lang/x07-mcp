@@ -317,7 +317,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: publish-*
-          merge-multiple: true
           path: .agent_cache/release-metadata
       - name: Guard against placeholder hashes
         shell: bash
