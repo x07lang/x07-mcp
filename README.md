@@ -95,11 +95,18 @@ x07-mcp dev --dir <D>
 x07-mcp conformance --url <URL> --machine json
 x07-mcp inspect tools --url <URL> --machine json
 x07-mcp catalog templates --machine json
-x07-mcp bundle --mcpb --server-dir <D>
+x07-mcp bundle --mcpb --server-dir <D> --machine json
 x07-mcp publish --dry-run --machine json
 x07-mcp trust summary --machine json
 x07-mcp trust tlog-monitor --machine json
 ```
+
+Forge M4 relies on two builder-grade machine outputs:
+
+- `x07-mcp bundle --mcpb --server-dir <D> --machine json` emits `x07.mcp.bundle.summary@0.1.0`
+- `x07-mcp publish --dry-run --server-json <S> --mcpb <B> --machine json` emits `x07.mcp.publish.readiness@0.1.0`
+
+Those documents include transport and capability summaries, trust/readiness status, explicit blockers and warnings, and stable artifact references so UI consumers can render publish-readiness directly without scraping human text.
 
 Diagnostics are emitted as `x07diag` JSON with stable error codes and optional JSON Patch quickfixes.
 

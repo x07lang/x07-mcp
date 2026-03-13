@@ -20,7 +20,7 @@
 - `ext-mcp-trust-os@0.4.0`: run-os trust adapters for TUF-lite metadata/witness verification + trust state fs store + cached remote fetch helpers
 - `ext-mcp-trust-os@0.3.0`: run-os trust adapters for cached remote bundle fetch (`http_fetch_cached_v1`) + content-addressed fs cache + SSRF policy v2
 - `ext-mcp-trust-os@0.1.0`: run-os trust adapters (bundle fetch + authorization server metadata fetch/validation)
-- `x07-mcp@0.4.1` (app package): trust-pack install/update + publish trust-pack validation/meta summary + trust tlog monitor command surface (`app.mcp.cli.trust_tlog_monitor_v1`)
+- `x07-mcp@0.4.2` (app package): trust-pack install/update + publish trust-pack validation/meta summary + trust tlog monitor command surface (`app.mcp.cli.trust_tlog_monitor_v1`)
 - `x07-mcp@0.3.0` (app package): trust-pack install/update phase-15 helpers + publish trust-pack validation/meta summary v3 (`minSnapshotVersion`, `snapshotSha256`, `checkpointSha256`)
 - `ext-mcp-obs@0.1.4`: audit JSONL + metrics hooks
 - `ext-mcp-rr@0.3.17`: deterministic stdio, HTTP, and HTTP+SSE replay helpers + sanitizers with runtime descriptor-path support

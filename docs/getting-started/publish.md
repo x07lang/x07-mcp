@@ -16,7 +16,8 @@ x07-mcp registry gen \
 ```sh
 x07-mcp publish --dry-run \
   --server-json servers/postgres-mcp/dist/server.json \
-  --mcpb servers/postgres-mcp/dist/postgres-mcp.mcpb
+  --mcpb servers/postgres-mcp/dist/postgres-mcp.mcpb \
+  --machine json
 ```
 
 Dry-run checks schema validity, `_meta` limits, package hash integrity, and trust-policy enforcement when `publish.require_signed_prm=true`:
@@ -34,6 +35,14 @@ Dry-run checks schema validity, `_meta` limits, package hash integrity, and trus
   - `lockSha256`
   - `minSnapshotVersion` (`>0`)
   - `snapshotSha256` and `checkpointSha256` (non-placeholder)
+
+The machine-readable schema is `x07.mcp.publish.readiness@0.1.0`. It includes:
+
+- overall readiness state (`ready`, `warn`, or `blocked`)
+- bundle identity and transport summary
+- trust overlay status and supporting artifact refs
+- explicit blocker and warning lists
+- next-step hints for remediation or release
 
 ## Trust Framework Artifacts
 

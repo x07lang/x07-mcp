@@ -24,6 +24,22 @@ require_cmd x07
 require_cmd python3
 require_cmd jq
 
+x07_toolchain_version="$(x07 --version | awk 'NR==1 {print $2}')"
+x07_stdlib_lock="${HOME}/.x07/toolchains/v${x07_toolchain_version}/stdlib.lock"
+if [[ ! -f "${x07_stdlib_lock}" ]]; then
+  workspace_stdlib_lock="${root}/../x07/stdlib.lock"
+  if [[ -f "${workspace_stdlib_lock}" ]]; then
+    x07_stdlib_lock="${workspace_stdlib_lock}"
+  else
+    echo "ERROR: missing stdlib lock for active x07 toolchain: ${x07_stdlib_lock}" >&2
+    exit 2
+  fi
+fi
+
+x07_test() {
+  x07 test --stdlib-lock "${x07_stdlib_lock}" "$@"
+}
+
 run_quiet() {
   local log_path="${1:-}"
   shift
@@ -297,6 +313,7 @@ lint_dirs=(
   "packages/app/x07-mcp/0.3.0/modules"
   "packages/app/x07-mcp/0.4.0/modules"
   "packages/app/x07-mcp/0.4.1/modules"
+  "packages/app/x07-mcp/0.4.2/modules"
   "packages/ext/x07-ext-mcp-auth-core/0.1.0/modules"
   "packages/ext/x07-ext-mcp-auth-core/0.1.1/modules"
   "packages/ext/x07-ext-mcp-auth-core/0.1.2/modules"
@@ -455,7 +472,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$auth_core_012_dir" ]] || { echo "ERROR: missing local package: $auth_core_012_dir" >&2; exit 2; }
   (
     cd "$auth_core_012_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$data_model_modules" \
@@ -470,7 +487,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$trust_010_dir" ]] || { echo "ERROR: missing local package: $trust_010_dir" >&2; exit 2; }
   (
     cd "$trust_010_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$crypto_modules" \
@@ -488,7 +505,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$trust_020_dir" ]] || { echo "ERROR: missing local package: $trust_020_dir" >&2; exit 2; }
   (
     cd "$trust_020_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$crypto_modules" \
@@ -506,7 +523,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$trust_030_dir" ]] || { echo "ERROR: missing local package: $trust_030_dir" >&2; exit 2; }
   (
     cd "$trust_030_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$crypto_modules" \
@@ -524,7 +541,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$trust_040_dir" ]] || { echo "ERROR: missing local package: $trust_040_dir" >&2; exit 2; }
   (
     cd "$trust_040_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$crypto_modules" \
@@ -542,7 +559,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$trust_050_dir" ]] || { echo "ERROR: missing local package: $trust_050_dir" >&2; exit 2; }
   (
     cd "$trust_050_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$base64_modules" \
@@ -561,7 +578,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$trust_os_010_dir" ]] || { echo "ERROR: missing local package: $trust_os_010_dir" >&2; exit 2; }
   (
     cd "$trust_os_010_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$net_modules" \
@@ -578,7 +595,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$trust_os_030_dir" ]] || { echo "ERROR: missing local package: $trust_os_030_dir" >&2; exit 2; }
   (
     cd "$trust_os_030_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$trust_030_dir/modules" \
@@ -599,7 +616,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$trust_os_040_dir" ]] || { echo "ERROR: missing local package: $trust_os_040_dir" >&2; exit 2; }
   (
     cd "$trust_os_040_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$trust_040_dir/modules" \
@@ -620,7 +637,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$trust_os_050_dir" ]] || { echo "ERROR: missing local package: $trust_os_050_dir" >&2; exit 2; }
   (
     cd "$trust_os_050_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$trust_050_dir/modules" \
@@ -642,7 +659,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$app_pkg_010_dir" ]] || { echo "ERROR: missing local package: $app_pkg_010_dir" >&2; exit 2; }
   (
     cd "$app_pkg_010_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$trust_010_dir/modules" \
@@ -660,7 +677,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$app_pkg_020_dir" ]] || { echo "ERROR: missing local package: $app_pkg_020_dir" >&2; exit 2; }
   (
     cd "$app_pkg_020_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$trust_030_dir/modules" \
@@ -678,7 +695,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$app_pkg_030_dir" ]] || { echo "ERROR: missing local package: $app_pkg_030_dir" >&2; exit 2; }
   (
     cd "$app_pkg_030_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$trust_040_dir/modules" \
@@ -696,7 +713,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$app_pkg_040_dir" ]] || { echo "ERROR: missing local package: $app_pkg_040_dir" >&2; exit 2; }
   (
     cd "$app_pkg_040_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$trust_050_dir/modules" \
@@ -719,7 +736,30 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$app_pkg_041_dir" ]] || { echo "ERROR: missing local package: $app_pkg_041_dir" >&2; exit 2; }
   (
     cd "$app_pkg_041_dir"
-    x07 test \
+    x07_test \
+      --manifest tests/tests.json \
+      --module-root modules \
+      --module-root "$trust_050_dir/modules" \
+      --module-root "$trust_os_050_dir/modules" \
+      --module-root "$crypto_modules" \
+      --module-root "$data_model_modules" \
+      --module-root "$hex_modules" \
+      --module-root "$json_modules" \
+      --module-root "$url_modules" \
+      --module-root "$unicode_modules" \
+      --module-root "$fs_modules" \
+      --module-root "$net_modules" \
+      --module-root "$curl_modules" \
+      --module-root "$base64_modules" \
+      >/dev/null
+  )
+
+  step "package tests (x07-mcp@0.4.2 publish trust modules)"
+  app_pkg_042_dir="$root/packages/app/x07-mcp/0.4.2"
+  [[ -d "$app_pkg_042_dir" ]] || { echo "ERROR: missing local package: $app_pkg_042_dir" >&2; exit 2; }
+  (
+    cd "$app_pkg_042_dir"
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$trust_050_dir/modules" \
@@ -764,7 +804,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$rr_023_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.2.2/modules" \
@@ -783,7 +823,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$rr_033_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.2/modules" \
@@ -801,7 +841,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
 	  (
 	    cd "$rr_034_dir"
-	    x07 test \
+	    x07_test \
 	      --manifest tests/tests.json \
 	      --module-root modules \
 	      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.2/modules" \
@@ -819,7 +859,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$rr_037_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.2/modules" \
@@ -837,7 +877,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$rr_038_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.2/modules" \
@@ -855,7 +895,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$rr_039_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.2/modules" \
@@ -873,7 +913,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$rr_0313_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.3/modules" \
@@ -893,7 +933,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$rr_0314_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
@@ -913,7 +953,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$rr_0315_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
@@ -954,7 +994,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$auth_046_dir" ]] || { echo "ERROR: missing local package: $auth_046_dir" >&2; exit 2; }
   (
     cd "$auth_020_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.0/modules" \
@@ -970,7 +1010,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$auth_030_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.1/modules" \
@@ -994,7 +1034,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$auth_031_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.2/modules" \
@@ -1016,7 +1056,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$auth_040_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.2/modules" \
@@ -1038,7 +1078,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$auth_041_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.2/modules" \
@@ -1062,7 +1102,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$auth_042_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.3/modules" \
@@ -1086,7 +1126,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$auth_043_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.3/modules" \
@@ -1110,7 +1150,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$auth_044_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.3/modules" \
@@ -1134,7 +1174,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$auth_045_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.3/modules" \
@@ -1158,7 +1198,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 
   (
     cd "$auth_046_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
@@ -1185,7 +1225,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   [[ -d "$obs_014_dir" ]] || { echo "ERROR: missing local package: $obs_014_dir" >&2; exit 2; }
   (
     cd "$obs_014_dir"
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root tests \
@@ -1208,7 +1248,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 		  [[ -d "$sandbox_039_dir" ]] || { echo "ERROR: missing local package: $sandbox_039_dir" >&2; exit 2; }
 		  (
 		    cd "$sandbox_039_dir"
-			    x07 test \
+			    x07_test \
 			      --manifest tests/tests.json \
 			      --module-root modules \
 			      --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
@@ -1387,7 +1427,7 @@ step "package tests (ext-mcp-transport-http)"
       --module-root "$stdio_modules" \
       --auto-ffi \
       >/dev/null
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root tests \
@@ -1469,7 +1509,7 @@ step "package tests (ext-mcp-transport-http)"
       --module-root "$stdio_modules" \
       --auto-ffi \
       >/dev/null
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root tests \
@@ -1551,7 +1591,7 @@ step "package tests (ext-mcp-transport-http)"
       --module-root "$stdio_modules" \
       --auto-ffi \
       >/dev/null
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root tests \
@@ -1633,7 +1673,7 @@ step "package tests (ext-mcp-transport-http)"
       --module-root "$stdio_modules" \
       --auto-ffi \
       >/dev/null
-    x07 test \
+    x07_test \
       --manifest tests/tests.json \
       --module-root modules \
       --module-root tests \
@@ -1683,6 +1723,37 @@ bundle_log="$(mktemp)"
 tmp_dirs+=("$bundle_log")
 run_quiet "$bundle_log" x07 bundle --project x07.json --profile os --out dist/x07-mcp
 ./dist/x07-mcp --help >/dev/null
+
+step "workbench summary tests"
+python3 registry/scripts/tests/test_workbench_summary.py >/dev/null
+
+step "MCP workbench machine summaries"
+bundle_summary_json="$(mktemp)"
+tmp_dirs+=("$bundle_summary_json")
+./dist/x07-mcp bundle --mcpb --server-dir servers/x07lang-mcp --machine json >"$bundle_summary_json"
+jq -e '
+  .schema_version == "x07.mcp.bundle.summary@0.1.0" and
+  .ok == true and
+  .status == "ready" and
+  .publish.blocker_count == 0 and
+  .capabilities.tool_count > 0 and
+  .trust.status == "healthy"
+' "$bundle_summary_json" >/dev/null
+
+publish_summary_json="$(mktemp)"
+tmp_dirs+=("$publish_summary_json")
+./dist/x07-mcp publish --dry-run \
+  --server-json servers/x07lang-mcp/publish/server.mcp-registry.json \
+  --mcpb servers/x07lang-mcp/dist/x07lang-mcp.mcpb \
+  --machine json \
+  >"$publish_summary_json"
+jq -e '
+  .schema_version == "x07.mcp.publish.readiness@0.1.0" and
+  .ok == true and
+  .status == "ready" and
+  .publish.blocker_count == 0 and
+  .trust.status == "healthy"
+' "$publish_summary_json" >/dev/null
 
 step "conformance client auth scenarios (phase11 + phase13)"
 if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
