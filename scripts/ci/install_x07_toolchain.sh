@@ -22,8 +22,10 @@ else
 fi
 
 if [[ -x "${x07_bin}" ]]; then
-  "${x07_bin}" --version
-  exit 0
+  if "${x07_bin}" --version; then
+    exit 0
+  fi
+  echo "WARN: cached x07 toolchain is invalid; reinstalling" >&2
 fi
 
 url="https://github.com/x07lang/x07/releases/download/${tag}/${tarball}"
