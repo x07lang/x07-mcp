@@ -42,3 +42,7 @@ x07 trust certify \
   --entry auth_core_cert.main_v1 \
   --out-dir docs/examples/verified_core_pure_auth_core_v1/target/cert
 ```
+
+A tracked reference certificate snapshot is kept at
+`docs/examples/verified_core_pure_auth_core_v1/target/cert/certificate.json`.
+The rest of `target/cert/` remains generated local output.

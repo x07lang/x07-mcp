@@ -16,6 +16,13 @@ tmp*
 # x07 test harness artifacts
 **/tests/tests/.tmp/
 
+# Tracked reference certificate snapshot for the verified-core auth-core docs example
+!docs/examples/verified_core_pure_auth_core_v1/target/
+docs/examples/verified_core_pure_auth_core_v1/target/*
+!docs/examples/verified_core_pure_auth_core_v1/target/cert/
+docs/examples/verified_core_pure_auth_core_v1/target/cert/*
+!docs/examples/verified_core_pure_auth_core_v1/target/cert/certificate.json
+
 # Legacy detritus from pre-$workspace path support (should not be committed).
 conformance/client-x07/$workspace/
 
