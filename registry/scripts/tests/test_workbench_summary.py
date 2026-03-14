@@ -2,17 +2,51 @@
 from __future__ import annotations
 
 import json
+import os
 import pathlib
+import subprocess
 import sys
 import tempfile
 import unittest
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
+from registry_lib import sha256_file
 from workbench_summary import BUNDLE_SCHEMA, PUBLISH_SCHEMA, compute_bundle_summary, compute_publish_readiness
 
 
 class WorkbenchSummaryTests(unittest.TestCase):
+    _registry_manifest_path: pathlib.Path
+    _registry_manifest_text: str
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        repo_root = pathlib.Path(__file__).resolve().parents[3]
+        server_dir = repo_root / "servers" / "x07lang-mcp"
+        mcpb_path = server_dir / "dist" / "x07lang-mcp.mcpb"
+        cls._registry_manifest_path = server_dir / "publish" / "server.mcp-registry.json"
+        cls._registry_manifest_text = cls._registry_manifest_path.read_text(encoding="utf-8")
+        needs_build = not mcpb_path.is_file()
+        if not needs_build:
+            server_doc = json.loads(cls._registry_manifest_text)
+            pkg = server_doc["packages"][0]
+            needs_build = str(pkg.get("fileSha256", "")) != sha256_file(mcpb_path)
+        if not needs_build:
+            return
+        subprocess.run(
+            [str(server_dir / "publish" / "build_mcpb.sh")],
+            cwd=server_dir,
+            env=os.environ.copy(),
+            check=True,
+            stdout=subprocess.DEVNULL,
+        )
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        current_text = cls._registry_manifest_path.read_text(encoding="utf-8")
+        if current_text != cls._registry_manifest_text:
+            cls._registry_manifest_path.write_text(cls._registry_manifest_text, encoding="utf-8")
+
     def setUp(self) -> None:
         self.repo_root = pathlib.Path(__file__).resolve().parents[3]
         self.server_dir = self.repo_root / "servers" / "x07lang-mcp"
@@ -71,7 +105,7 @@ class WorkbenchSummaryTests(unittest.TestCase):
         self.assertEqual(summary["schema_version"], BUNDLE_SCHEMA)
         self.assertTrue(summary["ok"])
         self.assertEqual(summary["status"], "ready")
-        self.assertEqual(summary["bundle"]["sha256"], "b1fae8628268d2411bbac74ed0ae53bcad26116e8fe9176ac46a0ef5ca0e08b7")
+        self.assertEqual(summary["bundle"]["sha256"], sha256_file(self.mcpb_path))
         self.assertEqual(summary["publish"]["status"], "ready")
 
 
