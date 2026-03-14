@@ -1,12 +1,38 @@
 # x07-mcp
 
-A toolkit for building [MCP](https://modelcontextprotocol.io/) servers in [X07](https://github.com/x07lang/x07) with secure-by-default execution, agent-native contracts, and operational trust.
+`x07-mcp` is the official MCP kit for [X07](https://github.com/x07lang/x07). It gives you the library code, CLI, templates, docs, and reference servers needed to build Model Context Protocol servers in X07 with secure-by-default execution and machine-readable contracts.
 
-x07-mcp is designed for **100% agentic coding** — an AI coding agent scaffolds, implements, tests, and publishes an MCP server entirely on its own using the kit's structured contracts and machine-readable outputs. No human needs to write X07 by hand.
+The vision is to make MCP servers feel like first-class x07 applications: deterministic where they should be deterministic, explicit about trust and sandbox boundaries, and simple enough for end users and coding agents to operate without hand-built framework glue.
+
+x07-mcp is designed for **100% agentic coding**. An AI coding agent can scaffold, implement, test, inspect, bundle, and publish an MCP server using structured outputs instead of brittle log scraping or custom shell scripts.
+
+## How it fits into the x07 ecosystem
+
+`x07-mcp` plays two roles in the larger x07 story:
+
+- It is the **toolkit repo** for people building their own MCP servers in X07.
+- It is also the home of the **official `x07lang-mcp` server**, which coding agents use to work with x07 projects and selected ecosystem surfaces.
+
+That makes it one of the bridges between the x07 language and real agent runtimes:
+
+- **`x07`** provides the language, repair loop, package manager, and core docs.
+- **`x07-mcp`** provides the MCP-facing packaging, templates, conformance flow, and the official x07 MCP server.
+- **`x07-wasm-backend`**, **`x07-web-ui`**, **`x07-device-host`**, and **`x07-platform`** expose capabilities that the official server and future MCP apps can use through structured tool contracts.
+
+If you want an agent to write x07 well, you usually consume the official server from this repo. If you want to build your own MCP product in x07, this repo is your starting point.
 
 ## Prerequisites
 
 The [X07 toolchain](https://github.com/x07lang/x07) must be installed before using x07-mcp. If you (or your agent) are new to X07, start with the **[Agent Quickstart](https://x07lang.org/docs/getting-started/agent-quickstart)** — it covers toolchain setup, project structure, and the workflow conventions an agent needs to be productive.
+
+## Practical usage
+
+Common ways people use this repo:
+
+- **Run the official x07 MCP server** so an IDE or coding agent can inspect and edit x07 projects through MCP.
+- **Scaffold a new MCP server** from a template and implement tool handlers in X07.
+- **Bundle and publish** an `.mcpb` package with reproducible metadata and trust checks.
+- **Run conformance and replay tests** before release.
 
 ## Use the official X07 MCP server (for coding X07)
 
@@ -41,7 +67,7 @@ Most MCP frameworks give you a transport layer and leave security, isolation, an
 
 ### Install
 
-Requires X07 toolchain and a C compiler (clang or gcc) on `PATH`.
+Requires the X07 toolchain and a C compiler (`clang` or `gcc`) on `PATH`.
 
 ```sh
 x07 bundle --project x07.json --profile os --out dist/x07-mcp
@@ -56,6 +82,8 @@ x07-mcp scaffold init --template mcp-server-stdio --dir ./my-server
 ```
 
 Templates: `mcp-server-stdio` | `mcp-server-http` | `mcp-server-http-tasks`
+
+When you are working from the main x07 toolchain entrypoint, prefer the published x07 template flow for end-user projects and then use this repo when you need the underlying kit, template source, or reference servers.
 
 ### Run (stdio)
 
