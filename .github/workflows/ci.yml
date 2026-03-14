@@ -10,8 +10,8 @@ permissions:
 env:
   X07_MCP_LOCK_RETRIES: "5"
   X07_MCP_LOCK_RETRY_DELAY_SECS: "3"
-  X07_TOOLCHAIN_TAG: "v0.1.55"
-  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-v0.1.55-x86_64-unknown-linux-gnu.tar.gz"
+  X07_TOOLCHAIN_TAG: "v0.1.77"
+  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-v0.1.77-x86_64-unknown-linux-gnu.tar.gz"
 
 jobs:
   check:
@@ -70,6 +70,34 @@ jobs:
         shell: bash
         run: ./registry/scripts/check_fixtures.sh
 
+  verified-core-auth-dogfood:
+    name: ci / verified-core-auth-dogfood
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout x07-mcp
+        uses: actions/checkout@v4
+        with:
+          path: x07-mcp
+      - name: Checkout x07 (source)
+        uses: actions/checkout@v4
+        with:
+          repository: x07lang/x07
+          ref: main
+          path: x07
+      - name: Install system deps
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
+      - name: Build x07 (source)
+        shell: bash
+        working-directory: x07
+        run: cargo build -p x07
+      - name: Verify published auth-core example
+        shell: bash
+        working-directory: x07-mcp
+        run: PATH="$PWD/../x07/target/debug:$PATH" ./scripts/ci/check_verified_core_pure_auth_core_example.sh
+
   mcp-trust-tests:
     name: ci / mcp-trust-tests
     runs-on: ubuntu-latest
@@ -109,10 +137,10 @@ jobs:
               --manifest tests/tests.json \
               --module-root modules \
               --module-root "$x07_root/packages/ext/x07-ext-base64-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.9/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.5/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.10/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.5/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.6/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-fs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-unicode-rs/0.1.5/modules"
@@ -132,9 +160,9 @@ jobs:
               --module-root "$x07_root/packages/ext/x07-ext-base64-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-net/0.1.9/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.5/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.9/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.4/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.6/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.10/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-fs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-unicode-rs/0.1.5/modules" \
@@ -157,9 +185,9 @@ jobs:
               --module-root "$x07_root/packages/ext/x07-ext-base64-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-net/0.1.9/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.5/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.9/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.4/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.6/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.10/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-fs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-unicode-rs/0.1.5/modules" \

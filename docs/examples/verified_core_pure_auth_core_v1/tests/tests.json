@@ -1,0 +1,37 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "smoke/auth_core_suite",
+      "entry": "tests.auth_core.smoke_main_v1",
+      "expect": "pass",
+      "world": "solve-pure"
+    },
+    {
+      "id": "pbt/auth_core_suite",
+      "entry": "tests.auth_core.pbt_main_v1",
+      "expect": "pass",
+      "world": "solve-pure",
+      "returns": "bytes_status_v1",
+      "pbt": {
+        "cases": 12,
+        "max_shrinks": 32,
+        "params": [
+          {
+            "name": "payload",
+            "gen": {
+              "kind": "bytes",
+              "max_len": 8
+            }
+          }
+        ],
+        "case_budget": {
+          "fuel": 100000,
+          "timeout_ms": 250,
+          "max_mem_bytes": 16777216,
+          "max_output_bytes": 65536
+        }
+      }
+    }
+  ]
+}

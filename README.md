@@ -34,6 +34,29 @@ Common ways people use this repo:
 - **Bundle and publish** an `.mcpb` package with reproducible metadata and trust checks.
 - **Run conformance and replay tests** before release.
 
+## Formal verification dogfood
+
+`x07-mcp` now ships a certifiable `verified_core_pure_v1` example under
+`docs/examples/verified_core_pure_auth_core_v1/`.
+
+It uses the published `ext-mcp-auth-core` package and demonstrates the current
+Milestone A trust posture:
+
+- the certified entry is a small verified-core wrapper
+- the imported bearer parser is reviewed through the trusted primitive catalog
+  in `x07`
+- smoke and PBT tests still exercise the real published package behavior
+
+Run it end-to-end with:
+
+```sh
+cd docs/examples/verified_core_pure_auth_core_v1
+x07 pkg lock --project x07.json
+x07 trust profile check --project x07.json --profile arch/trust/profiles/verified_core_pure_v1.json --entry auth_core_cert.main_v1
+x07 test --all --manifest tests/tests.json
+x07 trust certify --project x07.json --profile arch/trust/profiles/verified_core_pure_v1.json --entry auth_core_cert.main_v1 --out-dir target/cert
+```
+
 ## Use the official X07 MCP server (for coding X07)
 
 If you want an MCP server for writing and repairing X07 programs (instead of building your own MCP server), install the official server: `io.x07/x07lang-mcp`.

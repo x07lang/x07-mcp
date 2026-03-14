@@ -1,0 +1,13 @@
+{
+  "files": {
+    "arch/boundaries/index.x07boundary.json": {
+      "jcs_sha256_hex": "747c34ccf7a42900751d337c51e5fb6cbd0c836974a0be5961e75f64536860f3"
+    }
+  },
+  "indexes": {
+    "boundaries": {
+      "jcs_sha256_hex": "747c34ccf7a42900751d337c51e5fb6cbd0c836974a0be5961e75f64536860f3"
+    }
+  },
+  "schema_version": "x07.arch.contracts.lock@0.1.0"
+}

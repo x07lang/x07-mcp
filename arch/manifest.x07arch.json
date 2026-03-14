@@ -1,5 +1,5 @@
 {
-  "schema_version": "x07.arch.manifest@0.1.0",
+  "schema_version": "x07.arch.manifest@0.2.0",
   "repo": { "id": "x07-mcp", "root": "." },
   "externals": {
     "allowed_import_prefixes": ["std.", "ext."],
@@ -10,9 +10,13 @@
       "id": "mcp_auth_pure",
       "match": {
         "module_prefixes": [],
-        "path_globs": ["packages/ext/x07-ext-mcp-auth/*/modules/**/*.x07.json"]
+        "path_globs": [
+          "packages/ext/x07-ext-mcp-auth/*/modules/**/*.x07.json",
+          "packages/ext/x07-ext-mcp-auth-core/*/modules/**/*.x07.json"
+        ]
       },
       "world": "solve-pure",
+      "trust_zone": "verified_core",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": ["std.os."], "allow_prefixes": [] }
     },
@@ -23,6 +27,7 @@
         "path_globs": ["packages/ext/x07-ext-mcp-core/*/modules/**/*.x07.json"]
       },
       "world": "solve-pure",
+      "trust_zone": "verified_core",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": ["std.os."], "allow_prefixes": [] }
     },
@@ -33,6 +38,7 @@
         "path_globs": ["packages/ext/x07-ext-mcp-toolkit/*/modules/**/*.x07.json"]
       },
       "world": "solve-fs",
+      "trust_zone": "untrusted",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": [], "allow_prefixes": [] }
     },
@@ -43,6 +49,7 @@
         "path_globs": ["packages/ext/x07-ext-mcp-worker/*/modules/**/*.x07.json"]
       },
       "world": "solve-fs",
+      "trust_zone": "untrusted",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": ["std.os."], "allow_prefixes": [] }
     },
@@ -53,6 +60,7 @@
         "path_globs": ["packages/ext/x07-ext-mcp-sandbox/*/modules/**/*.x07.json"]
       },
       "world": "run-os",
+      "trust_zone": "untrusted",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": [], "allow_prefixes": [] }
     },
@@ -63,6 +71,7 @@
         "path_globs": ["packages/ext/x07-ext-mcp-obs/*/modules/**/*.x07.json"]
       },
       "world": "run-os",
+      "trust_zone": "untrusted",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": [], "allow_prefixes": [] }
     },
@@ -73,6 +82,7 @@
         "path_globs": ["packages/ext/x07-ext-mcp-transport-stdio/*/modules/**/*.x07.json"]
       },
       "world": "run-os",
+      "trust_zone": "untrusted",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": [], "allow_prefixes": [] }
     },
@@ -83,6 +93,7 @@
         "path_globs": ["packages/ext/x07-ext-mcp-transport-http/*/modules/**/*.x07.json"]
       },
       "world": "run-os",
+      "trust_zone": "untrusted",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": [], "allow_prefixes": [] }
     },
@@ -93,6 +104,7 @@
         "path_globs": ["packages/ext/x07-ext-mcp-rr/*/modules/**/*.x07.json"]
       },
       "world": "run-os",
+      "trust_zone": "untrusted",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": ["std.os."], "allow_prefixes": [] }
     }

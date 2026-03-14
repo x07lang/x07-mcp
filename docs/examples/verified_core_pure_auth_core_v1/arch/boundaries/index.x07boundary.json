@@ -1,0 +1,28 @@
+{
+  "schema_version": "x07.arch.boundaries.index@0.1.0",
+  "boundaries": [
+    {
+      "id": "auth_core_cert.main_v1",
+      "symbol": "auth_core_cert.main_v1",
+      "node_id": "app_core",
+      "kind": "public_function",
+      "from_zone": "verified_core",
+      "to_zone": "verified_core",
+      "worlds_allowed": ["solve-pure"],
+      "input": { "params": [] },
+      "output": { "ty": "i32" },
+      "smoke": {
+        "entry": "tests.auth_core.smoke_main_v1",
+        "tests": ["smoke/auth_core_suite"]
+      },
+      "pbt": {
+        "required": true,
+        "tests": ["pbt/auth_core_suite"]
+      },
+      "verify": {
+        "required": true,
+        "mode": "prove"
+      }
+    }
+  ]
+}
