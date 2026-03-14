@@ -92,7 +92,7 @@ jobs:
       - name: Build x07 (source)
         shell: bash
         working-directory: x07
-        run: cargo build -p x07
+        run: cargo build -p x07 -p x07-host-runner
       - name: Verify published auth-core example
         shell: bash
         working-directory: x07-mcp
