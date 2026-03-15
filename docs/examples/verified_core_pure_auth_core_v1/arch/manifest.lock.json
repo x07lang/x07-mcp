@@ -1,5 +1,5 @@
 {
-  "jcs_sha256_hex": "41c44ac48cf42e8edfffa5450b7d4a3e62b41276a0e153b999f7ca9639a3a8ce",
+  "jcs_sha256_hex": "c0b048fbf36dd968d8923cfdeae64454f71a1dad512b66b75fb12848672a71ea",
   "manifest_path": "arch/manifest.x07arch.json",
   "module_scan": {
     "exclude_globs": [

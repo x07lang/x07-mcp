@@ -1,1 +1,1 @@
-{"decls":[],"imports":["auth_core_cert","std.codec"],"kind":"entry","module_id":"main","schema_version":"x07.x07ast@0.6.0","solve":["std.codec.write_u32_le",["auth_core_cert.main_v1"]]}
+{"decls":[],"imports":["auth_core_cert","std.codec"],"kind":"entry","module_id":"main","schema_version":"x07.x07ast@0.7.0","solve":["std.codec.write_u32_le",["auth_core_cert.main_v1"]]}

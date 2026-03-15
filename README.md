@@ -40,12 +40,19 @@ Common ways people use this repo:
 `docs/examples/verified_core_pure_auth_core_v1/`.
 
 It uses the published `ext-mcp-auth-core` package and demonstrates the current
-Milestone A trust posture:
+verified-core trust posture on the latest trust-schema line:
 
 - the certified entry is a small verified-core wrapper
 - the imported bearer parser is reviewed through the trusted primitive catalog
   in `x07`
 - smoke and PBT tests still exercise the real published package behavior
+- the checked-in example now tracks `x07.arch.manifest@0.3.0`,
+  `x07.trust.profile@0.2.0`, and `x07.trust.certificate@0.2.0`
+
+This repo still does **not** have a real `trusted_program_sandboxed_local_v1`
+dogfood target. That remains blocked until a real x07-mcp stdio/worker package
+set is moved onto the sandboxed async certification path with capsule and
+runtime-attestation evidence.
 
 Run it end-to-end with:
 
