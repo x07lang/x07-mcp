@@ -14,6 +14,9 @@ This template scaffolds a minimal MCP **stdio** server in X07 with a router/work
 - `src/mcp/user.x07.json`: tool implementations
 - `tests/`: smoke test plus replay fixture inputs/outputs
 
+For the same layout upgraded onto the current sandboxed trust/capsule surface,
+see `docs/examples/trusted_program_sandboxed_local_stdio_v1/`.
+
 ## Quickstart
 
 Dependencies are already declared in `x07.json`. If you need to refresh lock/deps:

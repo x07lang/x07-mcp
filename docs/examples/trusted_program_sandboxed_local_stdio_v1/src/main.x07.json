@@ -1,0 +1,1 @@
+{"decls":[],"imports":["router"],"kind":"entry","module_id":"main","schema_version":"x07.x07ast@0.7.0","solve":["await",["router.main_v1"]]}

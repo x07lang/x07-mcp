@@ -49,10 +49,50 @@ verified-core trust posture on the latest trust-schema line:
 - the checked-in example now tracks `x07.arch.manifest@0.3.0`,
   `x07.trust.profile@0.2.0`, and `x07.trust.certificate@0.2.0`
 
-This repo still does **not** have a real `trusted_program_sandboxed_local_v1`
-dogfood target. That remains blocked until a real x07-mcp stdio/worker package
-set is moved onto the sandboxed async certification path with capsule and
-runtime-attestation evidence.
+This repo also now ships a sandboxed stdio router/worker example under
+`docs/examples/trusted_program_sandboxed_local_stdio_v1/`.
+
+That example upgrades the stdio template onto the current sandboxed trust line:
+
+- async stdio router entry under `run-os-sandboxed`
+- certifiable async entry `certify.main_v1`
+- certified capsule declaration + checked-in capsule attestation for the worker
+- boundary index + sandboxed trust profile posture for
+  `trusted_program_sandboxed_local_v1`
+- sandboxed `x07 test` evidence that carries runtime-attestation, capsule-id,
+  and effect-log references
+
+That example now certifies on the current toolchain line when it runs on a host
+with a supported `run-os-sandboxed` VM backend. The remaining practical
+constraint is operational: local macOS hosts without that backend can run the
+static checks and portable smoke coverage, but not the full sandboxed
+certificate flow.
+
+The example keeps certification evidence and portable developer smoke checks in
+separate manifests on purpose:
+
+- `tests/tests.json` is the certification manifest used by `x07 trust certify`
+- `tests/tests.portable.json` is the local non-VM helper manifest
+
+That separation matters because `x07 trust certify` validates the selected test
+manifest against the trust profile worlds and evidence requirements.
+
+The design split is intentional:
+
+- `router.main_v1` is the operational stdio server entry.
+- `certify.main_v1` is the proof-friendly async certification entry for the pre-capsule payload path.
+- `worker.main_v1` remains the real certified capsule boundary exercised by the sandbox smoke tests.
+
+```mermaid
+flowchart LR
+    A[certify.main_v1] --> B[x07 verify]
+    C[worker.main_v1 capsule] --> D[capsule attestation]
+    E[sandbox smoke test] --> F[runtime attestation]
+    B --> G[x07 trust certify]
+    D --> G
+    F --> G
+    G --> H[certificate bundle]
+```
 
 Run it end-to-end with:
 
@@ -62,6 +102,18 @@ x07 pkg lock --project x07.json
 x07 trust profile check --project x07.json --profile arch/trust/profiles/verified_core_pure_v1.json --entry auth_core_cert.main_v1
 x07 test --all --manifest tests/tests.json
 x07 trust certify --project x07.json --profile arch/trust/profiles/verified_core_pure_v1.json --entry auth_core_cert.main_v1 --out-dir target/cert
+```
+
+For the sandboxed stdio example, use:
+
+```sh
+cd docs/examples/trusted_program_sandboxed_local_stdio_v1
+x07 pkg lock --project x07.json
+x07 trust profile check --project x07.json --profile arch/trust/profiles/trusted_program_sandboxed_local_v1.json --entry certify.main_v1
+x07 test --all --manifest tests/tests.json
+x07 trust capsule check --project x07.json --index arch/capsules/index.x07capsule.json
+x07 trust certify --project x07.json --profile arch/trust/profiles/trusted_program_sandboxed_local_v1.json --entry certify.main_v1 --out-dir target/cert
+python3 tests/stdio_bundle_smoke.py
 ```
 
 ## Use the official X07 MCP server (for coding X07)

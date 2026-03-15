@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import time
 from pathlib import Path
+from typing import Any
 
 
 def _send_json_line(proc: subprocess.Popen[str], msg: object) -> None:
@@ -34,6 +35,26 @@ def _read_next_json_line(proc: subprocess.Popen[str], timeout_secs: float) -> ob
             stderr_text = proc.stderr.read()
         raise RuntimeError(f"server stdout closed: {stderr_text.strip()}")
     return json.loads(line)
+
+
+def _spawn_stdio_proc(
+    command: list[str],
+    cwd: Path,
+    extra_env: dict[str, str] | None = None,
+) -> subprocess.Popen[str]:
+    env = stdio_env()
+    if extra_env:
+        env.update(extra_env)
+    return subprocess.Popen(
+        command,
+        cwd=cwd,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        bufsize=1,
+        env=env,
+    )
 
 
 def _wait_for_response_id(
@@ -134,16 +155,29 @@ def hydrate_server_deps(server_root: Path, env: dict[str, str]) -> None:
 def run_stdio_smoke(
     server_exe: Path, cwd: Path, fixture_root: Path, expected_version: str
 ) -> None:
-    proc = subprocess.Popen(
+    run_stdio_smoke_cmd(
         [str(server_exe)],
-        cwd=cwd,
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-        bufsize=1,
-        env=stdio_env(),
+        cwd,
+        expected_version,
+        "x07.search_v1",
+        {
+            "query": "hello",
+            "domain": "docs",
+            "repo_root": str(fixture_root),
+            "limit": 1,
+        },
     )
+
+
+def run_stdio_smoke_cmd(
+    command: list[str],
+    cwd: Path,
+    expected_version: str,
+    tool_name: str,
+    tool_arguments: dict[str, Any],
+    extra_env: dict[str, str] | None = None,
+) -> None:
+    proc = _spawn_stdio_proc(command, cwd, extra_env)
     try:
         for requested_protocol in ("2025-03-26", "2025-11-25"):
             _send_json_line(
@@ -172,16 +206,7 @@ def run_stdio_smoke(
                     proc.kill()
                     proc.wait(timeout=2.0)
 
-            proc = subprocess.Popen(
-                [str(server_exe)],
-                cwd=cwd,
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-                bufsize=1,
-                env=stdio_env(),
-            )
+            proc = _spawn_stdio_proc(command, cwd, extra_env)
 
         _send_json_line(proc, {"jsonrpc": "2.0", "method": "notifications/initialized"})
 
@@ -192,13 +217,8 @@ def run_stdio_smoke(
                 "id": 2,
                 "method": "tools/call",
                 "params": {
-                    "name": "x07.search_v1",
-                    "arguments": {
-                        "query": "hello",
-                        "domain": "docs",
-                        "repo_root": str(fixture_root),
-                        "limit": 1,
-                    },
+                    "name": tool_name,
+                    "arguments": tool_arguments,
                 },
             },
         )

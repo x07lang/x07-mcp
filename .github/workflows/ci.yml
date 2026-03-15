@@ -112,11 +112,53 @@ jobs:
       - name: Build x07 (source)
         shell: bash
         working-directory: x07
-        run: cargo build -p x07 -p x07-host-runner
+        run: cargo build -p x07 -p x07c -p x07-host-runner
       - name: Verify published auth-core example
         shell: bash
         working-directory: x07-mcp
         run: PATH="$PWD/../x07/target/debug:$PATH" ./scripts/ci/check_verified_core_pure_auth_core_example.sh
+
+  sandboxed-stdio-dogfood:
+    name: ci / sandboxed-stdio-dogfood
+    runs-on:
+      - self-hosted
+      - linux
+      - x64
+    steps:
+      - name: Checkout x07-mcp
+        uses: actions/checkout@v4
+        with:
+          path: x07-mcp
+      - name: Checkout x07 (source)
+        uses: actions/checkout@v4
+        with:
+          repository: x07lang/x07
+          ref: main
+          path: x07
+      - name: Install system deps
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            cbmc \
+            clang \
+            build-essential \
+            pkg-config \
+            libssl-dev \
+            libcurl4-openssl-dev \
+            liblzma-dev \
+            zlib1g-dev \
+            libsqlite3-dev \
+            jq \
+            z3
+      - name: Build x07 (source)
+        shell: bash
+        working-directory: x07
+        run: cargo build -p x07 -p x07c -p x07-host-runner -p x07-os-runner
+      - name: Verify sandboxed stdio example
+        shell: bash
+        working-directory: x07-mcp
+        run: PATH="$PWD/../x07/target/debug:$PATH" ./scripts/ci/check_trusted_program_sandboxed_local_stdio_example.sh
 
   mcp-trust-tests:
     name: ci / mcp-trust-tests

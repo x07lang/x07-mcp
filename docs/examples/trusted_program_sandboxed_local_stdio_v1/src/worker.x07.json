@@ -1,0 +1,1 @@
+{"decls":[{"kind":"export","names":["worker.main_v1"]},{"body":["std.mcp.sandbox.worker_main.run_v1","in_bytes"],"kind":"defn","name":"worker.main_v1","params":[{"name":"in_bytes","ty":"bytes_view"}],"result":"bytes"}],"imports":["std.mcp.sandbox.worker_main"],"kind":"module","module_id":"worker","schema_version":"x07.x07ast@0.7.0"}
