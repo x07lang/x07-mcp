@@ -31,8 +31,18 @@ def _repo_root() -> Path:
     return Path(__file__).resolve().parents[2]
 
 
+def _workspace_x07_root(repo_root: Path) -> Path | None:
+    candidate = repo_root.parent / "x07"
+    if candidate.is_dir():
+        return candidate
+    return None
+
+
 def _workspace_x07_packages_ext_root(repo_root: Path) -> Path | None:
-    candidate = repo_root.parent / "x07" / "packages" / "ext"
+    workspace_x07 = _workspace_x07_root(repo_root)
+    if workspace_x07 is None:
+        return None
+    candidate = workspace_x07 / "packages" / "ext"
     if candidate.is_dir():
         return candidate
     return None
@@ -113,24 +123,12 @@ def _iter_mcp_schema_json_files(repo_root: Path) -> list[Path]:
 def _iter_x07_json_files(repo_root: Path) -> list[Path]:
     roots: list[Path] = [
         repo_root / "cli" / "src",
+        repo_root / "docs" / "examples",
         repo_root / "templates",
         repo_root / "conformance" / "client-x07" / "src",
         repo_root / "conformance" / "client-x07" / "tests",
         repo_root / "servers",
     ]
-
-    ext_root = repo_root / "packages" / "ext"
-    app_root = repo_root / "packages" / "app"
-    latest_ext = _latest_local_package_versions(ext_root)
-    latest_app = _latest_local_package_versions(app_root)
-    for name, ver in sorted(latest_ext.items()):
-        base = ext_root / f"x07-{name}" / ver
-        roots.append(base / "modules")
-        roots.append(base / "tests")
-    for name, ver in sorted(latest_app.items()):
-        base = app_root / f"x07-{name}" / ver
-        roots.append(base / "modules")
-        roots.append(base / "tests")
 
     out: list[Path] = []
     for root in roots:
@@ -139,13 +137,46 @@ def _iter_x07_json_files(repo_root: Path) -> list[Path]:
         for p in root.rglob("*.x07.json"):
             if not p.is_file():
                 continue
-            if any(part in {".git", ".x07", "target", "dist", ".agent_cache"} for part in p.parts):
+            if any(
+                part in {".git", ".x07", "target", "dist", ".agent_cache", "out", "tmp"}
+                for part in p.parts
+            ):
                 continue
             out.append(p)
     return sorted(set(out))
 
 
-def _latest_x07ast_schema_version() -> str | None:
+def _schema_const_from_file(path: Path) -> str | None:
+    try:
+        doc = _load_json(path)
+    except Exception:
+        return None
+    if not isinstance(doc, dict):
+        return None
+    props = doc.get("properties")
+    if not isinstance(props, dict):
+        return None
+    schema_version = props.get("schema_version")
+    if not isinstance(schema_version, dict):
+        return None
+    value = schema_version.get("const")
+    if not isinstance(value, str) or not value:
+        return None
+    return value
+
+
+def _latest_x07ast_schema_version(repo_root: Path) -> str | None:
+    workspace_x07 = _workspace_x07_root(repo_root)
+    if workspace_x07 is not None:
+        for candidate in (
+            workspace_x07 / "spec" / "x07ast.schema.json",
+            workspace_x07 / "docs" / "spec" / "schemas" / "x07ast.schema.json",
+        ):
+            if not candidate.is_file():
+                continue
+            value = _schema_const_from_file(candidate)
+            if value is not None:
+                return value
     try:
         proc = subprocess.run(
             ["x07", "ast", "schema", "--json=off"],
@@ -284,7 +315,7 @@ def main() -> int:
         if schema_ver != want:
             errors.append(f"{path}: schema_version drift: got {sv} want {schema_name}@{want}")
 
-    latest_x07ast = _latest_x07ast_schema_version()
+    latest_x07ast = _latest_x07ast_schema_version(repo_root)
     if latest_x07ast is None:
         errors.append("failed to resolve latest x07ast schema_version via `x07 ast schema --json=off`")
     else:

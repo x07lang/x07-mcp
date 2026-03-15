@@ -10,10 +10,31 @@ OUT_FILE="${OUT_DIR}/${SERVER_ID}.mcpb"
 
 mkdir -p "${OUT_DIR}"
 
+resolve_x07_bin() {
+  if [[ -n "${X07_MCP_X07_EXE:-}" ]]; then
+    if [[ ! -x "${X07_MCP_X07_EXE}" ]]; then
+      echo "ERROR: X07_MCP_X07_EXE is not executable: ${X07_MCP_X07_EXE}" >&2
+      exit 2
+    fi
+    printf '%s\n' "${X07_MCP_X07_EXE}"
+    return 0
+  fi
+
+  local workspace_x07="${ROOT}/../x07/target/debug/x07"
+  if [[ -x "${workspace_x07}" ]]; then
+    printf '%s\n' "${workspace_x07}"
+    return 0
+  fi
+
+  command -v x07
+}
+
+X07_BIN="$(resolve_x07_bin)"
+
 bundle_quiet_or_dump() {
   local log
   log="$(mktemp)"
-  if ! x07 bundle "$@" >"${log}" 2>&1; then
+  if ! "${X07_BIN}" bundle "$@" >"${log}" 2>&1; then
     cat "${log}" >&2
     rm -f "${log}"
     return 1
@@ -136,8 +157,31 @@ PY
   )
 }
 
+resolve_worker_entry_schema_version() {
+  python3 - "${SERVER_ROOT}" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+server_root = Path(sys.argv[1])
+project = json.loads((server_root / "x07.json").read_text(encoding="utf-8"))
+entry_rel = project.get("entry")
+if not isinstance(entry_rel, str) or not entry_rel:
+    raise SystemExit("x07.json missing entry")
+entry_path = server_root / entry_rel
+doc = json.loads(entry_path.read_text(encoding="utf-8"))
+schema_version = doc.get("schema_version")
+if not isinstance(schema_version, str) or not schema_version.startswith("x07.x07ast@"):
+    raise SystemExit(
+        f"failed to resolve x07AST schema_version from {entry_path.relative_to(server_root)}"
+    )
+print(schema_version)
+PY
+}
+
 ROUTER_BIN="${SERVER_ROOT}/out/${SERVER_ID}"
 WORKER_BIN="${SERVER_ROOT}/out/mcp-worker"
+WORKER_ENTRY_SCHEMA_VERSION="$(resolve_worker_entry_schema_version)"
 
 validate_release_metadata
 
@@ -148,9 +192,44 @@ bundle_to_out_or_dump "${ROUTER_BIN}" --project "${SERVER_ROOT}/x07.json" --prof
   WORKER_ENTRY="${SERVER_ROOT}/out/_worker_entry_main.x07.json"
   WORKER_PROJECT=".worker_project.x07.json"
   trap 'rm -f "${WORKER_PROJECT}"' EXIT
-  cat > "${WORKER_ENTRY}" <<'JSON'
-{"decls":[],"imports":["app","std.bytes","std.os.stdio","std.os.stdio.spec"],"kind":"entry","module_id":"main","schema_version":"x07.x07ast@0.5.0","solve":["begin",["let","caps",["std.os.stdio.spec.caps_default_v1"]],["let","caps_r",["std.bytes.copy","caps"]],["let","line_res",["std.os.stdio.read_line_v1","caps_r"]],["if",["!=",["result_bytes.err_code","line_res"],0],["bytes.alloc",0],["begin",["let","line",["result_bytes.unwrap_or","line_res",["bytes.alloc",0]]],["let","resp",["app.worker_main_v1",["bytes.view","line"]]],["let","nl",["bytes.alloc",1]],["set","nl",["bytes.set_u8","nl",0,10]],["let","out",["std.bytes.concat",["bytes.view","resp"],["bytes.view","nl"]]],["let","_w",["std.os.stdio.write_stdout_v1","out",["std.bytes.copy","caps"]]],["std.os.stdio.flush_stdout_v1"],["bytes.alloc",0]]]]}
-JSON
+  python3 - "${WORKER_ENTRY}" "${WORKER_ENTRY_SCHEMA_VERSION}" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+out_path = Path(sys.argv[1])
+schema_version = sys.argv[2]
+doc = {
+    "decls": [],
+    "imports": ["app", "std.bytes", "std.os.stdio", "std.os.stdio.spec"],
+    "kind": "entry",
+    "module_id": "main",
+    "schema_version": schema_version,
+    "solve": [
+        "begin",
+        ["let", "caps", ["std.os.stdio.spec.caps_default_v1"]],
+        ["let", "caps_r", ["std.bytes.copy", "caps"]],
+        ["let", "line_res", ["std.os.stdio.read_line_v1", "caps_r"]],
+        [
+            "if",
+            ["!=", ["result_bytes.err_code", "line_res"], 0],
+            ["bytes.alloc", 0],
+            [
+                "begin",
+                ["let", "line", ["result_bytes.unwrap_or", "line_res", ["bytes.alloc", 0]]],
+                ["let", "resp", ["app.worker_main_v1", ["bytes.view", "line"]]],
+                ["let", "nl", ["bytes.alloc", 1]],
+                ["set", "nl", ["bytes.set_u8", "nl", 0, 10]],
+                ["let", "out", ["std.bytes.concat", ["bytes.view", "resp"], ["bytes.view", "nl"]]],
+                ["let", "_w", ["std.os.stdio.write_stdout_v1", "out", ["std.bytes.copy", "caps"]]],
+                ["std.os.stdio.flush_stdout_v1"],
+                ["bytes.alloc", 0],
+            ],
+        ],
+    ],
+}
+out_path.write_text(json.dumps(doc, separators=(",", ":")), encoding="utf-8")
+PY
   python3 - "${WORKER_PROJECT}" <<'PY'
 import json
 import sys

@@ -2,7 +2,7 @@
 
 Official MCP server for the X07 language: `io.x07/x07lang-mcp`.
 
-Designed for agentic X07 coding loops: search docs/skills, run the toolchain, apply JSON Patch safely, and return token-efficient context packs — with per-tool sandboxing (network disabled by default).
+Designed for agentic X07 coding loops: search docs/skills, run the toolchain, apply JSON Patch safely, and return token-efficient context packs, with per-tool sandboxing and the public formal-verification/certification docs surfaced directly to the client.
 
 ## Install (published `.mcpb`)
 
@@ -67,7 +67,20 @@ Configure your MCP client:
 
 Dedicated pack tools return bounded summaries with file-backed reports and artifacts. Use `x07.artifact_snippet_v1` or resource reads to inspect the full output only when needed.
 
+Formal verification and certification are exposed through the existing core surface rather than a separate special-case tool:
+
+- `x07://trust/formal-verification` points agents at the public docs, examples, and command sequence.
+- `x07.doc_v1` and `x07.search_v1` discover the docs/examples.
+- `x07.exec_v1` runs `x07 verify --prove`, `x07 trust profile check`, `x07 pkg attest-closure`, `x07 trust capsule check`, and `x07 trust certify`.
+
+That keeps the server surface small while making the certification workflow explicit for end users and coding agents.
+
 ## Run (from source)
+
+The current source tree tracks the Milestone C `x07.x07ast@0.8.0` line. For
+local source builds, use a matching `x07` binary, preferably a workspace build
+such as `../x07/target/debug/x07` via `X07_MCP_X07_EXE=/absolute/path/to/x07`.
+The published `.mcpb` above remains the last released bundle.
 
 Build router + worker binaries:
 - Binaries only: `X07_MCP_BUILD_BINS_ONLY=1 ./publish/build_mcpb.sh`

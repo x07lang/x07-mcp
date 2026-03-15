@@ -36,7 +36,7 @@
   },
   "auth": {
     "mode": "none",
-    "oauth_config_path": "mcp.oauth.json",
+    "oauth_config_path": "config/mcp.oauth.json",
     "required_scopes": [
       "mcp:tools"
     ]

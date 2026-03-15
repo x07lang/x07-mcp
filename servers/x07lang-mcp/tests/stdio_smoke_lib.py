@@ -42,7 +42,7 @@ def _spawn_stdio_proc(
     cwd: Path,
     extra_env: dict[str, str] | None = None,
 ) -> subprocess.Popen[str]:
-    env = stdio_env()
+    env = stdio_env(cwd)
     if extra_env:
         env.update(extra_env)
     return subprocess.Popen(
@@ -103,8 +103,40 @@ def expected_server_version(server_root: Path) -> str:
     return version
 
 
-def build_bins(server_root: Path) -> None:
+def workspace_x07_root(server_root: Path) -> Path | None:
+    candidate = server_root.parents[2] / "x07"
+    if candidate.is_dir():
+        return candidate
+    return None
+
+
+def workspace_x07_exe(server_root: Path) -> Path | None:
+    x07_root = workspace_x07_root(server_root)
+    if x07_root is None:
+        return None
+    candidate = x07_root / "target" / "debug" / "x07"
+    if candidate.is_file():
+        return candidate
+    return None
+
+
+def tool_env(server_root: Path) -> dict[str, str]:
     env = os.environ.copy()
+    workspace_x07 = workspace_x07_exe(server_root)
+    if workspace_x07 is not None:
+        env["X07_MCP_X07_EXE"] = str(workspace_x07)
+        env["PATH"] = f"{workspace_x07.parent}{os.pathsep}{env.get('PATH', '')}"
+        env.setdefault("X07_MCP_LOCAL_DEPS", "1")
+        return env
+
+    x07_exe = shutil.which("x07")
+    if x07_exe:
+        env["X07_MCP_X07_EXE"] = x07_exe
+    return env
+
+
+def build_bins(server_root: Path) -> None:
+    env = tool_env(server_root)
     env["X07_MCP_BUILD_BINS_ONLY"] = "1"
     hydrate_server_deps(server_root, env)
     subprocess.run(
@@ -117,7 +149,7 @@ def build_bins(server_root: Path) -> None:
 
 
 def build_bundle(server_root: Path) -> Path:
-    env = os.environ.copy()
+    env = tool_env(server_root)
     hydrate_server_deps(server_root, env)
     subprocess.run(
         [str(server_root / "publish" / "build_mcpb.sh")],
@@ -132,12 +164,9 @@ def build_bundle(server_root: Path) -> Path:
     return bundle_path
 
 
-def stdio_env() -> dict[str, str]:
-    env = os.environ.copy()
-    x07_exe = shutil.which("x07")
-    if x07_exe:
-        env["X07_MCP_X07_EXE"] = x07_exe
-    return env
+def stdio_env(cwd: Path) -> dict[str, str]:
+    server_root = cwd if (cwd / "x07.mcp.json").is_file() else Path(__file__).resolve().parents[1]
+    return tool_env(server_root)
 
 
 def hydrate_server_deps(server_root: Path, env: dict[str, str]) -> None:

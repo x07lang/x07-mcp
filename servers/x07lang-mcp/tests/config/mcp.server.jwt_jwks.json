@@ -36,7 +36,7 @@
   },
   "auth": {
     "mode": "oauth2",
-    "oauth_config_path": "mcp.oauth.jwt_jwks.json",
+    "oauth_config_path": "config/mcp.oauth.jwt_jwks.json",
     "required_scopes": [
       "mcp:tools"
     ]

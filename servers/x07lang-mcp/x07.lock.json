@@ -382,9 +382,9 @@
     },
     {
       "name": "ext-net",
-      "version": "0.1.9",
-      "path": ".x07/deps/ext-net/0.1.9",
-      "package_manifest_sha256": "d0714d4a7e548099b0342270243b25ad5c14d697e5ce55e82e649536c9b2ea02",
+      "version": "0.1.10",
+      "path": ".x07/deps/ext-net/0.1.10",
+      "package_manifest_sha256": "dc589cabe800554acd3fe6dcb976db4531f3a85c85f0c4b15544b889e1453c9e",
       "module_root": "modules",
       "modules_sha256": {
         "std.net.codec": "c44592bb0ef0753a74c2a57f7b8e65e8ee9390513ae1852ba26746ad812f61c3",
@@ -401,6 +401,7 @@
         "std.net.tls": "525a4e5181b94d59f30b2ae055b642421788a00bd776f7cef16376f2f921ea27",
         "std.net.udp": "d632703b7e750934891a60b155ce10f9a9cc21d674f23933b0023b5ea53dad18"
       },
+      "overridden_by": "ext-net",
       "yanked": false
     },
     {

@@ -123,8 +123,8 @@
     },
     {
       "name": "ext-net",
-      "path": ".x07/deps/ext-net/0.1.9",
-      "version": "0.1.9"
+      "path": ".x07/deps/ext-net/0.1.10",
+      "version": "0.1.10"
     },
     {
       "name": "ext-obs",
@@ -259,6 +259,10 @@
     "ext-db-sqlite": {
       "path": ".x07/deps/ext-db-sqlite/0.1.11",
       "version": "0.1.11"
+    },
+    "ext-net": {
+      "path": ".x07/deps/ext-net/0.1.10",
+      "version": "0.1.10"
     }
   },
   "profiles": {
