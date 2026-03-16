@@ -219,9 +219,9 @@
     },
     {
       "name": "ext-mcp-auth",
-      "version": "0.4.6",
-      "path": "packages/ext/x07-ext-mcp-auth/0.4.6",
-      "package_manifest_sha256": "98a3bfdfc9fa79fff242f2d7aa4c199bd7abf02aa1bd379e8972f2a022e7599b",
+      "version": "0.4.7",
+      "path": "packages/ext/x07-ext-mcp-auth/0.4.7",
+      "package_manifest_sha256": "f2b8238d48e9d0ab1c9dcebae97c72459d033648287eb8d702979971a5ae7708",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.auth.challenge": "0ef1a2ddc1c00e510c273d9d35bc4488e3963ce2cae29828132bd34d17aff758",
@@ -288,16 +288,16 @@
     },
     {
       "name": "ext-mcp-rr",
-      "version": "0.3.17",
-      "path": "packages/ext/x07-ext-mcp-rr/0.3.17",
-      "package_manifest_sha256": "be700eb8c6e607361da799969f4fb5295dfd9c9c2a8240dfb831a463cf1e9b7a",
+      "version": "0.3.19",
+      "path": "packages/ext/x07-ext-mcp-rr/0.3.19",
+      "package_manifest_sha256": "185e8e00695d5d825cd6f49fd220b099e43f782720b76d2cb13119b64ebb5839",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.mcp.rr": "1baf60bcdbd99d6d86bd2d5f8f6c93476d16829b5f0f20ffaa888f4d662de8d4",
+        "ext.mcp.rr": "43ecbbd5bdeb9628366a61429e41fbce6e841970475f1ab080d60fa1e9bf932a",
         "std.mcp.rr.http": "ea06a5ab41c4041768f0e16341bc2e4c2d292580f3a064abb91fc415736b51b9",
         "std.mcp.rr.http_sse": "be282e3c8f6c26da1fcd9b4f70111a0dc770fc18ec76a41ec5296d6225a1142f",
-        "std.mcp.rr.sanitize": "5f0d149dd93ba46c4d7faefd405cb8f3b5de9fd708f5220fafecd73fad7bb3a3",
-        "std.mcp.rr.sanitize_profile": "b2447c4f4bdd5394d445058e4d340e3fccf1fb557f1eb9459d3c92ac63cb0d22",
+        "std.mcp.rr.sanitize": "971e43fd288077d50fe586e639f3ed60d8a0320dda67900af49652d1ebda61b3",
+        "std.mcp.rr.sanitize_profile": "90f40739e75f4303d8d0e0b3e44c15bee1dea4f940332fd438d2cab636706c90",
         "std.mcp.rr.session": "8171282980040ad131cdcc7dcdee7620f5ac4a8225b8138be61e3893110c4e78"
       },
       "overridden_by": "ext-mcp-rr"
@@ -348,9 +348,9 @@
     },
     {
       "name": "ext-mcp-transport-http",
-      "version": "0.3.20",
-      "path": "packages/ext/x07-ext-mcp-transport-http/0.3.20",
-      "package_manifest_sha256": "ab79d15a8493a1c23a3dccb9280cc562ec5de2c8077fb20dc9f9acfd0b155ac0",
+      "version": "0.3.21",
+      "path": "packages/ext/x07-ext-mcp-transport-http/0.3.21",
+      "package_manifest_sha256": "e82583093e8c81001faa92f0940fc1f4a56d823f525d672ed1a6139b498e92f7",
       "module_root": "modules",
       "modules_sha256": {
         "ext.mcp.server": "0950fc7de170db67c7fd835ded0410dc8e03c5ee84ac4ebf3b5be5ef86fb483a",

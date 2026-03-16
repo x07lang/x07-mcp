@@ -1,0 +1,60 @@
+{
+  "schema_version": "x07.mcp.trust.framework@0.1.0",
+  "framework_id": "io.x07/tests/publish-fail-missing-pins",
+  "version": "0.1.0",
+  "bundles": [
+    {
+      "path": "tests/fixtures/publish/fail_missing_pins/trust_bundle.json"
+    }
+  ],
+  "resource_policies": [
+    {
+      "match": {
+        "kind": "prefix",
+        "value": "https://server.example.com/mcp"
+      },
+      "allowed_prm_signers": [
+        "https://auth.example.com"
+      ],
+      "require_signed_prm": true,
+      "verify_cfg": {
+        "mode": "fail_closed",
+        "allowed_algs": [
+          "EdDSA"
+        ],
+        "max_clock_skew_seconds": 60
+      }
+    }
+  ],
+  "defaults": {
+    "require_signed_prm": true,
+    "verify_cfg": {
+      "mode": "fail_closed"
+    }
+  },
+  "bundles_data": [
+    {
+      "schema_version": "x07.mcp.trust.bundle@0.1.0",
+      "bundle_id": "io.x07/tests/bundle-fail-missing-pins",
+      "version": "0.1.0",
+      "issuers": [
+        {
+          "issuer": "https://auth2.example.com",
+          "algs": [
+            "EdDSA"
+          ],
+          "jwks": {
+            "keys": [
+              {
+                "kty": "OKP",
+                "crv": "Ed25519",
+                "kid": "dev2-2026-02-15",
+                "x": "4gNpdGfhmL6mk_VblB9Y4Mal4qOTmx2wUlCd5fzctEo"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

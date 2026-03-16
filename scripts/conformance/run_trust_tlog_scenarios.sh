@@ -3,10 +3,22 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 APP_DIR="$(find "$ROOT/packages/app/x07-mcp" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)"
+TRUST_DIR="$(find "$ROOT/packages/ext/x07-ext-mcp-trust" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)"
+TRUST_OS_DIR="$(find "$ROOT/packages/ext/x07-ext-mcp-trust-os" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)"
 X07_ROOT="${X07_ROOT:-$ROOT/../x07}"
 
 if [[ -z "$APP_DIR" || ! -d "$APP_DIR" ]]; then
   echo "ERROR: missing x07-mcp app package directory under $ROOT/packages/app/x07-mcp" >&2
+  exit 2
+fi
+
+if [[ -z "$TRUST_DIR" || ! -d "$TRUST_DIR" ]]; then
+  echo "ERROR: missing ext-mcp-trust package directory under $ROOT/packages/ext/x07-ext-mcp-trust" >&2
+  exit 2
+fi
+
+if [[ -z "$TRUST_OS_DIR" || ! -d "$TRUST_OS_DIR" ]]; then
+  echo "ERROR: missing ext-mcp-trust-os package directory under $ROOT/packages/ext/x07-ext-mcp-trust-os" >&2
   exit 2
 fi
 
@@ -25,8 +37,8 @@ require_cmd() {
 require_cmd x07
 require_cmd jq
 
-trust_modules="$ROOT/packages/ext/x07-ext-mcp-trust/0.5.0/modules"
-trust_os_modules="$ROOT/packages/ext/x07-ext-mcp-trust-os/0.5.0/modules"
+trust_modules="$TRUST_DIR/modules"
+trust_os_modules="$TRUST_OS_DIR/modules"
 net_modules="$X07_ROOT/packages/ext/x07-ext-net/0.1.10/modules"
 url_modules="$X07_ROOT/packages/ext/x07-ext-url-rs/0.1.4/modules"
 json_modules="$X07_ROOT/packages/ext/x07-ext-json-rs/0.1.6/modules"

@@ -5,12 +5,12 @@ Phase-16 adds append-only trust transparency checks (checkpoint verification, co
 ## Run package monitor tests
 
 ```sh
-cd packages/ext/x07-ext-mcp-trust-os/0.5.0
+cd packages/ext/x07-ext-mcp-trust-os/0.5.1
 x07 test --manifest tests/tests.json
 ```
 
 ```sh
-cd packages/app/x07-mcp/0.4.2
+cd packages/app/x07-mcp/0.4.3
 x07 test --manifest tests/tests.json
 ```
 

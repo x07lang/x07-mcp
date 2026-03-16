@@ -1,0 +1,40 @@
+{
+  "schema_version": "x07.package@0.1.0",
+  "name": "ext-mcp-transport-http",
+  "version": "0.3.21",
+  "description": "MCP HTTP transport helpers: request rules, sessions, SSE outbox, and router entrypoint (Phase-11: PRM signing v2 + session follow-up fix).",
+  "docs": "MCP HTTP transport helpers.\n\nModules:\n- std.mcp.transport.http\n- std.mcp.transport.http_rules\n- std.mcp.transport.http_session\n- std.mcp.transport.http_sse\n- std.mcp.transport.http_sse_outbox_v1\n",
+  "module_root": "modules",
+  "modules": [
+    "ext.mcp.server",
+    "std.mcp.transport.http",
+    "std.mcp.transport.http_rules",
+    "std.mcp.transport.http_session",
+    "std.mcp.transport.http_sse",
+    "std.mcp.transport.http_sse_outbox_v1"
+  ],
+  "meta": {
+    "determinism_tier": "os-world-only",
+    "worlds_allowed": [
+      "run-os",
+      "run-os-sandboxed"
+    ],
+    "requires_packages": [
+      "ext-mcp-core@0.3.4",
+      "ext-mcp-toolkit@0.3.10",
+      "ext-mcp-sandbox@0.3.12",
+      "ext-mcp-auth-core@0.1.2",
+      "ext-mcp-auth@0.4.7",
+      "ext-mcp-obs@0.1.4",
+      "ext-net@0.1.10",
+      "ext-data-model@0.1.9",
+      "ext-json-rs@0.1.5",
+      "ext-crypto-rs@0.1.4",
+      "ext-hex-rs@0.1.4",
+      "ext-rand@0.1.0",
+      "ext-time-rs@0.1.5",
+      "ext-fs@0.1.5"
+    ],
+    "import_mode": "handwritten"
+  }
+}

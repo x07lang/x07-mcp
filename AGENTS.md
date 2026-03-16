@@ -34,7 +34,7 @@ Mitigation implemented:
 
 ## CI failure mode: missing patch dependency paths
 
-Symptom: jobs fail in dependency hydration with `X07PKG_PATCH_MISSING_DEP` (for example `ext-u64-rs@0.1.4` in root `x07.json`, or `ext-net@0.1.9` in `conformance/client-x07/x07.json`).
+Symptom: jobs fail in dependency hydration with `X07PKG_PATCH_MISSING_DEP` (for example `ext-u64-rs@0.1.4` in root `x07.json`, or `ext-net@0.1.10` in `conformance/client-x07/x07.json`).
 
 Mitigation implemented:
 

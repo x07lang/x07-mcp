@@ -8,6 +8,7 @@
 - `ext-mcp-toolkit@0.3.9` fixes stdio `initialize` negotiation so MCP clients using `2025-03-26` or `2025-06-18` can start successfully against `2025-11-25` servers.
 - `ext-mcp-toolkit@0.3.10`, `ext-mcp-sandbox@0.3.12`, `ext-mcp-transport-stdio@0.3.8`, and `ext-mcp-transport-http@0.3.19` republish the current runtime-descriptor and stdio-negotiation bytes under fresh immutable versions, and CI now checks patched project locks against a clean registry-only graph before the local-deps guard.
 - `ext-mcp-transport-http@0.3.20` fixes the HTTP session follow-up crash in the per-client inflight limiter and refreshes all repo-owned HTTP MCP server templates/locks to that package line.
+- `ext-mcp-auth@0.4.7`, `ext-mcp-transport-http@0.3.21`, `ext-mcp-rr@0.3.19`, `ext-mcp-trust-os@0.5.1`, and `x07-mcp@0.4.3` move the active MCP kit to `ext-net@0.1.10` under fresh immutable package versions.
 
 ## 0.1.0
 

@@ -1,0 +1,1 @@
+{"schema_version":"x07.mcp.trust.registry_root@0.2.0","registry_id":"com.example.trust.registry","expires_at":"2027-01-01T00:00:00Z","keys":[{"kid":"reg-tlog-2026-02","kty":"OKP","crv":"Ed25519","x":"ebVWLo_mVPlAeLES6KmLp5AfhTrmlb7X4OORC60ElmQ","use":"sig"}],"roles":{"tlog":{"threshold":1,"kids":["reg-tlog-2026-02"]}}}

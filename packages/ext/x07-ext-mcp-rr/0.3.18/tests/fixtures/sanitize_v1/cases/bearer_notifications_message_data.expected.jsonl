@@ -1,0 +1,2 @@
+{"dir":"s2c","msg":{"jsonrpc":"2.0","method":"notifications/message","params":{"data":{"headers":{"Authorization":"<redacted>"},"msg":"calling upstream with Authorization: Bearer <redacted>","nested":{"note":"token=Bearer <redacted>"}},"level":"info","logger":"unit.sanitize"}}}
+

@@ -1,0 +1,4 @@
+{
+  "resource": "https://server.example.com/mcp",
+  "signed_metadata": "eyJhbGciOiJFZERTQSJ9.eyJpc3MiOiJodHRwczovL2F1dGguZXhhbXBsZS5jb20ifQ.signature"
+}

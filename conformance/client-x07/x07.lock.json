@@ -136,9 +136,9 @@
     },
     {
       "name": "ext-mcp-auth",
-      "version": "0.4.6",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.6",
-      "package_manifest_sha256": "98a3bfdfc9fa79fff242f2d7aa4c199bd7abf02aa1bd379e8972f2a022e7599b",
+      "version": "0.4.7",
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.7",
+      "package_manifest_sha256": "f2b8238d48e9d0ab1c9dcebae97c72459d033648287eb8d702979971a5ae7708",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.auth.challenge": "0ef1a2ddc1c00e510c273d9d35bc4488e3963ce2cae29828132bd34d17aff758",

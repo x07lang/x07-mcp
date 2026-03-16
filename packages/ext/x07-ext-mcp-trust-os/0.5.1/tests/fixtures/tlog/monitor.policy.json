@@ -1,0 +1,1 @@
+{"schema_version":"x07.mcp.trust.tlog.monitor_policy@0.1.0","fail_on_unknown_pack":true,"allow":[{"pack_id":"com.example.trust.packs.acme_prod","publisher_issuer":"https://policy.example","version_range":">=1.0.0 <2.0.0"},{"pack_id":"com.example.trust.packs.security_baseline","publisher_issuer":"https://policy.example","version_range":">=0.3.0 <1.0.0"}]}
