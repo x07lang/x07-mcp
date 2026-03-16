@@ -2208,6 +2208,7 @@ jq \
 step "x07lang-mcp release smoke"
 (
   cd "$root/servers/x07lang-mcp"
+  python3 tests/check_claude_schema_compat.py >/dev/null
   run_with_timeout "${X07_MCP_X07LANG_MCP_STDIO_SMOKE_TIMEOUT_SECS:-1800}" python3 tests/stdio_smoke.py >/dev/null
   run_with_timeout "${X07_MCP_X07LANG_MCP_BUNDLE_SMOKE_TIMEOUT_SECS:-1800}" python3 tests/published_bundle_smoke.py >/dev/null
 )

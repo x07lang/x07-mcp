@@ -306,18 +306,6 @@
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
-        "oneOf": [
-          {
-            "required": [
-              "args"
-            ]
-          },
-          {
-            "required": [
-              "argv"
-            ]
-          }
-        ],
         "properties": {
           "args": {
             "type": "array",
@@ -327,7 +315,8 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 128
-            }
+            },
+            "description": "Preferred x07 argument list without the leading x07 binary name. If both args and argv are present, args is used."
           },
           "argv": {
             "type": "array",
@@ -337,7 +326,8 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 128
-            }
+            },
+            "description": "Compatibility argv form. The leading x07 entry is optional and ignored when present. Used only when args is absent."
           },
           "cwd": {
             "type": "string",
@@ -490,23 +480,12 @@
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
-        "oneOf": [
-          {
-            "required": [
-              "path"
-            ]
-          },
-          {
-            "required": [
-              "paths"
-            ]
-          }
-        ],
         "properties": {
           "path": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 1024
+            "maxLength": 1024,
+            "description": "Single input file. Used only when paths is absent or empty."
           },
           "paths": {
             "type": "array",
@@ -516,7 +495,8 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 1024
-            }
+            },
+            "description": "Multiple input files. Takes precedence over path when present."
           }
         }
       },
