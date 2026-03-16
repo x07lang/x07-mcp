@@ -13,13 +13,13 @@ Prerequisites:
 Download:
 - GitHub release: `x07lang-mcp-v0.2.6`
 - `.mcpb` URL: https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.2.6/x07lang-mcp.mcpb
-- `.mcpb` SHA-256: `b1fae8628268d2411bbac74ed0ae53bcad26116e8fe9176ac46a0ef5ca0e08b7`
+- `.mcpb` SHA-256: `294d4663e29a9ff3c1cb3d150e27e631fcde356146392ba1939a6b0b328688a4`
 
 Verify (macOS / Linux):
 
 ```bash
 got="$(shasum -a 256 x07lang-mcp.mcpb | awk '{print $1}')"
-test "$got" = "b1fae8628268d2411bbac74ed0ae53bcad26116e8fe9176ac46a0ef5ca0e08b7"
+test "$got" = "294d4663e29a9ff3c1cb3d150e27e631fcde356146392ba1939a6b0b328688a4"
 ```
 
 Configure your MCP client:
