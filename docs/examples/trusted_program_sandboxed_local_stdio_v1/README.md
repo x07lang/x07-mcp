@@ -6,11 +6,12 @@ from the stdio router/worker template.
 It keeps the same stdio server shape as the template, but upgrades the project
 to the current trust surface:
 
+- `x07.x07ast@0.8.0` on the mutable source surface
 - async stdio router entry under `run-os-sandboxed`
 - dedicated certifiable async entry `certify.main_v1`
 - dedicated certified capsule boundary for the worker/tool implementation
 - `x07.arch.manifest@0.3.0` + boundary index + capsule index/contract
-- `x07.trust.profile@0.2.0` posture for `trusted_program_sandboxed_local_v1`
+- `x07.trust.profile@0.3.0` posture for `trusted_program_sandboxed_local_v1`
 - checked-in capsule attestation snapshot
 
 Current scope:
@@ -26,6 +27,10 @@ Current scope:
 The design split is intentional: the async proof target stays inside the
 current certifiable subset, while the real worker capsule and sandbox runtime
 surface are still pinned by capsule attestations plus the sandbox smoke tests.
+
+This example is the no-network baseline. The companion HTTP example at
+`../trusted_program_sandboxed_net_http_v1/` demonstrates the networked
+certification line with peer-policy and dependency-closure evidence.
 
 Certificate execution requires a supported `run-os-sandboxed` VM backend. On a
 host without that backend, keep to the static trust/capsule checks plus the

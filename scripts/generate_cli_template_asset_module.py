@@ -81,7 +81,7 @@ def _make_asset_module(module_id: str, files: list[tuple[str, Path]]) -> dict:
         "imports": ["std.bytes"],
         "kind": "module",
         "module_id": module_id,
-        "schema_version": "x07.x07ast@0.5.0",
+        "schema_version": "x07.x07ast@0.8.0",
     }
 
 

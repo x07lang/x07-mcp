@@ -257,7 +257,7 @@ while IFS= read -r -d '' f; do
   x07 fmt --input "$f" --check --report-json >/dev/null
 done < <(
   find cli/src packages/ext templates conformance/client-x07/src conformance/client-x07/tests \
-    \( -type d \( -name .x07 -o -name target -o -name dist -o -name .agent_cache \) -prune \) -o \
+    \( -type d \( -name .x07 -o -name target -o -name dist -o -name out -o -name .agent_cache \) -prune \) -o \
     -type f -name '*.x07.json' -print0
 )
 
@@ -272,7 +272,7 @@ while IFS= read -r -d '' f; do
   fi
 done < <(
   find cli/src templates conformance/client-x07/src conformance/client-x07/tests servers \
-    \( -type d \( -name .x07 -o -name target -o -name dist -o -name .agent_cache \) -prune \) -o \
+    \( -type d \( -name .x07 -o -name target -o -name dist -o -name out -o -name .agent_cache \) -prune \) -o \
     -type f -name '*.x07.json' -print0
 )
 
@@ -430,7 +430,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   json_modules="$x07_root/packages/ext/x07-ext-json-rs/0.1.6/modules"
   jsonschema_modules="$x07_root/packages/ext/x07-ext-jsonschema-rs/0.1.0/modules"
   math_modules="$x07_root/packages/ext/x07-ext-math/0.1.4/modules"
-  net_modules="$x07_root/packages/ext/x07-ext-net/0.1.9/modules"
+  net_modules="$x07_root/packages/ext/x07-ext-net/0.1.10/modules"
   obs_ext_modules="$x07_root/packages/ext/x07-ext-obs/0.1.4/modules"
   openssl_modules="$x07_root/packages/ext/x07-ext-openssl-c/0.1.9/modules"
   pb_modules="$x07_root/packages/ext/x07-ext-pb-rs/0.1.5/modules"
@@ -1770,7 +1770,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   jq \
     '.patch = ((.patch // {}) + {
        "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"}
+       "ext-net":{"version":"0.1.10","path":".x07/local/ext-net/0.1.10"}
      })' \
     "$conf_proj/x07.json" \
     >"$tmp_manifest"
@@ -1920,7 +1920,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 		     .patch = ((.patch // {}) + {
 		       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
 		       "ext-mcp-sandbox":{"version":"0.3.10","path":".x07/local/ext-mcp-sandbox/0.3.10"},
-		       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
+		       "ext-net":{"version":"0.1.10","path":".x07/local/ext-net/0.1.10"},
 		       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
 		     })' \
 		    x07.json \
@@ -1982,7 +1982,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 		     .patch = ((.patch // {}) + {
 		       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
 		       "ext-mcp-sandbox":{"version":"0.3.10","path":".x07/local/ext-mcp-sandbox/0.3.10"},
-		       "ext-net":{"version":"0.1.9","path":".x07/local/ext-net/0.1.9"},
+		       "ext-net":{"version":"0.1.10","path":".x07/local/ext-net/0.1.10"},
 		       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
 		     })' \
 		    x07.json \

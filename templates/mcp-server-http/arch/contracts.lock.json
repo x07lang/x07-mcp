@@ -1,13 +1,13 @@
 {
   "files": {
-    "arch/budgets/profiles/mcp_router_v1.budget.json": {
-      "jcs_sha256_hex": "d4c096bc27c55da0201a25c8f2c7300ecfbd549762b28af625ad0ad3bba1e0f2"
+    "arch/budgets/profiles/crypto_jwt_v1.budget.json": {
+      "jcs_sha256_hex": "2f8638bef077d69f2b9339e2e33e33cc4412709d62467c15d04485b26979ed0f"
     },
-    "arch/budgets/profiles/mcp_tool_expensive_v1.budget.json": {
-      "jcs_sha256_hex": "cdfa0a1f9a8d14f4337caa7bc917ff813888b78f8a91b11abdf8eec822036656"
+    "arch/budgets/profiles/mcp_router_default_v1.budget.json": {
+      "jcs_sha256_hex": "45dd036c7a1017bdc5620cf5b25514651753e2fc7a4fca6e4106f14f0775957b"
     },
-    "arch/budgets/profiles/mcp_tool_fast_v1.budget.json": {
-      "jcs_sha256_hex": "4340c9fb15643f48aeeba419cdf928826116eea64eb8e1591679e79a6eeb7d00"
+    "arch/budgets/profiles/mcp_tool_readonly_v1.budget.json": {
+      "jcs_sha256_hex": "1e9d007f14eaca50c5b7d1780dd1f7566d224ba23b9f66b3943196305ff4a83f"
     },
     "arch/budgets/profiles/mcp_tool_standard_v1.budget.json": {
       "jcs_sha256_hex": "ae9a10b4f0ec8dac30d6967c473dc11e88d721c9997b3fa4295b3ff311405d65"
@@ -16,12 +16,12 @@
       "jcs_sha256_hex": "9991120555cbc6d3ca98fec67989ba50b82f87fe7e5ebbf2d231dd6c598df7d1"
     },
     "arch/rr/sanitizers/mcp_default_v1.sanitize.json": {
-      "jcs_sha256_hex": "0e09a5ccdb6580fa46333ecc7020fd7a3648d10e50357c26bfd2c3e7a508b1d6"
+      "jcs_sha256_hex": "af4051ca9505ccef51f925fea29621f2aa21be7a0ea29aac90b4636a06004fa5"
     }
   },
   "indexes": {
     "arch/budgets/index.x07budgets.json": {
-      "jcs_sha256_hex": "723aad034e577cfb7f008f13675f486b731f0a2e5403fbd70cc4decb8f8c9ef5"
+      "jcs_sha256_hex": "4278c3bbc88506eb345a1cc6a10228a361773596c40f9a8de4b0d6ddab59447f"
     },
     "arch/rr/index.x07rr.json": {
       "jcs_sha256_hex": "674e08f5eade95160edaabc7781ad2adb13d201bd7a595dc44728e6ebb71d48f"

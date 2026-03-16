@@ -7,9 +7,9 @@ It certifies a proof-friendly wrapper around the published `ext-mcp-auth-core`
 package so the review object is the certificate bundle, not the package source.
 
 The example tracks the current verified-core schema line
-(`x07.arch.manifest@0.3.0`, `x07.trust.profile@0.2.0`,
-`x07.trust.certificate@0.2.0`) but remains a pure verified-core example, not a
-sandboxed trusted-program example.
+(`x07.x07ast@0.8.0`, `x07.arch.manifest@0.3.0`,
+`x07.trust.profile@0.3.0`, `x07.trust.certificate@0.3.0`) but remains a pure
+verified-core example, not a sandboxed trusted-program example.
 
 Current scope:
 

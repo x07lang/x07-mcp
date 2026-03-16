@@ -36,63 +36,36 @@ Common ways people use this repo:
 
 ## Formal verification dogfood
 
-`x07-mcp` now ships a certifiable `verified_core_pure_v1` example under
-`docs/examples/verified_core_pure_auth_core_v1/`.
+`x07-mcp` ships three public certification examples that track the current
+schema line (`x07.x07ast@0.8.0`, `x07.trust.profile@0.3.0`,
+`x07.trust.certificate@0.3.0`) instead of leaving the trust design buried in
+internal notes:
 
-It uses the published `ext-mcp-auth-core` package and demonstrates the current
-verified-core trust posture on the latest trust-schema line:
+- `docs/examples/verified_core_pure_auth_core_v1/`
+  - proof-friendly wrapper around the published `ext-mcp-auth-core` package
+  - demonstrates `verified_core_pure_v1` and imported-helper review through the
+    trusted primitive catalog
+- `docs/examples/trusted_program_sandboxed_local_stdio_v1/`
+  - no-network sandbox baseline built from the stdio router/worker template
+  - demonstrates capsule attestation plus runtime-backed sandbox evidence under
+    `trusted_program_sandboxed_local_v1`
+- `docs/examples/trusted_program_sandboxed_net_http_v1/`
+  - networked sandbox example built from the HTTP router/worker template
+  - demonstrates peer policies, attested network capsules,
+    dependency-closure attestation, and runtime-backed certificate flow under
+    `trusted_program_sandboxed_net_v1`
 
-- the certified entry is a small verified-core wrapper
-- the imported bearer parser is reviewed through the trusted primitive catalog
-  in `x07`
-- smoke and PBT tests still exercise the real published package behavior
-- the checked-in example now tracks `x07.arch.manifest@0.3.0`,
-  `x07.trust.profile@0.2.0`, and `x07.trust.certificate@0.2.0`
+The design split in the sandboxed examples is intentional:
 
-This repo also now ships a sandboxed stdio router/worker example under
-`docs/examples/trusted_program_sandboxed_local_stdio_v1/`.
+- `router.main_v1` is the operational server entry.
+- `certify.main_v1` is the proof-friendly async certification entry.
+- `worker.main_v1` and, for the network example, the router capsule remain the
+  certified effect boundaries exercised by capsule and runtime evidence.
 
-That example upgrades the stdio template onto the current sandboxed trust line:
-
-- async stdio router entry under `run-os-sandboxed`
-- certifiable async entry `certify.main_v1`
-- certified capsule declaration + checked-in capsule attestation for the worker
-- boundary index + sandboxed trust profile posture for
-  `trusted_program_sandboxed_local_v1`
-- sandboxed `x07 test` evidence that carries runtime-attestation, capsule-id,
-  and effect-log references
-
-That example now certifies on the current toolchain line when it runs on a host
-with a supported `run-os-sandboxed` VM backend. The remaining practical
-constraint is operational: local macOS hosts without that backend can run the
-static checks and portable smoke coverage, but not the full sandboxed
-certificate flow.
-
-The example keeps certification evidence and portable developer smoke checks in
-separate manifests on purpose:
-
-- `tests/tests.json` is the certification manifest used by `x07 trust certify`
-- `tests/tests.portable.json` is the local non-VM helper manifest
-
-That separation matters because `x07 trust certify` validates the selected test
-manifest against the trust profile worlds and evidence requirements.
-
-The design split is intentional:
-
-- `router.main_v1` is the operational stdio server entry.
-- `certify.main_v1` is the proof-friendly async certification entry for the pre-capsule payload path.
-- `worker.main_v1` remains the real certified capsule boundary exercised by the sandbox smoke tests.
-
-```mermaid
-flowchart LR
-    A[certify.main_v1] --> B[x07 verify]
-    C[worker.main_v1 capsule] --> D[capsule attestation]
-    E[sandbox smoke test] --> F[runtime attestation]
-    B --> G[x07 trust certify]
-    D --> G
-    F --> G
-    G --> H[certificate bundle]
-```
+Portable smoke helpers remain separate from certification manifests on purpose.
+`x07 trust certify` validates the selected tests against the trust profile
+worlds and evidence requirements, so the certification manifests and local
+developer helper manifests should not be conflated.
 
 Run it end-to-end with:
 
@@ -104,7 +77,7 @@ x07 test --all --manifest tests/tests.json
 x07 trust certify --project x07.json --profile arch/trust/profiles/verified_core_pure_v1.json --entry auth_core_cert.main_v1 --out-dir target/cert
 ```
 
-For the sandboxed stdio example, use:
+For the sandboxed no-network stdio example, use:
 
 ```sh
 cd docs/examples/trusted_program_sandboxed_local_stdio_v1
@@ -116,6 +89,18 @@ x07 trust certify --project x07.json --profile arch/trust/profiles/trusted_progr
 python3 tests/stdio_bundle_smoke.py
 ```
 
+For the networked sandbox example, use:
+
+```sh
+cd docs/examples/trusted_program_sandboxed_net_http_v1
+x07 pkg lock --project x07.json
+x07 trust profile check --project x07.json --profile arch/trust/profiles/trusted_program_sandboxed_net_v1.json --entry certify.main_v1
+x07 trust capsule check --project x07.json --index arch/capsules/index.x07capsule.json
+x07 pkg attest-closure --project x07.json --out target/dep-closure.attest.json
+x07 test --all --manifest tests/tests.json
+x07 trust certify --project x07.json --profile arch/trust/profiles/trusted_program_sandboxed_net_v1.json --entry certify.main_v1 --out-dir target/cert
+```
+
 ## Use the official X07 MCP server (for coding X07)
 
 If you want an MCP server for writing and repairing X07 programs (instead of building your own MCP server), install the official server: `io.x07/x07lang-mcp`.
@@ -125,6 +110,11 @@ If you want an MCP server for writing and repairing X07 programs (instead of bui
 - Configure your MCP client to install the `.mcpb`, or unzip it and run `server/x07lang-mcp` with `cwd` set to the extracted bundle root.
 
 Details (release URL, SHA-256, client config notes): `servers/x07lang-mcp/README.md`.
+
+The official server now exposes the public certification workflow directly to
+agents through `x07://trust/formal-verification`, `x07.doc_v1`, and
+`x07.exec_v1`, so the proof/certificate flow is discoverable without opening
+internal development notes.
 
 ## Why x07-mcp
 

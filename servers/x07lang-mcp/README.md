@@ -11,8 +11,8 @@ Prerequisites:
 - Ensure you have an absolute path to `x07` (no PATH search in `execve`): `command -v x07`.
 
 Download:
-- GitHub release: `x07lang-mcp-v0.2.5`
-- `.mcpb` URL: https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.2.5/x07lang-mcp.mcpb
+- GitHub release: `x07lang-mcp-v0.2.6`
+- `.mcpb` URL: https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.2.6/x07lang-mcp.mcpb
 - `.mcpb` SHA-256: `b1fae8628268d2411bbac74ed0ae53bcad26116e8fe9176ac46a0ef5ca0e08b7`
 
 Verify (macOS / Linux):

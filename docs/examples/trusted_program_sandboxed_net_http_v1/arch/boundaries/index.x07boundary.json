@@ -1,0 +1,74 @@
+{
+  "schema_version": "x07.arch.boundaries.index@0.1.0",
+  "boundaries": [
+    {
+      "id": "router.main_v1",
+      "symbol": "router.main_v1",
+      "node_id": "router_capsule",
+      "kind": "public_function",
+      "from_zone": "certified_capsule",
+      "to_zone": "certified_capsule",
+      "worlds_allowed": ["run-os-sandboxed"],
+      "input": { "params": [] },
+      "output": {
+        "ty": "bytes",
+        "brand": "trusted_mcp.router_status_v1"
+      },
+      "smoke": {
+        "entry": "smoke.router_contract_v1",
+        "tests": ["smoke/router_contract"]
+      },
+      "pbt": { "required": false, "tests": [] },
+      "verify": { "required": true, "mode": "prove" }
+    },
+    {
+      "id": "certify.main_v1",
+      "symbol": "certify.main_v1",
+      "node_id": "certify_core",
+      "kind": "public_function",
+      "from_zone": "untrusted",
+      "to_zone": "untrusted",
+      "worlds_allowed": ["run-os-sandboxed"],
+      "input": { "params": [] },
+      "output": {
+        "ty": "bytes",
+        "brand": "trusted_mcp.certify_payload_v1"
+      },
+      "smoke": {
+        "entry": "certify.main_v1",
+        "tests": ["certify/echo"]
+      },
+      "pbt": { "required": false, "tests": [] },
+      "verify": { "required": true, "mode": "prove" }
+    },
+    {
+      "id": "worker.main_v1",
+      "symbol": "worker.main_v1",
+      "node_id": "worker_capsule",
+      "kind": "cross_zone_function",
+      "from_zone": "untrusted",
+      "to_zone": "certified_capsule",
+      "worlds_allowed": ["run-os-sandboxed"],
+      "input": {
+        "params": [
+          {
+            "name": "in_bytes",
+            "ty": "bytes_view",
+            "brand": "trusted_mcp.worker_request_v1"
+          }
+        ]
+      },
+      "output": {
+        "ty": "bytes",
+        "brand": "trusted_mcp.worker_response_v1",
+        "error_space": "trusted_mcp.worker_error_v1"
+      },
+      "smoke": {
+        "entry": "capsule_smoke.worker_echo_v1",
+        "tests": ["capsule/worker_echo", "sandbox/worker_echo_attested"]
+      },
+      "pbt": { "required": false, "tests": [] },
+      "verify": { "required": true, "mode": "prove" }
+    }
+  ]
+}

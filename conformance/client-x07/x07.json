@@ -63,8 +63,8 @@
     },
     {
       "name": "ext-net",
-      "path": ".x07/deps/ext-net/0.1.9",
-      "version": "0.1.9"
+      "path": ".x07/deps/ext-net/0.1.10",
+      "version": "0.1.10"
     },
     {
       "name": "ext-openssl-c",
@@ -136,8 +136,8 @@
       "path": ".x07/deps/ext-json-rs/0.1.6"
     },
     "ext-net": {
-      "version": "0.1.9",
-      "path": ".x07/deps/ext-net/0.1.9"
+      "path": ".x07/deps/ext-net/0.1.10",
+      "version": "0.1.10"
     },
     "ext-crypto-rs": {
       "path": ".x07/deps/ext-crypto-rs/0.1.5",

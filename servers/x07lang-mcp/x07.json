@@ -128,8 +128,8 @@
     },
     {
       "name": "ext-obs",
-      "path": ".x07/deps/ext-obs/0.1.4",
-      "version": "0.1.4"
+      "path": ".x07/deps/ext-obs/0.1.5",
+      "version": "0.1.5"
     },
     {
       "name": "ext-openssl-c",
@@ -249,8 +249,8 @@
       "version": "0.1.6"
     },
     "ext-obs": {
-      "path": ".x07/deps/ext-obs/0.1.4",
-      "version": "0.1.4"
+      "path": ".x07/deps/ext-obs/0.1.5",
+      "version": "0.1.5"
     },
     "ext-db-core": {
       "path": ".x07/deps/ext-db-core/0.1.11",

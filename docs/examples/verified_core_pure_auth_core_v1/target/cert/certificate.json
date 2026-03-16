@@ -12,6 +12,27 @@
   "claims": [
     "human_can_review_certificate_not_source"
   ],
+  "dependency_closure": {
+    "advisory_check_ok": true,
+    "attestation": {
+      "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/verified_core_pure_auth_core_v1/target/cert/dep.closure.attest.json",
+      "sha256_hex": "879d386f356f963a6500cef4ebd3ca8c5cfff6c457ca7d9d27f7300833352bd4"
+    },
+    "lockfile_digest": "sha256:a126c34ec634a22e57049d4c7df944b665f4b6721e67165b7ae425595101bd0f",
+    "manifest_digest": "sha256:e8802b3a973e56631dfe43babe2bc6bfaaf1d83763efd824a7c048451f32e07c",
+    "packages": [
+      "ext-csv-rs@0.1.5",
+      "ext-data-model@0.1.9",
+      "ext-ini-rs@0.1.4",
+      "ext-json-rs@0.1.5",
+      "ext-mcp-auth-core@0.1.2",
+      "ext-toml-rs@0.1.5",
+      "ext-unicode-rs@0.1.5",
+      "ext-url-rs@0.1.4",
+      "ext-xml-rs@0.1.4",
+      "ext-yaml-rs@0.1.4"
+    ]
+  },
   "entry": "auth_core_cert.main_v1",
   "evidence": {
     "boundaries_report": {
@@ -22,33 +43,43 @@
     "capsule_attestations": [],
     "compile_attestation": {
       "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/verified_core_pure_auth_core_v1/target/cert/compile.attest.json",
-      "sha256_hex": "793bb3b7fa6ce6b791d0efb0debabab862130edc5a569ee3264c292f57eae275"
+      "sha256_hex": "3348c4a7ea28a9b9cf45639caedb6c674abb2d827d2be43ad55f376561a17c93"
     },
     "coverage_report": {
       "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/verified_core_pure_auth_core_v1/target/cert/verify.coverage.json",
-      "sha256_hex": "65d580281a1e77e68d668550cc36c2c07115a15fea8a776375719d54e9e9ef1e"
+      "sha256_hex": "133f8a395b8fa0c88834a9dde0912e4e4d882052c7fffa795a2e83f1fa54002c"
+    },
+    "dependency_closure_attestation": {
+      "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/verified_core_pure_auth_core_v1/target/cert/dep.closure.attest.json",
+      "sha256_hex": "879d386f356f963a6500cef4ebd3ca8c5cfff6c457ca7d9d27f7300833352bd4"
     },
     "effect_logs": [],
+    "peer_policy_files": [],
     "prove_reports": [
       {
         "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/verified_core_pure_auth_core_v1/target/cert/prove/id_f55100831bd52a0b9cf76446c84d2bf5bf36e99c8ce9d460c96b68da612f12cd.json",
-        "sha256_hex": "69abf3a71f155ce6da7c6b9481f7214afbb3d4914d0fd62f8524975767cdc409"
+        "sha256_hex": "42352600b4b55195e5496d5c6992917474303ccb650e093098633930b233edec"
       }
     ],
     "schema_derive_reports": [],
     "tests_report": {
       "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/verified_core_pure_auth_core_v1/target/cert/tests.report.json",
-      "sha256_hex": "f98e4dadd9c8ee7e6c16cdb893b143e8156d6199d8e8b221de88f55a97da29ba"
+      "sha256_hex": "1dc28d8c7b9b6346cd23f366ad4b55fcbf6bc65d14c39f5480d8a0e3d0f11916"
     },
     "trust_report": {
       "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/verified_core_pure_auth_core_v1/target/cert/trust.report.json",
-      "sha256_hex": "dbf3e891c1c0613a54bee05e0a00834101598e87b82a07508d351eacb1667f53"
+      "sha256_hex": "24a815d4913b1dfbafc217da8de95f0fb7da4253427e21ed2bc95fad0b4dd6ef"
     }
   },
+  "network_capsules": {
+    "count": 0,
+    "ids": []
+  },
   "out_dir": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/verified_core_pure_auth_core_v1/target/cert",
+  "package_set_digest": "sha256:f0c8efedb29c29dc37cc90195e3079078e6e530e00d454e739e9cdbc971a6207",
   "profile": "verified_core_pure_v1",
   "runtime": null,
-  "schema_version": "x07.trust.certificate@0.2.0",
+  "schema_version": "x07.trust.certificate@0.3.0",
   "tcb": {
     "host_compiler": "cc (Apple clang version 17.0.0 (clang-1700.6.4.2))",
     "trusted_primitive_manifest_digest": "sha256:ba1d8275a1fe7f3ab13c9289ecc1229794e46a051bba9851769e6a3cd57fd189",

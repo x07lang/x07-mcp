@@ -1,5 +1,5 @@
 {
-  "schema_version": "x07.arch.manifest@0.1.0",
+  "schema_version": "x07.arch.manifest@0.3.0",
   "repo": { "id": "mcp-server-http", "root": "." },
   "externals": {
     "allowed_import_prefixes": ["std.", "ext."],
@@ -13,6 +13,7 @@
         "path_globs": ["src/main.x07.json", "src/app.x07.json"]
       },
       "world": "run-os",
+      "trust_zone": "untrusted",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": [], "allow_prefixes": [] }
     },
@@ -20,9 +21,14 @@
       "id": "worker_sandbox",
       "match": {
         "module_prefixes": [],
-        "path_globs": ["src/worker_main.x07.json", "src/mcp/*.x07.json"]
+        "path_globs": [
+          "src/worker_main.x07.json",
+          "src/mcp/*.x07.json",
+          "src/tools/**/*.x07.json"
+        ]
       },
       "world": "run-os",
+      "trust_zone": "untrusted",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": [], "allow_prefixes": [] }
     },
@@ -30,6 +36,7 @@
       "id": "tests_sandbox",
       "match": { "module_prefixes": [], "path_globs": ["tests/**/*.x07.json"] },
       "world": "run-os",
+      "trust_zone": "test_only",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": { "deny_prefixes": [], "allow_prefixes": [] }
     }

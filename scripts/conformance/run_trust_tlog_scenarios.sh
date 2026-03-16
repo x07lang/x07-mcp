@@ -27,7 +27,7 @@ require_cmd jq
 
 trust_modules="$ROOT/packages/ext/x07-ext-mcp-trust/0.5.0/modules"
 trust_os_modules="$ROOT/packages/ext/x07-ext-mcp-trust-os/0.5.0/modules"
-net_modules="$X07_ROOT/packages/ext/x07-ext-net/0.1.9/modules"
+net_modules="$X07_ROOT/packages/ext/x07-ext-net/0.1.10/modules"
 url_modules="$X07_ROOT/packages/ext/x07-ext-url-rs/0.1.4/modules"
 json_modules="$X07_ROOT/packages/ext/x07-ext-json-rs/0.1.6/modules"
 data_model_modules="$X07_ROOT/packages/ext/x07-ext-data-model/0.1.10/modules"
