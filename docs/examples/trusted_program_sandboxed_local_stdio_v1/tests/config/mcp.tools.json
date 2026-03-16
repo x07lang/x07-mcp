@@ -1,0 +1,21 @@
+{
+  "schema_version": "x07.mcp.tools_manifest@0.2.0",
+  "tools": [
+    {
+      "name": "echo",
+      "description": "Echo back the provided text through the sandboxed worker capsule.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": { "type": "string", "minLength": 1, "maxLength": 4096 }
+        },
+        "required": ["text"],
+        "additionalProperties": false
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_fast_v1"
+      }
+    }
+  ]
+}
