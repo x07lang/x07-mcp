@@ -13,7 +13,6 @@
       "std.mcp.sandbox.worker_proto",
       "std.mcp.tool.result",
       "std.mcp.transport.stdio",
-      "std.os.env",
       "std.os.stdio",
       "std.os.stdio.spec",
       "std.test"
@@ -21,22 +20,31 @@
   },
   "nodes": [
     {
-      "id": "router_untrusted",
+      "id": "certify_core",
       "match": {
-        "module_prefixes": ["main", "router", "certify", "trusted_stdio"],
-        "path_globs": [
-          "src/main.x07.json",
-          "src/router.x07.json",
-          "src/certify.x07.json",
-          "src/trusted_stdio.x07.json"
-        ]
+        "module_prefixes": ["certify", "trusted_stdio"],
+        "path_globs": ["src/certify.x07.json", "src/trusted_stdio.x07.json"]
       },
       "world": "run-os-sandboxed",
       "trust_zone": "untrusted",
       "visibility": { "mode": "public", "visible_to": [] },
       "imports": {
-        "deny_prefixes": ["tests.", "capsule_smoke."],
-        "allow_prefixes": ["main", "router", "certify", "trusted_stdio", "worker", "std.", "ext."]
+        "deny_prefixes": ["tests.", "capsule_smoke.", "router.", "main."],
+        "allow_prefixes": ["certify", "trusted_stdio", "std.", "ext."]
+      }
+    },
+    {
+      "id": "router_capsule",
+      "match": {
+        "module_prefixes": ["main", "router"],
+        "path_globs": ["src/main.x07.json", "src/router.x07.json"]
+      },
+      "world": "run-os-sandboxed",
+      "trust_zone": "certified_capsule",
+      "visibility": { "mode": "public", "visible_to": [] },
+      "imports": {
+        "deny_prefixes": ["tests.", "capsule_smoke.", "worker.", "mcp.user.", "certify.", "trusted_stdio."],
+        "allow_prefixes": ["main", "router", "std.", "ext."]
       }
     },
     {
@@ -49,7 +57,7 @@
       "trust_zone": "certified_capsule",
       "visibility": {
         "mode": "restricted",
-        "visible_to": ["router_untrusted", "tests_capsule", "worker_capsule"]
+        "visible_to": ["certify_core", "tests_capsule", "worker_capsule"]
       },
       "imports": {
         "deny_prefixes": ["router.", "tests.", "smoke."],
@@ -89,7 +97,7 @@
     {
       "kind": "layers_v1",
       "id": "layers.main_v1",
-      "layers": ["router_untrusted", "worker_capsule", "tests_smoke", "tests_capsule"],
+      "layers": ["certify_core", "router_capsule", "worker_capsule", "tests_smoke", "tests_capsule"],
       "direction": "down"
     },
     { "kind": "deny_cycles_v1", "id": "deny_cycles.nodes_v1", "scope": "nodes" }

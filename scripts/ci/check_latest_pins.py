@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 _SEMVER_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)(?:[-+].*)?$")
-_LATEST_PROJECT_SCHEMA = "x07.project@0.3.0"
+_LATEST_PROJECT_SCHEMA = "x07.project@0.4.0"
 
 
 @dataclass(frozen=True, order=True)

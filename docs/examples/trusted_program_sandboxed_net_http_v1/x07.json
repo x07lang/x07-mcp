@@ -198,6 +198,7 @@
     "src",
     "tests"
   ],
+  "operational_entry_symbol": "router.main_v1",
   "patch": {
     "ext-json-rs": {
       "path": ".x07/deps/ext-json-rs/0.1.6",
@@ -271,6 +272,6 @@
       "world": "run-os-sandboxed"
     }
   },
-  "schema_version": "x07.project@0.3.0",
+  "schema_version": "x07.project@0.4.0",
   "world": "run-os-sandboxed"
 }

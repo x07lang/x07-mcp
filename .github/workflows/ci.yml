@@ -113,7 +113,7 @@ jobs:
         shell: bash
         working-directory: x07
         run: cargo build -p x07 -p x07c -p x07-host-runner
-      - name: Verify published auth-core example
+      - name: Reject auth-core strong certification example
         shell: bash
         working-directory: x07-mcp
         run: PATH="$PWD/../x07/target/debug:$PATH" ./scripts/ci/check_verified_core_pure_auth_core_example.sh
@@ -154,8 +154,8 @@ jobs:
       - name: Build x07 (source)
         shell: bash
         working-directory: x07
-        run: cargo build -p x07 -p x07c -p x07-host-runner -p x07-os-runner
-      - name: Verify sandboxed stdio example
+        run: cargo build -p x07 -p x07c -p x07-host-runner -p x07-os-runner -p x07-vm-launcher -p x07-vm-reaper
+      - name: Verify sandboxed stdio operational-entry example
         shell: bash
         working-directory: x07-mcp
         run: PATH="$PWD/../x07/target/debug:$PATH" ./scripts/ci/check_trusted_program_sandboxed_local_stdio_example.sh

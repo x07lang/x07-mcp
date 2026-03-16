@@ -11,7 +11,7 @@
       "require_runtime_attestation": true
     },
     {
-      "id": "certify/echo",
+      "id": "developer/certify_echo",
       "world": "run-os-sandboxed",
       "entry": "certify.main_v1",
       "policy_json": "policy/mcp.worker.base.policy.json",

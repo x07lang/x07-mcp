@@ -2,19 +2,19 @@
   "capsule_id": "capsule.stdio_worker_v1",
   "conformance_report_digest": "sha256:11a1152bc7c027e55ba1fec8b9658cf4b4992155d022f4bfccf452c9fc546ff3",
   "contract_digest": "sha256:418b0515532d3a334e5087ed3c8b15a1dfb2bd205486953cd6719b55909ad2c1",
-  "lockfile_digest": "sha256:03b08575d5e96eef30d622f298fe38f8530b0ec12d5a6a7594d98819c8c55146",
+  "lockfile_digest": "sha256:ed174521640b362b2811625b19b275b13eb9e0552882bf769cbf160529341dd2",
   "module_digests": [
     {
       "digest": "sha256:b8651869d1239181411f3be3a8b99df0be1b1b07e28211d2dbf568c7471bdb30",
-      "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/trusted_program_sandboxed_net_http_v1/src/mcp/user.x07.json"
+      "path": "src/mcp/user.x07.json"
     },
     {
       "digest": "sha256:04996b1f6d1f9d955816054a5a91f0547a47a69babd2f5873420427bcb8bd396",
-      "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/trusted_program_sandboxed_net_http_v1/src/worker.x07.json"
+      "path": "src/worker.x07.json"
     },
     {
       "digest": "sha256:34fc23b8f63929a9d6b0f81797cf3081aafa55d172f6f77d21d80dd5db892f68",
-      "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/trusted_program_sandboxed_net_http_v1/src/worker_main.x07.json"
+      "path": "src/worker_main.x07.json"
     }
   ],
   "peer_policy_digests": [],

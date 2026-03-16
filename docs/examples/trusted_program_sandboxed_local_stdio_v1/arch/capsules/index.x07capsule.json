@@ -2,6 +2,13 @@
   "schema_version": "x07.capsule.index@0.1.0",
   "capsules": [
     {
+      "id": "capsule.stdio_router_v1",
+      "worlds_allowed": ["run-os-sandboxed"],
+      "capabilities": [],
+      "contract_path": "capsule.stdio_router.contract.json",
+      "attestation_path": "capsule.stdio_router.attest.json"
+    },
+    {
       "id": "capsule.stdio_worker_v1",
       "worlds_allowed": ["run-os-sandboxed"],
       "capabilities": [],

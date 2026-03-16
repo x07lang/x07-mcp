@@ -41,11 +41,15 @@ def expected_server_version(root: Path) -> str:
 
 def build_bundles(root: Path) -> None:
     x07 = x07_exe()
+    env = os.environ.copy()
+    env["X07_SANDBOX_BACKEND"] = "os"
+    env["X07_I_ACCEPT_WEAKER_ISOLATION"] = "1"
     subprocess.run(
         [x07, "bundle", "--project", "x07.json", "--profile", "sandbox_router", "--out", "out/mcp-router"],
         cwd=root,
         check=True,
         stdout=subprocess.DEVNULL,
+        env=env,
     )
     subprocess.run(
         [
@@ -63,6 +67,7 @@ def build_bundles(root: Path) -> None:
         cwd=root,
         check=True,
         stdout=subprocess.DEVNULL,
+        env=env,
     )
 
 

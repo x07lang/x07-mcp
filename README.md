@@ -36,70 +36,72 @@ Common ways people use this repo:
 
 ## Formal verification dogfood
 
-`x07-mcp` ships three public certification examples that track the current
-schema line (`x07.x07ast@0.8.0`, `x07.trust.profile@0.3.0`,
-`x07.trust.certificate@0.3.0`) instead of leaving the trust design buried in
-internal notes:
+`x07-mcp` publishes the current formal-verification story directly in this repo
+instead of burying the contract line and certification design in internal docs.
+The public examples now track the current schema line
+(`x07.x07ast@0.8.0`, `x07.project@0.4.0`, `x07.trust.profile@0.4.0`,
+`x07.trust.certificate@0.6.0`) and make the certification posture explicit:
 
-- `docs/examples/verified_core_pure_auth_core_v1/`
-  - proof-friendly wrapper around the published `ext-mcp-auth-core` package
-  - demonstrates `verified_core_pure_v1` and imported-helper review through the
-    trusted primitive catalog
 - `docs/examples/trusted_program_sandboxed_local_stdio_v1/`
-  - no-network sandbox baseline built from the stdio router/worker template
-  - demonstrates capsule attestation plus runtime-backed sandbox evidence under
-    `trusted_program_sandboxed_local_v1`
+  - canonical strong-profile example
+  - certifies the operational server entry `router.main_v1`
+  - binds the shipped stdio router and worker through checked capsule
+    attestations plus runtime-attestation evidence, and rejects the old
+    `certify.main_v1` surrogate helper path
 - `docs/examples/trusted_program_sandboxed_net_http_v1/`
-  - networked sandbox example built from the HTTP router/worker template
-  - demonstrates peer policies, attested network capsules,
-    dependency-closure attestation, and runtime-backed certificate flow under
-    `trusted_program_sandboxed_net_v1`
+  - developer/demo network example built from the HTTP router/worker template
+  - keeps the same operational entry split, but is not the release-gated strong
+    certification path yet
+- `docs/examples/verified_core_pure_auth_core_v1/`
+  - developer/demo verified-core example around the published
+    `ext-mcp-auth-core` package
+  - demonstrates the imported-stub developer flow and the expected strong
+    rejection when prove mode refuses that bearer-parser path
 
-The design split in the sandboxed examples is intentional:
+The public design is intentional:
 
-- `router.main_v1` is the operational server entry.
-- `certify.main_v1` is the proof-friendly async certification entry.
-- `worker.main_v1` and, for the network example, the router capsule remain the
-  certified effect boundaries exercised by capsule and runtime evidence.
+- `router.main_v1` is the operational entry that a strong certificate must
+  cover.
+- `certify.main_v1` remains only as a local developer helper for smoke flows and
+  surrogate-rejection tests.
+- proof summaries support review, but strong evidence can come from either
+  checked proof objects or checked certified-capsule attestations depending on
+  the trust zone of the reachable operational surface.
 
-Portable smoke helpers remain separate from certification manifests on purpose.
-`x07 trust certify` validates the selected tests against the trust profile
-worlds and evidence requirements, so the certification manifests and local
-developer helper manifests should not be conflated.
-
-Run it end-to-end with:
+Use the example READMEs for the full command sequences. The short form is:
 
 ```sh
 cd docs/examples/verified_core_pure_auth_core_v1
 x07 pkg lock --project x07.json
-x07 trust profile check --project x07.json --profile arch/trust/profiles/verified_core_pure_v1.json --entry auth_core_cert.main_v1
 x07 test --all --manifest tests/tests.json
+x07 verify --project x07.json --entry auth_core_cert.main_v1 --prove
+x07 verify --project x07.json --entry auth_core_cert.main_v1 --prove --allow-imported-stubs --emit-proof target/auth_core.proof.json
+x07 prove check --proof target/auth_core.proof.json
 x07 trust certify --project x07.json --profile arch/trust/profiles/verified_core_pure_v1.json --entry auth_core_cert.main_v1 --out-dir target/cert
 ```
 
-For the sandboxed no-network stdio example, use:
+The first prove command is expected to fail with `X07V_IMPORTED_STUB_FORBIDDEN`.
+The last command is expected to reject the strong claim for the same reason.
+
+For the release-gated stdio example, use:
 
 ```sh
 cd docs/examples/trusted_program_sandboxed_local_stdio_v1
 x07 pkg lock --project x07.json
-x07 trust profile check --project x07.json --profile arch/trust/profiles/trusted_program_sandboxed_local_v1.json --entry certify.main_v1
+x07 trust profile check --project x07.json --profile arch/trust/profiles/trusted_program_sandboxed_local_v1.json --entry router.main_v1
 x07 test --all --manifest tests/tests.json
 x07 trust capsule check --project x07.json --index arch/capsules/index.x07capsule.json
-x07 trust certify --project x07.json --profile arch/trust/profiles/trusted_program_sandboxed_local_v1.json --entry certify.main_v1 --out-dir target/cert
 python3 tests/stdio_bundle_smoke.py
+x07 trust certify --project x07.json --profile arch/trust/profiles/trusted_program_sandboxed_local_v1.json --entry router.main_v1 --out-dir target/cert
 ```
 
-For the networked sandbox example, use:
+This example is the capsule-backed strong-profile path, so the accepted
+certificate may legitimately carry zero proof objects when the operational entry
+terminates at certified capsule boundaries.
 
-```sh
-cd docs/examples/trusted_program_sandboxed_net_http_v1
-x07 pkg lock --project x07.json
-x07 trust profile check --project x07.json --profile arch/trust/profiles/trusted_program_sandboxed_net_v1.json --entry certify.main_v1
-x07 trust capsule check --project x07.json --index arch/capsules/index.x07capsule.json
-x07 pkg attest-closure --project x07.json --out target/dep-closure.attest.json
-x07 test --all --manifest tests/tests.json
-x07 trust certify --project x07.json --profile arch/trust/profiles/trusted_program_sandboxed_net_v1.json --entry certify.main_v1 --out-dir target/cert
-```
+For the network example, run the same package lock, tests, capsule check, and
+profile check against `router.main_v1`, but treat it as a developer example
+rather than the repo's golden strong-profile path.
 
 ## Use the official X07 MCP server (for coding X07)
 

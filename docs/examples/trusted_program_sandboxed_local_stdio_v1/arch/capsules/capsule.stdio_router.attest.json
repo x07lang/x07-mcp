@@ -1,0 +1,20 @@
+{
+  "capsule_id": "capsule.stdio_router_v1",
+  "conformance_report_digest": "sha256:76946acc03f208b6df85199491bf48dbf38f13fdff72cb5b43fd3bc2ced29663",
+  "contract_digest": "sha256:b0455a22e76d02cf5497ebf38ab1859d555cf0f0d3962e25847a6cfff7e9ea20",
+  "lockfile_digest": "sha256:03b08575d5e96eef30d622f298fe38f8530b0ec12d5a6a7594d98819c8c55146",
+  "module_digests": [
+    {
+      "digest": "sha256:9da58892ca716b9a9bba91a02bf9c2c2aa6585df7205ebdd097033384a8bc990",
+      "path": "src/main.x07.json"
+    },
+    {
+      "digest": "sha256:0c85cae76246f06090941f8acd8112ed16079ba9284ae0c2b08b9453346a4542",
+      "path": "src/router.x07.json"
+    }
+  ],
+  "peer_policy_digests": [],
+  "request_contract_digest": null,
+  "response_contract_digest": null,
+  "schema_version": "x07.capsule.attest@0.2.0"
+}

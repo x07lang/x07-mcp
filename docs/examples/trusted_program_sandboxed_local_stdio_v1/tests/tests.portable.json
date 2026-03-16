@@ -9,7 +9,7 @@
       "returns": "result_i32"
     },
     {
-      "id": "portable/certify_echo",
+      "id": "portable/developer_certify_echo",
       "world": "run-os",
       "entry": "certify.main_v1",
       "expect": "pass",

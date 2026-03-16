@@ -184,7 +184,7 @@ The HTTP template ships a sample trust anchor file at `config/auth/prm_trust_anc
 
 ## Publish trust framework (`x07.mcp.trust.framework@0.3.0`) + trust lock (`x07.mcp.trust.lock@0.2.0`)
 
-Phase 15 keeps phase-14 remote-source no-TOFU checks and adds anti-rollback trust-pack metadata fields:
+This line keeps the earlier remote-source no-TOFU checks and adds anti-rollback trust-pack metadata fields:
 
 - `auth.prm.trust_framework.path`: trust framework used by runtime PRM trust decisions.
 - `auth.prm.trust_framework.trust_lock_path`: optional trust lock used to pin bundle/signature digests.

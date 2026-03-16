@@ -1,7 +1,7 @@
 {
   "files": {
     "arch/boundaries/index.x07boundary.json": {
-      "jcs_sha256_hex": "f9154bc6507708c05536205d107e335be03377866b9bbb309e0a3cb6803e888c"
+      "jcs_sha256_hex": "81fbe0bcd0a1720943783d876829517a084b7c3d634d4543c76841145b5b227b"
     },
     "arch/budgets/profiles/mcp_router_v1.budget.json": {
       "jcs_sha256_hex": "d4c096bc27c55da0201a25c8f2c7300ecfbd549762b28af625ad0ad3bba1e0f2"
@@ -30,7 +30,7 @@
       "jcs_sha256_hex": "674e08f5eade95160edaabc7781ad2adb13d201bd7a595dc44728e6ebb71d48f"
     },
     "boundaries": {
-      "jcs_sha256_hex": "f9154bc6507708c05536205d107e335be03377866b9bbb309e0a3cb6803e888c"
+      "jcs_sha256_hex": "81fbe0bcd0a1720943783d876829517a084b7c3d634d4543c76841145b5b227b"
     }
   },
   "schema_version": "x07.arch.contracts.lock@0.1.0"

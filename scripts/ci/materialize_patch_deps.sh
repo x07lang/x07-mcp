@@ -65,7 +65,7 @@ download_package_via_temp_project() {
     --arg name "${name}" \
     --arg version "${version}" \
     '{
-      "schema_version": "x07.project@0.3.0",
+      "schema_version": "x07.project@0.4.0",
       "default_profile": "os",
       "dependencies": [
         {

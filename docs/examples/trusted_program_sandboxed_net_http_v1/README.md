@@ -1,11 +1,16 @@
 # trusted_program_sandboxed_net_http_v1
 
-This project is the `x07-mcp` sandboxed networked trusted-program dogfood
-target built from the HTTP router/worker template.
+This project is the `x07-mcp` sandboxed networked HTTP router/worker developer
+example built from the HTTP router/worker template.
 
-It exercises the Milestone C networked certification line end to end:
+It keeps the public network/capsule surfaces current, but it is not the repo's
+release-gated strong-profile dogfood target. Use
+`../trusted_program_sandboxed_local_stdio_v1/` for the strong-profile example.
 
-- async `certify.main_v1` entry under `run-os-sandboxed`
+Current scope:
+
+- `router.main_v1` is the operational HTTP server entry under `run-os-sandboxed`
+- `certify.main_v1` remains a local developer helper, not the strong claim
 - certified worker capsule and certified HTTP router capsule
 - pinned loopback peer-policy and tracked capsule attestation snapshots
 - dependency-closure evidence and runtime-attested sandbox tests
@@ -19,7 +24,7 @@ x07 pkg lock --project x07.json
 x07 trust profile check \
   --project x07.json \
   --profile arch/trust/profiles/trusted_program_sandboxed_net_v1.json \
-  --entry certify.main_v1
+  --entry router.main_v1
 
 x07 trust capsule check \
   --project x07.json \
@@ -59,21 +64,11 @@ Run the sandboxed tests on a host with a supported VM backend:
 x07 test --all --manifest tests/tests.json
 ```
 
-Emit the certificate bundle:
-
-```bash
-x07 trust certify \
-  --project x07.json \
-  --profile arch/trust/profiles/trusted_program_sandboxed_net_v1.json \
-  --entry certify.main_v1 \
-  --out-dir target/cert
-```
-
 If you only want the locally portable checks, run:
 
 ```bash
 x07 test --manifest tests/tests.portable.json --filter portable/router_contract --exact
-x07 test --manifest tests/tests.portable.json --filter portable/certify_echo --exact
+x07 test --manifest tests/tests.portable.json --filter portable/developer_certify_echo --exact
 x07 test --manifest tests/tests.portable.json --filter portable/worker_echo --exact
 ```
 

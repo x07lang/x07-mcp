@@ -6,15 +6,15 @@
   "module_digests": [
     {
       "digest": "sha256:b8651869d1239181411f3be3a8b99df0be1b1b07e28211d2dbf568c7471bdb30",
-      "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/trusted_program_sandboxed_local_stdio_v1/src/mcp/user.x07.json"
+      "path": "src/mcp/user.x07.json"
     },
     {
       "digest": "sha256:04996b1f6d1f9d955816054a5a91f0547a47a69babd2f5873420427bcb8bd396",
-      "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/trusted_program_sandboxed_local_stdio_v1/src/worker.x07.json"
+      "path": "src/worker.x07.json"
     },
     {
       "digest": "sha256:34fc23b8f63929a9d6b0f81797cf3081aafa55d172f6f77d21d80dd5db892f68",
-      "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/trusted_program_sandboxed_local_stdio_v1/src/worker_main.x07.json"
+      "path": "src/worker_main.x07.json"
     }
   ],
   "peer_policy_digests": [],

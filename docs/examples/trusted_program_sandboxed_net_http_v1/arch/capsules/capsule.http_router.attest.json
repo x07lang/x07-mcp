@@ -2,21 +2,21 @@
   "capsule_id": "capsule.http_router_v1",
   "conformance_report_digest": "sha256:91a2a20cd8742922e9f2db625e3a4576b50a5cdf2ecfbe94debf4a4d6e56e99d",
   "contract_digest": "sha256:0e802842095ccfd9c5f271b66ff7e6ea580b3556a174c237403f7a1c1b97d8f9",
-  "lockfile_digest": "sha256:03b08575d5e96eef30d622f298fe38f8530b0ec12d5a6a7594d98819c8c55146",
+  "lockfile_digest": "sha256:ed174521640b362b2811625b19b275b13eb9e0552882bf769cbf160529341dd2",
   "module_digests": [
     {
       "digest": "sha256:9da58892ca716b9a9bba91a02bf9c2c2aa6585df7205ebdd097033384a8bc990",
-      "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/trusted_program_sandboxed_net_http_v1/src/main.x07.json"
+      "path": "src/main.x07.json"
     },
     {
       "digest": "sha256:5a0b5feecdbae3cce70a9ff834f2da0e289b3162bc5f8db3ee1eca1513099c01",
-      "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/trusted_program_sandboxed_net_http_v1/src/router.x07.json"
+      "path": "src/router.x07.json"
     }
   ],
   "peer_policy_digests": [
     {
       "digest": "sha256:447543245933070923bde1389425b9242c7273b3cfd5c5aa1e0ab5168ae6906c",
-      "path": "/Users/webik/projects/x07lang/x07-mcp/docs/examples/trusted_program_sandboxed_net_http_v1/arch/capsules/peers/loopback_http_v1.peer.json"
+      "path": "peers/loopback_http_v1.peer.json"
     }
   ],
   "request_contract_digest": null,

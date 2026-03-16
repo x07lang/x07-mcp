@@ -22,26 +22,6 @@
       "verify": { "required": true, "mode": "prove" }
     },
     {
-      "id": "certify.main_v1",
-      "symbol": "certify.main_v1",
-      "node_id": "certify_core",
-      "kind": "public_function",
-      "from_zone": "untrusted",
-      "to_zone": "untrusted",
-      "worlds_allowed": ["run-os-sandboxed"],
-      "input": { "params": [] },
-      "output": {
-        "ty": "bytes",
-        "brand": "trusted_mcp.certify_payload_v1"
-      },
-      "smoke": {
-        "entry": "certify.main_v1",
-        "tests": ["certify/echo"]
-      },
-      "pbt": { "required": false, "tests": [] },
-      "verify": { "required": true, "mode": "prove" }
-    },
-    {
       "id": "worker.main_v1",
       "symbol": "worker.main_v1",
       "node_id": "worker_capsule",

@@ -4,10 +4,10 @@
     {
       "id": "router.main_v1",
       "symbol": "router.main_v1",
-      "node_id": "router_untrusted",
+      "node_id": "router_capsule",
       "kind": "public_function",
-      "from_zone": "untrusted",
-      "to_zone": "untrusted",
+      "from_zone": "certified_capsule",
+      "to_zone": "certified_capsule",
       "worlds_allowed": ["run-os-sandboxed"],
       "input": { "params": [] },
       "output": {
@@ -17,26 +17,6 @@
       "smoke": {
         "entry": "smoke.router_contract_v1",
         "tests": ["smoke/router_contract"]
-      },
-      "pbt": { "required": false, "tests": [] },
-      "verify": { "required": true, "mode": "prove" }
-    },
-    {
-      "id": "certify.main_v1",
-      "symbol": "certify.main_v1",
-      "node_id": "router_untrusted",
-      "kind": "public_function",
-      "from_zone": "untrusted",
-      "to_zone": "untrusted",
-      "worlds_allowed": ["run-os-sandboxed"],
-      "input": { "params": [] },
-      "output": {
-        "ty": "bytes",
-        "brand": "trusted_stdio.certify_payload_v1"
-      },
-      "smoke": {
-        "entry": "certify.main_v1",
-        "tests": ["certify/echo"]
       },
       "pbt": { "required": false, "tests": [] },
       "verify": { "required": true, "mode": "prove" }
