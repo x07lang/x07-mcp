@@ -14,6 +14,34 @@ env:
   X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-0.1.83-x86_64-unknown-linux-gnu.tar.gz"
 
 jobs:
+  runner_inventory:
+    name: ci / runner inventory
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      has_linux_x64_runner: ${{ steps.inventory.outputs.has_linux_x64_runner }}
+    steps:
+      - name: Detect self-hosted Linux x64 runners
+        id: inventory
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          response="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runners")"
+          count="$(jq '[.runners[] | select(.status == "online") | select(any(.labels[]?; .name == "self-hosted")) | select(any(.labels[]?; .name == "linux")) | select(any(.labels[]?; .name == "x64"))] | length' <<<"$response")"
+
+          if (( count > 0 )); then
+            echo "has_linux_x64_runner=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_linux_x64_runner=false" >> "$GITHUB_OUTPUT"
+          fi
+
+          echo "Linux x64 self-hosted runners: ${count}" >> "$GITHUB_STEP_SUMMARY"
+
   check:
     name: ci / check
     runs-on: ubuntu-latest
@@ -133,6 +161,8 @@ jobs:
 
   sandboxed-stdio-dogfood:
     name: ci / sandboxed-stdio-dogfood
+    needs: runner_inventory
+    if: needs.runner_inventory.outputs.has_linux_x64_runner == 'true'
     runs-on:
       - self-hosted
       - linux
