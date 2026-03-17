@@ -31,7 +31,8 @@ if [[ -x "${x07_bin}" ]]; then
   if [[ -n "${source_dir}" ]]; then
     version="${tag#v}"
     staged_stdlib_lock="${install_root}/toolchains/v${version}/stdlib.lock"
-    if [[ -n "${version}" && -f "${staged_stdlib_lock}" ]] && "${x07_bin}" --version; then
+    root_stdlib_lock="${install_root}/stdlib.lock"
+    if [[ -n "${version}" && -f "${staged_stdlib_lock}" && -f "${root_stdlib_lock}" ]] && "${x07_bin}" --version; then
       exit 0
     fi
   elif "${x07_bin}" --version; then
@@ -65,22 +66,30 @@ if [[ -n "${source_dir}" ]]; then
   cargo install --locked --root "${install_root}" --path "${source_dir}/crates/x07-host-runner"
   cargo install --locked --root "${install_root}" --path "${source_dir}/crates/x07-os-runner"
 
+  stage_source_toolchain_tree() {
+    local dest_root="$1"
+    mkdir -p "${dest_root}/bin"
+    for bin_name in x07 x07c x07-host-runner x07-os-runner; do
+      cp "${install_bin}/${bin_name}" "${dest_root}/bin/${bin_name}"
+    done
+    for file_name in README.md stdlib.lock stdlib.os.lock; do
+      if [[ -f "${source_dir}/${file_name}" ]]; then
+        cp "${source_dir}/${file_name}" "${dest_root}/${file_name}"
+      fi
+    done
+    for dir_name in .agent deps spec stdlib; do
+      if [[ -d "${source_dir}/${dir_name}" ]]; then
+        rm -rf "${dest_root}/${dir_name}"
+        cp -R "${source_dir}/${dir_name}" "${dest_root}/${dir_name}"
+      fi
+    done
+  }
+
+  stage_source_toolchain_tree "${install_root}"
+
   toolchain_dir="${install_root}/toolchains/v${version}"
   rm -rf "${toolchain_dir}"
-  mkdir -p "${toolchain_dir}/bin"
-  for bin_name in x07 x07c x07-host-runner x07-os-runner; do
-    cp "${install_bin}/${bin_name}" "${toolchain_dir}/bin/${bin_name}"
-  done
-  for file_name in README.md stdlib.lock stdlib.os.lock; do
-    if [[ -f "${source_dir}/${file_name}" ]]; then
-      cp "${source_dir}/${file_name}" "${toolchain_dir}/${file_name}"
-    fi
-  done
-  for dir_name in .agent deps spec stdlib; do
-    if [[ -d "${source_dir}/${dir_name}" ]]; then
-      cp -R "${source_dir}/${dir_name}" "${toolchain_dir}/${dir_name}"
-    fi
-  done
+  stage_source_toolchain_tree "${toolchain_dir}"
 
   "${x07_bin}" --version
   exit 0
