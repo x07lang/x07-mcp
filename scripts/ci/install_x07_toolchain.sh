@@ -10,6 +10,141 @@ if [[ -n "${source_dir}" && "${source_dir}" != /* ]]; then
   source_dir="${repo_root}/${source_dir}"
 fi
 
+python_bin="${X07_PYTHON:-}"
+if [[ -z "${python_bin}" ]]; then
+  if command -v python3 >/dev/null 2>&1; then
+    python_bin="python3"
+  elif command -v python >/dev/null 2>&1; then
+    python_bin="python"
+  fi
+fi
+
+native_backend_relpaths() {
+  local manifest_path="$1"
+  local platform_key=""
+  case "$(uname -s)" in
+    Linux) platform_key="linux" ;;
+    Darwin) platform_key="macos" ;;
+    MINGW*|MSYS*|CYGWIN*) platform_key="windows" ;;
+    *)
+      echo "ERROR: unsupported platform for native backend staging: $(uname -s)" >&2
+      exit 2
+      ;;
+  esac
+
+  if [[ -z "${python_bin}" ]]; then
+    echo "ERROR: python3 or python is required to read ${manifest_path}" >&2
+    exit 2
+  fi
+
+  "${python_bin}" - "$manifest_path" "$platform_key" <<'PY'
+import json
+import sys
+
+path = sys.argv[1]
+platform_key = sys.argv[2]
+doc = json.load(open(path, "r", encoding="utf-8"))
+files = []
+for backend in doc.get("backends") or []:
+    link = backend.get("link") or {}
+    spec = link.get(platform_key) or {}
+    files.extend(spec.get("files") or [])
+for rel in sorted(set(files)):
+    print(rel)
+PY
+}
+
+native_backend_build_script() {
+  local relpath="$1"
+  local base="${relpath##*/}"
+  base="${base%.a}"
+  base="${base%.lib}"
+  case "${base}" in
+    libx07_ext_*)
+      printf 'build_%s.sh\n' "${base#libx07_}"
+      ;;
+    libx07_math)
+      printf 'build_ext_math.sh\n'
+      ;;
+    libx07_stream_xf)
+      printf 'build_ext_stream_xf.sh\n'
+      ;;
+    libx07_time)
+      printf 'build_ext_time.sh\n'
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+toolchain_tree_complete() {
+  local tree_root="$1"
+  local manifest_path="$tree_root/deps/x07/native_backends.json"
+  local relpath=""
+
+  [[ -f "$manifest_path" ]] || return 1
+  while IFS= read -r relpath; do
+    [[ -n "$relpath" ]] || continue
+    [[ -f "$tree_root/$relpath" ]] || return 1
+  done < <(native_backend_relpaths "$manifest_path")
+
+  local helper=""
+  for helper in x07-proc-echo x07-proc-worker-frame-echo; do
+    if [[ -x "$tree_root/deps/x07/$helper" || -x "$tree_root/deps/x07/$helper.exe" ]]; then
+      continue
+    fi
+    return 1
+  done
+
+  return 0
+}
+
+ensure_source_toolchain_artifacts() {
+  local manifest_path="$source_dir/deps/x07/native_backends.json"
+  local relpath=""
+  local build_script=""
+  local built_helpers="0"
+
+  [[ -f "$manifest_path" ]] || {
+    echo "ERROR: missing native backends manifest in source checkout: ${manifest_path}" >&2
+    exit 2
+  }
+
+  while IFS= read -r relpath; do
+    [[ -n "$relpath" ]] || continue
+    if [[ -f "$source_dir/$relpath" ]]; then
+      continue
+    fi
+    build_script="$(native_backend_build_script "$relpath")" || {
+      echo "ERROR: no build script mapping for native backend artifact: ${relpath}" >&2
+      exit 2
+    }
+    if [[ ! -x "$source_dir/scripts/$build_script" ]]; then
+      echo "ERROR: missing native backend build script: ${source_dir}/scripts/${build_script}" >&2
+      exit 2
+    fi
+    (
+      cd "$source_dir"
+      "./scripts/${build_script}" >/dev/null
+    )
+  done < <(native_backend_relpaths "$manifest_path")
+
+  local helper=""
+  for helper in x07-proc-echo x07-proc-worker-frame-echo; do
+    if [[ -x "$source_dir/deps/x07/$helper" || -x "$source_dir/deps/x07/$helper.exe" ]]; then
+      continue
+    fi
+    if [[ "$built_helpers" == "0" ]]; then
+      (
+        cd "$source_dir"
+        ./scripts/build_os_helpers.sh >/dev/null
+      )
+      built_helpers="1"
+    fi
+  done
+}
+
 if [[ -z "${source_dir}" && ( -z "${tag}" || -z "${tarball}" ) ]]; then
   echo "ERROR: missing X07_TOOLCHAIN_TAG or X07_TOOLCHAIN_TARBALL_LINUX_X64" >&2
   exit 2
@@ -27,12 +162,31 @@ else
   export PATH="${install_bin}:${PATH}"
 fi
 
+version=""
+if [[ -n "${source_dir}" ]]; then
+  if [[ ! -d "${source_dir}/crates/x07" ]]; then
+    echo "ERROR: invalid X07_TOOLCHAIN_SOURCE_DIR (missing crates/x07): ${source_dir}" >&2
+    exit 2
+  fi
+  version="${tag#v}"
+  if [[ -z "${version}" ]]; then
+    version="$(grep -m1 '^version = "' "${source_dir}/crates/x07/Cargo.toml" | sed -E 's/^version = "([^"]+)".*$/\1/')"
+  fi
+  if [[ -z "${version}" ]]; then
+    echo "ERROR: failed to determine toolchain version from source checkout" >&2
+    exit 2
+  fi
+fi
+
 if [[ -x "${x07_bin}" ]]; then
   if [[ -n "${source_dir}" ]]; then
-    version="${tag#v}"
     staged_stdlib_lock="${install_root}/toolchains/v${version}/stdlib.lock"
     root_stdlib_lock="${install_root}/stdlib.lock"
-    if [[ -n "${version}" && -f "${staged_stdlib_lock}" && -f "${root_stdlib_lock}" ]] && "${x07_bin}" --version; then
+    toolchain_dir="${install_root}/toolchains/v${version}"
+    if [[ -f "${staged_stdlib_lock}" && -f "${root_stdlib_lock}" ]] \
+      && toolchain_tree_complete "${install_root}" \
+      && toolchain_tree_complete "${toolchain_dir}" \
+      && "${x07_bin}" --version; then
       exit 0
     fi
   elif "${x07_bin}" --version; then
@@ -42,21 +196,8 @@ if [[ -x "${x07_bin}" ]]; then
 fi
 
 if [[ -n "${source_dir}" ]]; then
-  if [[ ! -d "${source_dir}/crates/x07" ]]; then
-    echo "ERROR: invalid X07_TOOLCHAIN_SOURCE_DIR (missing crates/x07): ${source_dir}" >&2
-    exit 2
-  fi
   if ! command -v cargo >/dev/null 2>&1; then
     echo "ERROR: cargo is required when X07_TOOLCHAIN_SOURCE_DIR is set" >&2
-    exit 2
-  fi
-
-  version="${tag#v}"
-  if [[ -z "${version}" ]]; then
-    version="$(grep -m1 '^version = "' "${source_dir}/crates/x07/Cargo.toml" | sed -E 's/^version = "([^"]+)".*$/\1/')"
-  fi
-  if [[ -z "${version}" ]]; then
-    echo "ERROR: failed to determine toolchain version from source checkout" >&2
     exit 2
   fi
 
@@ -65,6 +206,7 @@ if [[ -n "${source_dir}" ]]; then
   cargo install --locked --root "${install_root}" --path "${source_dir}/crates/x07c"
   cargo install --locked --root "${install_root}" --path "${source_dir}/crates/x07-host-runner"
   cargo install --locked --root "${install_root}" --path "${source_dir}/crates/x07-os-runner"
+  ensure_source_toolchain_artifacts
 
   stage_source_toolchain_tree() {
     local dest_root="$1"
