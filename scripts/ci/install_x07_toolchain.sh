@@ -4,6 +4,11 @@ set -euo pipefail
 tag="${X07_TOOLCHAIN_TAG:-}"
 tarball="${X07_TOOLCHAIN_TARBALL_LINUX_X64:-}"
 source_dir="${X07_TOOLCHAIN_SOURCE_DIR:-}"
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+
+if [[ -n "${source_dir}" && "${source_dir}" != /* ]]; then
+  source_dir="${repo_root}/${source_dir}"
+fi
 
 if [[ -z "${source_dir}" && ( -z "${tag}" || -z "${tarball}" ) ]]; then
   echo "ERROR: missing X07_TOOLCHAIN_TAG or X07_TOOLCHAIN_TARBALL_LINUX_X64" >&2
