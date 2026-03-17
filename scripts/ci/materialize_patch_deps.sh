@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "${ROOT}"
+x07_root_resolver="${ROOT}/scripts/ci/resolve_workspace_x07_root.sh"
 
 project="${1:-}"
 if [[ -z "${project}" ]]; then
@@ -24,6 +25,10 @@ fi
 project_dir="$(cd "$(dirname "${project_abs}")" && pwd)"
 workspace_root="${X07_WORKSPACE_ROOT:-${ROOT}}"
 use_workspace_patch_deps="${X07_MCP_USE_WORKSPACE_PATCH_DEPS:-1}"
+workspace_x07_root=""
+if [[ "${use_workspace_patch_deps}" == "1" ]]; then
+  workspace_x07_root="$("${x07_root_resolver}" 2>/dev/null || true)"
+fi
 
 copy_local_package_if_present() {
   local name="$1"
@@ -41,7 +46,7 @@ copy_local_package_if_present() {
   done
 
   if [[ "${use_workspace_patch_deps}" == "1" ]]; then
-    candidate="${ROOT}/../x07/packages/ext/x07-${name}/${version}"
+    candidate="${workspace_x07_root}/packages/ext/x07-${name}/${version}"
     if [[ -d "${candidate}" ]]; then
       mkdir -p "$(dirname "${target_dir}")"
       rm -rf "${target_dir}"

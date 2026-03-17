@@ -12,7 +12,6 @@ env:
   X07_MCP_LOCK_RETRY_DELAY_SECS: "3"
   X07_TOOLCHAIN_TAG: "v0.1.83"
   X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-0.1.83-x86_64-unknown-linux-gnu.tar.gz"
-  X07_TOOLCHAIN_SOURCE_DIR: "../x07"
 
 jobs:
   check:
@@ -54,7 +53,7 @@ jobs:
       - name: Install X07 (pinned)
         shell: bash
         working-directory: x07-mcp
-        run: ./scripts/ci/install_x07_toolchain.sh
+        run: X07_TOOLCHAIN_SOURCE_DIR="$(./scripts/ci/resolve_workspace_x07_root.sh)" ./scripts/ci/install_x07_toolchain.sh
       - name: Check
         shell: bash
         working-directory: x07-mcp
@@ -89,7 +88,7 @@ jobs:
             libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
-        run: ./scripts/ci/install_x07_toolchain.sh
+        run: X07_TOOLCHAIN_SOURCE_DIR="$(./scripts/ci/resolve_workspace_x07_root.sh)" ./scripts/ci/install_x07_toolchain.sh
       - name: Validate fixtures
         shell: bash
         run: ./registry/scripts/check_fixtures.sh
@@ -130,7 +129,7 @@ jobs:
       - name: Reject auth-core strong certification example
         shell: bash
         working-directory: x07-mcp
-        run: PATH="$PWD/../x07/target/debug:$PATH" ./scripts/ci/check_verified_core_pure_auth_core_example.sh
+        run: PATH="$(./scripts/ci/resolve_workspace_x07_root.sh)/target/debug:$PATH" ./scripts/ci/check_verified_core_pure_auth_core_example.sh
 
   sandboxed-stdio-dogfood:
     name: ci / sandboxed-stdio-dogfood
@@ -172,7 +171,7 @@ jobs:
       - name: Verify sandboxed stdio operational-entry example
         shell: bash
         working-directory: x07-mcp
-        run: PATH="$PWD/../x07/target/debug:$PATH" ./scripts/ci/check_trusted_program_sandboxed_local_stdio_example.sh
+        run: PATH="$(./scripts/ci/resolve_workspace_x07_root.sh)/target/debug:$PATH" ./scripts/ci/check_trusted_program_sandboxed_local_stdio_example.sh
 
   mcp-trust-tests:
     name: ci / mcp-trust-tests
@@ -206,12 +205,12 @@ jobs:
       - name: Install X07 (pinned)
         shell: bash
         working-directory: x07-mcp
-        run: ./scripts/ci/install_x07_toolchain.sh
+        run: X07_TOOLCHAIN_SOURCE_DIR="$(./scripts/ci/resolve_workspace_x07_root.sh)" ./scripts/ci/install_x07_toolchain.sh
       - name: Unit tests (ext-mcp-trust@0.5.0)
         shell: bash
         working-directory: x07-mcp
         run: |
-          x07_root="$(cd ../x07 && pwd)"
+          x07_root="$(./scripts/ci/resolve_workspace_x07_root.sh)"
           (
             cd packages/ext/x07-ext-mcp-trust/0.5.0
             x07 test \
@@ -230,7 +229,7 @@ jobs:
         shell: bash
         working-directory: x07-mcp
         run: |
-          x07_root="$(cd ../x07 && pwd)"
+          x07_root="$(./scripts/ci/resolve_workspace_x07_root.sh)"
           trust_modules="$PWD/packages/ext/x07-ext-mcp-trust/0.5.0/modules"
           (
             cd packages/ext/x07-ext-mcp-trust-os/0.5.0
@@ -253,7 +252,7 @@ jobs:
         shell: bash
         working-directory: x07-mcp
         run: |
-          x07_root="$(cd ../x07 && pwd)"
+          x07_root="$(./scripts/ci/resolve_workspace_x07_root.sh)"
           trust_modules="$PWD/packages/ext/x07-ext-mcp-trust/0.5.0/modules"
           trust_os_modules="$PWD/packages/ext/x07-ext-mcp-trust-os/0.5.0/modules"
           (
@@ -277,8 +276,7 @@ jobs:
       - name: Trust tlog conformance scenarios
         shell: bash
         working-directory: x07-mcp
-        run: |
-          X07_ROOT="$PWD/../x07" ./scripts/conformance/run_trust_tlog_scenarios.sh
+        run: ./scripts/conformance/run_trust_tlog_scenarios.sh
       - name: Publish dry-run (template trust)
         shell: bash
         working-directory: x07-mcp
@@ -332,7 +330,7 @@ jobs:
             libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
-        run: ./scripts/ci/install_x07_toolchain.sh
+        run: X07_TOOLCHAIN_SOURCE_DIR="$(./scripts/ci/resolve_workspace_x07_root.sh)" ./scripts/ci/install_x07_toolchain.sh
       - name: Hydrate template deps
         shell: bash
         run: |
@@ -389,7 +387,7 @@ jobs:
             libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
-        run: ./scripts/ci/install_x07_toolchain.sh
+        run: X07_TOOLCHAIN_SOURCE_DIR="$(./scripts/ci/resolve_workspace_x07_root.sh)" ./scripts/ci/install_x07_toolchain.sh
       - name: Setup Node 22
         uses: actions/setup-node@v4
         with:
@@ -490,7 +488,7 @@ jobs:
             libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
-        run: ./scripts/ci/install_x07_toolchain.sh
+        run: X07_TOOLCHAIN_SOURCE_DIR="$(./scripts/ci/resolve_workspace_x07_root.sh)" ./scripts/ci/install_x07_toolchain.sh
       - name: Setup Node 22
         uses: actions/setup-node@v4
         with:
@@ -540,7 +538,7 @@ jobs:
             libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
-        run: ./scripts/ci/install_x07_toolchain.sh
+        run: X07_TOOLCHAIN_SOURCE_DIR="$(./scripts/ci/resolve_workspace_x07_root.sh)" ./scripts/ci/install_x07_toolchain.sh
       - name: Setup Node 22
         uses: actions/setup-node@v4
         with:
@@ -588,7 +586,7 @@ jobs:
             libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
-        run: ./scripts/ci/install_x07_toolchain.sh
+        run: X07_TOOLCHAIN_SOURCE_DIR="$(./scripts/ci/resolve_workspace_x07_root.sh)" ./scripts/ci/install_x07_toolchain.sh
       - name: Run conformance scenario (client auth multi-as)
         shell: bash
         run: ./scripts/conformance/run_client_auth_scenario.sh prm-multi-as-select-prefer-order

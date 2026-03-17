@@ -7,6 +7,7 @@ repo_root() {
 
 root="$(repo_root)"
 cd "$root"
+x07_root_resolver="${root}/scripts/ci/resolve_workspace_x07_root.sh"
 
 step() {
   echo
@@ -27,7 +28,7 @@ require_cmd jq
 x07_toolchain_version="$(x07 --version | awk 'NR==1 {print $2}')"
 x07_stdlib_lock="${HOME}/.x07/toolchains/v${x07_toolchain_version}/stdlib.lock"
 if [[ ! -f "${x07_stdlib_lock}" ]]; then
-  workspace_stdlib_lock="${root}/../x07/stdlib.lock"
+  workspace_stdlib_lock="$("${x07_root_resolver}")/stdlib.lock"
   if [[ -f "${workspace_stdlib_lock}" ]]; then
     x07_stdlib_lock="${workspace_stdlib_lock}"
   else
@@ -132,7 +133,7 @@ cleanup() {
 trap cleanup EXIT
 
 workspace_x07_root() {
-  cd "$root/../x07" && pwd
+  "${x07_root_resolver}"
 }
 
 install_project_local_deps_from_workspace() {
@@ -423,7 +424,7 @@ done < <(find "${lint_dirs[@]}" -type f -name '*.x07.json' -print0)
 
 step "package tests (ext-mcp-rr sanitizer)"
 if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
-  x07_root="$(cd "$root/../x07" && pwd)"
+  x07_root="$(workspace_x07_root)"
   auth_jwt_modules="$x07_root/packages/ext/x07-ext-auth-jwt/0.1.6/modules"
   base64_modules="$x07_root/packages/ext/x07-ext-base64-rs/0.1.4/modules"
   crypto_modules="$x07_root/packages/ext/x07-ext-crypto-rs/0.1.5/modules"

@@ -5,7 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 APP_DIR="$(find "$ROOT/packages/app/x07-mcp" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)"
 TRUST_DIR="$(find "$ROOT/packages/ext/x07-ext-mcp-trust" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)"
 TRUST_OS_DIR="$(find "$ROOT/packages/ext/x07-ext-mcp-trust-os" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)"
-X07_ROOT="${X07_ROOT:-$ROOT/../x07}"
+X07_ROOT="$("${ROOT}/scripts/ci/resolve_workspace_x07_root.sh")"
 
 if [[ -z "$APP_DIR" || ! -d "$APP_DIR" ]]; then
   echo "ERROR: missing x07-mcp app package directory under $ROOT/packages/app/x07-mcp" >&2
