@@ -138,17 +138,26 @@ workspace_x07_root() {
 
 ensure_workspace_native_backends() {
   local x07_root="$1"
-  local sqlite_backend="$x07_root/deps/x07/libx07_ext_db_sqlite.a"
-  local sqlite_backend_msvc="$x07_root/deps/x07/x07_ext_db_sqlite.lib"
-
-  if [[ -f "$sqlite_backend" || -f "$sqlite_backend_msvc" ]]; then
-    return 0
-  fi
+  local required_backends=(
+    "libx07_ext_db_sqlite.a:x07_ext_db_sqlite.lib:build_ext_db_sqlite.sh"
+    "libx07_ext_fs.a:x07_ext_fs.lib:build_ext_fs.sh"
+    "libx07_ext_jsonschema.a:x07_ext_jsonschema.lib:build_ext_jsonschema.sh"
+    "libx07_ext_rand.a:x07_ext_rand.lib:build_ext_rand.sh"
+    "libx07_ext_regex.a:x07_ext_regex.lib:build_ext_regex.sh"
+    "libx07_ext_stdio.a:x07_ext_stdio.lib:build_ext_stdio.sh"
+  )
+  local entry unix_lib msvc_lib build_script
 
   step "stage workspace native backends"
   (
     cd "$x07_root"
-    ./scripts/build_ext_db_sqlite.sh >/dev/null
+    for entry in "${required_backends[@]}"; do
+      IFS=':' read -r unix_lib msvc_lib build_script <<<"$entry"
+      if [[ -f "deps/x07/${unix_lib}" || -f "deps/x07/${msvc_lib}" ]]; then
+        continue
+      fi
+      "./scripts/${build_script}" >/dev/null
+    done
   )
 }
 
