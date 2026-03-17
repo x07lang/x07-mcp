@@ -136,6 +136,22 @@ workspace_x07_root() {
   "${x07_root_resolver}"
 }
 
+ensure_workspace_native_backends() {
+  local x07_root="$1"
+  local sqlite_backend="$x07_root/deps/x07/libx07_ext_db_sqlite.a"
+  local sqlite_backend_msvc="$x07_root/deps/x07/x07_ext_db_sqlite.lib"
+
+  if [[ -f "$sqlite_backend" || -f "$sqlite_backend_msvc" ]]; then
+    return 0
+  fi
+
+  step "stage workspace native backends"
+  (
+    cd "$x07_root"
+    ./scripts/build_ext_db_sqlite.sh >/dev/null
+  )
+}
+
 install_project_local_deps_from_workspace() {
   local x07_root="$1"
   local project_dir="$2"
@@ -204,6 +220,10 @@ check_project_lock_clean_registry() {
 
 step "x07 version"
 x07 --version
+
+if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+  ensure_workspace_native_backends "$(workspace_x07_root)"
+fi
 
 step "pkg lock (hydrate + check)"
 if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
