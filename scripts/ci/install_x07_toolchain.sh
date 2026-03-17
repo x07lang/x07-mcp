@@ -70,7 +70,11 @@ if [[ -n "${source_dir}" ]]; then
     local dest_root="$1"
     mkdir -p "${dest_root}/bin"
     for bin_name in x07 x07c x07-host-runner x07-os-runner; do
-      cp "${install_bin}/${bin_name}" "${dest_root}/bin/${bin_name}"
+      local src_bin="${install_bin}/${bin_name}"
+      local dest_bin="${dest_root}/bin/${bin_name}"
+      if [[ "${src_bin}" != "${dest_bin}" ]]; then
+        cp "${src_bin}" "${dest_bin}"
+      fi
     done
     for file_name in README.md stdlib.lock stdlib.os.lock; do
       if [[ -f "${source_dir}/${file_name}" ]]; then
