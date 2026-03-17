@@ -10,8 +10,9 @@ permissions:
 env:
   X07_MCP_LOCK_RETRIES: "5"
   X07_MCP_LOCK_RETRY_DELAY_SECS: "3"
-  X07_TOOLCHAIN_TAG: "v0.1.82"
-  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-0.1.82-x86_64-unknown-linux-gnu.tar.gz"
+  X07_TOOLCHAIN_TAG: "v0.1.83"
+  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-0.1.83-x86_64-unknown-linux-gnu.tar.gz"
+  X07_TOOLCHAIN_SOURCE_DIR: "../x07"
 
 jobs:
   check:
@@ -28,6 +29,8 @@ jobs:
           repository: x07lang/x07
           ref: ${{ env.X07_TOOLCHAIN_TAG }}
           path: x07
+      - name: Set up Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
       - name: Install system deps
         shell: bash
         run: |
@@ -63,16 +66,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Checkout x07 (source)
+        uses: actions/checkout@v4
+        with:
+          repository: x07lang/x07
+          ref: ${{ env.X07_TOOLCHAIN_TAG }}
+          path: x07
+      - name: Set up Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
       - name: Install system deps
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
-      - name: Cache X07 toolchain
-        uses: actions/cache@v4
-        with:
-          path: ~/.x07
-          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
+          sudo apt-get install -y --no-install-recommends \
+            clang \
+            build-essential \
+            pkg-config \
+            libssl-dev \
+            libcurl4-openssl-dev \
+            liblzma-dev \
+            zlib1g-dev \
+            libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
         run: ./scripts/ci/install_x07_toolchain.sh
@@ -174,16 +188,21 @@ jobs:
           repository: x07lang/x07
           ref: ${{ env.X07_TOOLCHAIN_TAG }}
           path: x07
+      - name: Set up Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
       - name: Install system deps
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
-      - name: Cache X07 toolchain
-        uses: actions/cache@v4
-        with:
-          path: ~/.x07
-          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
+          sudo apt-get install -y --no-install-recommends \
+            clang \
+            build-essential \
+            pkg-config \
+            libssl-dev \
+            libcurl4-openssl-dev \
+            liblzma-dev \
+            zlib1g-dev \
+            libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
         working-directory: x07-mcp
@@ -287,6 +306,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Checkout x07 (source)
+        uses: actions/checkout@v4
+        with:
+          repository: x07lang/x07
+          ref: ${{ env.X07_TOOLCHAIN_TAG }}
+          path: x07
+      - name: Set up Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
       - name: Guard template runtime secrets
         shell: bash
         run: ./scripts/ci/check_no_template_runtime_secrets.sh
@@ -294,12 +321,15 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
-      - name: Cache X07 toolchain
-        uses: actions/cache@v4
-        with:
-          path: ~/.x07
-          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
+          sudo apt-get install -y --no-install-recommends \
+            clang \
+            build-essential \
+            pkg-config \
+            libssl-dev \
+            libcurl4-openssl-dev \
+            liblzma-dev \
+            zlib1g-dev \
+            libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
         run: ./scripts/ci/install_x07_toolchain.sh
@@ -336,16 +366,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Checkout x07 (source)
+        uses: actions/checkout@v4
+        with:
+          repository: x07lang/x07
+          ref: ${{ env.X07_TOOLCHAIN_TAG }}
+          path: x07
+      - name: Set up Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
       - name: Install system deps
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
-      - name: Cache X07 toolchain
-        uses: actions/cache@v4
-        with:
-          path: ~/.x07
-          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
+          sudo apt-get install -y --no-install-recommends \
+            clang \
+            build-essential \
+            pkg-config \
+            libssl-dev \
+            libcurl4-openssl-dev \
+            liblzma-dev \
+            zlib1g-dev \
+            libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
         run: ./scripts/ci/install_x07_toolchain.sh
@@ -426,16 +467,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Checkout x07 (source)
+        uses: actions/checkout@v4
+        with:
+          repository: x07lang/x07
+          ref: ${{ env.X07_TOOLCHAIN_TAG }}
+          path: x07
+      - name: Set up Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
       - name: Install system deps
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
-      - name: Cache X07 toolchain
-        uses: actions/cache@v4
-        with:
-          path: ~/.x07
-          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
+          sudo apt-get install -y --no-install-recommends \
+            clang \
+            build-essential \
+            pkg-config \
+            libssl-dev \
+            libcurl4-openssl-dev \
+            liblzma-dev \
+            zlib1g-dev \
+            libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
         run: ./scripts/ci/install_x07_toolchain.sh
@@ -465,16 +517,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Checkout x07 (source)
+        uses: actions/checkout@v4
+        with:
+          repository: x07lang/x07
+          ref: ${{ env.X07_TOOLCHAIN_TAG }}
+          path: x07
+      - name: Set up Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
       - name: Install system deps
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
-      - name: Cache X07 toolchain
-        uses: actions/cache@v4
-        with:
-          path: ~/.x07
-          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
+          sudo apt-get install -y --no-install-recommends \
+            clang \
+            build-essential \
+            pkg-config \
+            libssl-dev \
+            libcurl4-openssl-dev \
+            liblzma-dev \
+            zlib1g-dev \
+            libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
         run: ./scripts/ci/install_x07_toolchain.sh
@@ -502,16 +565,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Checkout x07 (source)
+        uses: actions/checkout@v4
+        with:
+          repository: x07lang/x07
+          ref: ${{ env.X07_TOOLCHAIN_TAG }}
+          path: x07
+      - name: Set up Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
       - name: Install system deps
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
-      - name: Cache X07 toolchain
-        uses: actions/cache@v4
-        with:
-          path: ~/.x07
-          key: x07-${{ runner.os }}-${{ env.X07_TOOLCHAIN_TAG }}
+          sudo apt-get install -y --no-install-recommends \
+            clang \
+            build-essential \
+            pkg-config \
+            libssl-dev \
+            libcurl4-openssl-dev \
+            liblzma-dev \
+            zlib1g-dev \
+            libsqlite3-dev
       - name: Install X07 (pinned)
         shell: bash
         run: ./scripts/ci/install_x07_toolchain.sh
