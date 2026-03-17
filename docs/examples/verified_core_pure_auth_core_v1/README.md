@@ -10,14 +10,15 @@ an accepted strong-profile certification example.
 The example tracks the current verified-core schema line
 (`x07.x07ast@0.8.0`, `x07.arch.manifest@0.3.0`,
 `x07.project@0.4.0`, `x07.trust.profile@0.4.0`,
-`x07.trust.certificate@0.6.0`) and remains a pure verified-core example, not a
-sandboxed trusted-program example.
+`x07.trust.certificate@0.7.0`, `x07.verify.proof_object@0.2.0`,
+`x07.verify.proof_check.report@0.2.0`) and remains a pure verified-core
+example, not a sandboxed trusted-program example.
 
 Current scope:
 
 - the reviewed entry is a small verified-core wrapper over the published bearer parser
 - strong prove mode rejects the imported bearer-parser path with `X07V_IMPORTED_STUB_FORBIDDEN`
-- `x07 verify --prove --allow-imported-stubs` models that imported parser through the trusted primitive catalog as a developer-only workflow
+- `x07 verify --prove --allow-imported-stubs` models that imported parser through the trusted primitive catalog as a developer-only workflow and emits a proof object plus proof-check report that can be replayed locally with `x07 prove check`
 - smoke and PBT still exercise the real published parser behavior directly
 - `x07 trust certify` is expected to reject the strong-profile claim because the proof step refuses imported-stub assumptions
 
@@ -65,6 +66,11 @@ x07 verify --prove \
 x07 prove check --proof target/auth_core.proof.json
 ```
 
+That developer flow emits `target/auth_core.proof.json` and
+`target/auth_core.proof.check.json`. The proof-check step is a semantic replay
+check, not just a digest check: it replays the source-derived verification
+conditions and imported-summary digests before accepting the proof object.
+
 Show the strong-profile rejection explicitly:
 
 ```bash
@@ -79,4 +85,8 @@ That command should fail; in the current toolchain the rejection report includes
 `X07TC_EPROVE_UNSUPPORTED` because the strong prove step refuses
 imported-stub assumptions. The repo CI keeps this example as a
 negative-certification check so the developer-only bearer-parser path cannot
-quietly turn into an accepted strong certificate.
+quietly turn into an accepted strong certificate. This is why the public
+certificate review flow must start from `formal_verification_scope`,
+`entry_body_formally_proved`, and the accepted proof-check reports in
+`proof_inventory`, not from an internal development note or the existence of a
+developer proof bundle.

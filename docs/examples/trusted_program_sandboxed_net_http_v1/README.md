@@ -14,6 +14,10 @@ Current scope:
 - certified worker capsule and certified HTTP router capsule
 - pinned loopback peer-policy and tracked capsule attestation snapshots
 - dependency-closure evidence and runtime-attested sandbox tests
+- the public certificate review flow is the same as the stdio example:
+  `formal_verification_scope`, `entry_body_formally_proved`,
+  `operational_entry_proof_inventory_refs`, and accepted proof-check reports in
+  `proof_inventory`
 
 Run the static posture checks:
 
@@ -63,6 +67,11 @@ Run the sandboxed tests on a host with a supported VM backend:
 ```bash
 x07 test --all --manifest tests/tests.json
 ```
+
+If you certify the example on a supported VM host, review
+`target/cert/certificate.json` through the same public fields as the stdio
+example instead of inferring proof coverage from the presence of capsule
+attestations alone.
 
 If you only want the locally portable checks, run:
 

@@ -40,7 +40,9 @@ Common ways people use this repo:
 instead of burying the contract line and certification design in internal docs.
 The public examples now track the current schema line
 (`x07.x07ast@0.8.0`, `x07.project@0.4.0`, `x07.trust.profile@0.4.0`,
-`x07.trust.certificate@0.6.0`) and make the certification posture explicit:
+`x07.trust.certificate@0.7.0`, `x07.verify.proof_object@0.2.0`,
+`x07.verify.proof_check.report@0.2.0`) and make the certification posture
+explicit:
 
 - `docs/examples/trusted_program_sandboxed_local_stdio_v1/`
   - canonical strong-profile example
@@ -64,9 +66,17 @@ The public design is intentional:
   cover.
 - `certify.main_v1` remains only as a local developer helper for smoke flows and
   surrogate-rejection tests.
-- proof summaries support review, but strong evidence can come from either
-  checked proof objects or checked certified-capsule attestations depending on
-  the trust zone of the reachable operational surface.
+- proof objects only become strong evidence after `x07 prove check` semantically
+  replays the source, imported proof-summary digests, primitive manifest, and
+  async scheduler model and emits an accepted proof-check report.
+- certificate reviewers should read `formal_verification_scope`,
+  `entry_body_formally_proved`, `operational_entry_proof_inventory_refs`, and
+  `proof_inventory[].proof_check_result` instead of inferring proof coverage
+  from a summary page or an internal design note.
+- capsule attestations, dependency-closure attestations, and runtime
+  attestations remain complementary evidence. They do not silently replace a
+  missing or rejected proof-check report when the strong profile requires proof
+  evidence.
 
 Use the example READMEs for the full command sequences. The short form is:
 
@@ -96,8 +106,30 @@ x07 trust certify --project x07.json --profile arch/trust/profiles/trusted_progr
 ```
 
 This example is the capsule-backed strong-profile path, so the accepted
-certificate may legitimately carry zero proof objects when the operational entry
-terminates at certified capsule boundaries.
+certificate should still be reviewed as a proof-backed operational entry:
+
+- `formal_verification_scope` tells you whether the certificate proves the
+  operational entry body or only a bounded/runtime-backed subset.
+- `entry_body_formally_proved` should be `true` for the shipped `router.main_v1`
+  strong example.
+- `operational_entry_proof_inventory_refs` should be non-empty.
+- every `proof_inventory` item should carry both a proof object path and an
+  accepted proof-check report (`proof_check_result = "accepted"`).
+
+The shortest reviewer check is:
+
+```sh
+jq '{
+  formal_verification_scope,
+  entry_body_formally_proved,
+  operational_entry_proof_inventory_refs,
+  proof_inventory: [.proof_inventory[] | {
+    symbol,
+    proof_check_result,
+    proof_check_checker
+  }]
+}' target/cert/certificate.json
+```
 
 For the network example, run the same package lock, tests, capsule check, and
 profile check against `router.main_v1`, but treat it as a developer example

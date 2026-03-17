@@ -20,16 +20,21 @@ Current scope:
   certification target for the strong profile
 - `certify.main_v1` remains only as a developer helper path; the strong profile
   rejects it as a surrogate certification entry
+- accepted strong certificates are reviewed through
+  `formal_verification_scope`, `entry_body_formally_proved`, and
+  `operational_entry_proof_inventory_refs`, not by guessing from a summary page
 - `router.main_v1` is covered by a checked router capsule attestation
 - `worker.main_v1` is the certified capsule boundary used by the router
+- the proof inventory must carry accepted proof-check reports for every proof
+  object referenced by the operational entry
 - `x07 test` exercises router config, worker conformance, and a sandboxed worker
   smoke that emits runtime-attestation evidence into the test report
 - capsule attestations are fully checkable today
 
 The important change is that the certificate is now about the shipped stdio
 router itself, not a proof-friendly surrogate. The repo CI re-checks the
-tracked router/worker capsule attestations and verifies that a surrogate-entry
-mutation is rejected.
+tracked router/worker capsule attestations, replays every proof object with
+`x07 prove check`, and verifies that a surrogate-entry mutation is rejected.
 
 This example is the no-network baseline. The companion HTTP example at
 `../trusted_program_sandboxed_net_http_v1/` demonstrates the networked
@@ -92,6 +97,26 @@ x07 trust certify \
   --out-dir target/cert
 ```
 
+Review the emitted certificate with the public fields that describe the actual
+formal-proof scope:
+
+```bash
+jq '{
+  formal_verification_scope,
+  entry_body_formally_proved,
+  operational_entry_proof_inventory_refs,
+  proof_inventory: [.proof_inventory[] | {
+    symbol,
+    proof_check_result,
+    proof_check_checker
+  }]
+}' target/cert/certificate.json
+```
+
+For the strong stdio example, `entry_body_formally_proved` should be `true`,
+`operational_entry_proof_inventory_refs` should be non-empty, and every proof
+inventory row should report `proof_check_result = "accepted"`.
+
 If you only want the locally portable checks, run:
 
 ```bash
@@ -139,5 +164,7 @@ The tracked capsule evidence lives at
 and
 `docs/examples/trusted_program_sandboxed_local_stdio_v1/arch/capsules/capsule.stdio_worker.attest.json`.
 The repo CI runs the full certificate path on a supported self-hosted VM runner,
-re-checks both capsule attestation snapshots, and asserts that the old
-`certify.main_v1` surrogate path is rejected under the strong profile.
+re-checks both capsule attestation snapshots, asserts that the old
+`certify.main_v1` surrogate path is rejected under the strong profile, and
+requires accepted proof-check reports for the proof objects that cover
+`router.main_v1`.
