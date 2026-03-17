@@ -1,0 +1,50 @@
+name: Sandboxed Stdio Dogfood
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  sandboxed-stdio-dogfood:
+    name: ci / sandboxed-stdio-dogfood
+    runs-on:
+      - self-hosted
+      - linux
+      - x64
+    steps:
+      - name: Checkout x07-mcp
+        uses: actions/checkout@v4
+        with:
+          path: x07-mcp
+      - name: Checkout x07 (source)
+        uses: actions/checkout@v4
+        with:
+          repository: x07lang/x07
+          ref: main
+          path: x07
+      - name: Install system deps
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            cbmc \
+            clang \
+            build-essential \
+            pkg-config \
+            libssl-dev \
+            libcurl4-openssl-dev \
+            liblzma-dev \
+            zlib1g-dev \
+            libsqlite3-dev \
+            jq \
+            z3
+      - name: Build x07 (source)
+        shell: bash
+        working-directory: x07
+        run: cargo build -p x07 -p x07c -p x07-host-runner -p x07-os-runner -p x07-vm-launcher -p x07-vm-reaper
+      - name: Verify sandboxed stdio operational-entry example
+        shell: bash
+        working-directory: x07-mcp
+        run: PATH="$(./scripts/ci/resolve_workspace_x07_root.sh)/target/debug:$PATH" ./scripts/ci/check_trusted_program_sandboxed_local_stdio_example.sh
