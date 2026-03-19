@@ -216,17 +216,60 @@
         "sandbox": {
           "fs": {
             "read_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ],
             "write_roots": [
-              "target",
-              ".x07"
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "target"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 30000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ]
           },
           "net": {},
           "env": {
             "allowlist": [
               "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
               "X07_MCP_X07_EXE"
             ]
           }
@@ -283,17 +326,60 @@
         "sandbox": {
           "fs": {
             "read_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ],
             "write_roots": [
-              "target",
-              ".x07"
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "target"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 30000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ]
           },
           "net": {},
           "env": {
             "allowlist": [
               "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
               "X07_MCP_X07_EXE"
             ]
           }
@@ -387,16 +473,59 @@
         "sandbox": {
           "fs": {
             "read_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ],
             "write_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 60000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ]
           },
           "net": {},
           "env": {
             "allowlist": [
               "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
               "X07_MCP_X07_EXE"
             ]
           }
@@ -458,16 +587,59 @@
         "sandbox": {
           "fs": {
             "read_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ],
             "write_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 60000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ]
           },
           "net": {},
           "env": {
             "allowlist": [
               "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
               "X07_MCP_X07_EXE"
             ]
           }
@@ -515,16 +687,59 @@
         "sandbox": {
           "fs": {
             "read_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ],
             "write_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 60000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ]
           },
           "net": {},
           "env": {
             "allowlist": [
               "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
               "X07_MCP_X07_EXE"
             ]
           }
@@ -569,16 +784,59 @@
         "sandbox": {
           "fs": {
             "read_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ],
             "write_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 60000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ]
           },
           "net": {},
           "env": {
             "allowlist": [
               "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
               "X07_MCP_X07_EXE"
             ]
           }
@@ -660,16 +918,59 @@
         "sandbox": {
           "fs": {
             "read_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ],
             "write_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 60000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ]
           },
           "net": {},
           "env": {
             "allowlist": [
               "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
               "X07_MCP_X07_EXE"
             ]
           }
@@ -726,14 +1027,59 @@
         "sandbox": {
           "fs": {
             "read_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ],
-            "write_roots": []
+            "write_roots": [
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 30000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
           },
           "net": {},
           "env": {
             "allowlist": [
-              "PATH"
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
             ]
           }
         }
@@ -764,10 +1110,20 @@
         "sandbox": {
           "fs": {
             "read_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ],
             "write_roots": [
-              ".x07"
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ]
           },
           "process": {
@@ -785,9 +1141,20 @@
               "X07UP_HOME"
             ],
             "allow_cwd_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ],
-            "max_runtime_ms": 15000
+            "max_runtime_ms": 15000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/"
+            ]
           },
           "net": {},
           "env": {
@@ -852,10 +1219,20 @@
         "sandbox": {
           "fs": {
             "read_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ],
             "write_roots": [
               ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
               "target"
             ]
           },
@@ -871,9 +1248,23 @@
               "X07_MCP_X07_EXE"
             ],
             "allow_cwd_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ],
-            "max_runtime_ms": 30000
+            "max_runtime_ms": 30000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
           },
           "net": {},
           "env": {
@@ -1198,18 +1589,28 @@
           "fs": {
             "read_roots": [
               ".",
+              ".x07",
+              ".x07-wasm",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
               "arch/wasm",
               "arch/wit",
-              "target",
               "dist",
-              ".x07-wasm",
-              ".x07"
+              "target"
             ],
             "write_roots": [
-              "target",
-              "dist",
+              ".x07",
               ".x07-wasm",
-              ".x07"
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "dist",
+              "target"
             ]
           },
           "process": {
@@ -1228,9 +1629,20 @@
               "X07UP_HOME"
             ],
             "allow_cwd_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ],
-            "max_runtime_ms": 300000
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/"
+            ]
           },
           "net": {},
           "env": {
@@ -1406,19 +1818,29 @@
           "fs": {
             "read_roots": [
               ".",
+              ".x07",
+              ".x07-wasm",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
               "arch/wasm",
               "arch/web_ui",
               "arch/wit",
-              "target",
               "dist",
-              ".x07-wasm",
-              ".x07"
+              "target"
             ],
             "write_roots": [
-              "target",
-              "dist",
+              ".x07",
               ".x07-wasm",
-              ".x07"
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "dist",
+              "target"
             ]
           },
           "process": {
@@ -1439,9 +1861,20 @@
               "X07UP_HOME"
             ],
             "allow_cwd_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ],
-            "max_runtime_ms": 300000
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/"
+            ]
           },
           "net": {},
           "env": {
@@ -1594,19 +2027,29 @@
           "fs": {
             "read_roots": [
               ".",
-              "arch/wasm",
-              "arch/device",
-              "arch/wit",
-              "target",
-              "dist",
+              ".x07",
               ".x07-wasm",
-              ".x07"
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "arch/device",
+              "arch/wasm",
+              "arch/wit",
+              "dist",
+              "target"
             ],
             "write_roots": [
-              "target",
-              "dist",
+              ".x07",
               ".x07-wasm",
-              ".x07"
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "dist",
+              "target"
             ]
           },
           "process": {
@@ -1628,9 +2071,20 @@
               "X07UP_HOME"
             ],
             "allow_cwd_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ],
-            "max_runtime_ms": 600000
+            "max_runtime_ms": 600000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/"
+            ]
           },
           "net": {},
           "env": {
@@ -1818,19 +2272,29 @@
           "fs": {
             "read_roots": [
               ".",
+              ".x07",
+              ".x07-wasm",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "arch/app",
               "arch/wasm",
               "arch/web_ui",
-              "arch/app",
-              "target",
               "dist",
-              ".x07-wasm",
-              ".x07"
+              "target"
             ],
             "write_roots": [
-              "target",
-              "dist",
+              ".x07",
               ".x07-wasm",
-              ".x07"
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "dist",
+              "target"
             ]
           },
           "process": {
@@ -1851,9 +2315,20 @@
               "X07UP_HOME"
             ],
             "allow_cwd_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ],
-            "max_runtime_ms": 600000
+            "max_runtime_ms": 600000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/"
+            ]
           },
           "net": {},
           "env": {
@@ -1862,6 +2337,1410 @@
               "PATH",
               "XDG_CACHE_HOME",
               "X07UP_HOME"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "x07.service.init_v1",
+      "description": "Initialize a service-oriented X07 project skeleton in the selected working directory.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "template": {
+            "type": "string",
+            "enum": [
+              "api-cell",
+              "event-consumer",
+              "scheduled-job",
+              "policy-service",
+              "workflow-service"
+            ]
+          },
+          "cwd": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "package": {
+            "type": "boolean",
+            "default": false
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/service-init/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 600000,
+            "default": 120000
+          }
+        },
+        "required": [
+          "template"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "x07.service.archetypes_v1",
+      "description": "List built-in service archetypes and their package defaults.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cwd": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/service-archetypes/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 600000,
+            "default": 120000
+          }
+        },
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "x07.service.genpack.schema_v1",
+      "description": "Emit the archetype-specific service Genpack JSON Schema.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "archetype": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "cwd": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/service-genpack-schema/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 600000,
+            "default": 120000
+          }
+        },
+        "required": [
+          "archetype"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "x07.service.genpack.grammar_v1",
+      "description": "Emit the archetype-specific service Genpack grammar.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "archetype": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "cwd": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/service-genpack-grammar/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 600000,
+            "default": 120000
+          }
+        },
+        "required": [
+          "archetype"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "x07.service.validate_v1",
+      "description": "Validate an X07 service manifest through the canonical x07 CLI.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "manifest_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": "arch/service/index.x07service.json"
+          },
+          "archetype": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 128,
+            "default": ""
+          },
+          "cwd": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/service-validate/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 600000,
+            "default": 120000
+          }
+        },
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "x07.workload.inspect_v1",
+      "description": "Inspect the current workload artifact view through x07-wasm.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cwd": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/workload-inspect/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 600000,
+            "default": 120000
+          }
+        },
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "wasm",
+        "limits_profile": "mcp_tool_wasm_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              ".x07-wasm",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "arch/workload",
+              "target"
+            ],
+            "write_roots": [
+              ".x07",
+              ".x07-wasm",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "target"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07-wasm"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_WASM_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_WASM_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "x07.topology.preview_v1",
+      "description": "Preview the current service topology grouping through x07-wasm.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cwd": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/topology-preview/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 600000,
+            "default": 120000
+          }
+        },
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "wasm",
+        "limits_profile": "mcp_tool_wasm_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              ".x07-wasm",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "arch/workload",
+              "target"
+            ],
+            "write_roots": [
+              ".x07",
+              ".x07-wasm",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "target"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07-wasm"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_WASM_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_WASM_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.release.submit_v1",
+      "description": "Submit a hosted Sentinel release candidate through the canonical x07lp CLI.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "workload_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "pack_digest": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "environment_id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 128,
+            "default": ""
+          },
+          "target_id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 128,
+            "default": ""
+          },
+          "source_generation_id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 128,
+            "default": ""
+          },
+          "rollout_strategy": {
+            "type": "string",
+            "enum": [
+              "direct",
+              "canary",
+              "manual"
+            ],
+            "default": "manual"
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 2048,
+            "default": ""
+          },
+          "api_base": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/lp-release-submit/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 180000
+          }
+        },
+        "required": [
+          "workload_id",
+          "pack_digest"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_control_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.release.query_v1",
+      "description": "Query a hosted Sentinel release summary or evidence bundle through x07lp.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "release_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "view": {
+            "type": "string",
+            "enum": [
+              "summary",
+              "evidence"
+            ],
+            "default": "summary"
+          },
+          "api_base": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/lp-release-query/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 180000
+          }
+        },
+        "required": [
+          "release_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_query_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 180000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.release.explain_v1",
+      "description": "Fetch the hosted Sentinel review and decision bundle for a release.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "release_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "api_base": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/lp-release-explain/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 180000
+          }
+        },
+        "required": [
+          "release_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_query_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 180000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.release.rollback_v1",
+      "description": "Roll back a hosted Sentinel release through x07lp.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "release_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "api_base": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/lp-release-rollback/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 180000
+          }
+        },
+        "required": [
+          "release_id",
+          "reason"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_control_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.binding.status_v1",
+      "description": "Inspect hosted binding health or a single binding detail through x07lp.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "binding_id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 128,
+            "default": ""
+          },
+          "api_base": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/lp-binding-status/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 180000
+          }
+        },
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_query_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 180000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
             ]
           }
         }
@@ -1964,10 +3843,20 @@
           "fs": {
             "read_roots": [
               ".",
-              ".x07"
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ],
             "write_roots": [
-              ".x07"
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ]
           },
           "process": {
@@ -1977,19 +3866,35 @@
             "allow_env_keys": [
               "HOME",
               "PATH",
-              "XDG_CACHE_HOME"
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
             ],
             "allow_cwd_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ],
-            "max_runtime_ms": 180000
+            "max_runtime_ms": 180000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
           },
           "net": {},
           "env": {
             "allowlist": [
               "HOME",
               "PATH",
-              "XDG_CACHE_HOME"
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
             ]
           }
         }
@@ -2131,10 +4036,20 @@
           "fs": {
             "read_roots": [
               ".",
-              ".x07"
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ],
             "write_roots": [
-              ".x07"
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
             ]
           },
           "process": {
@@ -2144,19 +4059,35 @@
             "allow_env_keys": [
               "HOME",
               "PATH",
-              "XDG_CACHE_HOME"
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
             ],
             "allow_cwd_roots": [
-              "."
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
             ],
-            "max_runtime_ms": 300000
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ]
           },
           "net": {},
           "env": {
             "allowlist": [
               "HOME",
               "PATH",
-              "XDG_CACHE_HOME"
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
             ]
           }
         }

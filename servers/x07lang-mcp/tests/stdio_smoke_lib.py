@@ -7,6 +7,7 @@ import os
 import selectors
 import shutil
 import subprocess
+import tempfile
 import time
 from pathlib import Path
 from typing import Any
@@ -93,6 +94,16 @@ def _assert_initialize_server_version(resp: dict, expected_version: str) -> None
         raise AssertionError(
             f"initialize server version mismatch: expected={expected_version!r} got={got!r}"
         )
+
+
+def _assert_tool_call_success(resp: dict, tool_name: str) -> None:
+    if "error" in resp:
+        raise AssertionError(f"{tool_name} returned jsonrpc error: {resp!r}")
+    result = resp.get("result")
+    if not isinstance(result, dict):
+        raise AssertionError(f"{tool_name} missing result payload: {resp!r}")
+    if result.get("isError") is True:
+        raise AssertionError(f"{tool_name} returned MCP tool error: {resp!r}")
 
 
 def expected_server_version(server_root: Path) -> str:
@@ -198,14 +209,12 @@ def run_stdio_smoke(
     )
 
 
-def run_stdio_smoke_cmd(
+def _initialize_stdio_session(
     command: list[str],
     cwd: Path,
     expected_version: str,
-    tool_name: str,
-    tool_arguments: dict[str, Any],
     extra_env: dict[str, str] | None = None,
-) -> None:
+) -> subprocess.Popen[str]:
     proc = _spawn_stdio_proc(command, cwd, extra_env)
     try:
         for requested_protocol in ("2025-03-26", "2025-11-25"):
@@ -238,20 +247,193 @@ def run_stdio_smoke_cmd(
             proc = _spawn_stdio_proc(command, cwd, extra_env)
 
         _send_json_line(proc, {"jsonrpc": "2.0", "method": "notifications/initialized"})
+        return proc
+    except Exception:
+        if proc.poll() is None:
+            proc.terminate()
+            try:
+                proc.wait(timeout=2.0)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                proc.wait(timeout=2.0)
+        raise
 
-        _send_json_line(
-            proc,
-            {
-                "jsonrpc": "2.0",
-                "id": 2,
-                "method": "tools/call",
-                "params": {
-                    "name": tool_name,
-                    "arguments": tool_arguments,
-                },
+
+def _call_tool(
+    proc: subprocess.Popen[str],
+    request_id: int,
+    tool_name: str,
+    tool_arguments: dict[str, Any],
+) -> dict[str, Any]:
+    _send_json_line(
+        proc,
+        {
+            "jsonrpc": "2.0",
+            "id": request_id,
+            "method": "tools/call",
+            "params": {
+                "name": tool_name,
+                "arguments": tool_arguments,
+            },
+        },
+    )
+    resp = _wait_for_response_id(proc, request_id, 20.0)
+    if not isinstance(resp, dict):
+        raise AssertionError(f"{tool_name} returned non-object response: {resp!r}")
+    _assert_tool_call_success(resp, tool_name)
+    return resp
+
+
+def _write_fake_cli(path: Path, name: str) -> None:
+    if name == "x07-wasm":
+        script = """#!/bin/sh
+set -eu
+printf '{"tool":"x07-wasm","argv":["'
+sep=''
+for arg in "$@"; do
+  printf '%s%s' "$sep" "$arg"
+  sep='","'
+done
+printf '"],"ok":true}\n'
+"""
+    else:
+        script = """#!/bin/sh
+set -eu
+printf '{"tool":"x07lp","argv":["'
+sep=''
+for arg in "$@"; do
+  printf '%s%s' "$sep" "$arg"
+  sep='","'
+done
+printf '"],"ok":true}\n'
+"""
+    path.write_text(script, encoding="utf-8")
+    path.chmod(0o755)
+
+
+def run_paas_surface_smoke(server_exe: Path, server_root: Path, expected_version: str) -> None:
+    fixtures_root = server_root / "tests" / "fixtures"
+    with tempfile.TemporaryDirectory(
+        dir=fixtures_root,
+        prefix="paas-surface-smoke-",
+    ) as temp_dir:
+        temp_root = Path(temp_dir)
+        service_dir = temp_root / "service-app"
+        service_dir.mkdir()
+        shim_bin_dir = temp_root / "shim-bin"
+        shim_bin_dir.mkdir()
+        shim_paths: dict[str, Path] = {}
+        for tool_name in ("x07-wasm", "x07lp"):
+            tool_path = shim_bin_dir / tool_name
+            _write_fake_cli(tool_path, tool_name)
+            shim_paths[tool_name] = tool_path
+
+        proc = _initialize_stdio_session(
+            [str(server_exe)],
+            server_root,
+            expected_version,
+            extra_env={
+                "X07_MCP_X07_WASM_EXE": str(shim_paths["x07-wasm"]),
+                "X07_MCP_X07LP_EXE": str(shim_paths["x07lp"]),
             },
         )
-        _wait_for_response_id(proc, 2, 20.0)
+        try:
+            _call_tool(
+                proc,
+                2,
+                "x07.service.archetypes_v1",
+                {"cwd": str(temp_root)},
+            )
+            _call_tool(
+                proc,
+                3,
+                "x07.service.genpack.schema_v1",
+                {"archetype": "api-cell", "cwd": str(temp_root)},
+            )
+            _call_tool(
+                proc,
+                4,
+                "x07.service.genpack.grammar_v1",
+                {"archetype": "api-cell", "cwd": str(temp_root)},
+            )
+            _call_tool(
+                proc,
+                5,
+                "x07.service.init_v1",
+                {"template": "api-cell", "cwd": str(service_dir)},
+            )
+            _call_tool(
+                proc,
+                6,
+                "x07.service.validate_v1",
+                {"cwd": str(service_dir)},
+            )
+            _call_tool(
+                proc,
+                7,
+                "x07.workload.inspect_v1",
+                {"cwd": str(service_dir)},
+            )
+            _call_tool(
+                proc,
+                8,
+                "x07.topology.preview_v1",
+                {"cwd": str(service_dir)},
+            )
+            _call_tool(
+                proc,
+                9,
+                "lp.release.submit_v1",
+                {
+                    "workload_id": "orders-api",
+                    "pack_digest": "sha256:abc123",
+                },
+            )
+            _call_tool(
+                proc,
+                10,
+                "lp.release.query_v1",
+                {"release_id": "rel-123", "view": "evidence"},
+            )
+            _call_tool(
+                proc,
+                11,
+                "lp.release.explain_v1",
+                {"release_id": "rel-123"},
+            )
+            _call_tool(
+                proc,
+                12,
+                "lp.release.rollback_v1",
+                {"release_id": "rel-123", "reason": "smoke"},
+            )
+            _call_tool(
+                proc,
+                13,
+                "lp.binding.status_v1",
+                {"binding_id": "orders-db"},
+            )
+        finally:
+            if proc.poll() is None:
+                proc.terminate()
+                try:
+                    proc.wait(timeout=2.0)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                    proc.wait(timeout=2.0)
+
+
+def run_stdio_smoke_cmd(
+    command: list[str],
+    cwd: Path,
+    expected_version: str,
+    tool_name: str,
+    tool_arguments: dict[str, Any],
+    extra_env: dict[str, str] | None = None,
+) -> None:
+    proc = _initialize_stdio_session(command, cwd, expected_version, extra_env)
+    try:
+        _call_tool(proc, 2, tool_name, tool_arguments)
     finally:
         if proc.poll() is None:
             proc.terminate()

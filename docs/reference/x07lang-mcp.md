@@ -30,19 +30,42 @@ Primary install docs:
   - `x07.web_ui.exec_v1`
   - `x07.device.exec_v1`
   - `x07.app.exec_v1`
+- Service authoring and workload review:
+  - `x07.service.init_v1`
+  - `x07.service.archetypes_v1`
+  - `x07.service.genpack.schema_v1`
+  - `x07.service.genpack.grammar_v1`
+  - `x07.service.validate_v1`
+  - `x07.workload.inspect_v1`
+  - `x07.topology.preview_v1`
 - Optional platform pack:
   - `lp.query_v1`
   - `lp.control_v1`
+  - `lp.release.submit_v1`
+  - `lp.release.query_v1`
+  - `lp.release.explain_v1`
+  - `lp.release.rollback_v1`
+  - `lp.binding.status_v1`
 
 ## Pack gating
 
 At startup the server detects the local toolchain and writes an effective runtime config plus filtered tools/resources/prompts manifests under `.x07/artifacts/mcp/runtime/`.
 
 - core/search/pkg are enabled when `x07` is available
-- wasm/web-ui/device/app are enabled when `x07-wasm` is available
-- `lp.*` is enabled when `x07lp` is available
+- service authoring is enabled when `x07` is available
+- wasm/web-ui/device/app/workload/topology are enabled when `x07-wasm` is available
+- `lp.*` release/control/binding tools are enabled when `x07lp` is available
 
 `x07.ecosystem.status_v1` is the cheap probe surface for pack availability, detected helper binaries, and workspace signals.
+
+The official server uses the shipped CLIs as the execution backends for these pack tools, so MCP stays aligned with the canonical command surfaces instead of maintaining a second implementation path.
+
+When you need workspace builds or isolated smoke fixtures, path resolution for the companion CLIs is overridable with:
+
+- `X07_MCP_X07_EXE`
+- `X07_MCP_X07_WASM_EXE`
+- `X07_MCP_X07LP_EXE`
+- `X07_MCP_X07_DEVICE_HOST_DESKTOP_EXE`
 
 ## Resources and prompts
 

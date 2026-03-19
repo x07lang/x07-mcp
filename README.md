@@ -150,6 +150,12 @@ agents through `x07://trust/formal-verification`, `x07.doc_v1`, and
 `x07.exec_v1`, so the proof/certificate flow is discoverable without opening
 internal development notes.
 
+The same server also exposes the service-oriented authoring and hosted release
+loop for the new PaaS line: `x07.service.*` for service scaffolding and
+validation, `x07.workload.inspect_v1` / `x07.topology.preview_v1` for bounded
+workload review, and `lp.release.*` plus `lp.binding.status_v1` for hosted
+Sentinel release review through the canonical CLIs.
+
 ## Why x07-mcp
 
 Most MCP frameworks give you a transport layer and leave security, isolation, and testing as an exercise. x07-mcp ships opinions on all three:

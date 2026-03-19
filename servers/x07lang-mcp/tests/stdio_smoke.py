@@ -5,7 +5,12 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-from stdio_smoke_lib import build_bins, expected_server_version, run_stdio_smoke
+from stdio_smoke_lib import (
+    build_bins,
+    expected_server_version,
+    run_paas_surface_smoke,
+    run_stdio_smoke,
+)
 
 
 def main() -> int:
@@ -20,6 +25,11 @@ def main() -> int:
         router_bin,
         server_root,
         fixture_root,
+        expected_server_version(server_root),
+    )
+    run_paas_surface_smoke(
+        router_bin,
+        server_root,
         expected_server_version(server_root),
     )
     return 0

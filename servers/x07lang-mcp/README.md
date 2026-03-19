@@ -34,6 +34,10 @@ Configure your MCP client:
   - `command`: `.../x07lang-mcp.bundle/server/x07lang-mcp`
   - `cwd`: `.../x07lang-mcp.bundle` (so `config/mcp.server.json` + `out/mcp-worker` resolve)
   - env (recommended): `X07_MCP_X07_EXE=/absolute/path/to/x07`
+  - optional helper overrides:
+    - `X07_MCP_X07_WASM_EXE=/absolute/path/to/x07-wasm`
+    - `X07_MCP_X07LP_EXE=/absolute/path/to/x07lp`
+    - `X07_MCP_X07_DEVICE_HOST_DESKTOP_EXE=/absolute/path/to/x07-device-host-desktop`
 
 ## Tools
 - Core:
@@ -56,14 +60,35 @@ Configure your MCP client:
   - `x07.web_ui.exec_v1`
   - `x07.device.exec_v1`
   - `x07.app.exec_v1`
+  - `x07.service.init_v1`
+  - `x07.service.archetypes_v1`
+  - `x07.service.genpack.schema_v1`
+  - `x07.service.genpack.grammar_v1`
+  - `x07.service.validate_v1`
+  - `x07.workload.inspect_v1`
+  - `x07.topology.preview_v1`
   - `lp.query_v1`
   - `lp.control_v1`
+  - `lp.release.submit_v1`
+  - `lp.release.query_v1`
+  - `lp.release.explain_v1`
+  - `lp.release.rollback_v1`
+  - `lp.binding.status_v1`
 
 `x07lang-mcp` writes an effective runtime server config plus filtered tools/resources/prompts manifests under `.x07/artifacts/mcp/runtime/`. The advertised surface is gated by the installed toolchain:
 
 - core/search/pkg when `x07` is available
-- wasm/web-ui/device/app when `x07-wasm` is available
-- `lp.*` when `x07lp` is available
+- service authoring when `x07` is available
+- wasm/web-ui/device/app/workload/topology when `x07-wasm` is available
+- `lp.*` release, control, and binding tools when `x07lp` is available
+
+The service/workload/Sentinel additions keep the same rule as the older pack surfaces: the MCP server shells out to the canonical CLIs instead of carrying a parallel implementation, so CLI behavior and MCP behavior stay aligned.
+
+Typical hosted PaaS loop through the official server:
+
+- scaffold and validate with `x07.service.init_v1`, `x07.service.genpack.*`, and `x07.service.validate_v1`
+- review the bounded workload shape with `x07.workload.inspect_v1` and `x07.topology.preview_v1`
+- submit and review a hosted release with `lp.release.submit_v1`, `lp.release.query_v1`, `lp.release.explain_v1`, `lp.release.rollback_v1`, and `lp.binding.status_v1`
 
 Dedicated pack tools return bounded summaries with file-backed reports and artifacts. Use `x07.artifact_snippet_v1` or resource reads to inspect the full output only when needed.
 
