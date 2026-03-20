@@ -3261,7 +3261,7 @@
     },
     {
       "name": "lp.release.submit_v1",
-      "description": "Submit a hosted Sentinel release candidate through the canonical x07lp CLI.",
+      "description": "Submit a hosted release candidate through the canonical x07lp CLI and return the durable release_id used by the hosted review flow.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -3418,7 +3418,7 @@
     },
     {
       "name": "lp.release.query_v1",
-      "description": "Query a hosted Sentinel release summary or evidence bundle through x07lp.",
+      "description": "Query a hosted release summary or evidence bundle through x07lp using the durable release_id returned at submit time.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -3544,7 +3544,7 @@
     },
     {
       "name": "lp.release.explain_v1",
-      "description": "Fetch the hosted Sentinel review and decision bundle for a release.",
+      "description": "Fetch the hosted review and decision bundle for a durable release_id, including binding, target, and policy-facing diagnostics surfaced by x07lp.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -3662,7 +3662,7 @@
     },
     {
       "name": "lp.release.rollback_v1",
-      "description": "Roll back a hosted Sentinel release through x07lp.",
+      "description": "Roll back a hosted release through x07lp using its durable release_id and return the latest rollback decision diagnostics.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -3787,7 +3787,7 @@
     },
     {
       "name": "lp.binding.status_v1",
-      "description": "Inspect hosted binding health or a single binding detail through x07lp.",
+      "description": "Inspect hosted binding inventory or a single durable binding id through x07lp and surface the public binding diagnostics used by the hosted control plane.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,

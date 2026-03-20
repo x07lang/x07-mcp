@@ -88,13 +88,13 @@ Configure your MCP client:
 - wasm/web-ui/device/app/workload/topology when `x07-wasm` is available
 - `lp.*` release, control, and binding tools when `x07lp` is available
 
-The service/workload/Sentinel additions keep the same rule as the older pack surfaces: the MCP server shells out to the canonical CLIs instead of carrying a parallel implementation, so CLI behavior and MCP behavior stay aligned.
+The service/workload/hosted-release additions keep the same rule as the older pack surfaces: the MCP server shells out to the canonical CLIs instead of carrying a parallel implementation, so CLI behavior and MCP behavior stay aligned. The hosted release tools keep the durable `release_id` returned by `lp.release.submit_v1` as the join key for later query/explain/rollback steps, and the binding tool keeps using hosted `binding_id` values from the public control-plane surface.
 
 Typical hosted PaaS loop through the official server:
 
 - scaffold and validate with `x07.service.init_v1`, `x07.service.genpack.*`, and `x07.service.validate_v1`
 - review the bounded workload shape with `x07.workload.inspect_v1` and `x07.topology.preview_v1`
-- submit and review a hosted release with `lp.release.submit_v1`, `lp.release.query_v1`, `lp.release.explain_v1`, `lp.release.rollback_v1`, and `lp.binding.status_v1`
+- submit and review a hosted release with `lp.release.submit_v1`, then carry the returned durable `release_id` through `lp.release.query_v1`, `lp.release.explain_v1`, and `lp.release.rollback_v1`; use `lp.binding.status_v1` for the related binding diagnostics keyed by durable `binding_id`
 
 Dedicated pack tools return bounded summaries with file-backed reports and artifacts. Use `x07.artifact_snippet_v1` or resource reads to inspect the full output only when needed.
 

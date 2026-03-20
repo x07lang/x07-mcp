@@ -154,7 +154,10 @@ The same server also exposes the service-oriented authoring and hosted release
 loop for the new PaaS line: `x07.service.*` for service scaffolding and
 validation, `x07.workload.inspect_v1` / `x07.topology.preview_v1` for bounded
 workload review, and `lp.release.*` plus `lp.binding.status_v1` for hosted
-Sentinel release review through the canonical CLIs.
+release review through the canonical CLIs. Those hosted tools now center the
+durable `release_id` / `binding_id` values returned by the control plane, so
+agents can chain submit/query/explain/rollback flows without scraping ad hoc
+text output.
 
 ## Why x07-mcp
 
