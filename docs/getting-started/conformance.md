@@ -92,3 +92,5 @@ Run deterministic trust transparency monitor scenarios:
 ```sh
 ./scripts/conformance/run_trust_tlog_scenarios.sh
 ```
+
+This standalone gate auto-stages the pinned checkout's `ext-fs` native backend under `deps/x07/` when it is missing, so it now fails the same way locally and in the scheduled trust-monitor workflow.

@@ -27,6 +27,28 @@ if [[ ! -d "$X07_ROOT" ]]; then
   exit 2
 fi
 
+ensure_workspace_ext_fs_backend() {
+  if [[ -f "$X07_ROOT/deps/x07/libx07_ext_fs.a" || -f "$X07_ROOT/deps/x07/x07_ext_fs.lib" ]]; then
+    return 0
+  fi
+
+  if [[ ! -x "$X07_ROOT/scripts/build_ext_fs.sh" ]]; then
+    echo "ERROR: missing native ext-fs backend and build helper: $X07_ROOT/scripts/build_ext_fs.sh" >&2
+    exit 2
+  fi
+
+  echo "==> stage workspace ext-fs backend"
+  (
+    cd "$X07_ROOT"
+    ./scripts/build_ext_fs.sh >/dev/null
+  )
+
+  if [[ ! -f "$X07_ROOT/deps/x07/libx07_ext_fs.a" && ! -f "$X07_ROOT/deps/x07/x07_ext_fs.lib" ]]; then
+    echo "ERROR: ext-fs backend staging did not produce deps/x07/libx07_ext_fs.* under $X07_ROOT" >&2
+    exit 2
+  fi
+}
+
 require_cmd() {
   if ! command -v "$1" >/dev/null 2>&1; then
     echo "ERROR: missing command: $1" >&2
@@ -36,6 +58,8 @@ require_cmd() {
 
 require_cmd x07
 require_cmd jq
+
+ensure_workspace_ext_fs_backend
 
 trust_modules="$TRUST_DIR/modules"
 trust_os_modules="$TRUST_OS_DIR/modules"

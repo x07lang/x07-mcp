@@ -54,6 +54,15 @@ Mitigation implemented:
 - `scripts/ci/materialize_patch_deps.sh` pre-populates patch paths for jobs that run from a clean checkout without workspace-local `.x07/deps`.
 - `scripts/ci/hydrate_root_deps.sh` and `scripts/ci/hydrate_project_deps.sh` retry `x07 pkg lock --check` to handle transient registry/network failures.
 
+## CI failure mode: trust-tlog monitor missing ext-fs backend
+
+Symptom: `Trust Registry Transparency Monitor` fails in `Run trust-tlog monitor scenarios` with `native ext-fs backend missing (build + stage with ./scripts/build_ext_fs.sh)`.
+
+Mitigation implemented:
+
+- `scripts/conformance/run_trust_tlog_scenarios.sh` now stages `deps/x07/libx07_ext_fs.*` from the pinned local `x07` checkout automatically before it runs the scenarios.
+- `.github/workflows/trust-registry-monitor.yml` now uploads version-agnostic `tests/.tmp/.../audit.jsonl` paths so failed runs keep the trust-monitor evidence even after package-version bumps.
+
 ## Local deps mode (workspace layout)
 
 Some checks run in `X07_MCP_LOCAL_DEPS=1` mode and expect an `x07/` checkout at `../x07` relative to the `x07-mcp/` repo root (matching the `x07lang/` workspace layout).

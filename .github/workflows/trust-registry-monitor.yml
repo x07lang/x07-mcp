@@ -51,7 +51,7 @@ jobs:
         with:
           name: trust-tlog-monitor-audit
           path: |
-            x07-mcp/packages/app/x07-mcp/0.4.0/tests/tests/.tmp/app_tlog_monitor_ok/audit.jsonl
-            x07-mcp/packages/app/x07-mcp/0.4.0/tests/tests/.tmp/app_tlog_monitor_unexpected/audit.jsonl
-            x07-mcp/packages/app/x07-mcp/0.4.0/tests/tests/.tmp/app_tlog_monitor_inconsistent/audit.jsonl
+            x07-mcp/packages/app/x07-mcp/*/tests/.tmp/app_tlog_monitor_ok/audit.jsonl
+            x07-mcp/packages/app/x07-mcp/*/tests/.tmp/app_tlog_monitor_unexpected/audit.jsonl
+            x07-mcp/packages/app/x07-mcp/*/tests/.tmp/app_tlog_monitor_inconsistent/audit.jsonl
           if-no-files-found: ignore
