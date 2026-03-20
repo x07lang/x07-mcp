@@ -197,29 +197,13 @@ ensure_workspace_native_backends() {
 install_project_local_deps_from_workspace() {
   local x07_root="$1"
   local project_dir="$2"
-
-  (
-    cd "$project_dir"
-    local local_deps_dir=".x07/local"
-    mkdir -p "$local_deps_dir"
-
-    while IFS=$'\t' read -r name version; do
-      [[ -n "$name" && -n "$version" ]] || continue
-
-      local src="$root/packages/ext/x07-$name/$version"
-      if [[ ! -d "$src" ]]; then
-        src="$x07_root/packages/ext/x07-$name/$version"
-      fi
-      [[ -d "$src" ]] || { echo "ERROR: missing local package: $name@$version (expected: $src)" >&2; exit 2; }
-
-      x07 pkg remove "$name" >/dev/null 2>&1 || true
-      local dst="$local_deps_dir/$name/$version"
-      rm -rf "$dst"
-      mkdir -p "$(dirname "$dst")"
-      cp -R "$src" "$dst"
-      x07 pkg add "$name@$version" --path "$dst" >/dev/null
-    done < <(jq -r '.dependencies[] | "\(.name)\t\(.version)"' x07.json)
-  )
+  local project_local_deps_log
+  project_local_deps_log="$(mktemp)"
+  tmp_dirs+=("$project_local_deps_log")
+  X07_ROOT="$x07_root" X07_WORKSPACE_ROOT="$root" X07_MCP_LOCAL_USE_PKG_ADD=1 run_quiet \
+    "$project_local_deps_log" \
+    "$root/scripts/ci/materialize_project_local_deps.sh" \
+    "$project_dir/x07.json"
 }
 
 pin_project_toolchain() {
@@ -288,20 +272,42 @@ else
 fi
 
 step "patched project locks (check, local packages)"
+local_deps_patch_root=""
+if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+  local_deps_patch_root="$(workspace_x07_root)"
+fi
 while IFS= read -r proj; do
+  if project_uses_workspace_paths "$proj"; then
+    continue
+  fi
   rm -rf "$root/$(dirname "$proj")/.x07/deps"
 
+  if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+    proj_local_deps_log="$(mktemp)"
+    tmp_dirs+=("$proj_local_deps_log")
+    X07_ROOT="$local_deps_patch_root" X07_WORKSPACE_ROOT="$root" run_quiet \
+      "$proj_local_deps_log" \
+      ./scripts/ci/materialize_project_local_deps.sh "$proj"
+  fi
+
+  patch_dep_workspace_mode="0"
+  if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+    patch_dep_workspace_mode="1"
+  fi
   patch_deps_log="$(mktemp)"
   tmp_dirs+=("$patch_deps_log")
   run_quiet "$patch_deps_log" env \
     X07_MCP_LOCAL_DEPS_REFRESH=1 \
-    X07_MCP_USE_WORKSPACE_PATCH_DEPS=0 \
+    X07_MCP_USE_WORKSPACE_PATCH_DEPS="$patch_dep_workspace_mode" \
     X07_WORKSPACE_ROOT="$root" \
     ./scripts/ci/materialize_patch_deps.sh "$proj"
 
   proj_lock_log="$(mktemp)"
   tmp_dirs+=("$proj_lock_log")
-  X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project "$proj" --check --json=off
+  run_quiet "$proj_lock_log" env \
+    X07_MCP_LOCAL_DEPS=0 \
+    X07_WORKSPACE_ROOT="$root" \
+    x07 pkg lock --project "$proj" --check --json=off
 done < <(iter_patched_lock_projects)
 
 step "x07lang-mcp server deps lock (check)"

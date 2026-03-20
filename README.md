@@ -285,6 +285,12 @@ Before pushing, run:
 ```
 
 That gate includes lock validation, schema/pin checks, and the repo-wide X07 toolchain pin check (`x07-toolchain.toml` plus mirrored workflow env pins).
+For CI-parity lock and smoke checks, run:
+
+```sh
+X07_MCP_LOCAL_DEPS=1 X07_MCP_LOCAL_DEPS_REFRESH=1 X07_MCP_SKIP_STDIO_SMOKE=1 ./scripts/ci/check_all.sh
+```
+
 If you keep a sibling `../x07` checkout around, it must be a clean checkout of the exact pinned tag, or you must point `X07_ROOT` at a matching worktree.
 
 ## Protocol

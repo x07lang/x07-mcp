@@ -29,8 +29,10 @@ Symptom: jobs that validate checked-in template/server locks fail with `X07PKG_L
 Mitigation implemented:
 
 - `.github/workflows/ci.yml` keeps the strict `scripts/ci/hydrate_project_deps.sh` check in `template-mcp-server-http-tests`, so GitHub still rejects stale checked-in locks.
-- `scripts/ci/check_all.sh` now runs a clean temp-copy `x07 pkg lock --check` across all checked-in patched projects under `conformance/`, `templates/`, and `servers/`, so the committed locks must match the registry-resolved graph without any local `x07-mcp/packages` fallback.
-- `scripts/ci/check_all.sh` still runs the `materialize_patch_deps.sh` + `x07 pkg lock --check` flow afterward, with sibling `../x07` fallback disabled, and now clears each project-local `.x07/deps` cache first so stale hydrated packages cannot create false lock drift locally.
+- `scripts/ci/check_all.sh` now clears each project-local `.x07/deps` cache first, then re-materializes any dependency paths that exist under `x07-mcp/packages/` or the pinned sibling `../x07` checkout before it replays `materialize_patch_deps.sh`.
+- In `X07_MCP_LOCAL_DEPS=1` mode, that patched-project lock audit now uses the same pinned workspace package tree as the later bundle/smoke steps instead of silently mixing registry packages back in for direct deps like `ext-mcp-core`.
+- Shared local-deps materialization now lives in `scripts/ci/materialize_project_local_deps.sh`, which both `scripts/ci/check_all.sh` and `servers/_shared/ci/install_server_deps.sh` use.
+- The generic patched-project sweep now skips manifests that still intentionally use `$workspace/...` design-time dependency paths (currently `conformance/client-x07/x07.json`); those are covered by the later temp-copy conformance bundle step instead of the early repo-root lock sweep.
 
 ## CI failure mode: x07lang-mcp bundle smoke misses workspace-local deps
 
@@ -42,6 +44,7 @@ Mitigation implemented:
 - `.github/workflows/ci.yml` also sets `X07_MCP_LOCAL_DEPS=1` explicitly for the `Stdio and installed-bundle smoke` step, so the bundle smoke uses the same local-deps mode as `scripts/ci/check_all.sh`.
 - `scripts/ci/check_all.sh` now runs `servers/_shared/ci/install_server_deps.sh servers/x07lang-mcp` before the long package/scaffold lanes, so stale `servers/x07lang-mcp/x07.lock.json` drift fails fast instead of waiting for the final `x07lang-mcp release smoke`.
 - `servers/_shared/ci/install_server_deps.sh` now forwards `x07 pkg lock --check` mismatch output to stderr, so callers that silence stdout still show the real `X07PKG_LOCK_MISMATCH` cause.
+- `servers/_shared/ci/install_server_deps.sh` now uses the shared `scripts/ci/materialize_project_local_deps.sh` helper, so detached local worktrees fail with a clear pinned-`x07` error instead of silently exiting under `set -e`.
 - Local helpers now reject a sibling `../x07` checkout unless it is a clean checkout of the exact pinned tag from `x07-toolchain.toml`; use `X07_ROOT` to point checks at a matching worktree when the main sibling checkout is ahead.
 
 ## CI failure mode: missing patch dependency paths
