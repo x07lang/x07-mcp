@@ -276,6 +276,17 @@ Full docs live in [`docs/`](docs/SUMMARY.md):
 - **Concepts:** [Router/worker](docs/concepts/router-worker.md) · [Tool schemas](docs/concepts/tool-schemas.md) · [Sandbox](docs/concepts/sandbox.md) · [Tasks](docs/concepts/tasks.md) · [Record/replay](docs/concepts/record-replay.md) · [HTTP SSE](docs/concepts/http-sse.md)
 - **Reference:** [Server config](docs/reference/server-config.md) · [OAuth config](docs/reference/oauth-config.md) · [Tools manifest](docs/reference/tools-manifest.md) · [Packages](docs/reference/packages.md) · [Pins](docs/reference/pins.md) · [Reference servers](docs/reference/servers.md)
 
+## Validation
+
+Before pushing, run:
+
+```sh
+./scripts/ci/check_all.sh
+```
+
+That gate includes lock validation, schema/pin checks, and the repo-wide X07 toolchain pin check (`x07-toolchain.toml` plus mirrored workflow env pins).
+If you keep a sibling `../x07` checkout around, it must be a clean checkout of the exact pinned tag, or you must point `X07_ROOT` at a matching worktree.
+
 ## Protocol
 
 Pinned to MCP protocol version **2025-11-25** (backward-compatible with `2025-06-18` and `2025-03-26`, negotiated at `initialize`).

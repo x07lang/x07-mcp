@@ -32,6 +32,18 @@ Mitigation implemented:
 - `scripts/ci/check_all.sh` now runs a clean temp-copy `x07 pkg lock --check` across all checked-in patched projects under `conformance/`, `templates/`, and `servers/`, so the committed locks must match the registry-resolved graph without any local `x07-mcp/packages` fallback.
 - `scripts/ci/check_all.sh` still runs the `materialize_patch_deps.sh` + `x07 pkg lock --check` flow afterward, with sibling `../x07` fallback disabled, and now clears each project-local `.x07/deps` cache first so stale hydrated packages cannot create false lock drift locally.
 
+## CI failure mode: x07lang-mcp bundle smoke misses workspace-local deps
+
+Symptom: `ci / check` fails in `x07lang-mcp release smoke` or `tests/published_bundle_smoke.py` because `servers/_shared/ci/install_server_deps.sh` falls back to registry hydration even though the workflow checked out `../x07`.
+
+Mitigation implemented:
+
+- `servers/x07lang-mcp/tests/stdio_smoke_lib.py` now enables `X07_MCP_LOCAL_DEPS=1` whenever the sibling `../x07` source checkout exists; it no longer requires a built `../x07/target/debug/x07`.
+- `.github/workflows/ci.yml` also sets `X07_MCP_LOCAL_DEPS=1` explicitly for the `Stdio and installed-bundle smoke` step, so the bundle smoke uses the same local-deps mode as `scripts/ci/check_all.sh`.
+- `scripts/ci/check_all.sh` now runs `servers/_shared/ci/install_server_deps.sh servers/x07lang-mcp` before the long package/scaffold lanes, so stale `servers/x07lang-mcp/x07.lock.json` drift fails fast instead of waiting for the final `x07lang-mcp release smoke`.
+- `servers/_shared/ci/install_server_deps.sh` now forwards `x07 pkg lock --check` mismatch output to stderr, so callers that silence stdout still show the real `X07PKG_LOCK_MISMATCH` cause.
+- Local helpers now reject a sibling `../x07` checkout unless it is a clean checkout of the exact pinned tag from `x07-toolchain.toml`; use `X07_ROOT` to point checks at a matching worktree when the main sibling checkout is ahead.
+
 ## CI failure mode: missing patch dependency paths
 
 Symptom: jobs fail in dependency hydration with `X07PKG_PATCH_MISSING_DEP` (for example `ext-u64-rs@0.1.4` in root `x07.json`, or `ext-net@0.1.10` in `conformance/client-x07/x07.json`).

@@ -7,8 +7,13 @@ VERSION="${2:?missing version}"
 SERVER_ROOT="${ROOT}/servers/${SERVER_ID}"
 OUT_DIR="${SERVER_ROOT}/dist"
 OUT_FILE="${OUT_DIR}/${SERVER_ID}.mcpb"
+x07_root_resolver="${ROOT}/scripts/ci/resolve_workspace_x07_root.sh"
 
 mkdir -p "${OUT_DIR}"
+
+has_workspace_x07_candidate() {
+  [[ -n "${X07_ROOT:-}" ]] || [[ -d "${ROOT}/x07" ]] || [[ -d "${ROOT}/../x07" ]]
+}
 
 resolve_x07_bin() {
   if [[ -n "${X07_MCP_X07_EXE:-}" ]]; then
@@ -20,10 +25,14 @@ resolve_x07_bin() {
     return 0
   fi
 
-  local workspace_x07="${ROOT}/../x07/target/debug/x07"
-  if [[ -x "${workspace_x07}" ]]; then
-    printf '%s\n' "${workspace_x07}"
-    return 0
+  if has_workspace_x07_candidate; then
+    local workspace_root=""
+    workspace_root="$("${x07_root_resolver}")"
+    local workspace_x07="${workspace_root}/target/debug/x07"
+    if [[ -x "${workspace_x07}" ]]; then
+      printf '%s\n' "${workspace_x07}"
+      return 0
+    fi
   fi
 
   command -v x07

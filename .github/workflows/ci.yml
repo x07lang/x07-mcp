@@ -10,8 +10,8 @@ permissions:
 env:
   X07_MCP_LOCK_RETRIES: "5"
   X07_MCP_LOCK_RETRY_DELAY_SECS: "3"
-  X07_TOOLCHAIN_TAG: "v0.1.83"
-  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-0.1.83-x86_64-unknown-linux-gnu.tar.gz"
+  X07_TOOLCHAIN_TAG: "v0.1.93"
+  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-0.1.93-x86_64-unknown-linux-gnu.tar.gz"
 
 jobs:
   check:
@@ -62,8 +62,8 @@ jobs:
         shell: bash
         working-directory: x07-mcp/servers/x07lang-mcp
         run: |
-          X07_MCP_LOCAL_DEPS_REFRESH=1 timeout 1800 python3 tests/stdio_smoke.py
-          X07_MCP_LOCAL_DEPS_REFRESH=1 timeout 1800 python3 tests/published_bundle_smoke.py
+          X07_MCP_LOCAL_DEPS=1 X07_MCP_LOCAL_DEPS_REFRESH=1 timeout 1800 python3 tests/stdio_smoke.py
+          X07_MCP_LOCAL_DEPS=1 X07_MCP_LOCAL_DEPS_REFRESH=1 timeout 1800 python3 tests/published_bundle_smoke.py
 
   registry-fixtures:
     name: ci / registry-fixtures

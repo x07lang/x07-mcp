@@ -114,14 +114,47 @@ def expected_server_version(server_root: Path) -> str:
     return version
 
 
+def _workspace_x07_candidates(server_root: Path) -> list[Path]:
+    candidates: list[Path] = []
+    if os.environ.get("X07_ROOT"):
+        candidates.append(Path(os.environ["X07_ROOT"]).resolve())
+    candidates.extend(
+        [
+            server_root.parents[2] / "x07",
+            Path(__file__).resolve().parents[4] / "x07",
+        ]
+    )
+    return candidates
+
+
+def source_repo_root() -> Path:
+    return Path(__file__).resolve().parents[3]
+
+
 def workspace_x07_root(server_root: Path) -> Path | None:
-    candidates = [
-        server_root.parents[2] / "x07",
-        Path(__file__).resolve().parents[4] / "x07",
-    ]
-    for candidate in candidates:
+    saw_candidate = False
+    for candidate in _workspace_x07_candidates(server_root):
         if candidate.is_dir():
-            return candidate
+            saw_candidate = True
+            break
+    if not saw_candidate:
+        return None
+
+    repo_root = source_repo_root()
+    resolver = repo_root / "scripts" / "ci" / "resolve_workspace_x07_root.sh"
+    resolved = subprocess.run(
+        [str(resolver)],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if resolved.returncode != 0:
+        detail = resolved.stderr.strip() or resolved.stdout.strip() or "failed to resolve pinned x07 workspace"
+        raise RuntimeError(detail)
+    candidate = Path(resolved.stdout.strip())
+    if candidate.is_dir():
+        return candidate
     return None
 
 
@@ -154,11 +187,12 @@ def resolved_x07_exe(server_root: Path) -> Path | None:
 
 def tool_env(server_root: Path) -> dict[str, str]:
     env = os.environ.copy()
+    workspace_x07 = workspace_x07_root(server_root)
     x07_exe = resolved_x07_exe(server_root)
     if x07_exe is not None:
         env["X07_MCP_X07_EXE"] = str(x07_exe)
         env["PATH"] = f"{x07_exe.parent}{os.pathsep}{env.get('PATH', '')}"
-    if workspace_x07_exe(server_root) is not None:
+    if workspace_x07 is not None:
         env.setdefault("X07_MCP_LOCAL_DEPS", "1")
         env.setdefault("X07_MCP_LOCAL_DEPS_REFRESH", "1")
     return env

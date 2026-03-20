@@ -9,8 +9,8 @@ permissions:
   contents: read
 
 env:
-  X07_TOOLCHAIN_TAG: "v0.1.79"
-  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-0.1.79-x86_64-unknown-linux-gnu.tar.gz"
+  X07_TOOLCHAIN_TAG: "v0.1.93"
+  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-0.1.93-x86_64-unknown-linux-gnu.tar.gz"
 
 jobs:
   monitor:
@@ -40,7 +40,7 @@ jobs:
       - name: Install X07 (pinned)
         shell: bash
         working-directory: x07-mcp
-        run: ./scripts/ci/install_x07_toolchain.sh
+        run: X07_TOOLCHAIN_SOURCE_DIR="$(./scripts/ci/resolve_workspace_x07_root.sh)" ./scripts/ci/install_x07_toolchain.sh
       - name: Run trust-tlog monitor scenarios
         shell: bash
         working-directory: x07-mcp

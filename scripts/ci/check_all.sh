@@ -162,6 +162,13 @@ workspace_x07_root() {
   "${x07_root_resolver}"
 }
 
+uses_workspace_x07_bin() {
+  local root_path=""
+  root_path="$(workspace_x07_root 2>/dev/null || true)"
+  [[ -n "${root_path}" ]] || return 1
+  [[ "${X07_BIN}" == "${root_path}/target/debug/x07" ]]
+}
+
 ensure_workspace_native_backends() {
   local x07_root="$1"
   local required_backends=(
@@ -256,7 +263,7 @@ check_project_lock_clean_registry() {
 step "x07 version"
 x07 --version
 
-if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+if uses_workspace_x07_bin || [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   ensure_workspace_native_backends "$(workspace_x07_root)"
 fi
 
@@ -296,6 +303,9 @@ while IFS= read -r proj; do
   tmp_dirs+=("$proj_lock_log")
   X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project "$proj" --check --json=off
 done < <(iter_patched_lock_projects)
+
+step "x07lang-mcp server deps lock (check)"
+./servers/_shared/ci/install_server_deps.sh servers/x07lang-mcp >/dev/null
 
 step "external-packages lock (check)"
 python3 scripts/generate_external_packages_lock.py --packages-root packages/ext --out locks/external-packages.lock --check >/dev/null

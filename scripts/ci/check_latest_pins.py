@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -11,6 +12,11 @@ from pathlib import Path
 
 _SEMVER_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)(?:[-+].*)?$")
 _LATEST_PROJECT_SCHEMA = "x07.project@0.4.0"
+_X07_TOOLCHAIN_WORKFLOW_FILES = (
+    Path(".github/workflows/ci.yml"),
+    Path(".github/workflows/perf-smoke.yml"),
+    Path(".github/workflows/trust-registry-monitor.yml"),
+)
 
 
 @dataclass(frozen=True, order=True)
@@ -31,10 +37,23 @@ def _repo_root() -> Path:
     return Path(__file__).resolve().parents[2]
 
 
+def _valid_workspace_x07_root(candidate: Path) -> bool:
+    return candidate.is_dir() and (candidate / "crates" / "x07").is_dir() and (candidate / "stdlib.lock").is_file()
+
+
 def _workspace_x07_root(repo_root: Path) -> Path | None:
-    candidate = repo_root.parent / "x07"
-    if candidate.is_dir():
-        return candidate
+    env_root = os.environ.get("X07_ROOT", "")
+    if env_root:
+        env_path = Path(env_root)
+        candidates = [env_path] if env_path.is_absolute() else [Path.cwd() / env_path, repo_root / env_path]
+        for candidate in candidates:
+            candidate = candidate.resolve()
+            if _valid_workspace_x07_root(candidate):
+                return candidate
+    for candidate in (repo_root / "x07", repo_root.parent / "x07"):
+        candidate = candidate.resolve()
+        if _valid_workspace_x07_root(candidate):
+            return candidate
     return None
 
 
@@ -91,6 +110,10 @@ def _load_json(path: Path) -> object:
         return json.load(f)
 
 
+def _load_text(path: Path) -> str:
+    return path.read_text(encoding="utf-8")
+
+
 def _iter_x07_projects(repo_root: Path) -> list[Path]:
     paths: list[Path] = []
     paths.append(repo_root / "x07.json")
@@ -144,6 +167,83 @@ def _iter_x07_json_files(repo_root: Path) -> list[Path]:
                 continue
             out.append(p)
     return sorted(set(out))
+
+
+def _extract_toml_string(path: Path, key: str) -> str | None:
+    m = re.search(rf'^\s*{re.escape(key)}\s*=\s*"([^"]+)"\s*$', _load_text(path), re.MULTILINE)
+    if m is None:
+        return None
+    return m.group(1)
+
+
+def _extract_yaml_env_string(path: Path, key: str) -> str | None:
+    m = re.search(rf'^\s*{re.escape(key)}:\s*"([^"]+)"\s*$', _load_text(path), re.MULTILINE)
+    if m is None:
+        return None
+    return m.group(1)
+
+
+def _workspace_x07_release_tag(repo_root: Path) -> str | None:
+    workspace_x07 = _workspace_x07_root(repo_root)
+    if workspace_x07 is None:
+        return None
+    cargo_toml = workspace_x07 / "crates" / "x07" / "Cargo.toml"
+    if not cargo_toml.is_file():
+        return None
+    version = _extract_toml_string(cargo_toml, "version")
+    if version is None:
+        return None
+    return f"v{version}"
+
+
+def _linux_x64_tarball_for_tag(tag: str) -> str | None:
+    if not tag.startswith("v"):
+        return None
+    version = tag.removeprefix("v")
+    if _parse_semver(version) is None:
+        return None
+    return f"x07-{version}-x86_64-unknown-linux-gnu.tar.gz"
+
+
+def _git_stdout(repo_root: Path, *args: str) -> str | None:
+    cp = subprocess.run(
+        ["git", *args],
+        cwd=repo_root,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        check=False,
+    )
+    if cp.returncode != 0:
+        return None
+    return cp.stdout.strip()
+
+
+def _workspace_x07_state_error(repo_root: Path, pinned_tag: str) -> str | None:
+    workspace_x07 = _workspace_x07_root(repo_root)
+    if workspace_x07 is None:
+        return None
+
+    if _git_stdout(workspace_x07, "rev-parse", "--git-dir") is None:
+        return f"{workspace_x07}: not a git repo; cannot verify pinned tag {pinned_tag!r}"
+
+    head_sha = _git_stdout(workspace_x07, "rev-parse", "HEAD^{commit}")
+    tag_sha = _git_stdout(workspace_x07, "rev-parse", f"{pinned_tag}^{{commit}}")
+    if not head_sha or not tag_sha:
+        return f"{workspace_x07}: missing pinned tag {pinned_tag!r}; set X07_ROOT to a matching worktree"
+    if head_sha != tag_sha:
+        return (
+            f"{workspace_x07}: workspace x07 checkout drift: "
+            f"HEAD={head_sha[:12]!r} pinned {pinned_tag}={tag_sha[:12]!r}; "
+            "checkout the pinned tag or set X07_ROOT to a matching worktree"
+        )
+
+    dirty = _git_stdout(workspace_x07, "status", "--short", "--untracked-files=no")
+    if dirty is None:
+        return f"{workspace_x07}: failed to read git status for pinned tag validation"
+    if dirty:
+        return f"{workspace_x07}: workspace x07 checkout has tracked local modifications; use a clean pinned-tag worktree"
+    return None
 
 
 def _schema_const_from_file(path: Path) -> str | None:
@@ -258,6 +358,41 @@ def main() -> int:
     latest_pkg = _combined_latest_package_versions(packages_roots)
 
     errors: list[str] = []
+    pinned_toolchain_path = repo_root / "x07-toolchain.toml"
+    pinned_toolchain_tag = _extract_toml_string(pinned_toolchain_path, "channel")
+    if pinned_toolchain_tag is None:
+        errors.append(f"{pinned_toolchain_path}: missing channel pin")
+    else:
+        workspace_state_error = _workspace_x07_state_error(repo_root, pinned_toolchain_tag)
+        if workspace_state_error is not None:
+            errors.append(workspace_state_error)
+
+        workspace_x07_tag = _workspace_x07_release_tag(repo_root)
+        if workspace_x07_tag is not None and pinned_toolchain_tag != workspace_x07_tag:
+            errors.append(
+                f"{pinned_toolchain_path}: channel drift: got {pinned_toolchain_tag!r} want {workspace_x07_tag!r}"
+            )
+
+        want_tarball = _linux_x64_tarball_for_tag(pinned_toolchain_tag)
+        if want_tarball is None:
+            errors.append(
+                f"{pinned_toolchain_path}: invalid pinned toolchain tag: {pinned_toolchain_tag!r}"
+            )
+        else:
+            for rel_path in _X07_TOOLCHAIN_WORKFLOW_FILES:
+                workflow_path = repo_root / rel_path
+                workflow_tag = _extract_yaml_env_string(workflow_path, "X07_TOOLCHAIN_TAG")
+                if workflow_tag != pinned_toolchain_tag:
+                    errors.append(
+                        f"{workflow_path}: X07_TOOLCHAIN_TAG drift: got {workflow_tag!r} want {pinned_toolchain_tag!r}"
+                    )
+                workflow_tarball = _extract_yaml_env_string(
+                    workflow_path, "X07_TOOLCHAIN_TARBALL_LINUX_X64"
+                )
+                if workflow_tarball != want_tarball:
+                    errors.append(
+                        f"{workflow_path}: X07_TOOLCHAIN_TARBALL_LINUX_X64 drift: got {workflow_tarball!r} want {want_tarball!r}"
+                    )
 
     for proj in _iter_x07_projects(repo_root):
         doc = _load_json(proj)
