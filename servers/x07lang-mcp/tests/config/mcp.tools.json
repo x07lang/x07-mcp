@@ -8,29 +8,85 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "query": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
           "domain": {
             "type": "string",
-            "enum": ["resources", "docs", "skills", "examples", "stdlib", "packages", "all"],
+            "enum": [
+              "resources",
+              "docs",
+              "skills",
+              "examples",
+              "stdlib",
+              "packages",
+              "all"
+            ],
             "default": "all"
           },
-          "repo_root": { "type": "string", "minLength": 0, "maxLength": 1024, "default": "" },
-          "limit": { "type": "integer", "minimum": 1, "maximum": 20, "default": 5 },
-          "max_files": { "type": "integer", "minimum": 1, "maximum": 2000, "default": 400 },
-          "max_read_bytes": { "type": "integer", "minimum": 256, "maximum": 65536, "default": 8192 },
-          "snippet_max_bytes": { "type": "integer", "minimum": 32, "maximum": 1024, "default": 240 }
+          "repo_root": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "default": 5
+          },
+          "max_files": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2000,
+            "default": 400
+          },
+          "max_read_bytes": {
+            "type": "integer",
+            "minimum": 256,
+            "maximum": 65536,
+            "default": 8192
+          },
+          "snippet_max_bytes": {
+            "type": "integer",
+            "minimum": 32,
+            "maximum": 1024,
+            "default": 240
+          }
         },
-        "required": ["query"]
+        "required": [
+          "query"
+        ]
       },
-      "annotations": { "readOnlyHint": true, "idempotentHint": true },
-      "auth": { "required_scopes": ["mcp:tools"] },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
       "x07": {
         "impl": "mcp.user.call_tool_v1",
         "limits_profile": "mcp_tool_readonly_v1",
         "sandbox": {
           "fs": {
-            "read_roots": ["config", ".", "/Users/", "/home/", "/tmp/", "/private/tmp/", "/var/folders/"],
-            "write_roots": [".x07"]
+            "read_roots": [
+              "config",
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07"
+            ]
           },
           "net": {},
           "env": {}
@@ -44,19 +100,47 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "uri": { "type": "string", "minLength": 1, "maxLength": 256 },
-          "start": { "type": "integer", "minimum": 0, "maximum": 100000000, "default": 0 },
-          "max_bytes": { "type": "integer", "minimum": 1, "maximum": 8192, "default": 512 }
+          "uri": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "start": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000000,
+            "default": 0
+          },
+          "max_bytes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8192,
+            "default": 512
+          }
         },
-        "required": ["uri"]
+        "required": [
+          "uri"
+        ]
       },
-      "annotations": { "readOnlyHint": true, "idempotentHint": true },
-      "auth": { "required_scopes": ["mcp:tools"] },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
       "x07": {
         "impl": "mcp.user.call_tool_v1",
         "limits_profile": "mcp_tool_readonly_v1",
         "sandbox": {
-          "fs": { "read_roots": ["config"], "write_roots": [] },
+          "fs": {
+            "read_roots": [
+              "config"
+            ],
+            "write_roots": []
+          },
           "net": {},
           "env": {}
         }
@@ -69,23 +153,108 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "query": { "type": "string", "minLength": 1, "maxLength": 512 },
-          "project_path": { "type": "string", "minLength": 0, "maxLength": 512, "default": "" },
-          "report_path": { "type": "string", "minLength": 1, "maxLength": 512, "default": ".x07/artifacts/mcp/doc/report.json" },
-          "max_exports": { "type": "integer", "minimum": 0, "maximum": 64, "default": 12 },
-          "timeout_ms": { "type": "integer", "minimum": 1, "maximum": 120000, "default": 10000 }
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "project_path": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 512,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "default": ".x07/artifacts/mcp/doc/report.json"
+          },
+          "max_exports": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 64,
+            "default": 12
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 120000,
+            "default": 10000
+          }
         },
-        "required": ["query"]
+        "required": [
+          "query"
+        ]
       },
-      "annotations": { "readOnlyHint": true, "idempotentHint": true },
-      "auth": { "required_scopes": ["mcp:tools"] },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
       "x07": {
         "impl": "mcp.user.call_tool_v1",
         "limits_profile": "mcp_tool_readonly_v1",
         "sandbox": {
-          "fs": { "read_roots": ["."], "write_roots": ["target", ".x07"] },
+          "fs": {
+            "read_roots": [
+              "."
+            ],
+            "write_roots": [
+              "target",
+              ".x07"
+            ]
+          },
           "net": {},
-          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 120000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
         }
       }
     },
@@ -96,22 +265,102 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "query": { "type": "string", "minLength": 1, "maxLength": 128 },
-          "k": { "type": "integer", "minimum": 1, "maximum": 25, "default": 10 },
-          "timeout_ms": { "type": "integer", "minimum": 1, "maximum": 120000, "default": 8000 },
-          "cache_path": { "type": "string", "minLength": 1, "maxLength": 512, "default": ".x07/artifacts/mcp/cache/cli.specrows.json" }
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "k": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 25,
+            "default": 10
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 120000,
+            "default": 8000
+          },
+          "cache_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "default": ".x07/artifacts/mcp/cache/cli.specrows.json"
+          }
         },
-        "required": ["query"]
+        "required": [
+          "query"
+        ]
       },
-      "annotations": { "readOnlyHint": true, "idempotentHint": true },
-      "auth": { "required_scopes": ["mcp:tools"] },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
       "x07": {
         "impl": "mcp.user.call_tool_v1",
         "limits_profile": "mcp_tool_readonly_v1",
         "sandbox": {
-          "fs": { "read_roots": ["."], "write_roots": ["target", ".x07"] },
+          "fs": {
+            "read_roots": [
+              "."
+            ],
+            "write_roots": [
+              "target",
+              ".x07"
+            ]
+          },
           "net": {},
-          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 120000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
         }
       }
     },
@@ -126,34 +375,134 @@
             "type": "array",
             "minItems": 1,
             "maxItems": 16,
-            "items": { "type": "string", "minLength": 1, "maxLength": 128 },
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
             "description": "Preferred x07 argument list without the leading x07 binary name. If both args and argv are present, args is used."
           },
           "argv": {
             "type": "array",
             "minItems": 1,
             "maxItems": 16,
-            "items": { "type": "string", "minLength": 1, "maxLength": 128 },
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
             "description": "Compatibility argv form. The leading x07 entry is optional and ignored when present. Used only when args is absent."
           },
-          "cwd": { "type": "string", "minLength": 0, "maxLength": 512, "default": "" },
-          "stdin": { "type": "string", "maxLength": 8192, "default": "" },
-          "timeout_ms": { "type": "integer", "minimum": 1, "maximum": 600000, "default": 60000 },
-          "max_stdout_bytes": { "type": "integer", "minimum": 0, "maximum": 262144, "default": 16384 },
-          "max_stderr_bytes": { "type": "integer", "minimum": 0, "maximum": 262144, "default": 16384 },
-          "stdout_path": { "type": "string", "minLength": 1, "maxLength": 512, "default": ".x07/artifacts/mcp/exec/stdout.txt" },
-          "stderr_path": { "type": "string", "minLength": 1, "maxLength": 512, "default": ".x07/artifacts/mcp/exec/stderr.txt" }
+          "cwd": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 512,
+            "default": ""
+          },
+          "stdin": {
+            "type": "string",
+            "maxLength": 8192,
+            "default": ""
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 600000,
+            "default": 60000
+          },
+          "max_stdout_bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 262144,
+            "default": 16384
+          },
+          "max_stderr_bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 262144,
+            "default": 16384
+          },
+          "stdout_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "default": ".x07/artifacts/mcp/exec/stdout.txt"
+          },
+          "stderr_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "default": ".x07/artifacts/mcp/exec/stderr.txt"
+          }
         }
       },
-      "annotations": { "readOnlyHint": false, "idempotentHint": false },
-      "auth": { "required_scopes": ["mcp:tools"] },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
       "x07": {
         "impl": "mcp.user.call_tool_v1",
         "limits_profile": "mcp_tool_standard_v1",
         "sandbox": {
-          "fs": { "read_roots": ["."], "write_roots": ["."] },
+          "fs": {
+            "read_roots": [
+              "."
+            ],
+            "write_roots": [
+              "."
+            ]
+          },
           "net": {},
-          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 600000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
         }
       }
     },
@@ -164,23 +513,106 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "repo_root": { "type": "string", "minLength": 1, "maxLength": 1024 },
-          "mode": { "type": "string", "enum": ["write", "check"], "default": "write" },
-          "write": { "type": "boolean", "default": true, "description": "Deprecated; prefer mode." },
-          "patchset_path": { "type": "string", "minLength": 1, "maxLength": 1024, "default": ".x07/artifacts/mcp/patch/patchset.json" },
-          "patchset": { "type": "object" }
+          "repo_root": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "write",
+              "check"
+            ],
+            "default": "write"
+          },
+          "write": {
+            "type": "boolean",
+            "default": true,
+            "description": "Deprecated; prefer mode."
+          },
+          "patchset_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/patch/patchset.json"
+          },
+          "patchset": {
+            "type": "object"
+          }
         },
-        "required": ["repo_root", "patchset"]
+        "required": [
+          "repo_root",
+          "patchset"
+        ]
       },
-      "annotations": { "readOnlyHint": false, "idempotentHint": false },
-      "auth": { "required_scopes": ["mcp:tools"] },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
       "x07": {
         "impl": "mcp.user.call_tool_v1",
         "limits_profile": "mcp_tool_standard_v1",
         "sandbox": {
-          "fs": { "read_roots": ["."], "write_roots": ["."] },
+          "fs": {
+            "read_roots": [
+              "."
+            ],
+            "write_roots": [
+              "."
+            ]
+          },
           "net": {},
-          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 600000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
         }
       }
     },
@@ -201,20 +633,82 @@
             "type": "array",
             "minItems": 1,
             "maxItems": 64,
-            "items": { "type": "string", "minLength": 1, "maxLength": 1024 },
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
             "description": "Multiple input files. Takes precedence over path when present."
           }
         }
       },
-      "annotations": { "readOnlyHint": false, "idempotentHint": false },
-      "auth": { "required_scopes": ["mcp:tools"] },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
       "x07": {
         "impl": "mcp.user.call_tool_v1",
         "limits_profile": "mcp_tool_standard_v1",
         "sandbox": {
-          "fs": { "read_roots": ["."], "write_roots": ["."] },
+          "fs": {
+            "read_roots": [
+              "."
+            ],
+            "write_roots": [
+              "."
+            ]
+          },
           "net": {},
-          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 60000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
         }
       }
     },
@@ -225,20 +719,89 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "input_path": { "type": "string", "minLength": 1, "maxLength": 1024 },
-          "report_path": { "type": "string", "minLength": 1, "maxLength": 1024, "default": ".x07/artifacts/mcp/lint/report.json" }
+          "input_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/lint/report.json"
+          }
         },
-        "required": ["input_path"]
+        "required": [
+          "input_path"
+        ]
       },
-      "annotations": { "readOnlyHint": false, "idempotentHint": false },
-      "auth": { "required_scopes": ["mcp:tools"] },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
       "x07": {
         "impl": "mcp.user.call_tool_v1",
         "limits_profile": "mcp_tool_standard_v1",
         "sandbox": {
-          "fs": { "read_roots": ["."], "write_roots": ["."] },
+          "fs": {
+            "read_roots": [
+              "."
+            ],
+            "write_roots": [
+              "."
+            ]
+          },
           "net": {},
-          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
         }
       }
     },
@@ -249,25 +812,126 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "diag_path": { "type": "string", "minLength": 1, "maxLength": 1024 },
-          "project_path": { "type": "string", "minLength": 1, "maxLength": 1024, "default": "x07.json" },
-          "out_path": { "type": "string", "minLength": 1, "maxLength": 1024, "default": ".x07/artifacts/mcp/context/pack.json" },
-          "max_bytes": { "type": "integer", "minimum": 1024, "maximum": 1048576, "default": 100000 },
-          "max_nodes": { "type": "integer", "minimum": 100, "maximum": 200000, "default": 2000 },
-          "enclosure": { "type": "string", "enum": ["decl", "defn", "module"], "default": "decl" },
-          "closure": { "type": "string", "enum": ["locals", "types", "imports", "all"], "default": "imports" }
+          "diag_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "project_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": "x07.json"
+          },
+          "out_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/context/pack.json"
+          },
+          "max_bytes": {
+            "type": "integer",
+            "minimum": 1024,
+            "maximum": 1048576,
+            "default": 100000
+          },
+          "max_nodes": {
+            "type": "integer",
+            "minimum": 100,
+            "maximum": 200000,
+            "default": 2000
+          },
+          "enclosure": {
+            "type": "string",
+            "enum": [
+              "decl",
+              "defn",
+              "module"
+            ],
+            "default": "decl"
+          },
+          "closure": {
+            "type": "string",
+            "enum": [
+              "locals",
+              "types",
+              "imports",
+              "all"
+            ],
+            "default": "imports"
+          }
         },
-        "required": ["diag_path"]
+        "required": [
+          "diag_path"
+        ]
       },
-      "annotations": { "readOnlyHint": false, "idempotentHint": false },
-      "auth": { "required_scopes": ["mcp:tools"] },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
       "x07": {
         "impl": "mcp.user.call_tool_v1",
         "limits_profile": "mcp_tool_standard_v1",
         "sandbox": {
-          "fs": { "read_roots": ["."], "write_roots": ["."] },
+          "fs": {
+            "read_roots": [
+              "."
+            ],
+            "write_roots": [
+              "."
+            ]
+          },
           "net": {},
-          "env": { "allowlist": ["HOME", "X07_MCP_X07_EXE"] }
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
         }
       }
     },
@@ -278,22 +942,95 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "path": { "type": "string", "minLength": 1, "maxLength": 1024 },
-          "start": { "type": "integer", "minimum": 0, "maximum": 100000000, "default": 0 },
-          "max_bytes": { "type": "integer", "minimum": 1, "maximum": 65536, "default": 4096 },
-          "ptr": { "type": "string", "minLength": 0, "maxLength": 2048, "default": "" }
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "start": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000000,
+            "default": 0
+          },
+          "max_bytes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 65536,
+            "default": 4096
+          },
+          "ptr": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 2048,
+            "default": ""
+          }
         },
-        "required": ["path"]
+        "required": [
+          "path"
+        ]
       },
-      "annotations": { "readOnlyHint": true, "idempotentHint": true },
-      "auth": { "required_scopes": ["mcp:tools"] },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
       "x07": {
         "impl": "mcp.user.call_tool_v1",
         "limits_profile": "mcp_tool_readonly_v1",
         "sandbox": {
-          "fs": { "read_roots": ["."], "write_roots": [] },
+          "fs": {
+            "read_roots": [
+              "."
+            ],
+            "write_roots": []
+          },
           "net": {},
-          "env": { "allowlist": ["PATH"] }
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "env": {
+            "allowlist": [
+              "PATH"
+            ]
+          }
         }
       }
     }

@@ -52,6 +52,7 @@ class WorkbenchSummaryTests(unittest.TestCase):
         self.server_dir = self.repo_root / "servers" / "x07lang-mcp"
         self.server_json = self.server_dir / "publish" / "server.mcp-registry.json"
         self.server_manifest = self.server_dir / "x07.mcp.json"
+        self.tools_config = self.server_dir / "config" / "mcp.tools.json"
         self.mcpb_path = self.server_dir / "dist" / "x07lang-mcp.mcpb"
         self.schema_path = self.repo_root / "registry" / "schema" / "server.schema.2025-12-11.json"
         self.schema_url = "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json"
@@ -68,7 +69,8 @@ class WorkbenchSummaryTests(unittest.TestCase):
         self.assertTrue(summary["ok"])
         self.assertEqual(summary["status"], "ready")
         self.assertEqual(summary["publish"]["manifest_version"], "0.3")
-        self.assertEqual(summary["capabilities"]["tool_count"], 19)
+        tools_doc = json.loads(self.tools_config.read_text(encoding="utf-8"))
+        self.assertEqual(summary["capabilities"]["tool_count"], len(tools_doc.get("tools", [])))
         self.assertIsInstance(trust_summary, dict)
         self.assertEqual(manifest_path, self.server_manifest)
 

@@ -25,6 +25,7 @@ fi
 project_dir="$(cd "$(dirname "${project_abs}")" && pwd)"
 workspace_root="${X07_WORKSPACE_ROOT:-${ROOT}}"
 use_workspace_patch_deps="${X07_MCP_USE_WORKSPACE_PATCH_DEPS:-1}"
+refresh_patch_deps="${X07_MCP_LOCAL_DEPS_REFRESH:-0}"
 workspace_x07_root=""
 if [[ "${use_workspace_patch_deps}" == "1" ]]; then
   workspace_x07_root="$("${x07_root_resolver}" 2>/dev/null || true)"
@@ -125,7 +126,7 @@ while IFS=$'\t' read -r name version path_value; do
     patch_path="${project_dir}/${patch_path}"
   fi
 
-  if [[ -d "${patch_path}" ]]; then
+  if [[ -d "${patch_path}" && "${refresh_patch_deps}" != "1" ]]; then
     continue
   fi
 

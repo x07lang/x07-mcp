@@ -103,8 +103,8 @@
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": "packages/ext/x07-ext-mcp-sandbox/0.3.12",
-      "version": "0.3.12"
+      "path": "packages/ext/x07-ext-mcp-sandbox/0.3.13",
+      "version": "0.3.13"
     },
     {
       "name": "ext-mcp-toolkit",
@@ -217,8 +217,8 @@
       "version": "0.3.19"
     },
     "ext-mcp-sandbox": {
-      "path": "packages/ext/x07-ext-mcp-sandbox/0.3.12",
-      "version": "0.3.12"
+      "path": "packages/ext/x07-ext-mcp-sandbox/0.3.13",
+      "version": "0.3.13"
     },
     "ext-mcp-toolkit": {
       "path": "packages/ext/x07-ext-mcp-toolkit/0.3.10",

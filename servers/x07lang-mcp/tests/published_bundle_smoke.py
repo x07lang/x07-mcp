@@ -7,7 +7,12 @@ import tempfile
 import zipfile
 from pathlib import Path
 
-from stdio_smoke_lib import build_bundle, expected_server_version, run_stdio_smoke
+from stdio_smoke_lib import (
+    build_bundle,
+    expected_server_version,
+    run_fmt_path_resolution_smoke,
+    run_stdio_smoke,
+)
 
 
 def main() -> int:
@@ -29,6 +34,7 @@ def main() -> int:
         server_exe.chmod(server_exe.stat().st_mode | 0o755)
         worker_exe.chmod(worker_exe.stat().st_mode | 0o755)
         run_stdio_smoke(server_exe, extracted_root, fixture_root, want_version)
+        run_fmt_path_resolution_smoke(server_exe, extracted_root, want_version)
     return 0
 
 

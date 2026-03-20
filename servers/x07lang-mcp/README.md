@@ -7,8 +7,8 @@ Designed for agentic X07 coding loops: search docs/skills, run the toolchain, ap
 ## Install (published `.mcpb`)
 
 Prerequisites:
-- Install the X07 toolchain (the server uses the local `x07` CLI for `x07.exec_v1`).
-- Ensure you have an absolute path to `x07` (no PATH search in `execve`): `command -v x07`.
+- Install the X07 toolchain. The server uses the local `x07` CLI for `x07.exec_v1`, `x07.fmt_write_v1`, and the other tool-backed helpers.
+- Optional but useful: confirm the binary you want is visible via `command -v x07`.
 
 Download:
 - GitHub release: `x07lang-mcp-v0.2.6`
@@ -33,7 +33,13 @@ Configure your MCP client:
   Use:
   - `command`: `.../x07lang-mcp.bundle/server/x07lang-mcp`
   - `cwd`: `.../x07lang-mcp.bundle` (so `config/mcp.server.json` + `out/mcp-worker` resolve)
-  - env (recommended): `X07_MCP_X07_EXE=/absolute/path/to/x07`
+  - `x07` resolution order:
+    - explicit override: `X07_MCP_X07_EXE=/absolute/path/to/x07`
+    - executable probe across `PATH`, while skipping a stale `~/.x07/bin` shadow when a better `x07` is already present earlier on `PATH`
+    - standard install paths: `/opt/homebrew/bin/x07`, `/usr/local/bin/x07`, `/usr/bin/x07`
+    - fallback: `~/.x07/bin/x07`
+  - candidate paths are accepted only if the server can actually spawn them; a stale shim or a shell-only alias is ignored
+  - env override (recommended when you want to pin one specific toolchain build): `X07_MCP_X07_EXE=/absolute/path/to/x07`
   - optional helper overrides:
     - `X07_MCP_X07_WASM_EXE=/absolute/path/to/x07-wasm`
     - `X07_MCP_X07LP_EXE=/absolute/path/to/x07lp`
@@ -122,6 +128,7 @@ Run:
 - `x07 test --manifest tests/tests.json`
 - stdio smoke: `python3 tests/stdio_smoke.py`
 - published bundle smoke: `python3 tests/published_bundle_smoke.py`
+  - covers the extracted install layout and validates tool resolution against an actually spawnable `x07` binary
 - package lock refresh: `x07 pkg lock --project x07.json`
 
 ## Build `.mcpb`

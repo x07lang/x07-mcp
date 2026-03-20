@@ -57,7 +57,13 @@ jobs:
       - name: Check
         shell: bash
         working-directory: x07-mcp
-        run: X07_MCP_LOCAL_DEPS=1 ./scripts/ci/check_all.sh
+        run: X07_MCP_LOCAL_DEPS=1 X07_MCP_LOCAL_DEPS_REFRESH=1 X07_MCP_SKIP_STDIO_SMOKE=1 ./scripts/ci/check_all.sh
+      - name: Stdio and installed-bundle smoke
+        shell: bash
+        working-directory: x07-mcp/servers/x07lang-mcp
+        run: |
+          X07_MCP_LOCAL_DEPS_REFRESH=1 timeout 1800 python3 tests/stdio_smoke.py
+          X07_MCP_LOCAL_DEPS_REFRESH=1 timeout 1800 python3 tests/published_bundle_smoke.py
 
   registry-fixtures:
     name: ci / registry-fixtures

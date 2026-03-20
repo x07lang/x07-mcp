@@ -260,8 +260,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -370,8 +376,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -516,8 +528,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -630,8 +648,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -730,8 +754,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -827,8 +857,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -961,8 +997,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -1069,8 +1111,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -1153,8 +1201,14 @@
               "/Users/",
               "/home/",
               "/usr/local/bin/",
-              "/opt/homebrew/bin/"
-            ]
+              "/opt/homebrew/bin/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -1263,8 +1317,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -1641,8 +1701,14 @@
               "/Users/",
               "/home/",
               "/usr/local/bin/",
-              "/opt/homebrew/bin/"
-            ]
+              "/opt/homebrew/bin/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -1873,8 +1939,14 @@
               "/Users/",
               "/home/",
               "/usr/local/bin/",
-              "/opt/homebrew/bin/"
-            ]
+              "/opt/homebrew/bin/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -2083,8 +2155,14 @@
               "/Users/",
               "/home/",
               "/usr/local/bin/",
-              "/opt/homebrew/bin/"
-            ]
+              "/opt/homebrew/bin/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -2327,8 +2405,14 @@
               "/Users/",
               "/home/",
               "/usr/local/bin/",
-              "/opt/homebrew/bin/"
-            ]
+              "/opt/homebrew/bin/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -2447,8 +2531,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -2552,8 +2642,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -2664,8 +2760,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -2776,8 +2878,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -2893,8 +3001,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -3005,8 +3119,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -3117,8 +3237,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -3269,8 +3395,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -3389,8 +3521,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -3501,8 +3639,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -3620,8 +3764,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -3731,8 +3881,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -3885,8 +4041,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {
@@ -4078,8 +4240,14 @@
               "/opt/homebrew/bin/",
               "/tmp/",
               "/private/tmp/",
-              "/var/folders/"
-            ]
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
           },
           "net": {},
           "env": {

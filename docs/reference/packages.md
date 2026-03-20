@@ -5,7 +5,7 @@
 - `ext-mcp-core@0.3.4`: protocol constants, JSON-RPC helpers, diagnostics, progress token registry, SSE/event-id helpers
 - `ext-mcp-toolkit@0.3.10`: server/tools/resources/prompts loaders, descriptor-path aware server config helpers, shared dispatcher, tool context helpers, progress/status emit APIs, and stdio initialize negotiation for `2025-11-25`, `2025-06-18`, and `2025-03-26`
 - `ext-mcp-worker@0.3.5`: worker protocol + worker entrypoint
-- `ext-mcp-sandbox@0.3.12`: router-side sandbox + task stores/executors + worker spawn helpers (streaming/cancel-aware), custom limits profiles, and per-tool process allowlists
+- `ext-mcp-sandbox@0.3.13`: router-side sandbox + task stores/executors + worker spawn helpers (streaming/cancel-aware), custom limits profiles, and per-tool process allowlists
 - `ext-mcp-transport-stdio@0.3.8`: stdio MCP transport (tasks, progress, cancellation, subscriptions) with runtime descriptor-path support
 - `ext-mcp-transport-http@0.3.21`: HTTP MCP transport (`ext.mcp.server`) + Streamable HTTP SSE with runtime descriptor-path support and the `ext-net@0.1.10` package line
 - `ext-mcp-transport-http@0.2.1`: HTTP MCP transport (`std.mcp.transport.http`) for the legacy server config (`x07.mcp.server_config@0.2.0`)

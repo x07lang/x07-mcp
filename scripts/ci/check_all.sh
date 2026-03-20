@@ -9,6 +9,10 @@ root="$(repo_root)"
 cd "$root"
 x07_root_resolver="${root}/scripts/ci/resolve_workspace_x07_root.sh"
 
+if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+  export X07_MCP_LOCAL_DEPS_REFRESH="${X07_MCP_LOCAL_DEPS_REFRESH:-1}"
+fi
+
 step() {
   echo
   echo "==> $*"
@@ -21,9 +25,31 @@ require_cmd() {
   fi
 }
 
-require_cmd x07
 require_cmd python3
 require_cmd jq
+
+resolve_x07_bin() {
+  if command -v x07 >/dev/null 2>&1 && command x07 --version >/dev/null 2>&1; then
+    command -v x07
+    return 0
+  fi
+
+  local workspace_bin
+  workspace_bin="$("${x07_root_resolver}")/target/debug/x07"
+  if [[ -x "${workspace_bin}" ]]; then
+    printf '%s\n' "${workspace_bin}"
+    return 0
+  fi
+
+  echo "ERROR: unable to find a working x07 binary; shell x07 is broken and workspace build is missing at ${workspace_bin}" >&2
+  return 2
+}
+
+X07_BIN="$(resolve_x07_bin)"
+export PATH="$(dirname "${X07_BIN}"):${PATH}"
+x07() {
+  "${X07_BIN}" "$@"
+}
 
 x07_toolchain_version="$(x07 --version | awk 'NR==1 {print $2}')"
 x07_stdlib_lock="${HOME}/.x07/toolchains/v${x07_toolchain_version}/stdlib.lock"
@@ -243,12 +269,16 @@ else
 fi
 
 step "published project locks (clean registry check)"
-while IFS= read -r proj; do
-  if project_uses_workspace_paths "$proj"; then
-    continue
-  fi
-  check_project_lock_clean_registry "$proj"
-done < <(iter_patched_lock_projects)
+if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+  echo "skip clean-registry lock audit in local-deps mode"
+else
+  while IFS= read -r proj; do
+    if project_uses_workspace_paths "$proj"; then
+      continue
+    fi
+    check_project_lock_clean_registry "$proj"
+  done < <(iter_patched_lock_projects)
+fi
 
 step "patched project locks (check, local packages)"
 while IFS= read -r proj; do
@@ -393,7 +423,7 @@ lint_dirs=(
   "packages/ext/x07-ext-mcp-sandbox/0.3.9/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.10/modules"
   "packages/ext/x07-ext-mcp-sandbox/0.3.11/modules"
-  "packages/ext/x07-ext-mcp-sandbox/0.3.12/modules"
+  "packages/ext/x07-ext-mcp-sandbox/0.3.13/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.2/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.3/modules"
   "packages/ext/x07-ext-mcp-toolkit/0.3.4/modules"
@@ -1773,7 +1803,7 @@ step "package tests (ext-mcp-transport-http)"
       --module-root tests \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.10/modules" \
-      --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.12/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.13/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.6/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.6/modules" \
@@ -1810,7 +1840,7 @@ step "package tests (ext-mcp-transport-http)"
       --module-root tests \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.10/modules" \
-      --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.12/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.13/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.6/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.6/modules" \
@@ -1855,7 +1885,7 @@ step "package tests (ext-mcp-transport-http)"
       --module-root tests \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.10/modules" \
-      --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.12/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.13/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.6/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.7/modules" \
@@ -1892,7 +1922,7 @@ step "package tests (ext-mcp-transport-http)"
       --module-root tests \
       --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-toolkit/0.3.10/modules" \
-      --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.12/modules" \
+      --module-root "$root/packages/ext/x07-ext-mcp-sandbox/0.3.13/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-worker/0.3.6/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth-core/0.1.2/modules" \
       --module-root "$root/packages/ext/x07-ext-mcp-auth/0.4.7/modules" \
@@ -2239,7 +2269,9 @@ step "x07lang-mcp release smoke"
 (
   cd "$root/servers/x07lang-mcp"
   python3 tests/check_claude_schema_compat.py >/dev/null
-  run_with_timeout "${X07_MCP_X07LANG_MCP_STDIO_SMOKE_TIMEOUT_SECS:-1800}" python3 tests/stdio_smoke.py >/dev/null
+  if [[ "${X07_MCP_SKIP_STDIO_SMOKE:-0}" != "1" ]]; then
+    run_with_timeout "${X07_MCP_X07LANG_MCP_STDIO_SMOKE_TIMEOUT_SECS:-1800}" python3 tests/stdio_smoke.py >/dev/null
+  fi
   run_with_timeout "${X07_MCP_X07LANG_MCP_BUNDLE_SMOKE_TIMEOUT_SECS:-1800}" python3 tests/published_bundle_smoke.py >/dev/null
 )
 

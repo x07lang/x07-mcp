@@ -115,9 +115,13 @@ def expected_server_version(server_root: Path) -> str:
 
 
 def workspace_x07_root(server_root: Path) -> Path | None:
-    candidate = server_root.parents[2] / "x07"
-    if candidate.is_dir():
-        return candidate
+    candidates = [
+        server_root.parents[2] / "x07",
+        Path(__file__).resolve().parents[4] / "x07",
+    ]
+    for candidate in candidates:
+        if candidate.is_dir():
+            return candidate
     return None
 
 
@@ -131,18 +135,32 @@ def workspace_x07_exe(server_root: Path) -> Path | None:
     return None
 
 
-def tool_env(server_root: Path) -> dict[str, str]:
-    env = os.environ.copy()
+def resolved_x07_exe(server_root: Path) -> Path | None:
+    env_override = os.environ.get("X07_MCP_X07_EXE", "")
+    if env_override:
+        candidate = Path(env_override)
+        if candidate.is_file():
+            return candidate
+
     workspace_x07 = workspace_x07_exe(server_root)
     if workspace_x07 is not None:
-        env["X07_MCP_X07_EXE"] = str(workspace_x07)
-        env["PATH"] = f"{workspace_x07.parent}{os.pathsep}{env.get('PATH', '')}"
-        env.setdefault("X07_MCP_LOCAL_DEPS", "1")
-        return env
+        return workspace_x07
 
     x07_exe = shutil.which("x07")
     if x07_exe:
-        env["X07_MCP_X07_EXE"] = x07_exe
+        return Path(x07_exe)
+    return None
+
+
+def tool_env(server_root: Path) -> dict[str, str]:
+    env = os.environ.copy()
+    x07_exe = resolved_x07_exe(server_root)
+    if x07_exe is not None:
+        env["X07_MCP_X07_EXE"] = str(x07_exe)
+        env["PATH"] = f"{x07_exe.parent}{os.pathsep}{env.get('PATH', '')}"
+    if workspace_x07_exe(server_root) is not None:
+        env.setdefault("X07_MCP_LOCAL_DEPS", "1")
+        env.setdefault("X07_MCP_LOCAL_DEPS_REFRESH", "1")
     return env
 
 
@@ -311,6 +329,16 @@ printf '"],"ok":true}\n'
     path.chmod(0o755)
 
 
+def _write_broken_x07(path: Path, marker: Path) -> None:
+    script = f"""#!/bin/sh
+set -eu
+touch '{marker}'
+exit 17
+"""
+    path.write_text(script, encoding="utf-8")
+    path.chmod(0o755)
+
+
 def run_paas_surface_smoke(server_exe: Path, server_root: Path, expected_version: str) -> None:
     fixtures_root = server_root / "tests" / "fixtures"
     with tempfile.TemporaryDirectory(
@@ -421,6 +449,71 @@ def run_paas_surface_smoke(server_exe: Path, server_root: Path, expected_version
                 except subprocess.TimeoutExpired:
                     proc.kill()
                     proc.wait(timeout=2.0)
+
+
+def run_fmt_path_resolution_smoke(
+    server_exe: Path,
+    server_root: Path,
+    expected_version: str,
+    good_x07: Path | None = None,
+) -> None:
+    fixtures_root = server_root / "tests" / "fixtures"
+    temp_parent = fixtures_root if fixtures_root.is_dir() else server_root
+    with tempfile.TemporaryDirectory(
+        dir=temp_parent,
+        prefix="fmt-path-smoke-",
+    ) as temp_dir:
+        temp_root = Path(temp_dir)
+        if good_x07 is None:
+            good_x07 = resolved_x07_exe(server_root)
+        if good_x07 is None:
+            raise RuntimeError("missing real x07 executable for PATH smoke")
+        home_dir = temp_root / "home"
+        broken_bin_dir = home_dir / ".x07" / "bin"
+        broken_bin_dir.mkdir(parents=True)
+        broken_marker = temp_root / "broken-home-hit.txt"
+        _write_broken_x07(broken_bin_dir / "x07", broken_marker)
+
+        target_file = temp_root / "sample.x07.json"
+        target_file.write_text(
+            '{"module_id":"demo","imports":[],"decls":[],"kind":"module","schema_version":"x07.x07ast@0.8.0"}',
+            encoding="utf-8",
+        )
+
+        path_env = f"{good_x07.parent}{os.pathsep}{os.environ.get('PATH', '')}"
+        proc = _initialize_stdio_session(
+            [str(server_exe)],
+            server_root,
+            expected_version,
+            extra_env={
+                "HOME": str(home_dir),
+                "PATH": path_env,
+                "X07_MCP_X07_EXE": "",
+            },
+        )
+        try:
+            _call_tool(
+                proc,
+                2,
+                "x07.fmt_write_v1",
+                {"path": str(target_file)},
+            )
+        finally:
+            if proc.poll() is None:
+                proc.terminate()
+                try:
+                    proc.wait(timeout=2.0)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                    proc.wait(timeout=2.0)
+
+        if broken_marker.exists():
+            raise AssertionError("formatter resolution used the broken HOME shim")
+        formatted = target_file.read_text(encoding="utf-8")
+        if not formatted.endswith("\n"):
+            raise AssertionError("formatter output is missing the trailing newline")
+        if '"schema_version":"x07.x07ast@0.8.0"' not in formatted:
+            raise AssertionError(f"unexpected formatter output: {formatted!r}")
 
 
 def run_stdio_smoke_cmd(

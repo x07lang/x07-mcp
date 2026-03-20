@@ -8,6 +8,7 @@ from pathlib import Path
 from stdio_smoke_lib import (
     build_bins,
     expected_server_version,
+    run_fmt_path_resolution_smoke,
     run_paas_surface_smoke,
     run_stdio_smoke,
 )
@@ -25,6 +26,11 @@ def main() -> int:
         router_bin,
         server_root,
         fixture_root,
+        expected_server_version(server_root),
+    )
+    run_fmt_path_resolution_smoke(
+        router_bin,
+        server_root,
         expected_server_version(server_root),
     )
     run_paas_surface_smoke(

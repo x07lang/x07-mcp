@@ -139,7 +139,7 @@ rather than the repo's golden strong-profile path.
 
 If you want an MCP server for writing and repairing X07 programs (instead of building your own MCP server), install the official server: `io.x07/x07lang-mcp`.
 
-- Install the X07 toolchain (the server shells out to the local `x07` CLI).
+- Install the X07 toolchain. The server shells out to the local `x07` CLI and resolves it from `X07_MCP_X07_EXE`, then an executable probe across `PATH` (ignoring a stale `~/.x07/bin` shadow when a better binary is already on `PATH`), then the standard Homebrew and system locations. Candidate paths are accepted only if the server can actually spawn them.
 - Download the published `.mcpb` bundle from the `x07lang-mcp` server README.
 - Configure your MCP client to install the `.mcpb`, or unzip it and run `server/x07lang-mcp` with `cwd` set to the extracted bundle root.
 
