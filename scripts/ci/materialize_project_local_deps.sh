@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+CALLER_PWD="${PWD}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-cd "${ROOT}"
 x07_root_resolver="${ROOT}/scripts/ci/resolve_workspace_x07_root.sh"
 
 project="${1:-}"
@@ -13,6 +13,8 @@ fi
 
 if [[ "${project}" = /* ]]; then
   project_abs="${project}"
+elif [[ -f "${CALLER_PWD}/${project}" ]]; then
+  project_abs="${CALLER_PWD}/${project}"
 else
   project_abs="${ROOT}/${project}"
 fi
@@ -23,6 +25,8 @@ if [[ ! -f "${project_abs}" ]]; then
 fi
 
 project_dir="$(cd "$(dirname "${project_abs}")" && pwd)"
+project_abs="${project_dir}/$(basename "${project_abs}")"
+cd "${ROOT}"
 workspace_root="${X07_WORKSPACE_ROOT:-${ROOT}}"
 refresh_local_deps="${X07_MCP_LOCAL_DEPS_REFRESH:-0}"
 use_pkg_add="${X07_MCP_LOCAL_USE_PKG_ADD:-0}"
@@ -56,6 +60,8 @@ copy_local_pkg_if_present() {
   local version="$2"
   local target_dir="$3"
   local candidate=""
+  local candidate_abs=""
+  local target_abs=""
   local candidates=(
     "${ROOT}/packages/ext/x07-${name}/${version}"
     "${WORKSPACE_X07_ROOT}/packages/ext/x07-${name}/${version}"
@@ -66,6 +72,12 @@ copy_local_pkg_if_present() {
       continue
     fi
     mkdir -p "$(dirname "${target_dir}")"
+    mkdir -p "${target_dir}"
+    candidate_abs="$(cd "${candidate}" && pwd -P)"
+    target_abs="$(cd "${target_dir}" && pwd -P)"
+    if [[ "${candidate_abs}" == "${target_abs}" ]]; then
+      return 0
+    fi
     rm -rf "${target_dir}"
     mkdir -p "${target_dir}"
     (

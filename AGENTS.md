@@ -44,7 +44,9 @@ Mitigation implemented:
 - `.github/workflows/ci.yml` also sets `X07_MCP_LOCAL_DEPS=1` explicitly for the `Stdio and installed-bundle smoke` step, so the bundle smoke uses the same local-deps mode as `scripts/ci/check_all.sh`.
 - `scripts/ci/check_all.sh` now runs `servers/_shared/ci/install_server_deps.sh servers/x07lang-mcp` before the long package/scaffold lanes, so stale `servers/x07lang-mcp/x07.lock.json` drift fails fast instead of waiting for the final `x07lang-mcp release smoke`.
 - `servers/_shared/ci/install_server_deps.sh` now forwards `x07 pkg lock --check` mismatch output to stderr, so callers that silence stdout still show the real `X07PKG_LOCK_MISMATCH` cause.
+- `servers/_shared/ci/install_server_deps.sh` now passes the server manifest by absolute path, stages patch deps in local-deps mode, and validates the actual server tree instead of accidentally resolving repo-root `x07.json`.
 - `servers/_shared/ci/install_server_deps.sh` now uses the shared `scripts/ci/materialize_project_local_deps.sh` helper, so detached local worktrees fail with a clear pinned-`x07` error instead of silently exiting under `set -e`.
+- `scripts/ci/materialize_project_local_deps.sh` and `scripts/ci/materialize_patch_deps.sh` now no-op when a dependency already points at a repo-owned package directory, so local fail-fast checks do not erase tracked package contents while validating strict local-deps locks.
 - Local helpers now reject a sibling `../x07` checkout unless it is a clean checkout of the exact pinned tag from `x07-toolchain.toml`; use `X07_ROOT` to point checks at a matching worktree when the main sibling checkout is ahead.
 
 ## CI failure mode: missing patch dependency paths
