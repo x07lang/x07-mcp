@@ -282,9 +282,12 @@ fi
 
 step "patched project locks (check, local packages)"
 while IFS= read -r proj; do
+  rm -rf "$root/$(dirname "$proj")/.x07/deps"
+
   patch_deps_log="$(mktemp)"
   tmp_dirs+=("$patch_deps_log")
   run_quiet "$patch_deps_log" env \
+    X07_MCP_LOCAL_DEPS_REFRESH=1 \
     X07_MCP_USE_WORKSPACE_PATCH_DEPS=0 \
     X07_WORKSPACE_ROOT="$root" \
     ./scripts/ci/materialize_patch_deps.sh "$proj"
