@@ -3903,6 +3903,1056 @@
       }
     },
     {
+      "name": "lp.rollout.list_v1",
+      "description": "List rollouts for an environment with bounded filters (read-only).",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "environment_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "org_id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 128,
+            "default": ""
+          },
+          "project_id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 128,
+            "default": ""
+          },
+          "service_id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 128,
+            "default": ""
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "",
+              "queued",
+              "shifting",
+              "paused",
+              "promoted",
+              "rolled_back",
+              "failed"
+            ],
+            "default": ""
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 200,
+            "default": 50
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 180000
+          }
+        },
+        "required": [
+          "environment_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_query_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 180000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.rollout.status_v1",
+      "description": "Fetch rollout status by rollout_id (read-only).",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "rollout_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 180000
+          }
+        },
+        "required": [
+          "rollout_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_query_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 180000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.rollout.start_v1",
+      "description": "Start a rollout for an existing deployment with confirm + dry-run guardrails.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "deployment_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "dry_run": {
+            "type": "boolean",
+            "default": true
+          },
+          "confirm": {
+            "type": "boolean",
+            "default": false
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 300000
+          }
+        },
+        "required": [
+          "deployment_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_control_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.rollout.pause_v1",
+      "description": "Pause a rollout with an audit-friendly reason.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "deployment_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "from_step": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 300000
+          }
+        },
+        "required": [
+          "deployment_id",
+          "reason"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_control_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.rollout.promote_v1",
+      "description": "Promote (resume) a paused rollout with an audit-friendly reason.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "deployment_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "from_step": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 300000
+          }
+        },
+        "required": [
+          "deployment_id",
+          "reason"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_control_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.rollout.abort_v1",
+      "description": "Abort (stop) a rollout with an audit-friendly reason.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "deployment_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 300000
+          }
+        },
+        "required": [
+          "deployment_id",
+          "reason"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_control_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.rollout.rollback_v1",
+      "description": "Rollback a rollout with guardrails (confirm phrase + reason).",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "deployment_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "confirm_phrase": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 300000
+          }
+        },
+        "required": [
+          "deployment_id",
+          "confirm_phrase",
+          "reason"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_control_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 300000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.slo.snapshot.latest_v1",
+      "description": "Fetch the latest SLO snapshot for a deployment (read-only).",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "deployment_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 180000
+          }
+        },
+        "required": [
+          "deployment_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_query_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 180000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lp.slo.snapshot.list_v1",
+      "description": "List recent SLO snapshots for a deployment (read-only).",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "deployment_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 200,
+            "default": 50
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 1200000,
+            "default": 180000
+          }
+        },
+        "required": [
+          "deployment_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "execution": {
+        "taskSupport": "optional"
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "platform",
+        "limits_profile": "mcp_tool_platform_query_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07lp"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 180000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07_MCP_X07LP_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
       "name": "lp.query_v1",
       "description": "Query platform targets, deployments, incidents, and app inventory with bounded outputs.",
       "inputSchema": {

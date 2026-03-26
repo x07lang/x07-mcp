@@ -296,7 +296,7 @@ while IFS= read -r proj; do
   fi
   patch_deps_log="$(mktemp)"
   tmp_dirs+=("$patch_deps_log")
-  run_quiet "$patch_deps_log" env \
+  run_quiet_retry "$patch_deps_log" env \
     X07_MCP_LOCAL_DEPS_REFRESH=1 \
     X07_MCP_USE_WORKSPACE_PATCH_DEPS="$patch_dep_workspace_mode" \
     X07_WORKSPACE_ROOT="$root" \

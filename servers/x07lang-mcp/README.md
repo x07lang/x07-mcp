@@ -80,13 +80,22 @@ Configure your MCP client:
   - `lp.release.explain_v1`
   - `lp.release.rollback_v1`
   - `lp.binding.status_v1`
+  - `lp.rollout.list_v1`
+  - `lp.rollout.status_v1`
+  - `lp.rollout.start_v1`
+  - `lp.rollout.pause_v1`
+  - `lp.rollout.promote_v1`
+  - `lp.rollout.abort_v1`
+  - `lp.rollout.rollback_v1`
+  - `lp.slo.snapshot.latest_v1`
+  - `lp.slo.snapshot.list_v1`
 
 `x07lang-mcp` writes an effective runtime server config plus filtered tools/resources/prompts manifests under `.x07/artifacts/mcp/runtime/`. The advertised surface is gated by the installed toolchain:
 
 - core/search/pkg when `x07` is available
 - service authoring when `x07` is available
 - wasm/web-ui/device/app/workload/topology when `x07-wasm` is available
-- `lp.*` release, control, and binding tools when `x07lp` is available
+- `lp.*` release/rollout/SLO/control/binding tools when `x07lp` is available
 
 The service/workload/hosted-release additions keep the same rule as the older pack surfaces: the MCP server shells out to the canonical CLIs instead of carrying a parallel implementation, so CLI behavior and MCP behavior stay aligned. The hosted release tools keep the durable `release_id` returned by `lp.release.submit_v1` as the join key for later query/explain/rollback steps, and the binding tool keeps using hosted `binding_id` values from the public control-plane surface.
 
@@ -95,6 +104,7 @@ Typical hosted PaaS loop through the official server:
 - scaffold and validate with `x07.service.init_v1`, `x07.service.genpack.*`, and `x07.service.validate_v1`
 - review the bounded workload shape with `x07.workload.inspect_v1` and `x07.topology.preview_v1`
 - submit and review a hosted release with `lp.release.submit_v1`, then carry the returned durable `release_id` through `lp.release.query_v1`, `lp.release.explain_v1`, and `lp.release.rollback_v1`; use `lp.binding.status_v1` for the related binding diagnostics keyed by durable `binding_id`
+- inspect and control rollouts with `lp.rollout.*` and read SLO windows with `lp.slo.snapshot.*`
 
 Dedicated pack tools return bounded summaries with file-backed reports and artifacts. Use `x07.artifact_snippet_v1` or resource reads to inspect the full output only when needed.
 
@@ -108,9 +118,9 @@ That keeps the server surface small while making the certification workflow expl
 
 ## Run (from source)
 
-The current source tree tracks the Milestone C `x07.x07ast@0.8.0` line. For
-local source builds, use a matching `x07` binary, preferably a workspace build
-such as `../x07/target/debug/x07` via `X07_MCP_X07_EXE=/absolute/path/to/x07`.
+The current source tree tracks the `x07.x07ast@0.8.0` line. For local source
+builds, use a matching `x07` binary, preferably a workspace build such as
+`../x07/target/debug/x07` via `X07_MCP_X07_EXE=/absolute/path/to/x07`.
 The published `.mcpb` above remains the last released bundle.
 
 Build router + worker binaries:

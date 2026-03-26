@@ -4,7 +4,7 @@ This directory pins and runs the upstream MCP conformance suite:
 
 - **Server mode**: against an x07-mcp Streamable HTTP server.
 - **Client mode**: using `conformance/client-x07/` for the auth suite.
-- **Trust tlog mode**: deterministic phase-16 monitor scenarios via `conformance/trust-tlog/`.
+- **Trust tlog mode**: deterministic monitor scenarios via `conformance/trust-tlog/`.
 
 Upstream: `@modelcontextprotocol/conformance` (pinned). The conformance runner supports
 an **expected failures** file; failures not listed there fail the run, and "expected failures"
