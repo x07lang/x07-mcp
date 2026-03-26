@@ -1629,8 +1629,8 @@
         {
           "module_id": "std.mcp.redact",
           "path": "packages/ext/x07-ext-mcp-core/0.3.4/modules/std/mcp/redact.x07.json",
-          "sha256": "a60c63c327afed02e70e95f7ed9baecb66cdd1e89896116076d5c50a8ebaffe1",
-          "size_bytes": 17994
+          "sha256": "c4d3289483796a19e63583140031b08a4d5ee8d7aa4a3f2ba67cf7afe91e5f4b",
+          "size_bytes": 17902
         },
         {
           "module_id": "std.mcp.sse",
@@ -8511,6 +8511,6 @@
       "version": "0.3.6"
     }
   ],
-  "packages_hash": "d34bfe700c12c83e0ed9fc398b4fe9007f72049786458de9d3b39fea6548fc6c",
+  "packages_hash": "0dc51518d20aeb9cab2b4bdf35f8c880ab98059afc2ae88fb131c0e620eb3a3b",
   "packages_root": "packages/ext"
 }
