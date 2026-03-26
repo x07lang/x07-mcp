@@ -116,15 +116,35 @@ def expected_server_version(server_root: Path) -> str:
 
 def _workspace_x07_candidates(server_root: Path) -> list[Path]:
     candidates: list[Path] = []
-    if os.environ.get("X07_ROOT"):
-        candidates.append(Path(os.environ["X07_ROOT"]).resolve())
-    candidates.extend(
-        [
-            server_root.parents[2] / "x07",
-            Path(__file__).resolve().parents[4] / "x07",
-        ]
-    )
-    return candidates
+    env_root = os.environ.get("X07_ROOT", "").strip()
+    if env_root:
+        candidates.append(Path(env_root).resolve())
+
+    try:
+        repo_root = source_repo_root()
+        candidates.append(repo_root.parent / "x07")
+    except IndexError:
+        pass
+
+    try:
+        resolved_root = server_root.resolve()
+        candidates.append(resolved_root.parents[2] / "x07")
+    except IndexError:
+        pass
+
+    try:
+        candidates.append(Path(__file__).resolve().parents[4] / "x07")
+    except IndexError:
+        pass
+
+    seen: set[Path] = set()
+    deduped: list[Path] = []
+    for candidate in candidates:
+        if candidate in seen:
+            continue
+        seen.add(candidate)
+        deduped.append(candidate)
+    return deduped
 
 
 def source_repo_root() -> Path:
@@ -228,7 +248,9 @@ def build_bundle(server_root: Path) -> Path:
 
 
 def stdio_env(cwd: Path) -> dict[str, str]:
-    server_root = cwd if (cwd / "x07.mcp.json").is_file() else Path(__file__).resolve().parents[1]
+    server_root = (
+        cwd.resolve() if (cwd / "x07.mcp.json").is_file() else Path(__file__).resolve().parents[1]
+    )
     return tool_env(server_root)
 
 
