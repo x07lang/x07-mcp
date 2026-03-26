@@ -2114,7 +2114,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   jq \
     '.patch = ((.patch // {}) + {
        "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-       "ext-mcp-sandbox":{"version":"0.3.10","path":".x07/local/ext-mcp-sandbox/0.3.10"}
+       "ext-mcp-sandbox":{"version":"0.3.14","path":".x07/local/ext-mcp-sandbox/0.3.14"}
      })' \
     x07.json \
     >"$tmp_manifest"
@@ -2188,7 +2188,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 		    '.schema_version = "x07.project@0.4.0" |
 		     .patch = ((.patch // {}) + {
 		       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-		       "ext-mcp-sandbox":{"version":"0.3.10","path":".x07/local/ext-mcp-sandbox/0.3.10"},
+		       "ext-mcp-sandbox":{"version":"0.3.14","path":".x07/local/ext-mcp-sandbox/0.3.14"},
 		       "ext-net":{"version":"0.1.10","path":".x07/local/ext-net/0.1.10"},
 		       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
 		     })' \
@@ -2250,7 +2250,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 		    '.schema_version = "x07.project@0.4.0" |
 		     .patch = ((.patch // {}) + {
 		       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-		       "ext-mcp-sandbox":{"version":"0.3.10","path":".x07/local/ext-mcp-sandbox/0.3.10"},
+		       "ext-mcp-sandbox":{"version":"0.3.14","path":".x07/local/ext-mcp-sandbox/0.3.14"},
 		       "ext-net":{"version":"0.1.10","path":".x07/local/ext-net/0.1.10"},
 		       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
 		     })' \
