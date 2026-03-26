@@ -11,15 +11,15 @@ Prerequisites:
 - Optional but useful: confirm the binary you want is visible via `command -v x07`.
 
 Download:
-- GitHub release: `x07lang-mcp-v0.2.6`
-- `.mcpb` URL: https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.2.6/x07lang-mcp.mcpb
-- `.mcpb` SHA-256: `294d4663e29a9ff3c1cb3d150e27e631fcde356146392ba1939a6b0b328688a4`
+- GitHub release: `x07lang-mcp-v0.2.7`
+- `.mcpb` URL: https://github.com/x07lang/x07-mcp/releases/download/x07lang-mcp-v0.2.7/x07lang-mcp.mcpb
+- `.mcpb` SHA-256: `274971c7e123e4b5fb75938fd9c04f9fc0c9768d6c3fb1bb386c49eefe7e30e1`
 
 Verify (macOS / Linux):
 
 ```bash
 got="$(shasum -a 256 x07lang-mcp.mcpb | awk '{print $1}')"
-test "$got" = "294d4663e29a9ff3c1cb3d150e27e631fcde356146392ba1939a6b0b328688a4"
+test "$got" = "274971c7e123e4b5fb75938fd9c04f9fc0c9768d6c3fb1bb386c49eefe7e30e1"
 ```
 
 Configure your MCP client:
