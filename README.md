@@ -1,5 +1,9 @@
 # x07-mcp
 
+## Agent Entrypoint
+
+Start here: https://x07lang.org/docs/getting-started/agent-quickstart
+
 `x07-mcp` is the official MCP kit for [X07](https://github.com/x07lang/x07). It gives you the library code, CLI, templates, docs, and reference servers needed to build Model Context Protocol servers in X07 with secure-by-default execution and machine-readable contracts.
 
 The vision is to make MCP servers feel like first-class x07 applications: deterministic where they should be deterministic, explicit about trust and sandbox boundaries, and simple enough for end users and coding agents to operate without hand-built framework glue.
