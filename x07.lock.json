@@ -33,9 +33,9 @@
     },
     {
       "name": "ext-cli",
-      "version": "0.1.14",
-      "path": ".x07/deps/ext-cli/0.1.14",
-      "package_manifest_sha256": "5d3318997115c6c7fc564ff15fb67f654eeb99062b84180dc397cffa33228e62",
+      "version": "0.1.15",
+      "path": ".x07/deps/ext-cli/0.1.15",
+      "package_manifest_sha256": "ca42eb14c4aa21dd0b61329ae5efe113a59033fd145b3c7f0685a3c201d25532",
       "module_root": "modules",
       "modules_sha256": {
         "ext.cli": "41f051b7183da343fa70e05e6a2aaba6c9f110c748ef0409b65de5dcf1627110",

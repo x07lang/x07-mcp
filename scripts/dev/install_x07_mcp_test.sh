@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-tag="${1:-${X07_MCP_TEST_TAG:-v0.1.0-alpha.3}}"
+tag="${1:-${X07_MCP_TEST_TAG:-v0.1.0-alpha.4}}"
 if [[ "${tag}" != v* ]]; then
   tag="v${tag}"
 fi

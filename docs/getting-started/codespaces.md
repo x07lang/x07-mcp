@@ -46,3 +46,28 @@ Artifacts are written under `out/conformance/`:
 - `summary.json`
 - `summary.junit.xml`
 - `summary.html`
+
+## 5) Optional: record + replay
+
+Record a small HTTP session cassette:
+
+```sh
+x07-mcp-test replay record \
+  --url "http://127.0.0.1:8314/mcp" \
+  --scenario smoke/basic \
+  --sanitize auth,token \
+  --out out/replay.session.json \
+  --machine json
+```
+
+Replay it against the same target:
+
+```sh
+x07-mcp-test replay verify \
+  --session out/replay.session.json \
+  --url "http://127.0.0.1:8314/mcp" \
+  --out out/replay-verify \
+  --machine json
+```
+
+Artifacts are written under `out/replay-verify/` (`verify.json`).

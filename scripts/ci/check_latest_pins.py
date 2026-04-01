@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -103,6 +104,79 @@ def _combined_latest_package_versions(packages_roots: list[Path]) -> dict[str, s
             if cur is None or (ver, ver_s) > cur:
                 best[name] = (ver, ver_s)
     return {name: ver_s for name, (_ver, ver_s) in best.items()}
+
+
+def _latest_registry_package_version(name: str) -> str | None:
+    cmd = ["x07", "pkg", "versions", "--refresh", name]
+    delay_secs = 1.0
+    last_stderr = ""
+    for attempt in range(1, 4):
+        proc = subprocess.run(cmd, check=False, capture_output=True, text=True)
+        if proc.returncode == 0:
+            last_stderr = proc.stderr.strip()
+            break
+        last_stderr = proc.stderr.strip()
+        if attempt == 3:
+            return None
+        time.sleep(delay_secs)
+        delay_secs *= 2
+
+    try:
+        doc = json.loads(proc.stdout)
+    except Exception:
+        return None
+
+    if not isinstance(doc, dict):
+        return None
+    if doc.get("ok") is not True:
+        return None
+
+    result = doc.get("result")
+    if not isinstance(result, dict):
+        return None
+    versions = result.get("versions")
+    if not isinstance(versions, list):
+        return None
+
+    best: tuple[_Semver, str] | None = None
+    for entry in versions:
+        if not isinstance(entry, dict):
+            continue
+        if entry.get("yanked") is True:
+            continue
+        ver_s = entry.get("version")
+        if not isinstance(ver_s, str):
+            continue
+        ver = _parse_semver(ver_s)
+        if ver is None:
+            continue
+        cand = (ver, ver_s)
+        if best is None or cand > best:
+            best = cand
+
+    if best is None:
+        return None
+    if last_stderr:
+        # Preserve a tiny amount of diagnostics context for debugging registry drift.
+        # We intentionally do not print stderr here to keep CI output stable.
+        pass
+    return best[1]
+
+
+def _pick_latest_version(*versions: str | None) -> str | None:
+    best: tuple[_Semver, str] | None = None
+    for ver_s in versions:
+        if not ver_s:
+            continue
+        ver = _parse_semver(ver_s)
+        if ver is None:
+            continue
+        cand = (ver, ver_s)
+        if best is None or cand > best:
+            best = cand
+    if best is None:
+        return None
+    return best[1]
 
 
 def _load_json(path: Path) -> object:
@@ -356,6 +430,7 @@ def main() -> int:
     if workspace_x07_ext is not None:
         packages_roots.append(workspace_x07_ext)
     latest_pkg = _combined_latest_package_versions(packages_roots)
+    registry_latest: dict[str, str | None] = {}
 
     errors: list[str] = []
     pinned_toolchain_path = repo_root / "x07-toolchain.toml"
@@ -421,8 +496,24 @@ def main() -> int:
             version = dep.get("version")
             if not isinstance(name, str) or not isinstance(version, str):
                 continue
-            want = latest_pkg.get(name)
+            dep_path = dep.get("path")
+            dep_path_s = dep_path if isinstance(dep_path, str) else ""
+            want_registry = registry_latest.get(name)
+            if name not in registry_latest:
+                want_registry = _latest_registry_package_version(name)
+                registry_latest[name] = want_registry
+
+            want_local = latest_pkg.get(name)
+            want: str | None = None
+            if dep_path_s.startswith(".x07/deps/"):
+                if want_registry is None:
+                    errors.append(f"{proj}: {name}@{version}: failed to query registry latest version")
+                    continue
+                want = want_registry
+            else:
+                want = _pick_latest_version(want_registry, want_local)
             if want is None:
+                errors.append(f"{proj}: {name}@{version}: failed to resolve latest version")
                 continue
             if version != want:
                 errors.append(f"{proj}: {name}@{version} is not latest (want {want})")
