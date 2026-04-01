@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-tag="${1:-${X07_MCP_TEST_TAG:-v0.1.0-alpha.0}}"
+tag="${1:-${X07_MCP_TEST_TAG:-v0.1.0-alpha.1}}"
 if [[ "${tag}" != v* ]]; then
   tag="v${tag}"
 fi
@@ -84,4 +84,3 @@ chmod +x "${install_path}"
 
 echo "==> ok: ${install_path}"
 "${install_path}" --help >/dev/null
-
