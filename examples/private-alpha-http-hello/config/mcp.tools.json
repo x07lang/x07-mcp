@@ -1,0 +1,24 @@
+{
+  "schema_version": "x07.mcp.tools_manifest@0.2.0",
+  "tools": [
+    {
+      "name": "hello.work",
+      "description": "Emit progress notifications and return a small result.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "steps": { "type": "number" }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "auth": {
+        "required_scopes": ["mcp:tools"]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "limits_profile": "mcp_tool_standard_v1"
+      }
+    }
+  ]
+}

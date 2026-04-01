@@ -1,5 +1,17 @@
 # x07-mcp
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/x07lang/x07-mcp?quickstart=1)
+
+## Quickstart
+
+### Verify any MCP server
+
+Use the standalone verifier CLI: `x07lang/x07-mcp-test`.
+
+### Build an MCP server in X07
+
+Start with the zero-install Codespaces quickstart: `docs/getting-started/codespaces.md`.
+
 ## Agent Entrypoint
 
 Start here: https://x07lang.org/docs/getting-started/agent-quickstart

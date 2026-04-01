@@ -1,0 +1,14 @@
+{
+  "name": "x07-mcp",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "X07_TOOLCHAIN_TAG": "v0.1.107",
+      "X07_TOOLCHAIN_TARBALL_LINUX_X64": "x07-0.1.107-x86_64-unknown-linux-gnu.tar.gz"
+    }
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
+  "postStartCommand": "bash .devcontainer/postStart.sh",
+  "forwardPorts": [8314]
+}

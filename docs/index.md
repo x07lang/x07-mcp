@@ -17,6 +17,7 @@ The implementation is pinned to MCP protocol version `2025-11-25` (negotiated du
 ## Getting started
 
 - [Install](getting-started/install.md)
+- [Codespaces quickstart](getting-started/codespaces.md)
 - [Scaffold a server](getting-started/scaffold.md)
 - [Run a stdio server](getting-started/run-stdio.md)
 - [Run an HTTP server](getting-started/run-http.md)

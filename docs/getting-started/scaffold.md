@@ -2,6 +2,8 @@
 
 Use either `x07` (delegation) or `x07-mcp` directly.
 
+If you want a zero-install path, start with [Codespaces quickstart](codespaces.md).
+
 ## Stdio template
 
 ```sh

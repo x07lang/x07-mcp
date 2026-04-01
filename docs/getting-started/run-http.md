@@ -7,8 +7,8 @@ The HTTP router entrypoint is `ext.mcp.server.serve_http_from_fs_v1` (current te
 From your project directory:
 
 ```sh
-x07 bundle --profile os --out out/mcp-router
-x07 bundle --profile sandbox --program src/worker_main.x07.json --out out/mcp-worker
+x07 bundle --project x07.json --profile os --out out/mcp-router
+x07 bundle --project x07.json --profile sandbox --program src/worker_main.x07.json --out out/mcp-worker
 ```
 
 `config/mcp.server.json` defaults `worker_exe_path` to `out/mcp-worker`.

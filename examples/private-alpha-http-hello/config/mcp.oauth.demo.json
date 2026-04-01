@@ -1,0 +1,49 @@
+{
+  "schema_version": "x07.mcp.oauth@0.2.0",
+  "resource": "http://127.0.0.1:8314/mcp",
+  "serve_root_alias": true,
+  "authorization_servers": ["https://auth.example.com"],
+  "scopes_supported": ["mcp:tools", "mcp:tasks"],
+  "bearer_methods_supported": ["header"],
+  "dpop_signing_alg_values_supported": ["ES256"],
+  "dpop_bound_access_tokens_required": false,
+  "validation": {
+    "kind": "jwt_jwks_v1",
+    "jwt_jwks_v1": {
+      "issuer": "https://auth.example.com",
+      "audiences": ["http://127.0.0.1:8314/mcp"],
+      "clock_skew_s": 180,
+      "clock": { "kind": "fixed_v1", "now_s": 1700000005 },
+      "accepted_algs": ["RS256"],
+      "jwks_source": {
+        "kind": "file",
+        "path": "config/fixtures/auth/jwks.json"
+      },
+      "dpop": {
+        "enabled": true,
+        "required": false,
+        "accepted_algs": ["ES256"],
+        "replay_window_s": 300
+      }
+    }
+  },
+  "dpop_nonce_v1": {
+    "mode": "disabled",
+    "ttl_s": 60,
+    "rotate_on_success": true,
+    "secret_b64_file": "config/auth/dpop_nonce.secret.b64",
+    "bind_to": "jkt"
+  },
+  "prm_signed_v1": {
+    "enabled": false,
+    "alg": "HS256",
+    "iss": "https://auth.example.com",
+    "ttl_s": 3600,
+    "secret_b64_file": "config/auth/prm_signed.secret.b64",
+    "include_iat_exp": true
+  },
+  "prm_signing_v2": {
+    "enabled": true,
+    "cfg_path": "config/auth/prm_signing.v2.json"
+  }
+}

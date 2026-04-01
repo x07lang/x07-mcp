@@ -7,8 +7,8 @@ The stdio server reads newline-delimited JSON-RPC messages on stdin and writes n
 From your project directory:
 
 ```sh
-x07 bundle --profile os --out out/mcp-router
-x07 bundle --profile sandbox --program src/worker_main.x07.json --out out/mcp-worker
+x07 bundle --project x07.json --profile os --out out/mcp-router
+x07 bundle --project x07.json --profile sandbox --program src/worker_main.x07.json --out out/mcp-worker
 ```
 
 `config/mcp.server.json` defaults `worker_exe_path` to `out/mcp-worker`. Update it if you use a different output path.

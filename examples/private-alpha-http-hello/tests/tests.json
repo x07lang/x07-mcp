@@ -1,0 +1,17 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "smoke/pass",
+      "world": "run-os",
+      "entry": "smoke.pass",
+      "expect": "pass"
+    },
+    {
+      "id": "compile/app_import",
+      "world": "run-os",
+      "entry": "compile.app_import",
+      "expect": "pass"
+    }
+  ]
+}

@@ -13,8 +13,8 @@
     },
     {
       "name": "ext-cli",
-      "path": ".x07/deps/ext-cli/0.1.14",
-      "version": "0.1.14"
+      "path": ".x07/deps/ext-cli/0.1.15",
+      "version": "0.1.15"
     },
     {
       "name": "ext-crypto-rs",
@@ -33,13 +33,13 @@
     },
     {
       "name": "ext-data-model",
-      "path": ".x07/deps/ext-data-model/0.1.10",
-      "version": "0.1.10"
+      "path": ".x07/deps/ext-data-model/0.1.11",
+      "version": "0.1.11"
     },
     {
       "name": "ext-db-core",
-      "path": ".x07/deps/ext-db-core/0.1.11",
-      "version": "0.1.11"
+      "path": ".x07/deps/ext-db-core/0.1.12",
+      "version": "0.1.12"
     },
     {
       "name": "ext-db-sqlite",
@@ -63,8 +63,8 @@
     },
     {
       "name": "ext-json-rs",
-      "path": ".x07/deps/ext-json-rs/0.1.6",
-      "version": "0.1.6"
+      "path": ".x07/deps/ext-json-rs/0.1.7",
+      "version": "0.1.7"
     },
     {
       "name": "ext-jsonschema-rs",
@@ -188,8 +188,8 @@
     },
     {
       "name": "ext-url-rs",
-      "path": ".x07/deps/ext-url-rs/0.1.4",
-      "version": "0.1.4"
+      "path": ".x07/deps/ext-url-rs/0.1.5",
+      "version": "0.1.5"
     },
     {
       "name": "ext-xml-rs",
@@ -209,8 +209,8 @@
   ],
   "patch": {
     "ext-json-rs": {
-      "path": ".x07/deps/ext-json-rs/0.1.6",
-      "version": "0.1.6"
+      "path": ".x07/deps/ext-json-rs/0.1.7",
+      "version": "0.1.7"
     },
     "ext-mcp-rr": {
       "path": "packages/ext/x07-ext-mcp-rr/0.3.20",
@@ -245,8 +245,8 @@
       "version": "0.1.5"
     },
     "ext-data-model": {
-      "path": ".x07/deps/ext-data-model/0.1.10",
-      "version": "0.1.10"
+      "path": ".x07/deps/ext-data-model/0.1.11",
+      "version": "0.1.11"
     },
     "ext-time-rs": {
       "path": ".x07/deps/ext-time-rs/0.1.6",
@@ -261,8 +261,8 @@
       "version": "0.1.5"
     },
     "ext-db-core": {
-      "path": ".x07/deps/ext-db-core/0.1.11",
-      "version": "0.1.11"
+      "path": ".x07/deps/ext-db-core/0.1.12",
+      "version": "0.1.12"
     },
     "ext-db-sqlite": {
       "path": ".x07/deps/ext-db-sqlite/0.1.11",
@@ -271,6 +271,10 @@
     "ext-net": {
       "path": ".x07/deps/ext-net/0.1.10",
       "version": "0.1.10"
+    },
+    "ext-url-rs": {
+      "path": ".x07/deps/ext-url-rs/0.1.5",
+      "version": "0.1.5"
     }
   },
   "profiles": {

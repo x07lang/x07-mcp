@@ -28,8 +28,8 @@ x07 pkg lock --project x07.json
 Bundle router + worker:
 
 ```sh
-x07 bundle --profile os --out out/mcp-router
-x07 bundle --profile sandbox --program src/worker_main.x07.json --out out/mcp-worker
+x07 bundle --project x07.json --profile os --out out/mcp-router
+x07 bundle --project x07.json --profile sandbox --program src/worker_main.x07.json --out out/mcp-worker
 ```
 
 Run the router:
