@@ -182,6 +182,8 @@ Most MCP frameworks give you a transport layer and leave security, isolation, an
 | **Templates** | `mcp-server-stdio`, `mcp-server-http`, `mcp-server-http-tasks` — each with config, replay fixtures, and test harness |
 | **Reference servers** | x07lang-mcp, github-mcp, slack-mcp, jira-mcp, postgres-mcp, redis-mcp, s3-mcp, kubernetes-mcp, stripe-mcp, smtp-mcp, http-proxy-mcp |
 
+M1/M2 flagship shortlist: Postgres / Kubernetes / GitHub. See `docs/strategy/mcp-flagship-shortlist.md`.
+
 ## Quick start
 
 ### Install
