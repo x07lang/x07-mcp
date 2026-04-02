@@ -3,7 +3,7 @@ set -euo pipefail
 
 DEMO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 OUT_DIR="${DEMO_ROOT}/out"
-CAPTURE_DIR="${OUT_DIR}/captured"
+CAPTURE_DIR="${DEMO_ROOT}/assets/captured"
 
 if [[ ! -d "${OUT_DIR}" ]]; then
   echo "error: missing out dir: ${OUT_DIR} (run scripts/verify_demo.sh first)" >&2

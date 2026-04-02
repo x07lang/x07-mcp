@@ -59,4 +59,4 @@ Expected artifacts under `demos/postgres-public-beta/out/`:
 ./scripts/capture_outputs.sh
 ```
 
-This copies the verifier outputs plus a command log into `demos/postgres-public-beta/out/captured/`.
+This copies the verifier outputs plus a command log into `demos/postgres-public-beta/assets/captured/`.
