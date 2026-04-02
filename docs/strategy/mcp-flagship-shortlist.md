@@ -1,14 +1,19 @@
-# Flagship MCP server shortlist (M1/M2)
+# Flagship MCP server shortlist
 
-M1/M2 focus is a small set of flagship reference servers that represent the strongest “real user” paths for the MCP kit.
+Focus is a small set of flagship reference servers that represent the strongest “real user” paths for the MCP kit.
 
-## Frozen shortlist
+## Public hero path
 
-- Postgres
+**Postgres** is the current public hero path.
+
+Work should optimize for one end-to-end demo that a new external user can reproduce. Postgres is the server we will polish for that path.
+
+## Deferred flagships
+
 - Kubernetes
 - GitHub
 
-## Why these three
+## Why these were shortlisted
 
 - They cover the highest-leverage integration surfaces (data, infra, and code).
 - They represent common enterprise and developer workflows.
@@ -16,6 +21,5 @@ M1/M2 focus is a small set of flagship reference servers that represent the stro
 
 ## What this means for other reference servers
 
-The other reference servers remain valuable as reference inventory, but they are not M1/M2 hero paths.
-Work in M1/M2 should not try to “polish everything” across the full server list.
-
+The other reference servers remain valuable as reference inventory, but they are not current hero paths.
+Work should not try to “polish everything” across the full server list.

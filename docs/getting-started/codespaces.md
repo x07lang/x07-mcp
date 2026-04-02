@@ -1,6 +1,6 @@
 # Codespaces quickstart (private alpha)
 
-This is the Week 2 zero-install path: run a minimal x07-native MCP HTTP server and verify it locally.
+Zero-install evaluation path: run a minimal x07-native MCP HTTP server and verify it locally.
 
 ## 1) Open a Codespace
 

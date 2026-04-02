@@ -8,6 +8,10 @@
 
 Use the standalone verifier CLI: `x07lang/x07-mcp-test`.
 
+### Follow the Postgres public demo
+
+See `demos/postgres-public-beta/README.md`.
+
 ### Build an MCP server in X07
 
 Start with the zero-install Codespaces quickstart: `docs/getting-started/codespaces.md`.
@@ -194,7 +198,7 @@ Most MCP frameworks give you a transport layer and leave security, isolation, an
 | **Templates** | `mcp-server-stdio`, `mcp-server-http`, `mcp-server-http-tasks` — each with config, replay fixtures, and test harness |
 | **Reference servers** | x07lang-mcp, github-mcp, slack-mcp, jira-mcp, postgres-mcp, redis-mcp, s3-mcp, kubernetes-mcp, stripe-mcp, smtp-mcp, http-proxy-mcp |
 
-M1/M2 flagship shortlist: Postgres / Kubernetes / GitHub. See `docs/strategy/mcp-flagship-shortlist.md`.
+Public hero: Postgres. Kubernetes and GitHub are deferred flagships. See `docs/strategy/mcp-flagship-shortlist.md`.
 
 ## Quick start
 
@@ -262,7 +266,7 @@ x07-mcp trust summary --machine json
 x07-mcp trust tlog-monitor --machine json
 ```
 
-Forge M4 relies on two builder-grade machine outputs:
+Forge relies on two builder-grade machine outputs:
 
 - `x07-mcp bundle --mcpb --server-dir <D> --machine json` emits `x07.mcp.bundle.summary@0.1.0`
 - `x07-mcp publish --dry-run --server-json <S> --mcpb <B> --machine json` emits `x07.mcp.publish.readiness@0.1.0`

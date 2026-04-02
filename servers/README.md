@@ -2,6 +2,8 @@
 
 This directory contains deterministic reference MCP servers.
 
+Public hero path: `postgres-mcp` (`io.x07/postgres-mcp`). Demo: `demos/postgres-public-beta/README.md`.
+
 - `x07lang-mcp` (`io.x07/x07lang-mcp`)
 - `github-mcp` (`io.x07/github-mcp`)
 - `slack-mcp` (`io.x07/slack-mcp`)

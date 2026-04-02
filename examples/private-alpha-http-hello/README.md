@@ -1,4 +1,4 @@
-# private-alpha HTTP hello (Week 2)
+# private-alpha HTTP hello
 
 Minimal HTTP MCP server example in pure X07, derived from `templates/mcp-server-http/`.
 

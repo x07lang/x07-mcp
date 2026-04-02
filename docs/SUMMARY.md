@@ -22,7 +22,7 @@
 - [Record/replay](concepts/record-replay.md)
 
 ## Strategy
-- [Flagship shortlist (M1/M2)](strategy/mcp-flagship-shortlist.md)
+- [Flagship shortlist](strategy/mcp-flagship-shortlist.md)
 
 ## Reference
 - [Server config overview](reference/server-config.md)

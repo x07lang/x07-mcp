@@ -1,4 +1,4 @@
-# Internal demo dry run (M1 Week 4)
+# Internal demo dry run
 
 Goal: rehearse the private-alpha end-to-end flow from a cold start with the real `x07-mcp-test` alpha release.
 
