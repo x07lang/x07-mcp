@@ -9,12 +9,13 @@
       "registryType": "mcpb",
       "identifier": "io.x07/postgres-mcp",
       "version": "0.1.0",
-      "url": "https://example.com/postgres-mcp-0.1.0.mcpb",
+      "url": "https://github.com/x07lang/x07-mcp/releases/download/postgres-mcp-v0.1.0/postgres-mcp.mcpb",
       "fileSha256": "0000000000000000000000000000000000000000000000000000000000000000"
     }
   ],
   "_meta": {
     "io.modelcontextprotocol.registry/publisher-provided": {
+      "x07_official": true,
       "x07_reference": true,
       "server_id": "postgres-mcp"
     }

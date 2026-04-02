@@ -19,7 +19,7 @@ This demo assumes:
 From this directory:
 
 ```sh
-./run_demo.sh --deps-only
+./scripts/run_demo.sh --deps-only
 ```
 
 ### 2) Build + run the Postgres MCP server
@@ -27,7 +27,7 @@ From this directory:
 In one terminal:
 
 ```sh
-./run_demo.sh --server
+./scripts/run_demo.sh --server
 ```
 
 Expected:
@@ -38,13 +38,14 @@ Expected:
 In another terminal:
 
 ```sh
-./verify_demo.sh
+./scripts/verify_demo.sh
 ```
 
 Expected artifacts under `demos/postgres-public-beta/out/`:
 - `conformance/summary.json`
 - `conformance/summary.junit.xml`
 - `conformance/summary.html`
+- `conformance/summary.sarif.json`
 - `replay.session.json`
 - `replay-verify/verify.json`
 - `trust.summary.json`
@@ -53,7 +54,7 @@ Expected artifacts under `demos/postgres-public-beta/out/`:
 ### 4) Capture outputs for website/content work
 
 ```sh
-./capture_outputs.sh
+./scripts/capture_outputs.sh
 ```
 
 This copies the verifier outputs plus a command log into `demos/postgres-public-beta/out/captured/`.
