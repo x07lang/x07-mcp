@@ -43,7 +43,7 @@ build_server() {
     cd "${SERVER_ROOT}"
     x07 pkg lock --project x07.json
     x07 bundle --project x07.json --profile os --out out/postgres-mcp
-    x07 bundle --project x07.json --profile sandbox --program src/worker_main.x07.json --out out/mcp-worker
+    x07 bundle --project x07.json --profile sandbox --sandbox-backend os --i-accept-weaker-isolation --program src/worker_main.x07.json --out out/mcp-worker
   )
 }
 

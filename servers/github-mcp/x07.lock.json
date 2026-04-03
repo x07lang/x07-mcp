@@ -339,14 +339,14 @@
     },
     {
       "name": "ext-mcp-transport-http",
-      "version": "0.3.22",
-      "path": ".x07/deps/ext-mcp-transport-http/0.3.22",
-      "package_manifest_sha256": "af960008a5193947617fee25f62f83c40f76451427fb99b553dd3c359882469f",
+      "version": "0.3.23",
+      "path": ".x07/deps/ext-mcp-transport-http/0.3.23",
+      "package_manifest_sha256": "a87ab5ccfe8c0ccbae55c21940fc32ea9ba66c84f0e73d4d17efec40d03ff82b",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.mcp.server": "0950fc7de170db67c7fd835ded0410dc8e03c5ee84ac4ebf3b5be5ef86fb483a",
+        "ext.mcp.server": "4f93cb550f31521882e849ec835af914abac98c1d8ceb440dfc1666c84d870c5",
         "std.mcp.transport.http": "8087f75ead8a810b9da32a52c6db5a6b04102fc488a58f6ae9b08632c0402cb7",
-        "std.mcp.transport.http_rules": "ab63c9564d0320ba73b14c1b993297ec3172b5f4e08cef9aa9c5fa12ac70e5dd",
+        "std.mcp.transport.http_rules": "81b9dced76879bcb0a1ec138d1bb63b16a67bddbb4f11a747cada9b4a8f4bcd2",
         "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9",
         "std.mcp.transport.http_sse": "5fa7f191dac0e9fe080275ce47152285890c308164b2972093601e0cc35b9f2a",
         "std.mcp.transport.http_sse_outbox_v1": "baeb3adf7a12181011ff1daadd4747df635acca0ce5f22a8f034922810b8f80b"

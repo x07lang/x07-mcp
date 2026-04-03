@@ -8,7 +8,7 @@ This demo assumes:
 
 - You are in the `x07lang/x07-mcp` repo.
 - The X07 toolchain is installed (the demo uses `x07 bundle` and runs native bundles).
-- `x07-mcp-test` is installed on `PATH` (or installed via `./scripts/dev/install_x07_mcp_test.sh`).
+- `x07-mcp-test` is installed on `PATH` (or installed via `./scripts/dev/install_x07_mcp_test.sh`). You can also override with `X07_MCP_TEST_BIN=/path/to/x07-mcp-test`.
 - A Postgres instance is reachable with a known DSN (this demo uses Docker Compose by default).
 - The MCP server runs over Streamable HTTP at `http://127.0.0.1:8403/mcp`.
 
@@ -40,6 +40,8 @@ In another terminal:
 ```sh
 ./scripts/verify_demo.sh
 ```
+
+If you are developing inside the multi-repo workspace (`x07lang/`), `verify_demo.sh` will prefer `../x07-mcp-test/out/x07-mcp-test` when present. Otherwise it uses `x07-mcp-test` from `PATH`.
 
 Expected artifacts under `demos/postgres-public-beta/out/`:
 - `conformance/summary.json`

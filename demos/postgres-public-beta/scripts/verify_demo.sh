@@ -3,19 +3,32 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 DEMO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-OUT_DIR="${DEMO_ROOT}/out"
-SERVER_ROOT="${ROOT}/servers/postgres-mcp"
+OUT_DIR="demos/postgres-public-beta/out"
+SERVER_ROOT="servers/postgres-mcp"
 TARGET_URL="http://127.0.0.1:8403/mcp"
 
-require_cmd() {
+require_bin() {
+  if [[ "${1}" == */* ]]; then
+    if [[ ! -x "${1}" ]]; then
+      echo "error: missing required executable: ${1}" >&2
+      exit 2
+    fi
+    return 0
+  fi
   if ! command -v "${1}" >/dev/null 2>&1; then
     echo "error: missing required command: ${1}" >&2
     exit 2
   fi
 }
 
-require_cmd x07-mcp-test
+MCP_TEST_BIN="${X07_MCP_TEST_BIN:-x07-mcp-test}"
+if [[ -z "${X07_MCP_TEST_BIN:-}" && -x "${ROOT}/../x07-mcp-test/out/x07-mcp-test" ]]; then
+  MCP_TEST_BIN="${ROOT}/../x07-mcp-test/out/x07-mcp-test"
+fi
 
+require_bin "${MCP_TEST_BIN}"
+
+cd "${ROOT}"
 mkdir -p "${OUT_DIR}"
 
 cmd_log="${OUT_DIR}/command.log"
@@ -30,16 +43,16 @@ run_logged() {
   "$@" 2>&1 | tee -a "${cmd_log}"
 }
 
-run_logged x07-mcp-test conformance run --url "${TARGET_URL}" --out "${OUT_DIR}/conformance" --machine json
+run_logged "${MCP_TEST_BIN}" conformance run --url "${TARGET_URL}" --out "${OUT_DIR}/conformance" --machine json
 
-run_logged x07-mcp-test replay record \
+run_logged "${MCP_TEST_BIN}" replay record \
   --url "${TARGET_URL}" \
   --scenario smoke/basic \
   --sanitize auth,token \
   --out "${OUT_DIR}/replay.session.json" \
   --machine json
 
-run_logged x07-mcp-test replay verify \
+run_logged "${MCP_TEST_BIN}" replay verify \
   --session "${OUT_DIR}/replay.session.json" \
   --url "${TARGET_URL}" \
   --out "${OUT_DIR}/replay-verify" \
@@ -47,15 +60,15 @@ run_logged x07-mcp-test replay verify \
 
 (
   cd "${SERVER_ROOT}"
-  ./publish/build_mcpb.sh
+  X07_MCP_X07_EXE="$(command -v x07)" ./publish/build_mcpb.sh
 )
 
-run_logged x07-mcp-test trust verify \
+run_logged "${MCP_TEST_BIN}" trust verify \
   --server-json "${SERVER_ROOT}/dist/server.json" \
   --machine json \
   --out "${OUT_DIR}/trust.summary.json"
 
-run_logged x07-mcp-test bundle verify \
+run_logged "${MCP_TEST_BIN}" bundle verify \
   --server-json "${SERVER_ROOT}/dist/server.json" \
   --mcpb "${SERVER_ROOT}/dist/postgres-mcp.mcpb" \
   --machine json \

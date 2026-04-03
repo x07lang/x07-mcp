@@ -1,0 +1,1 @@
+{"schema_version":"x07.mcp.tools_manifest@0.2.0","tools":[{"name":"noop","description":"no-op","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false},"x07":{"impl":"mcp.user.call_tool_v1","limits_profile":"mcp_tool_standard_v1"}}]}

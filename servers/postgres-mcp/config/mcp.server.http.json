@@ -1,49 +1,87 @@
 {
-  "schema_version": "x07.mcp.server_config@0.2.0",
+  "schema_version": "x07.mcp.server_config@0.3.0",
+
   "server": {
     "name": "io.x07/postgres-mcp",
     "version": "0.1.0",
     "protocolVersion": "2025-11-25"
   },
-  "tools_manifest_path": "config/mcp.tools.json",
-  "budgets": {
-    "index_path": "arch/budgets/index.x07budgets.json",
-    "default_profile": "mcp_router_default_v1"
-  },
-  "sandbox": {
-    "router_base_policy_path": "policy/mcp.router.base.policy.json",
-    "worker_base_policy_path": "policy/mcp.worker.base.policy.json"
-  },
-  "rr": {
-    "enabled": true,
-    "cassette_dir": "tests/.x07_rr/sessions"
-  },
-  "worker_exe_path": "out/mcp-worker",
-  "transport": {
-    "kind": "http",
-    "bind_host": "127.0.0.1",
-    "bind_port": 8403,
-    "mcp_path": "/mcp",
-    "sse_enabled": true,
-    "origin_allow_missing": true,
-    "origin_allowlist": [
-      "http://localhost:*",
-      "http://127.0.0.1:*"
-    ],
-    "session_mode": "required",
-    "session_ttl_seconds": 600,
-    "session_max": 128
-  },
+
   "auth": {
-    "mode": "none",
-    "oauth_config_path": "config/mcp.oauth.json",
-    "required_scopes": [
-      "mcp:tools"
-    ]
+    "mode": "none"
   },
-  "obs": {
-    "sink": "stdout_jsonl",
-    "audit": true,
-    "metrics": false
+
+  "transports": {
+    "http": {
+      "enabled": true,
+      "bind": "127.0.0.1:8403",
+      "path": "/mcp",
+      "origin_allow_missing": true,
+      "origin_allowlist": [
+        "http://localhost:*",
+        "http://127.0.0.1:*"
+      ],
+      "streamable": {
+        "enabled": true,
+        "strict_protocol_header": false,
+        "sse": { "enabled": true, "max_connections": 64 },
+        "session": { "mode": "optional", "ttl_seconds": 600, "max": 128 }
+      }
+    }
+  },
+
+  "capabilities": {
+    "tools": { "listChanged": false }
+  },
+
+  "tools": {
+    "descriptor_path": "mcp.tools.json"
+  },
+  "resources": {
+    "descriptor_path": "mcp.resources.json"
+  },
+  "prompts": {
+    "descriptor_path": "mcp.prompts.json"
+  },
+
+  "worker_exe_path": "../out/mcp-worker",
+
+  "observability": {
+    "clock": { "mode": "os_now" },
+    "logging": {
+      "enabled": true,
+      "declare_capability": true,
+      "default_client_level": "error",
+      "client_level_floor": "notice",
+      "rate_limit_per_sec": 25,
+      "max_data_bytes": 16384,
+      "emit": { "tool_start": true, "tool_finish": true },
+      "redaction": {
+        "redact_keys": [
+          "authorization",
+          "cookie",
+          "set-cookie",
+          "client_secret",
+          "refresh_token",
+          "id_token",
+          "password",
+          "secret",
+          "token",
+          "apiKey"
+        ],
+        "redact_patterns": ["(?i)bearer\\s+[A-Za-z0-9._-]+"],
+        "redacted_value": "<redacted>"
+      }
+    },
+    "audit": {
+      "enabled": true,
+      "sinks": [{ "kind": "stderr_jsonl_v1" }, { "kind": "rr_sidecar_v1" }],
+      "allow_tool_tags": ["cache.hit"]
+    },
+    "metrics": { "enabled": false }
+  },
+
+  "sandbox": {
+    "per_tool": { "enabled": true, "policy_path": "../policy/mcp.worker.base.policy.json" }
   }
 }
