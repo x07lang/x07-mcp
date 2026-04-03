@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-tag="${1:-${HARDPROOF_TAG:-v0.1.0-alpha.5}}"
+tag="${1:-${HARDPROOF_TAG:-v0.1.0-alpha.6}}"
 if [[ "${tag}" != v* && "${tag}" != latest-alpha ]]; then
   tag="v${tag}"
 fi
@@ -12,7 +12,7 @@ install_path="${install_dir}/hardproof"
 tmp_dir="$(mktemp -d)"
 trap 'rm -rf "${tmp_dir}"' EXIT
 
-script_url="https://github.com/x07lang/x07-mcp-test/releases/download/${tag}/install.sh"
+script_url="https://github.com/x07lang/hardproof/releases/download/${tag}/install.sh"
 script_path="${tmp_dir}/install.sh"
 
 echo "==> download ${script_url}"

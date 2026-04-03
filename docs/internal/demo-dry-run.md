@@ -51,4 +51,4 @@ Expected artifacts:
 ## Notes
 
 - Windows support is via WSL2 (run inside the Linux distro).
-- Conformance runs via `npx`; `hardproof doctor` checks Node/npm/npx prerequisites.
+- Conformance runs inside the `hardproof` binary; `hardproof doctor` checks environment and reachability prerequisites.

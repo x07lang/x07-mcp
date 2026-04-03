@@ -66,4 +66,4 @@ Call out:
 - “This is the production verification layer on top of official MCP.”
 - Point viewers at:
   - the demo README: `demos/postgres-public-beta/README.md`
-  - the verifier repo: `x07lang/x07-mcp-test` (Hardproof)
+  - the verifier repo: `x07lang/hardproof`

@@ -41,7 +41,7 @@ In another terminal:
 ./scripts/verify_demo.sh
 ```
 
-If you are developing inside the multi-repo workspace (`x07lang/`), `verify_demo.sh` will prefer `../x07-mcp-test/out/hardproof` when present. Otherwise it uses `hardproof` from `PATH`.
+If you are developing inside the multi-repo workspace (`x07lang/`), `verify_demo.sh` will prefer `../hardproof/out/hardproof` when present. Otherwise it uses `hardproof` from `PATH`.
 
 Expected artifacts under `demos/postgres-public-beta/out/`:
 - `conformance/summary.json`

@@ -22,8 +22,8 @@ require_bin() {
 }
 
 VERIFIER_BIN="${HARDPROOF_BIN:-hardproof}"
-if [[ -z "${HARDPROOF_BIN:-}" && -x "${ROOT}/../x07-mcp-test/out/hardproof" ]]; then
-  VERIFIER_BIN="${ROOT}/../x07-mcp-test/out/hardproof"
+if [[ -z "${HARDPROOF_BIN:-}" && -x "${ROOT}/../hardproof/out/hardproof" ]]; then
+  VERIFIER_BIN="${ROOT}/../hardproof/out/hardproof"
 fi
 
 require_bin "${VERIFIER_BIN}"

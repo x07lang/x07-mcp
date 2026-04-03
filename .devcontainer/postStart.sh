@@ -7,10 +7,10 @@ fi
 
 cat <<'TXT'
 
-==> MCP private alpha quickstart
+==> MCP quickstart: verify with Hardproof
 
 1) Install verifier:
-  ./scripts/dev/install_x07_mcp_test.sh
+  ./scripts/dev/install_hardproof.sh
 
 2) Run the example server:
   cd examples/private-alpha-http-hello
@@ -19,7 +19,7 @@ cat <<'TXT'
   ./out/mcp-router
 
 3) Conformance (new terminal):
-  x07-mcp-test conformance run --url "http://127.0.0.1:8314/mcp" --out out/conformance --machine json
+  hardproof scan --url "http://127.0.0.1:8314/mcp" --out out/conformance --machine json
 
 Docs:
   docs/getting-started/codespaces.md
