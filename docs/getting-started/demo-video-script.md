@@ -3,14 +3,14 @@
 This is the draft script for a short (≈3 minute) “hero path” video that shows:
 
 - one real MCP server (Postgres),
-- `x07-mcp-test` producing repeatable artifacts (JSON/JUnit/HTML/SARIF),
+- Hardproof producing repeatable artifacts (JSON/JUnit/HTML/SARIF),
 - replay evidence, and
 - trust + bundle validation on release-like metadata.
 
 ## Pre-flight (before recording)
 
 - Start from a clean `x07lang/x07-mcp` checkout.
-- Ensure `x07` and `x07-mcp-test` are installed and on `PATH`.
+- Ensure `x07` and `hardproof` are installed and on `PATH`.
 - Confirm Docker is running.
 
 ## Recording flow
@@ -66,4 +66,4 @@ Call out:
 - “This is the production verification layer on top of official MCP.”
 - Point viewers at:
   - the demo README: `demos/postgres-public-beta/README.md`
-  - the verifier repo: `x07lang/x07-mcp-test`
+  - the verifier repo: `x07lang/x07-mcp-test` (Hardproof)

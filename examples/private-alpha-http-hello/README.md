@@ -13,7 +13,7 @@ For the full template documentation (OAuth, trust, replay fixtures, publish), se
 Install the verifier (once per Codespace):
 
 ```sh
-./scripts/dev/install_x07_mcp_test.sh
+./scripts/dev/install_hardproof.sh
 ```
 
 Build and run the server:
@@ -28,7 +28,7 @@ x07 bundle --project x07.json --profile sandbox --program src/worker_main.x07.js
 Run conformance in another terminal:
 
 ```sh
-x07-mcp-test conformance run --url "http://127.0.0.1:8314/mcp" --out out/conformance
+hardproof scan --url "http://127.0.0.1:8314/mcp" --out out/conformance
 ```
 
 Artifacts are written under `out/conformance/` (`summary.json`, `summary.junit.xml`, `summary.html`).
@@ -38,7 +38,7 @@ Artifacts are written under `out/conformance/` (`summary.json`, `summary.junit.x
 Record a small HTTP session cassette:
 
 ```sh
-x07-mcp-test replay record \
+hardproof replay record \
   --url "http://127.0.0.1:8314/mcp" \
   --scenario smoke/basic \
   --sanitize auth,token \
@@ -49,7 +49,7 @@ x07-mcp-test replay record \
 Replay it against the same target:
 
 ```sh
-x07-mcp-test replay verify \
+hardproof replay verify \
   --session out/replay.session.json \
   --url "http://127.0.0.1:8314/mcp" \
   --out out/replay-verify \

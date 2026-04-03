@@ -8,7 +8,7 @@ This demo assumes:
 
 - You are in the `x07lang/x07-mcp` repo.
 - The X07 toolchain is installed (the demo uses `x07 bundle` and runs native bundles).
-- `x07-mcp-test` is installed on `PATH` (or installed via `./scripts/dev/install_x07_mcp_test.sh`). You can also override with `X07_MCP_TEST_BIN=/path/to/x07-mcp-test`.
+- Hardproof (`hardproof`) is installed on `PATH` (or installed via `./scripts/dev/install_hardproof.sh`). You can also override with `HARDPROOF_BIN=/path/to/hardproof`.
 - A Postgres instance is reachable with a known DSN (this demo uses Docker Compose by default).
 - The MCP server runs over Streamable HTTP at `http://127.0.0.1:8403/mcp`.
 
@@ -33,7 +33,7 @@ In one terminal:
 Expected:
 - server listens on `http://127.0.0.1:8403/mcp`
 
-### 3) Verify the server with `x07-mcp-test`
+### 3) Verify the server with Hardproof
 
 In another terminal:
 
@@ -41,7 +41,7 @@ In another terminal:
 ./scripts/verify_demo.sh
 ```
 
-If you are developing inside the multi-repo workspace (`x07lang/`), `verify_demo.sh` will prefer `../x07-mcp-test/out/x07-mcp-test` when present. Otherwise it uses `x07-mcp-test` from `PATH`.
+If you are developing inside the multi-repo workspace (`x07lang/`), `verify_demo.sh` will prefer `../x07-mcp-test/out/hardproof` when present. Otherwise it uses `hardproof` from `PATH`.
 
 Expected artifacts under `demos/postgres-public-beta/out/`:
 - `conformance/summary.json`

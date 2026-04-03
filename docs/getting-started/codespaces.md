@@ -8,18 +8,18 @@ Use the badge in `README.md`, or open:
 
 - `https://codespaces.new/x07lang/x07-mcp?quickstart=1`
 
-## 2) Install the verifier (`x07-mcp-test`)
+## 2) Install the verifier (Hardproof)
 
 From the repo root:
 
 ```sh
-./scripts/dev/install_x07_mcp_test.sh
+./scripts/dev/install_hardproof.sh
 ```
 
-If `x07-mcp-test` is not on `PATH`, run:
+If `hardproof` is not on `PATH`, run:
 
 ```sh
-~/.local/bin/x07-mcp-test --help
+~/.local/bin/hardproof --help
 ```
 
 ## 3) Build + run the example server
@@ -38,7 +38,7 @@ The MCP endpoint is `http://127.0.0.1:8314/mcp`.
 In another terminal:
 
 ```sh
-x07-mcp-test conformance run --url "http://127.0.0.1:8314/mcp" --out out/conformance
+hardproof scan --url "http://127.0.0.1:8314/mcp" --out out/conformance
 ```
 
 Artifacts are written under `out/conformance/`:
@@ -46,13 +46,14 @@ Artifacts are written under `out/conformance/`:
 - `summary.json`
 - `summary.junit.xml`
 - `summary.html`
+- `summary.sarif.json`
 
 ## 5) Optional: record + replay
 
 Record a small HTTP session cassette:
 
 ```sh
-x07-mcp-test replay record \
+hardproof replay record \
   --url "http://127.0.0.1:8314/mcp" \
   --scenario smoke/basic \
   --sanitize auth,token \
@@ -63,7 +64,7 @@ x07-mcp-test replay record \
 Replay it against the same target:
 
 ```sh
-x07-mcp-test replay verify \
+hardproof replay verify \
   --session out/replay.session.json \
   --url "http://127.0.0.1:8314/mcp" \
   --out out/replay-verify \

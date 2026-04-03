@@ -3,7 +3,7 @@
 The Postgres demo is the end-to-end “hero path” for the MCP public beta:
 
 1. start one real MCP server,
-2. run `x07-mcp-test` conformance + replay checks against it, and
+2. run Hardproof verification checks against it, and
 3. verify release-grade metadata (`server.json` trust metadata + `.mcpb` bundle consistency).
 
 The canonical command sequence lives in `demos/postgres-public-beta/README.md`.
@@ -11,7 +11,7 @@ The canonical command sequence lives in `demos/postgres-public-beta/README.md`.
 ## Prerequisites
 
 - X07 toolchain installed (`x07`)
-- `x07-mcp-test` installed on `PATH` (or installed via `./scripts/dev/install_x07_mcp_test.sh`)
+- Hardproof (`hardproof`) installed on `PATH` (or installed via `./scripts/dev/install_hardproof.sh`)
 - Docker + Docker Compose (for the local Postgres dependency)
 
 ## Run the demo locally

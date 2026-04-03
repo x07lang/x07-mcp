@@ -6,7 +6,7 @@
 
 ### Verify any MCP server
 
-Use the standalone verifier CLI: `x07lang/x07-mcp-test`.
+Use the standalone verifier CLI: Hardproof (`hardproof scan --url ...`).
 
 ### Follow the Postgres public demo
 

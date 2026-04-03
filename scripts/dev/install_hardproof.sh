@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-tag="${1:-${X07_MCP_TEST_TAG:-v0.1.0-alpha.4}}"
-if [[ "${tag}" != v* ]]; then
+tag="${1:-${HARDPROOF_TAG:-v0.1.0-alpha.5}}"
+if [[ "${tag}" != v* && "${tag}" != latest-alpha ]]; then
   tag="v${tag}"
 fi
 
-install_dir="${X07_MCP_TEST_INSTALL_DIR:-${HOME}/.local/bin}"
-install_path="${install_dir}/x07-mcp-test"
+install_dir="${HARDPROOF_INSTALL_DIR:-${HOME}/.local/bin}"
+install_path="${install_dir}/hardproof"
 
 tmp_dir="$(mktemp -d)"
 trap 'rm -rf "${tmp_dir}"' EXIT

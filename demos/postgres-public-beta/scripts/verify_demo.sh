@@ -21,12 +21,12 @@ require_bin() {
   fi
 }
 
-MCP_TEST_BIN="${X07_MCP_TEST_BIN:-x07-mcp-test}"
-if [[ -z "${X07_MCP_TEST_BIN:-}" && -x "${ROOT}/../x07-mcp-test/out/x07-mcp-test" ]]; then
-  MCP_TEST_BIN="${ROOT}/../x07-mcp-test/out/x07-mcp-test"
+VERIFIER_BIN="${HARDPROOF_BIN:-hardproof}"
+if [[ -z "${HARDPROOF_BIN:-}" && -x "${ROOT}/../x07-mcp-test/out/hardproof" ]]; then
+  VERIFIER_BIN="${ROOT}/../x07-mcp-test/out/hardproof"
 fi
 
-require_bin "${MCP_TEST_BIN}"
+require_bin "${VERIFIER_BIN}"
 
 cd "${ROOT}"
 mkdir -p "${OUT_DIR}"
@@ -43,16 +43,16 @@ run_logged() {
   "$@" 2>&1 | tee -a "${cmd_log}"
 }
 
-run_logged "${MCP_TEST_BIN}" conformance run --url "${TARGET_URL}" --out "${OUT_DIR}/conformance" --machine json
+run_logged "${VERIFIER_BIN}" scan --url "${TARGET_URL}" --out "${OUT_DIR}/conformance" --machine json
 
-run_logged "${MCP_TEST_BIN}" replay record \
+run_logged "${VERIFIER_BIN}" replay record \
   --url "${TARGET_URL}" \
   --scenario smoke/basic \
   --sanitize auth,token \
   --out "${OUT_DIR}/replay.session.json" \
   --machine json
 
-run_logged "${MCP_TEST_BIN}" replay verify \
+run_logged "${VERIFIER_BIN}" replay verify \
   --session "${OUT_DIR}/replay.session.json" \
   --url "${TARGET_URL}" \
   --out "${OUT_DIR}/replay-verify" \
@@ -63,12 +63,12 @@ run_logged "${MCP_TEST_BIN}" replay verify \
   X07_MCP_X07_EXE="$(command -v x07)" ./publish/build_mcpb.sh
 )
 
-run_logged "${MCP_TEST_BIN}" trust verify \
+run_logged "${VERIFIER_BIN}" trust verify \
   --server-json "${SERVER_ROOT}/dist/server.json" \
   --machine json \
   --out "${OUT_DIR}/trust.summary.json"
 
-run_logged "${MCP_TEST_BIN}" bundle verify \
+run_logged "${VERIFIER_BIN}" bundle verify \
   --server-json "${SERVER_ROOT}/dist/server.json" \
   --mcpb "${SERVER_ROOT}/dist/postgres-mcp.mcpb" \
   --machine json \

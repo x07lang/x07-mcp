@@ -1,6 +1,6 @@
 # Internal demo dry run
 
-Goal: rehearse the private-alpha end-to-end flow from a cold start with the real `x07-mcp-test` alpha release.
+Goal: rehearse the private-alpha end-to-end flow from a cold start with a real Hardproof release.
 
 This is intentionally scoped to one example server and one happy-path verifier run.
 
@@ -15,12 +15,12 @@ This is intentionally scoped to one example server and one happy-path verifier r
 From the repo root:
 
 ```sh
-./scripts/dev/install_x07_mcp_test.sh
+./scripts/dev/install_hardproof.sh
 ```
 
 Expected:
-- `x07-mcp-test --help` works
-- `x07-mcp-test doctor --machine json` succeeds
+- `hardproof --help` works
+- `hardproof doctor --machine json` succeeds
 
 ### 3) Build and run the example server
 
@@ -39,15 +39,16 @@ Expected:
 In another terminal:
 
 ```sh
-x07-mcp-test conformance run --url "http://127.0.0.1:8314/mcp" --out out/conformance --machine json
+hardproof scan --url "http://127.0.0.1:8314/mcp" --out out/conformance --machine json
 ```
 
 Expected artifacts:
 - `out/conformance/summary.json`
 - `out/conformance/summary.junit.xml`
 - `out/conformance/summary.html`
+- `out/conformance/summary.sarif.json`
 
 ## Notes
 
-- Conformance runs via `npx`; `x07-mcp-test doctor` checks Node/npm/npx prerequisites.
 - Windows support is via WSL2 (run inside the Linux distro).
+- Conformance runs via `npx`; `hardproof doctor` checks Node/npm/npx prerequisites.
