@@ -12,6 +12,7 @@ env:
   X07_MCP_LOCK_RETRY_DELAY_SECS: "3"
   X07_TOOLCHAIN_TAG: "v0.1.108"
   X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-0.1.108-x86_64-unknown-linux-gnu.tar.gz"
+  HARDPROOF_TAG: "v0.1.0-alpha.5"
 
 jobs:
   check:
@@ -453,10 +454,15 @@ jobs:
       - name: Install X07 (pinned)
         shell: bash
         run: X07_TOOLCHAIN_SOURCE_DIR="$(./scripts/ci/resolve_workspace_x07_root.sh)" ./scripts/ci/install_x07_toolchain.sh
-      - name: Setup Node 22
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
+      - name: Install Hardproof (pinned)
+        shell: bash
+        env:
+          HARDPROOF_INSTALL_DIR: ${{ runner.temp }}/hardproof/bin
+        run: |
+          set -euo pipefail
+          mkdir -p "${HARDPROOF_INSTALL_DIR}"
+          bash scripts/dev/install_hardproof.sh "${HARDPROOF_TAG}"
+          echo "${HARDPROOF_INSTALL_DIR}" >>"${GITHUB_PATH}"
       - name: Run conformance
         shell: bash
         run: |
@@ -470,8 +476,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: conformance-${{ matrix.server_id }}-${{ matrix.mode }}
-          path: conformance/results/${{ matrix.server_id }}-${{ matrix.mode }}/**/checks*.json
-          if-no-files-found: ignore
+          path: conformance/results/${{ matrix.server_id }}-${{ matrix.mode }}/**
+          if-no-files-found: error
 
   conformance-client-auth:
     name: ci / conformance-client / auth

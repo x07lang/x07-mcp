@@ -28,6 +28,37 @@ require_cmd() {
 require_cmd python3
 require_cmd jq
 
+default_parallel_jobs() {
+  local jobs="${X07_MCP_CHECK_ALL_JOBS:-}"
+  local detected=4
+
+  if [[ -n "${jobs}" ]]; then
+    if ! [[ "${jobs}" =~ ^[0-9]+$ ]] || (( jobs <= 0 )); then
+      echo "ERROR: invalid X07_MCP_CHECK_ALL_JOBS=${jobs} (expected positive integer)" >&2
+      return 2
+    fi
+    printf '%s\n' "${jobs}"
+    return 0
+  fi
+
+  if command -v nproc >/dev/null 2>&1; then
+    detected="$(nproc)"
+  elif command -v sysctl >/dev/null 2>&1; then
+    detected="$(sysctl -n hw.ncpu)"
+  elif command -v getconf >/dev/null 2>&1; then
+    detected="$(getconf _NPROCESSORS_ONLN || echo 4)"
+  fi
+
+  if ! [[ "${detected}" =~ ^[0-9]+$ ]] || (( detected <= 0 )); then
+    detected=4
+  fi
+  if (( detected > 8 )); then
+    detected=8
+  fi
+
+  printf '%s\n' "${detected}"
+}
+
 resolve_x07_bin() {
   if command -v x07 >/dev/null 2>&1 && command x07 --version >/dev/null 2>&1; then
     command -v x07
@@ -332,15 +363,12 @@ step "registry fixtures (check)"
 ./registry/scripts/check_fixtures.sh
 
 step "fmt check (x07AST JSON)"
-while IFS= read -r -d '' f; do
-  x07 fmt --input "$f" --check --report-json >/dev/null
-done < <(
-  find cli/src packages/ext templates conformance/client-x07/src conformance/client-x07/tests \
-    \( -path 'packages/ext/x07-ext-mcp-rr/0.3.18' -prune \) -o \
-    \( -type d \( -name .x07 -o -name target -o -name dist -o -name out -o -name .agent_cache \) -prune \) -o \
-    -type f -name '*.x07.json' -print0
-)
-
+fmt_jobs="$(default_parallel_jobs)"
+find cli/src packages/ext templates conformance/client-x07/src conformance/client-x07/tests \
+  \( -path 'packages/ext/x07-ext-mcp-rr/0.3.18' -prune \) -o \
+  \( -type d \( -name .x07 -o -name target -o -name dist -o -name out -o -name .agent_cache \) -prune \) -o \
+  -type f -name '*.x07.json' -print0 \
+  | xargs -0 -n 1 -P "$fmt_jobs" x07 fmt --check --report-json --input >/dev/null
 step "schema version check (x07ast)"
 x07ast_schema="$(x07 ast schema --json=off | jq -r '.properties.schema_version.const')"
 [[ -n "$x07ast_schema" ]] || { echo "ERROR: failed to read x07ast schema_version const" >&2; exit 2; }
@@ -385,6 +413,51 @@ check_asset mcp-server x07.mcp.cli.assets.mcp-server cli/src/x07/mcp/cli/assets/
 check_asset mcp-server-stdio x07.mcp.cli.assets.mcp-server-stdio cli/src/x07/mcp/cli/assets/mcp-server-stdio.x07.json
 check_asset mcp-server-http x07.mcp.cli.assets.mcp-server-http cli/src/x07/mcp/cli/assets/mcp-server-http.x07.json
 check_asset mcp-server-http-tasks x07.mcp.cli.assets.mcp-server-http-tasks cli/src/x07/mcp/cli/assets/mcp-server-http-tasks.x07.json
+
+step "conformance URL derivation (check)"
+expected_url="$(
+  python3 - <<'PY'
+import json
+from pathlib import Path
+
+cfg_path = Path("servers/postgres-mcp/config/mcp.server.http.json")
+cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+
+host = "127.0.0.1"
+port = 8080
+path = "/mcp"
+
+transport = cfg.get("transport")
+if isinstance(transport, dict):
+    host = transport.get("bind_host", host)
+    port = transport.get("bind_port", port)
+    path = transport.get("mcp_path", path)
+else:
+    http = (cfg.get("transports") or {}).get("http") or {}
+    bind = http.get("bind", f"{host}:{port}")
+    path = http.get("path", path)
+    if isinstance(bind, str) and bind:
+        if bind.startswith("[") and "]:" in bind:
+            host = bind[1 : bind.index("]")]
+            port = int(bind.split("]:", 1)[1])
+        elif ":" in bind:
+            host_part, port_part = bind.rsplit(":", 1)
+            host = host_part
+            port = int(port_part)
+        else:
+            host = bind
+
+if host in ("0.0.0.0", "::"):
+    host = "127.0.0.1"
+
+print(f"http://{host}:{port}{path}")
+PY
+)"
+actual_url="$(./conformance/run_server_conformance.sh --spawn postgres-mcp --mode noauth --print-url)"
+if [[ "${actual_url}" != "${expected_url}" ]]; then
+  echo "ERROR: conformance URL derivation mismatch for postgres-mcp (got=${actual_url} want=${expected_url})" >&2
+  exit 2
+fi
 
 step "lint check (publish ext package modules)"
 lint_dirs=(
@@ -503,9 +576,9 @@ lint_dirs=(
 for d in "${lint_dirs[@]}"; do
   [[ -d "$d" ]] || { echo "ERROR: missing lint dir: $d" >&2; exit 2; }
 done
-while IFS= read -r -d '' f; do
-  x07 lint --input "$f" >/dev/null
-done < <(find "${lint_dirs[@]}" -type f -name '*.x07.json' -print0)
+lint_jobs="$(default_parallel_jobs)"
+find "${lint_dirs[@]}" -type f -name '*.x07.json' -print0 \
+  | xargs -0 -n 1 -P "$lint_jobs" x07 lint --input >/dev/null
 
 step "package tests (ext-mcp-rr sanitizer)"
 if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
@@ -2080,20 +2153,22 @@ else
   echo "skip (requires X07_MCP_LOCAL_DEPS=1)"
 fi
 
-step "scaffold e2e (mcp-server-stdio)"
-tmp="$(mktemp -d)"
-tmp_dirs+=("$tmp")
 scaffold_test_timeout_secs="${X07_MCP_SCAFFOLD_TEST_TIMEOUT_SECS:-900}"
 scaffold_http_test_timeout_secs="${X07_MCP_SCAFFOLD_HTTP_TEST_TIMEOUT_SECS:-1800}"
 
-proj_rel="proj"
-(
-  cd "$tmp"
-  "$root/dist/x07-mcp" scaffold init --template mcp-server-stdio --dir "$proj_rel" --machine json >"$tmp/report.json"
-)
-proj="$tmp/$proj_rel"
-pin_project_toolchain "$proj"
-python3 - "$tmp/report.json" <<'PY'
+scaffold_stdio_e2e() (
+  set -euo pipefail
+  local tmp="${1:?missing tmp dir}"
+
+  local proj_rel="proj"
+  (
+    cd "$tmp"
+    "$root/dist/x07-mcp" scaffold init --template mcp-server-stdio --dir "$proj_rel" --machine json >"$tmp/report.json"
+  )
+
+  local proj="$tmp/$proj_rel"
+  pin_project_toolchain "$proj"
+  python3 - "$tmp/report.json" <<'PY'
 import json
 import sys
 
@@ -2103,71 +2178,68 @@ if not doc.get("ok"):
     raise SystemExit(f"scaffold report not ok: {doc!r}")
 PY
 
-cd "$proj"
+  cd "$proj"
 
-step "template deps + tests"
-if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
-  x07_root="$(workspace_x07_root)"
-  install_project_local_deps_from_workspace "$x07_root" "$PWD"
-  tmp_manifest="$(mktemp)"
-  tmp_dirs+=("$tmp_manifest")
-  jq \
-    '.patch = ((.patch // {}) + {
-       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-       "ext-mcp-sandbox":{"version":"0.3.14","path":".x07/local/ext-mcp-sandbox/0.3.14"}
-     })' \
-    x07.json \
-    >"$tmp_manifest"
-  mv "$tmp_manifest" x07.json
+  step "template deps + tests (mcp-server-stdio)"
+  if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+    local x07_root
+    x07_root="$(workspace_x07_root)"
+    install_project_local_deps_from_workspace "$x07_root" "$PWD"
+    tmp_manifest="${tmp}/x07.patched.json"
+    jq \
+      '.patch = ((.patch // {}) + {
+         "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
+         "ext-mcp-sandbox":{"version":"0.3.14","path":".x07/local/ext-mcp-sandbox/0.3.14"}
+       })' \
+      x07.json \
+      >"$tmp_manifest"
+    mv "$tmp_manifest" x07.json
 
-  patch_deps_log="$(mktemp)"
-  tmp_dirs+=("$patch_deps_log")
-  X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" "$root/scripts/ci/materialize_patch_deps.sh" "$PWD/x07.json"
+    patch_deps_log="${tmp}/patch.deps.log"
+    X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" "$root/scripts/ci/materialize_patch_deps.sh" "$PWD/x07.json"
 
-  proj_lock_log="$(mktemp)"
-  tmp_dirs+=("$proj_lock_log")
-  X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project x07.json --offline --json=off
-else
-  if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
-    x07 pkg lock --project x07.json --check --json=off >/dev/null
+    proj_lock_log="${tmp}/pkg.lock.log"
+    X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project x07.json --offline --json=off
+  else
+    if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
+      x07 pkg lock --project x07.json --check --json=off >/dev/null
+    fi
   fi
-fi
-x07 arch check --manifest arch/manifest.x07arch.json --lock arch/manifest.lock.json >/dev/null
-mkdir -p out
-router_bundle_log="$(mktemp)"
-tmp_dirs+=("$router_bundle_log")
-run_quiet "$router_bundle_log" x07 bundle --profile os --out out/mcp-router --json=off
-worker_entry_tmp="out/worker_main.entry.x07.json"
-jq '.module_id = "main"' src/worker_main.x07.json > "$worker_entry_tmp"
-worker_bundle_args=(
-  --profile sandbox
-  --program "$worker_entry_tmp"
-  --out out/mcp-worker
-  --json=off
-  --sandbox-backend none
-  --i-accept-weaker-isolation
-  --module-root src
+  x07 arch check --manifest arch/manifest.x07arch.json --lock arch/manifest.lock.json >/dev/null
+  mkdir -p out
+  router_bundle_log="${tmp}/bundle.router.log"
+  run_quiet "$router_bundle_log" x07 bundle --profile os --out out/mcp-router --json=off
+  worker_entry_tmp="out/worker_main.entry.x07.json"
+  jq '.module_id = "main"' src/worker_main.x07.json > "$worker_entry_tmp"
+  worker_bundle_args=(
+    --profile sandbox
+    --program "$worker_entry_tmp"
+    --out out/mcp-worker
+    --json=off
+    --sandbox-backend none
+    --i-accept-weaker-isolation
+    --module-root src
+  )
+  while IFS= read -r dep_path; do
+    worker_bundle_args+=(--module-root "$dep_path/modules")
+  done < <(jq -r '.dependencies[].path' x07.json)
+  worker_bundle_log="${tmp}/bundle.worker.log"
+  run_quiet "$worker_bundle_log" x07 bundle "${worker_bundle_args[@]}"
+  run_with_timeout "$scaffold_test_timeout_secs" x07 test --manifest tests/tests.json >/dev/null
 )
-while IFS= read -r dep_path; do
-  worker_bundle_args+=(--module-root "$dep_path/modules")
-done < <(jq -r '.dependencies[].path' x07.json)
-worker_bundle_log="$(mktemp)"
-tmp_dirs+=("$worker_bundle_log")
-run_quiet "$worker_bundle_log" x07 bundle "${worker_bundle_args[@]}"
-run_with_timeout "$scaffold_test_timeout_secs" x07 test --manifest tests/tests.json >/dev/null
 
-step "scaffold e2e (mcp-server-http)"
-tmp_http="$(mktemp -d)"
-tmp_dirs+=("$tmp_http")
+scaffold_http_e2e() (
+  set -euo pipefail
+  local tmp="${1:?missing tmp dir}"
 
-proj_http_rel="proj-http"
-(
-  cd "$tmp_http"
-  "$root/dist/x07-mcp" scaffold init --template mcp-server-http --dir "$proj_http_rel" --machine json >"$tmp_http/report.json"
-)
-proj_http="$tmp_http/$proj_http_rel"
-pin_project_toolchain "$proj_http"
-python3 - "$tmp_http/report.json" <<'PY'
+  local proj_http_rel="proj-http"
+  (
+    cd "$tmp"
+    "$root/dist/x07-mcp" scaffold init --template mcp-server-http --dir "$proj_http_rel" --machine json >"$tmp/report.json"
+  )
+  local proj_http="$tmp/$proj_http_rel"
+  pin_project_toolchain "$proj_http"
+  python3 - "$tmp/report.json" <<'PY'
 import json
 import sys
 
@@ -2177,119 +2249,166 @@ if not doc.get("ok"):
     raise SystemExit(f"scaffold report not ok: {doc!r}")
 PY
 
-cd "$proj_http"
+  cd "$proj_http"
 
-if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
-  x07_root="$(workspace_x07_root)"
-  install_project_local_deps_from_workspace "$x07_root" "$PWD"
-  tmp_manifest="$(mktemp)"
-  tmp_dirs+=("$tmp_manifest")
-		  jq \
-		    '.schema_version = "x07.project@0.4.0" |
-		     .patch = ((.patch // {}) + {
-		       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-		       "ext-mcp-sandbox":{"version":"0.3.14","path":".x07/local/ext-mcp-sandbox/0.3.14"},
-		       "ext-net":{"version":"0.1.10","path":".x07/local/ext-net/0.1.10"},
-		       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
-		     })' \
-		    x07.json \
-	    >"$tmp_manifest"
-	  mv "$tmp_manifest" x07.json
+  if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+    local x07_root
+    x07_root="$(workspace_x07_root)"
+    install_project_local_deps_from_workspace "$x07_root" "$PWD"
+    tmp_manifest="${tmp}/x07.patched.json"
+    jq \
+      '.schema_version = "x07.project@0.4.0" |
+       .patch = ((.patch // {}) + {
+         "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
+         "ext-mcp-sandbox":{"version":"0.3.14","path":".x07/local/ext-mcp-sandbox/0.3.14"},
+         "ext-net":{"version":"0.1.10","path":".x07/local/ext-net/0.1.10"},
+         "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
+       })' \
+      x07.json \
+      >"$tmp_manifest"
+    mv "$tmp_manifest" x07.json
 
-	  patch_deps_log="$(mktemp)"
-	  tmp_dirs+=("$patch_deps_log")
-	  X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" "$root/scripts/ci/materialize_patch_deps.sh" "$PWD/x07.json"
+    patch_deps_log="${tmp}/patch.deps.log"
+    X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" "$root/scripts/ci/materialize_patch_deps.sh" "$PWD/x07.json"
 
-	  proj_lock_log="$(mktemp)"
-	  tmp_dirs+=("$proj_lock_log")
-	  X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project x07.json --offline --json=off
-	else
-	  if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
-	    x07 pkg lock --project x07.json --check --json=off >/dev/null
-	  fi
-	fi
-run_with_timeout "$scaffold_http_test_timeout_secs" x07 test --manifest tests/tests.json >/dev/null
+    proj_lock_log="${tmp}/pkg.lock.log"
+    X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project x07.json --offline --json=off
+  else
+    if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
+      x07 pkg lock --project x07.json --check --json=off >/dev/null
+    fi
+  fi
+  run_with_timeout "$scaffold_http_test_timeout_secs" x07 test --manifest tests/tests.json >/dev/null
 
-step "perf smoke (mcp-server-http)"
-if [[ "${X07_MCP_PERF_SMOKE:-0}" == "1" ]]; then
-  require_cmd curl
-  "$root/scripts/ci/perf_smoke_mcp_server_http.sh" "$proj_http"
+  step "perf smoke (mcp-server-http)"
+  if [[ "${X07_MCP_PERF_SMOKE:-0}" == "1" ]]; then
+    require_cmd curl
+    "$root/scripts/ci/perf_smoke_mcp_server_http.sh" "$proj_http"
+  else
+    echo "skip (set X07_MCP_PERF_SMOKE=1)"
+  fi
+)
+
+scaffold_http_tasks_e2e() (
+  set -euo pipefail
+  local tmp="${1:?missing tmp dir}"
+
+  local proj_tasks_rel="proj-http-tasks"
+  (
+    cd "$tmp"
+    "$root/dist/x07-mcp" scaffold init --template mcp-server-http-tasks --dir "$proj_tasks_rel" --machine json >"$tmp/report.json"
+  )
+  local proj_tasks="$tmp/$proj_tasks_rel"
+  pin_project_toolchain "$proj_tasks"
+  python3 - "$tmp/report.json" <<'PY'
+import json
+import sys
+
+path = sys.argv[1]
+doc = json.load(open(path, "r", encoding="utf-8"))
+if not doc.get("ok"):
+    raise SystemExit(f"scaffold report not ok: {doc!r}")
+PY
+
+  cd "$proj_tasks"
+
+  if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+    local x07_root
+    x07_root="$(workspace_x07_root)"
+    install_project_local_deps_from_workspace "$x07_root" "$PWD"
+    tmp_manifest="${tmp}/x07.patched.json"
+    jq \
+      '.schema_version = "x07.project@0.4.0" |
+       .patch = ((.patch // {}) + {
+         "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
+         "ext-mcp-sandbox":{"version":"0.3.14","path":".x07/local/ext-mcp-sandbox/0.3.14"},
+         "ext-net":{"version":"0.1.10","path":".x07/local/ext-net/0.1.10"},
+         "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
+       })' \
+      x07.json \
+      >"$tmp_manifest"
+    mv "$tmp_manifest" x07.json
+
+    patch_deps_log="${tmp}/patch.deps.log"
+    X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" "$root/scripts/ci/materialize_patch_deps.sh" "$PWD/x07.json"
+
+    proj_lock_log="${tmp}/pkg.lock.log"
+    X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project x07.json --offline --json=off
+  else
+    if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
+      x07 pkg lock --project x07.json --check --json=off >/dev/null
+    fi
+  fi
+
+  run_with_timeout "$scaffold_test_timeout_secs" x07 test --manifest tests/tests.json >/dev/null
+
+  replay_proj=".agent_cache.replay_logging_audit_entry.project.x07.json"
+  jq \
+    '{
+      "default_profile": "os",
+      "dependencies": .dependencies,
+      "entry": "tests/replay_logging_audit_entry.x07.json",
+      "lockfile": .lockfile,
+      "module_roots": ["src", "tests"],
+      "profiles": {
+        "os": { "auto_ffi": true, "world": "run-os" }
+      },
+      "schema_version": .schema_version,
+      "world": "run-os"
+    }' \
+    x07.json \
+    >"$replay_proj"
+  x07 run --project "$replay_proj" --profile os --solve-fuel 2000000000 >/dev/null
+)
+
+if [[ "${X07_MCP_PARALLEL_SCAFFOLD_E2E:-0}" == "1" ]]; then
+  step "scaffold e2e (parallel)"
+  tmp_stdio="$(mktemp -d)"
+  tmp_dirs+=("$tmp_stdio")
+  tmp_http="$(mktemp -d)"
+  tmp_dirs+=("$tmp_http")
+  tmp_tasks="$(mktemp -d)"
+  tmp_dirs+=("$tmp_tasks")
+
+  scaffold_stdio_e2e "$tmp_stdio" &
+  pid_stdio="$!"
+  scaffold_http_e2e "$tmp_http" &
+  pid_http="$!"
+  scaffold_http_tasks_e2e "$tmp_tasks" &
+  pid_tasks="$!"
+
+  scaffold_failed=0
+  if ! wait "$pid_stdio"; then
+    echo "ERROR: scaffold e2e failed: mcp-server-stdio" >&2
+    scaffold_failed=1
+  fi
+  if ! wait "$pid_http"; then
+    echo "ERROR: scaffold e2e failed: mcp-server-http" >&2
+    scaffold_failed=1
+  fi
+  if ! wait "$pid_tasks"; then
+    echo "ERROR: scaffold e2e failed: mcp-server-http-tasks" >&2
+    scaffold_failed=1
+  fi
+  if [[ "${scaffold_failed}" == "1" ]]; then
+    exit 1
+  fi
 else
-  echo "skip (set X07_MCP_PERF_SMOKE=1)"
+  step "scaffold e2e (mcp-server-stdio)"
+  tmp_stdio="$(mktemp -d)"
+  tmp_dirs+=("$tmp_stdio")
+  scaffold_stdio_e2e "$tmp_stdio"
+
+  step "scaffold e2e (mcp-server-http)"
+  tmp_http="$(mktemp -d)"
+  tmp_dirs+=("$tmp_http")
+  scaffold_http_e2e "$tmp_http"
+
+  step "scaffold e2e (mcp-server-http-tasks)"
+  tmp_tasks="$(mktemp -d)"
+  tmp_dirs+=("$tmp_tasks")
+  scaffold_http_tasks_e2e "$tmp_tasks"
 fi
-
-step "scaffold e2e (mcp-server-http-tasks)"
-tmp_tasks="$(mktemp -d)"
-tmp_dirs+=("$tmp_tasks")
-
-proj_tasks_rel="proj-http-tasks"
-(
-  cd "$tmp_tasks"
-  "$root/dist/x07-mcp" scaffold init --template mcp-server-http-tasks --dir "$proj_tasks_rel" --machine json >"$tmp_tasks/report.json"
-)
-proj_tasks="$tmp_tasks/$proj_tasks_rel"
-pin_project_toolchain "$proj_tasks"
-python3 - "$tmp_tasks/report.json" <<'PY'
-import json
-import sys
-
-path = sys.argv[1]
-doc = json.load(open(path, "r", encoding="utf-8"))
-if not doc.get("ok"):
-    raise SystemExit(f"scaffold report not ok: {doc!r}")
-PY
-
-cd "$proj_tasks"
-
-if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
-  x07_root="$(workspace_x07_root)"
-  install_project_local_deps_from_workspace "$x07_root" "$PWD"
-  tmp_manifest="$(mktemp)"
-  tmp_dirs+=("$tmp_manifest")
-		  jq \
-		    '.schema_version = "x07.project@0.4.0" |
-		     .patch = ((.patch // {}) + {
-		       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-		       "ext-mcp-sandbox":{"version":"0.3.14","path":".x07/local/ext-mcp-sandbox/0.3.14"},
-		       "ext-net":{"version":"0.1.10","path":".x07/local/ext-net/0.1.10"},
-		       "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
-		     })' \
-		    x07.json \
-	    >"$tmp_manifest"
-	  mv "$tmp_manifest" x07.json
-
-	  patch_deps_log="$(mktemp)"
-	  tmp_dirs+=("$patch_deps_log")
-	  X07_WORKSPACE_ROOT="$root" run_quiet "$patch_deps_log" "$root/scripts/ci/materialize_patch_deps.sh" "$PWD/x07.json"
-
-	  proj_lock_log="$(mktemp)"
-	  tmp_dirs+=("$proj_lock_log")
-	  X07_WORKSPACE_ROOT="$root" run_quiet "$proj_lock_log" x07 pkg lock --project x07.json --offline --json=off
-	else
-	  if ! x07 pkg lock --project x07.json --check --json=off >/dev/null; then
-	    x07 pkg lock --project x07.json --check --json=off >/dev/null
-	  fi
-fi
-
-run_with_timeout "$scaffold_test_timeout_secs" x07 test --manifest tests/tests.json >/dev/null
-
-replay_proj=".agent_cache.replay_logging_audit_entry.project.x07.json"
-jq \
-  '{
-    "default_profile": "os",
-    "dependencies": .dependencies,
-    "entry": "tests/replay_logging_audit_entry.x07.json",
-    "lockfile": .lockfile,
-    "module_roots": ["src", "tests"],
-    "profiles": {
-      "os": { "auto_ffi": true, "world": "run-os" }
-    },
-    "schema_version": .schema_version,
-    "world": "run-os"
-  }' \
-  x07.json \
-  >"$replay_proj"
-	x07 run --project "$replay_proj" --profile os --solve-fuel 2000000000 >/dev/null
 
 step "x07lang-mcp release smoke"
 (

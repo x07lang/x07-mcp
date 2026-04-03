@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-tag="${1:-${HARDPROOF_TAG:-v0.1.0-alpha.6}}"
+tag="${1:-${HARDPROOF_TAG:-v0.1.0-alpha.5}}"
 if [[ "${tag}" != v* && "${tag}" != latest-alpha ]]; then
   tag="v${tag}"
 fi

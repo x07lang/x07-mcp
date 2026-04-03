@@ -1,14 +1,14 @@
 # MCP Conformance Harness
 
-This directory pins and runs the upstream MCP conformance suite:
+This directory contains conformance harnesses for x07-mcp:
 
-- **Server mode**: against an x07-mcp Streamable HTTP server.
-- **Client mode**: using `conformance/client-x07/` for the auth suite.
+- **Server mode**: Hardproof (`hardproof scan`) against an x07-mcp Streamable HTTP server (no Node.js required).
+- **Client mode**: upstream MCP conformance client suite, using `conformance/client-x07/` for the auth suite.
 - **Trust tlog mode**: deterministic monitor scenarios via `conformance/trust-tlog/`.
 
-Upstream: `@modelcontextprotocol/conformance` (pinned). The conformance runner supports
-an **expected failures** file; failures not listed there fail the run, and "expected failures"
-that stop failing also fail the run (stale baseline).
+Hardproof and the upstream conformance runner both support an **expected failures** file;
+failures not listed there fail the run, and "expected failures" that stop failing also fail
+the run (stale baseline).
 
 ## Pinned tool versions
 
@@ -16,13 +16,13 @@ that stop failing also fail the run (stale baseline).
 
 ## Quickstart (local)
 
-1) Run against an already running server:
+1) Run Hardproof against an already running server:
 
-   `./conformance/run_server_conformance.sh --url http://127.0.0.1:8080/mcp`
+   `hardproof scan --url http://127.0.0.1:8080/mcp --out out/conformance --machine json`
 
-2) Or let the harness spawn a reference server:
+2) Or let the harness spawn a server and run Hardproof:
 
-   `./conformance/run_server_conformance.sh --url http://127.0.0.1:8080/mcp --spawn postgres-mcp --mode noauth`
+   `./conformance/run_server_conformance.sh --spawn postgres-mcp --mode noauth --results-dir out/conformance-postgres-mcp`
 
 3) Client mode (auth suite):
 
@@ -44,5 +44,5 @@ that stop failing also fail the run (stale baseline).
 
 - Start server in background
 - Wait for port to respond (any status other than 000 is "up")
-- Run conformance with `--expected-failures conformance-baseline.yml`
-- Store `results/**/checks.json` as an artifact
+- Run conformance with `--baseline conformance-baseline.yml`
+- Store `results/**` as an artifact

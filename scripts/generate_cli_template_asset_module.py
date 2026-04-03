@@ -12,10 +12,11 @@ def _should_skip_rel(rel_posix: str) -> bool:
     if not parts:
         return True
 
+    if any(p.startswith("tmp") for p in parts):
+        return True
+
     top = parts[0]
     if top in {".git", ".x07", "target", "dist", "out", "artifacts"}:
-        return True
-    if top.startswith("tmp"):
         return True
     if rel_posix.endswith("/.DS_Store") or rel_posix == ".DS_Store":
         return True
