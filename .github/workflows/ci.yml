@@ -12,7 +12,7 @@ env:
   X07_MCP_LOCK_RETRY_DELAY_SECS: "3"
   X07_TOOLCHAIN_TAG: "v0.1.108"
   X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-0.1.108-x86_64-unknown-linux-gnu.tar.gz"
-  HARDPROOF_TAG: "v0.1.0-alpha.5"
+  HARDPROOF_TAG: "v0.1.0-alpha.8"
 
 jobs:
   check:
