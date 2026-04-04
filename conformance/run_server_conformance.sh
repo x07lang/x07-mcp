@@ -7,8 +7,8 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 URL="http://127.0.0.1:8080/mcp"
-BASELINE="${ROOT}/conformance/conformance-baseline.yml"
-RESULTS_DIR="${ROOT}/conformance/results"
+BASELINE="conformance/conformance-baseline.yml"
+RESULTS_DIR="conformance/results"
 SPAWN_SERVER=""
 SPAWN_MODE="noauth"
 URL_EXPLICIT=0
@@ -54,15 +54,23 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ "${BASELINE}" != /* ]]; then
-  BASELINE="${ROOT}/${BASELINE#./}"
+  BASELINE="${BASELINE#./}"
 fi
+
 if [[ "${RESULTS_DIR}" != /* ]]; then
-  RESULTS_DIR="${ROOT}/${RESULTS_DIR#./}"
+  RESULTS_DIR="${RESULTS_DIR#./}"
 fi
 
-mkdir -p "${RESULTS_DIR}"
+if [[ "${BASELINE}" == /* ]]; then
+  echo "ERROR: baseline path must be repo-relative (no leading '/'): ${BASELINE}" >&2
+  exit 2
+fi
+if [[ "${RESULTS_DIR}" == /* ]]; then
+  echo "ERROR: results dir must be repo-relative (no leading '/'): ${RESULTS_DIR}" >&2
+  exit 2
+fi
 
-pushd "${ROOT}/conformance" >/dev/null
+cd "${ROOT}"
 
 bg_pid=""
 if [[ "${URL_EXPLICIT}" != "1" && -n "${SPAWN_SERVER}" ]]; then
@@ -112,9 +120,9 @@ start_spawn() {
     return 0
   fi
   local server_log="/tmp/x07-mcp-conformance-server.log"
-  ./spawn_reference_http.sh "${SPAWN_SERVER}" "${SPAWN_MODE}" >"${server_log}" 2>&1 &
+  conformance/spawn_reference_http.sh "${SPAWN_SERVER}" "${SPAWN_MODE}" >"${server_log}" 2>&1 &
   bg_pid="$!"
-  if ! ./wait_for_http.sh "${URL}" >/dev/null; then
+  if ! conformance/wait_for_http.sh "${URL}" >/dev/null; then
     echo "ERROR: spawned server did not become ready at ${URL}" >&2
     if [[ -f "${server_log}" ]]; then
       echo "---- begin spawned server log ----" >&2
@@ -165,4 +173,4 @@ set -o pipefail
 
 stop_spawn
 
-popd >/dev/null
+exit 0
