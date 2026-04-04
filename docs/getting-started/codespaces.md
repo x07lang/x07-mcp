@@ -1,4 +1,4 @@
-# Codespaces quickstart (private alpha)
+# Codespaces quickstart (public beta)
 
 Zero-install evaluation path: run a minimal x07-native MCP HTTP server and verify it locally.
 

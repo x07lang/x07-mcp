@@ -43,8 +43,6 @@ run_logged() {
   "$@" 2>&1 | tee -a "${cmd_log}"
 }
 
-run_logged "${VERIFIER_BIN}" scan --url "${TARGET_URL}" --out "${OUT_DIR}/conformance" --machine json
-
 run_logged "${VERIFIER_BIN}" replay record \
   --url "${TARGET_URL}" \
   --scenario smoke/basic \
@@ -73,3 +71,5 @@ run_logged "${VERIFIER_BIN}" bundle verify \
   --mcpb "${SERVER_ROOT}/dist/postgres-mcp.mcpb" \
   --machine json \
   --out "${OUT_DIR}/bundle.verify.json"
+
+run_logged "${VERIFIER_BIN}" scan --url "${TARGET_URL}" --out "${OUT_DIR}/conformance" --machine json
