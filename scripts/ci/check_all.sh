@@ -2361,7 +2361,16 @@ PY
   x07 run --project "$replay_proj" --profile os --solve-fuel 2000000000 >/dev/null
 )
 
-if [[ "${X07_MCP_PARALLEL_SCAFFOLD_E2E:-0}" == "1" ]]; then
+parallel_scaffold="${X07_MCP_PARALLEL_SCAFFOLD_E2E:-}"
+if [[ -z "${parallel_scaffold}" ]]; then
+  if [[ "${CI:-}" == "true" || "${GITHUB_ACTIONS:-}" == "true" ]]; then
+    parallel_scaffold="1"
+  else
+    parallel_scaffold="0"
+  fi
+fi
+
+if [[ "${parallel_scaffold}" == "1" ]]; then
   step "scaffold e2e (parallel)"
   tmp_stdio="$(mktemp -d)"
   tmp_dirs+=("$tmp_stdio")
