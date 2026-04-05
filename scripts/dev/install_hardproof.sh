@@ -6,13 +6,20 @@ if [[ "${tag}" != v* && "${tag}" != latest-alpha && "${tag}" != latest-beta ]]; 
   tag="v${tag}"
 fi
 
+bootstrap_tag="${tag}"
+if [[ "${tag}" == "latest-beta" || "${tag}" == latest-beta* ]]; then
+  bootstrap_tag="${HARDPROOF_BOOTSTRAP_BETA_TAG:-v0.3.0-beta.0}"
+elif [[ "${tag}" == "latest-alpha" || "${tag}" == latest-alpha* ]]; then
+  bootstrap_tag="${HARDPROOF_BOOTSTRAP_ALPHA_TAG:-v0.1.0-alpha.9}"
+fi
+
 install_dir="${HARDPROOF_INSTALL_DIR:-${HOME}/.local/bin}"
 install_path="${install_dir}/hardproof"
 
 tmp_dir="$(mktemp -d)"
 trap 'rm -rf "${tmp_dir}"' EXIT
 
-script_url="https://github.com/x07lang/hardproof/releases/download/${tag}/install.sh"
+script_url="https://github.com/x07lang/hardproof/releases/download/${bootstrap_tag}/install.sh"
 script_path="${tmp_dir}/install.sh"
 
 echo "==> download ${script_url}"
