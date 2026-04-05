@@ -30,7 +30,7 @@ This template scaffolds a minimal MCP **HTTP** server in X07 with a router/worke
 - `src/tools/hello.x07.json`: demo tools (`hello.echo`, `hello.work`, `hello.bump_resource`)
 - `tests/`: smoke, compile-import, and HTTP replay fixtures
 
-## Included Phase-4 demos
+## Included demos
 
 - `hello.echo`: simple typed echo tool.
 - `hello.work`: emits `notifications/progress` and checks cancellation.
@@ -72,19 +72,13 @@ For the default `jwt_jwks_v1` auth profile, use the bundled fixtures:
 - DPoP-bound JWT: `config/fixtures/auth/access_token_rs256_dpop.jwt`
 - DPoP proofs (per-request): `config/fixtures/auth/dpop_proof_valid_init.jwt`, `config/fixtures/auth/dpop_proof_valid_call.jwt`
 
-Phase 10 adds:
+Security and trust coverage includes:
 
 - DPoP nonce hardening (RFC9449) exercised by RR test `mcp/http/replay/hello_dpop_nonce`
 - `signed_metadata` in PRM responses (RFC9728) asserted by RR test `mcp/http/replay/golden_prm_signed_200`
-
-Phase 13 adds:
-
 - signed trust bundle verification pinned by trust framework publishers
 - trust lock digest verification (`trust/trust.lock.json`)
 - governed multi-AS PRM selection (`prefer_order_v1`)
-
-Phase 15 adds:
-
 - TUF-lite registry metadata fixtures (`root.json`, `timestamp.jwt`, `snapshot.jwt`)
 - witness checkpoint fixture (`transparency/checkpoint.jwt`)
 - anti-rollback trust-pack metadata emitted in publish summary (`minSnapshotVersion`, `snapshotSha256`, `checkpointSha256`)

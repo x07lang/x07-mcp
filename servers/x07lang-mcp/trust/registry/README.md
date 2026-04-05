@@ -3,7 +3,7 @@
 This directory contains a static registry layout used by replay tests.
 In production, host the same structure behind HTTPS (for example, internal NGINX).
 
-Phase 15 adds TUF-lite metadata fixtures under `v1/metadata/` plus an optional witness
+This layout includes TUF-lite metadata fixtures under `v1/metadata/` plus an optional witness
 checkpoint under `v1/transparency/`:
 
 - `metadata/root.json`

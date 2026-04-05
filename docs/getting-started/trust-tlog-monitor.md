@@ -1,6 +1,6 @@
 # Trust Tlog Monitor
 
-Phase-16 adds append-only trust transparency checks (checkpoint verification, consistency proof verification, and policy evaluation of newly appended entries).
+The trust tlog monitor adds append-only trust transparency checks (checkpoint verification, consistency proof verification, and policy evaluation of newly appended entries).
 
 ## Run package monitor tests
 

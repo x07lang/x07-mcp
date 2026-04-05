@@ -1,3 +1,3 @@
-# trust-registry-tlog (Phase 16 template)
+# trust-registry-tlog
 
-Minimal trust registry + transparency log dataset for deterministic Phase-16 tests.
+Minimal trust registry + transparency log dataset for deterministic transparency monitor tests.

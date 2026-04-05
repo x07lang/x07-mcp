@@ -1,6 +1,6 @@
 # Trust Tlog Conformance
 
-Phase-16 trust transparency monitor scenarios.
+Trust transparency monitor scenarios.
 
 Scenarios:
 - `publish16/trust_tlog_monitor_ok`

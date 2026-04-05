@@ -34,7 +34,7 @@ x07-mcp conformance \
 
 When `--url` is omitted with `--spawn`, the harness derives `bind_host`, `bind_port`, and `mcp_path` from the spawned server config.
 
-Default run mode executes the Phase-4 regression set:
+Default run mode executes the baseline regression set:
 
 - `server-initialize`
 - `ping`
@@ -47,7 +47,7 @@ Default run mode executes the Phase-4 regression set:
 
 Use `--full-suite` to run the full active conformance suite.
 
-Phase-4 baseline policy: keep `conformance/conformance-baseline.yml` empty unless a temporary known issue must be tracked.
+Baseline policy: keep `conformance/conformance-baseline.yml` empty unless a temporary known issue must be tracked.
 
 ## Client mode (auth suite)
 
@@ -69,7 +69,7 @@ npx -y @modelcontextprotocol/conformance@0.1.14 client \
 
 `x07-mcp` also ships small conformance-style regression scenarios that are not part of the upstream suite.
 
-Phase 11 (unsigned PRM must be rejected when fail-closed is enabled):
+Scenario 11 (unsigned PRM must be rejected when fail-closed is enabled):
 
 ```sh
 ./scripts/conformance/run_client_auth_scenario.sh \
@@ -77,7 +77,7 @@ Phase 11 (unsigned PRM must be rejected when fail-closed is enabled):
   --client dist/x07-mcp-conformance-client
 ```
 
-Phase 13 (multi-AS PRM selection must follow trust-policy preference order):
+Scenario 13 (multi-AS PRM selection must follow trust-policy preference order):
 
 ```sh
 ./scripts/conformance/run_client_auth_scenario.sh \
@@ -85,7 +85,7 @@ Phase 13 (multi-AS PRM selection must follow trust-policy preference order):
   --client dist/x07-mcp-conformance-client
 ```
 
-## Trust tlog monitor scenarios (Phase 16)
+## Trust tlog monitor scenarios
 
 Run deterministic trust transparency monitor scenarios:
 

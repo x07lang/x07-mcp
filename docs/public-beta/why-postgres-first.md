@@ -1,6 +1,6 @@
 # Why Postgres first
 
-M2 deliberately focuses on one flagship server so the public beta story is concrete and evidence-backed instead of a broad catalog.
+This release deliberately focuses on one flagship server so the public beta story is concrete and evidence-backed instead of a broad catalog.
 
 Postgres is the first flagship because it is:
 
