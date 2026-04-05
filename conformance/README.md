@@ -18,7 +18,7 @@ the run (stale baseline).
 
 1) Run Hardproof against an already running server:
 
-   `hardproof scan --url http://127.0.0.1:8080/mcp --out out/conformance --machine json`
+   `hardproof scan --url http://127.0.0.1:8080/mcp --out out/scan --format json`
 
 2) Or let the harness spawn a server and run Hardproof:
 

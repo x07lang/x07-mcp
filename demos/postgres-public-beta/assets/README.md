@@ -2,7 +2,7 @@
 
 This directory holds reproducible, human-facing assets for the Postgres public-beta demo:
 
-- verifier outputs (`summary.json`, `summary.html`, `summary.sarif.json`, …)
+- verifier outputs (`scan.json`, `scan.events.jsonl`, …)
 - a terminal command log used to generate the artifacts
 - placeholder locations for screenshots/stills
 

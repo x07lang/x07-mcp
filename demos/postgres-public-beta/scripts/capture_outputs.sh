@@ -23,7 +23,7 @@ copy_if_exists() {
 }
 
 copy_if_exists "${OUT_DIR}/command.log" "${CAPTURE_DIR}/command.log"
-copy_if_exists "${OUT_DIR}/conformance" "${CAPTURE_DIR}/conformance"
+copy_if_exists "${OUT_DIR}/scan" "${CAPTURE_DIR}/scan"
 copy_if_exists "${OUT_DIR}/replay.session.json" "${CAPTURE_DIR}/replay.session.json"
 copy_if_exists "${OUT_DIR}/replay-verify" "${CAPTURE_DIR}/replay-verify"
 copy_if_exists "${OUT_DIR}/trust.summary.json" "${CAPTURE_DIR}/trust.summary.json"

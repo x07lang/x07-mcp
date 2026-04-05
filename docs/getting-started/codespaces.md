@@ -33,20 +33,18 @@ x07 bundle --project x07.json --profile sandbox --program src/worker_main.x07.js
 
 The MCP endpoint is `http://127.0.0.1:8314/mcp`.
 
-## 4) Run conformance
+## 4) Run a scan
 
 In another terminal:
 
 ```sh
-hardproof scan --url "http://127.0.0.1:8314/mcp" --out out/conformance
+hardproof scan --url "http://127.0.0.1:8314/mcp" --out out/scan
 ```
 
-Artifacts are written under `out/conformance/`:
+Artifacts are written under `out/scan/`:
 
-- `summary.json`
-- `summary.junit.xml`
-- `summary.html`
-- `summary.sarif.json`
+- `scan.json`
+- `scan.events.jsonl`
 
 ## 5) Optional: record + replay
 

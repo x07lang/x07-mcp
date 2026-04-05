@@ -44,14 +44,25 @@ In another terminal:
 If you are developing inside the multi-repo workspace (`x07lang/`), `verify_demo.sh` will prefer `../hardproof/out/hardproof` when present. Otherwise it uses `hardproof` from `PATH`.
 
 Expected artifacts under `demos/postgres-public-beta/out/`:
-- `conformance/summary.json`
-- `conformance/summary.junit.xml`
-- `conformance/summary.html`
-- `conformance/summary.sarif.json`
+- `scan/scan.json`
+- `scan/scan.events.jsonl`
 - `replay.session.json`
 - `replay-verify/verify.json`
 - `trust.summary.json`
 - `bundle.verify.json`
+- `command.log`
+
+See `docs/public-beta/postgres-demo-expected-findings.md` for what to expect in the scan report.
+
+### 3.1) Benchmarkable scan runs (optional)
+
+To run repeated scans and keep per-run reports for perf/reliability comparisons:
+
+```sh
+./scripts/benchmark_scan.sh --runs 5
+```
+
+This writes per-run outputs under `demos/postgres-public-beta/out/bench/` and prints a compact summary after each run.
 
 ### 4) Capture outputs for website/content work
 

@@ -45,14 +45,13 @@ Optionally, capture a copy of outputs + a command log for docs/website work:
 
 Under `demos/postgres-public-beta/out/`:
 
-- `conformance/summary.json`
-- `conformance/summary.junit.xml`
-- `conformance/summary.html`
-- `conformance/summary.sarif.json`
+- `scan/scan.json`
+- `scan/scan.events.jsonl`
 - `replay.session.json`
 - `replay-verify/verify.json`
 - `trust.summary.json`
 - `bundle.verify.json`
+- `command.log`
 
 ## Notes
 

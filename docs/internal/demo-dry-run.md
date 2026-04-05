@@ -34,21 +34,19 @@ x07 bundle --project x07.json --profile sandbox --program src/worker_main.x07.js
 Expected:
 - server listens on `http://127.0.0.1:8314/mcp`
 
-### 4) Run conformance
+### 4) Run a scan
 
 In another terminal:
 
 ```sh
-hardproof scan --url "http://127.0.0.1:8314/mcp" --out out/conformance --machine json
+hardproof scan --url "http://127.0.0.1:8314/mcp" --out out/scan --format json
 ```
 
 Expected artifacts:
-- `out/conformance/summary.json`
-- `out/conformance/summary.junit.xml`
-- `out/conformance/summary.html`
-- `out/conformance/summary.sarif.json`
+- `out/scan/scan.json`
+- `out/scan/scan.events.jsonl`
 
 ## Notes
 
 - Windows support is via WSL2 (run inside the Linux distro).
-- Conformance runs inside the `hardproof` binary; `hardproof doctor` checks environment and reachability prerequisites.
+- Scan runs inside the `hardproof` binary; `hardproof doctor` checks environment and reachability prerequisites.

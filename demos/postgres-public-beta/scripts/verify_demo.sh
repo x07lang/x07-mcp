@@ -72,4 +72,8 @@ run_logged "${VERIFIER_BIN}" bundle verify \
   --machine json \
   --out "${OUT_DIR}/bundle.verify.json"
 
-run_logged "${VERIFIER_BIN}" scan --url "${TARGET_URL}" --out "${OUT_DIR}/conformance" --machine json
+run_logged "${VERIFIER_BIN}" scan \
+  --url "${TARGET_URL}" \
+  --server-json "${SERVER_ROOT}/dist/server.json" \
+  --mcpb "${SERVER_ROOT}/dist/postgres-mcp.mcpb" \
+  --out "${OUT_DIR}/scan"

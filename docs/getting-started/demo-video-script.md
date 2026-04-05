@@ -3,7 +3,7 @@
 This is the draft script for a short (≈3 minute) “hero path” video that shows:
 
 - one real MCP server (Postgres),
-- Hardproof producing repeatable artifacts (JSON/JUnit/HTML/SARIF),
+- Hardproof producing repeatable artifacts (scan report JSON + event stream),
 - replay evidence, and
 - trust + bundle validation on release-like metadata.
 
@@ -48,10 +48,8 @@ In another terminal:
 ```
 
 Call out the artifacts in `demos/postgres-public-beta/out/`:
-- `conformance/summary.json`
-- `conformance/summary.junit.xml`
-- `conformance/summary.html`
-- `conformance/summary.sarif.json`
+- `scan/scan.json`
+- `scan/scan.events.jsonl`
 - `replay.session.json`
 - `replay-verify/verify.json`
 

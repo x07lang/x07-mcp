@@ -17,6 +17,8 @@
 
 ## Public beta
 - [Why Postgres first](public-beta/why-postgres-first.md)
+- [Postgres demo expected findings](public-beta/postgres-demo-expected-findings.md)
+- [Score well with Hardproof](public-beta/score-well-with-hardproof.md)
 
 ## Concepts
 - [HTTP SSE](concepts/http-sse.md)
