@@ -30,18 +30,22 @@ And a token/context usage overlay under `usage_metrics`.
 
 Because the demo flow passes `--server-json` and `--mcpb`, the expected top-level score shape is:
 
+- `score_mode = "full"`
 - `score_truth_status = "publishable"`
 - `score_available = true`
 - `overall_score` is an integer
-- `partial_score` is `null`
+- `partial_score` is still populated for machine comparisons
 - `unknown_dimensions = []`
 
 If you intentionally rerun the same target without trust inputs, the expected shape changes:
 
+- `score_mode = "partial"`
 - `score_truth_status = "partial"`
 - `overall_score = null`
 - `partial_score` is populated
 - `gating_reasons` includes `TRUST-UNKNOWN`
+
+If you gate that trust-unknown rerun with `hardproof ci`, it now fails by default. Add `--allow-partial-score` only when you intentionally want threshold checks to accept a partial result.
 
 If the demo starts failing or producing new findings unexpectedly, treat it as a regression and
 inspect `findings[]` in `scan.json` for finding codes and evidence.

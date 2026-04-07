@@ -48,7 +48,8 @@ If you want to verify any MCP server, including one not built in X07, use [Hardp
 hardproof scan --url "http://127.0.0.1:3000/mcp" --out out/scan --format rich
 ```
 
-If you do not provide trust inputs (`--server-json` and, when available, `--mcpb`), Hardproof may produce a partial score instead of a publishable full score.
+If you do not provide trust inputs (`--server-json` and, when available, `--mcpb`), Hardproof may produce a partial score instead of a full score.
+By default, `hardproof ci` fails on `score_mode=partial`; use `--allow-partial-score` only when partial gating is intentional.
 
 ## What This Repo Includes
 

@@ -3,10 +3,10 @@
 Hardproof `scan` emits a single report (`scan.json`) with five dimension results plus a token/context usage overlay.
 This page summarizes how to keep x07-native servers scoring high without turning your server into a “demo-only” artifact.
 
-The current score contract now distinguishes between a publishable full score and a partial score:
+The current score contract distinguishes between a full score and a partial score:
 
-- `overall_score` is only present when `score_truth_status = "publishable"`
-- `partial_score` is used when the scan is still useful but not publishable yet
+- `score_mode = "full"` means `overall_score` is present and the scan is eligible for a full score
+- `score_mode = "partial"` means `overall_score` stays `null`, while `partial_score` remains machine-readable
 - `gating_reasons` and `unknown_dimensions` explain what is still missing
 
 ## Conformance
@@ -44,7 +44,9 @@ Trust checks are enabled when a scan is given `--server-json` (and optionally `-
 
 - Ensure `server.json` includes registry publisher metadata under `_meta`.
 - Ensure the `.mcpb` sha256 matches `server.json.packages[].fileSha256`.
-- If you want a publishable overall score in CI, provide both trust inputs and gate with `hardproof ci --require-trust-for-full-score`.
+- If you want a full score in CI, provide both trust inputs.
+- `hardproof ci` now fails on `score_mode=partial` by default; use `--allow-partial-score` only when partial gating is intentional.
+- `hardproof ci --require-trust-for-full-score` remains the strictest gate when you want to make Trust mandatory.
 
 ## Token/context usage overlay (agent-friendly servers)
 
@@ -56,4 +58,4 @@ Hardproof estimates token footprints for common MCP surfaces. To keep usage heal
 
 The scan report includes the overlay under `usage_metrics`, plus `USAGE-*` findings when thresholds are exceeded.
 Useful top-level usage checks now include `tool_count` and `metadata_to_payload_ratio_pct`, in addition to the existing
-catalog/schema/response token estimates.
+catalog/schema/response token estimates. The overlay also records `estimator_family`, `estimator_version`, and confidence so consumers know these are deterministic estimates, not billing-grade truth.
