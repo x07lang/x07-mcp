@@ -53,6 +53,10 @@ Expected artifacts under `demos/postgres-public-beta/out/`:
 - `command.log`
 
 See `docs/public-beta/postgres-demo-expected-findings.md` for what to expect in the scan report.
+Because `verify_demo.sh` passes both `--server-json` and `--mcpb`, the canonical demo is expected to
+produce a publishable full score (`score_truth_status = "publishable"`). If you run `hardproof scan`
+without those trust inputs, expect a partial result instead (`overall_score = null`, `partial_score`
+set, and `gating_reasons` including `TRUST-UNKNOWN`).
 
 ### 3.1) Benchmarkable scan runs (optional)
 
@@ -63,6 +67,7 @@ To run repeated scans and keep per-run reports for perf/reliability comparisons:
 ```
 
 This writes per-run outputs under `demos/postgres-public-beta/out/bench/` and prints a compact summary after each run.
+The benchmark script also includes trust inputs, so repeated runs stay on the same publishable/full-score path as the hero demo.
 
 ### 4) Capture outputs for website/content work
 

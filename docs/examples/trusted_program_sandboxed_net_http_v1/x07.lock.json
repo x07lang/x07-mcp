@@ -3,9 +3,9 @@
   "dependencies": [
     {
       "name": "ext-auth-jwt",
-      "version": "0.1.6",
-      "path": ".x07/deps/ext-auth-jwt/0.1.6",
-      "package_manifest_sha256": "420dc75993dedcbc3d8631a303d634f7f3afabce60088041afaff0ec363f3f4a",
+      "version": "0.1.7",
+      "path": ".x07/deps/ext-auth-jwt/0.1.7",
+      "package_manifest_sha256": "bbb8e90d0cdc44177251e2bbb61d8450ea0deb8f82ac04dc9da2f8ac318970fa",
       "module_root": "modules",
       "modules_sha256": {
         "std.auth.jose_jws_v1": "3f419b33b32bde3507ee6e90b568834f1e07720c3bde1878f6ee95923c443697",
@@ -71,34 +71,34 @@
     },
     {
       "name": "ext-data-model",
-      "version": "0.1.10",
-      "path": ".x07/deps/ext-data-model/0.1.10",
-      "package_manifest_sha256": "baa4eae2e19ca7a8f0b99dd712658db64802e137dad443dcb451d09508a6a09a",
+      "version": "0.1.11",
+      "path": ".x07/deps/ext-data-model/0.1.11",
+      "package_manifest_sha256": "ca34a014ff29db9963bae9f099107a04a9cb9d15c263146f79bced999d85edde",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.data_model": "def06160be3f2843479f579c41901b023537e0101ff87099af278b5d0fc31758",
-        "ext.data_model.csv": "bd6f36f25bc0e01480859c59e2302f2865c960f100a95cadefed7fe59f4e0c99",
-        "ext.data_model.csv.tests": "5df3b4a86cf222ca8962cb0ceab2c5fc861437713c36f262bca0fb891cc8614c",
-        "ext.data_model.ini": "e6cc44509901f4b350da17deffcd653b985dc9ec277a72efe523f122bf06a4a4",
-        "ext.data_model.ini.tests": "006b64f4404ba4da08eecaf9af201676fc49797a5a253b80d88236f78aa26e94",
-        "ext.data_model.json": "18353e6e5d43a4e83870c735c6f41115fa521ab6190d2a59d04cb36fbe8e3580",
-        "ext.data_model.json.tests": "1986759fde953f7760104f83ee4ac4c46e17457071c71ba0e3a43dc509d4d65d",
-        "ext.data_model.tests": "77771892bb782ce1fdc7dc0bf45d0404fa35063f4429b2071229e42d00130b2f",
-        "ext.data_model.toml": "4b624becaf1313a382b29ba80b6bde5292bdb002d3e4f9e55a3ddd23809fa9a0",
-        "ext.data_model.toml.tests": "280744f2d36c5b3ec0a2908e1d3ad0469f07387c81f245426b1a9b81e92a1f36",
-        "ext.data_model.xml": "6a93997653ad26b6922fa494a9b2bd15ab104626d0277f2fd267afd540974750",
-        "ext.data_model.xml.tests": "8346ec79e12f8dde83721bab5727da4f1db94d89bed824caea29c8792794eb47",
-        "ext.data_model.yaml": "95e49ea80ebbd4c9b4d25a8dee22c6eba6d604ceec936434f47deecbc46758ef",
-        "ext.data_model.yaml.tests": "03fc345b1dcaf330f813b6d3c2b11f0bb1ea509f3f72c93b6d2e3146a1ed7f50"
+        "ext.data_model": "0ccbb44a004127875464a769a72f2b56d6a55beb3c3ebaff7686cdddaac8b6c2",
+        "ext.data_model.csv": "42b94c24968c02b7d80446ff90460f444cdf713f4872a70c7ddaa69bb2689d2c",
+        "ext.data_model.csv.tests": "0d6b6062d0a184fcc2a90931800a44841587f5bf954b64e0746a66962647ba03",
+        "ext.data_model.ini": "b0d5f77d4ba731dec07bdc05e749c0bbffe26db14f43415517e999fec63bc234",
+        "ext.data_model.ini.tests": "dae65469c097a352baae7158122964b8350dabce90fb920d67ea908543ad720a",
+        "ext.data_model.json": "832671b8a83e8564c3dca1e943276668fd2d61fb0dbe2d99e2d3460020a9ba0c",
+        "ext.data_model.json.tests": "f3864d60686079a8f085951225df07f1420793abdbf245a0db563a4c64ec0092",
+        "ext.data_model.tests": "71951d65bc191cadf11cd448815f8d08fe8eefacb8e59ec192958140af2cf2b5",
+        "ext.data_model.toml": "5a26b59380b70c922cc28b3e85afaba8aba08c6483f55d58b6be6b134e3f4f12",
+        "ext.data_model.toml.tests": "31c73adfc54f3fdd9c12856d60dd821fbf951e840b58c094fb81b8c37c6e5d34",
+        "ext.data_model.xml": "1fc40f3c12ee97797447352b044f151ebffae497e3d62490ecf6e9d308ac94dd",
+        "ext.data_model.xml.tests": "e5c5878fe4206102e96e7a40f66a6b6e9e947ae5498369ec569847b1c9b46174",
+        "ext.data_model.yaml": "426c701a64831bd6fd6ca176cf8f76332144261867c5003a2736da3d3777940f",
+        "ext.data_model.yaml.tests": "a6a0acd7e7fbc93c25d2c9874315d9bd09f777523d308199f31995d09c9e96bd"
       },
       "overridden_by": "ext-data-model",
       "yanked": false
     },
     {
       "name": "ext-db-core",
-      "version": "0.1.11",
-      "path": ".x07/deps/ext-db-core/0.1.11",
-      "package_manifest_sha256": "dfddd29a03e26f9758023d2050f2fa915d04acb25fd010bf65cb1ed055b46cb2",
+      "version": "0.1.12",
+      "path": ".x07/deps/ext-db-core/0.1.12",
+      "package_manifest_sha256": "29fc2a0a527ec720ad95192db6704cae5d0e37a719acc5b42165c6bfe3cffc9a",
       "module_root": "modules",
       "modules_sha256": {
         "std.db": "49122422f3057827e81669955c3b03fa6c33912126d4085e71d7d6059e10c7b9",
@@ -112,9 +112,9 @@
     },
     {
       "name": "ext-db-sqlite",
-      "version": "0.1.11",
-      "path": ".x07/deps/ext-db-sqlite/0.1.11",
-      "package_manifest_sha256": "bc98df38eeea609c6c4a4691f0862957345e6db2108f4f2ec6714fdb4f9ade4a",
+      "version": "0.1.12",
+      "path": ".x07/deps/ext-db-sqlite/0.1.12",
+      "package_manifest_sha256": "03f4da9c9876515a694f54e0859b9ec0b1621804ed3ee94dee5982393e02fb35",
       "module_root": "modules",
       "modules_sha256": {
         "std.db.sqlite": "2850c6117f50825effa7247f043d37206db89c2041c19bceb3cc4787ff798cb5",
@@ -163,15 +163,15 @@
     },
     {
       "name": "ext-json-rs",
-      "version": "0.1.6",
-      "path": ".x07/deps/ext-json-rs/0.1.6",
-      "package_manifest_sha256": "35e79345685c32f31b39615a1fc984f96f741f755d4805f4d3b7a7b68a373f50",
+      "version": "0.1.7",
+      "path": ".x07/deps/ext-json-rs/0.1.7",
+      "package_manifest_sha256": "f0ebb3b5b8eaf193ac250fc27ac0ee6088c952e83e5a1f304a9fcc9a93694bea",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.json.canon": "257bd91ff3961fc200c109bd67859f428cf78153fa2aaedaed5bd23a47c59ca8",
-        "ext.json.data_model": "65ab0ed5ada4d6668e2c394d836960b41447835b401ddd9d900a0e6b97013887",
-        "ext.json.pointer": "658decbd56790023d28bd72ef5f6fe810ed69b0d1ab6275b0c6c54b1f414192a",
-        "ext.json.tests": "743f7ed1160311de23d31af307a74af494382dbb275f4dbc42322b61e09e1dac"
+        "ext.json.canon": "2b1254ac42bdd3a8d616b738e1e0434d13cca30cdc5b97890e35089c66668034",
+        "ext.json.data_model": "c619a03382838f1e5a0a6c8e479144abc5cffeb91f05689e3922529e9228390f",
+        "ext.json.pointer": "24900c8325e399202c20a6fb797363632b5e3652c7ddbacf05d2aa9d7c9598b0",
+        "ext.json.tests": "10108c17ce39db201a8662fea7e433c01b74f2b74833d5cf3497a0ce00261d30"
       },
       "overridden_by": "ext-json-rs",
       "yanked": false
@@ -204,9 +204,9 @@
     },
     {
       "name": "ext-mcp-auth",
-      "version": "0.4.7",
-      "path": ".x07/deps/ext-mcp-auth/0.4.7",
-      "package_manifest_sha256": "f2b8238d48e9d0ab1c9dcebae97c72459d033648287eb8d702979971a5ae7708",
+      "version": "0.4.9",
+      "path": ".x07/deps/ext-mcp-auth/0.4.9",
+      "package_manifest_sha256": "bae56c7609b3b897654ce202688eb5652a1f67a83f7732f8ec8382e62b1f6c2b",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.auth.challenge": "0ef1a2ddc1c00e510c273d9d35bc4488e3963ce2cae29828132bd34d17aff758",
@@ -226,9 +226,9 @@
     },
     {
       "name": "ext-mcp-auth-core",
-      "version": "0.1.2",
-      "path": ".x07/deps/ext-mcp-auth-core/0.1.2",
-      "package_manifest_sha256": "2d127d424b1a5b09266bf4cc5318dda0ed14438dc0656f03adbcd284651fd1de",
+      "version": "0.1.3",
+      "path": ".x07/deps/ext-mcp-auth-core/0.1.3",
+      "package_manifest_sha256": "21310fb960182f093f3191c718bcc145381128105ea48c1762ca4b8ef4b4b62b",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.auth.bearer_v1": "5898caeed5e4bf6fb8c04139b47804f8e0eb0b8dde6ee6aeaa2ab6022d004444",
@@ -239,9 +239,9 @@
     },
     {
       "name": "ext-mcp-core",
-      "version": "0.3.4",
-      "path": ".x07/deps/ext-mcp-core/0.3.4",
-      "package_manifest_sha256": "6d5e3ceac1d7ef0a1880e0ecefd55e8715351d397a3f7a00bda34e664703eb3a",
+      "version": "0.3.6",
+      "path": ".x07/deps/ext-mcp-core/0.3.6",
+      "package_manifest_sha256": "34bd794715946fd6ee2cf5a2a1028477383cef518796d85bf7a66f71eb6693ec",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.cache.ttl_bytes_v1": "4e4c80cae20ada7841448c44a6a873eae97733fa2c30ae29c543c50e6d1e81ca",
@@ -252,7 +252,7 @@
         "std.mcp.notifications": "702cd717ee10c2bc952e8b5767da1679c13a9dc1b9f6a1185495ea3d1df289da",
         "std.mcp.progress_registry": "d76a635d213b04cdba774bfdebb4ba68b07fab6e90ca59ccaf21c9a3698c1432",
         "std.mcp.protocol": "d294f387128fc0601d3d9ce8c42d78ab87f4ee1bf758b8d3bd39c390551dd381",
-        "std.mcp.redact": "c4d3289483796a19e63583140031b08a4d5ee8d7aa4a3f2ba67cf7afe91e5f4b",
+        "std.mcp.redact": "a60c63c327afed02e70e95f7ed9baecb66cdd1e89896116076d5c50a8ebaffe1",
         "std.mcp.sse": "2d2af24c8efb02a358297555e0e0ade89e1b6ac01a9ad06e37bddc3847dab8c8",
         "std.mcp.tool": "bc13c2078cdcd9b79b7f822e0232f56bf193ae85c9264c4dc80379154b0afd85",
         "std.mcp.tool.errors": "6f458edfeaa0179711c10ce7f9cda3179a5d15eb5259723131d6a1333fb64a40",
@@ -263,9 +263,9 @@
     },
     {
       "name": "ext-mcp-obs",
-      "version": "0.1.4",
-      "path": ".x07/deps/ext-mcp-obs/0.1.4",
-      "package_manifest_sha256": "f424b13373956b72780358b7d1e3a9860524fe25160074e48e394d05ff6556f2",
+      "version": "0.1.5",
+      "path": ".x07/deps/ext-mcp-obs/0.1.5",
+      "package_manifest_sha256": "4ee9931451835f070a896fbb3c9f97c6999e0f7000b6cfe6596aceffc55aec74",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.obs": "ed0c49977517aca3c7f21abf6ef7ca7ddf5ed97e746b81be9f002e9bce98318c",
@@ -277,9 +277,9 @@
     },
     {
       "name": "ext-mcp-rr",
-      "version": "0.3.19",
-      "path": ".x07/deps/ext-mcp-rr/0.3.19",
-      "package_manifest_sha256": "185e8e00695d5d825cd6f49fd220b099e43f782720b76d2cb13119b64ebb5839",
+      "version": "0.3.21",
+      "path": ".x07/deps/ext-mcp-rr/0.3.21",
+      "package_manifest_sha256": "24358009ffaebd9a7b402506815ddc701b6b5f69447cdb5f8b634f98fb2a31c6",
       "module_root": "modules",
       "modules_sha256": {
         "ext.mcp.rr": "43ecbbd5bdeb9628366a61429e41fbce6e841970475f1ab080d60fa1e9bf932a",
@@ -293,9 +293,9 @@
     },
     {
       "name": "ext-mcp-sandbox",
-      "version": "0.3.13",
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.13",
-      "package_manifest_sha256": "d85ff63440bef3bda959648b6f0ca793ddaecc1272a28b9c5ba8a286375c8b88",
+      "version": "0.3.15",
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.15",
+      "package_manifest_sha256": "824b6da7ff6b165ee8c4ab1228d70727ab6572ad24d809038ff0a42f996c585e",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.sandbox.policy_compile": "b51c563a673a6c6852d2a6451501434b28bf589a8b1370508829366763a070e6",
@@ -313,9 +313,9 @@
     },
     {
       "name": "ext-mcp-toolkit",
-      "version": "0.3.10",
-      "path": ".x07/deps/ext-mcp-toolkit/0.3.10",
-      "package_manifest_sha256": "951dcf082e7d15ec21e61acd25814513482db70baa218d6e512d5502230d8bfe",
+      "version": "0.3.12",
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.12",
+      "package_manifest_sha256": "4c960b7b77e6443e6b4bb802724e668c931f20ff52c85d6a6a6c284166b2ebe0",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.toolkit.audit": "201b94ad48ed3fb3880cfbe8d351434f421963b79c8228fd4bdf69c78e1ff3e5",
@@ -339,14 +339,14 @@
     },
     {
       "name": "ext-mcp-transport-http",
-      "version": "0.3.21",
-      "path": ".x07/deps/ext-mcp-transport-http/0.3.21",
-      "package_manifest_sha256": "e82583093e8c81001faa92f0940fc1f4a56d823f525d672ed1a6139b498e92f7",
+      "version": "0.3.24",
+      "path": ".x07/deps/ext-mcp-transport-http/0.3.24",
+      "package_manifest_sha256": "48b2f07105f612fbc3a02e834277d8f8aa73318386f5cf0170d1c514175577da",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.mcp.server": "0950fc7de170db67c7fd835ded0410dc8e03c5ee84ac4ebf3b5be5ef86fb483a",
+        "ext.mcp.server": "4f93cb550f31521882e849ec835af914abac98c1d8ceb440dfc1666c84d870c5",
         "std.mcp.transport.http": "8087f75ead8a810b9da32a52c6db5a6b04102fc488a58f6ae9b08632c0402cb7",
-        "std.mcp.transport.http_rules": "ab63c9564d0320ba73b14c1b993297ec3172b5f4e08cef9aa9c5fa12ac70e5dd",
+        "std.mcp.transport.http_rules": "81b9dced76879bcb0a1ec138d1bb63b16a67bddbb4f11a747cada9b4a8f4bcd2",
         "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9",
         "std.mcp.transport.http_sse": "5fa7f191dac0e9fe080275ce47152285890c308164b2972093601e0cc35b9f2a",
         "std.mcp.transport.http_sse_outbox_v1": "baeb3adf7a12181011ff1daadd4747df635acca0ce5f22a8f034922810b8f80b"
@@ -356,9 +356,9 @@
     },
     {
       "name": "ext-mcp-worker",
-      "version": "0.3.6",
-      "path": ".x07/deps/ext-mcp-worker/0.3.6",
-      "package_manifest_sha256": "fa5ab887d4c42afd429539aa4c6b8cb4266117371ab98ef0c82a688588aa134f",
+      "version": "0.3.8",
+      "path": ".x07/deps/ext-mcp-worker/0.3.8",
+      "package_manifest_sha256": "def4579b012c1a8fc0dc7993956dd0e98b57cbd09188407800e7d0a17b390ba9",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.sandbox.worker_main": "d68ef82c57ebe8ae3188308419afa5ab3ca3ea940890a4c7a81ce1e55188c52c",
@@ -368,9 +368,9 @@
     },
     {
       "name": "ext-net",
-      "version": "0.1.10",
-      "path": ".x07/deps/ext-net/0.1.10",
-      "package_manifest_sha256": "dc589cabe800554acd3fe6dcb976db4531f3a85c85f0c4b15544b889e1453c9e",
+      "version": "0.1.11",
+      "path": ".x07/deps/ext-net/0.1.11",
+      "package_manifest_sha256": "63725ab4b0293598984a4a3b6bf262f188edfd039aef7da2c8a088d9564440f5",
       "module_root": "modules",
       "modules_sha256": {
         "std.net.codec": "46f5e134e7ce36ed9af6917d478f176268c2baf253fc772b33221342402d816e",
@@ -392,9 +392,9 @@
     },
     {
       "name": "ext-obs",
-      "version": "0.1.4",
-      "path": ".x07/deps/ext-obs/0.1.4",
-      "package_manifest_sha256": "d76555b6377a5a0e0ee28c4f7b5732b319d0dd62e8e93dd3483dc1ef3e00db05",
+      "version": "0.1.6",
+      "path": ".x07/deps/ext-obs/0.1.6",
+      "package_manifest_sha256": "11aaa19448df95b0ba756b07eb9a0330df498805d0fae07b7945c5d23bde11c3",
       "module_root": "modules",
       "modules_sha256": {
         "std.obs.export": "7dc3d658aada87fb5f21a093038b1703a7275ea1c9d335d425dfa2776178309c",
@@ -546,17 +546,17 @@
     },
     {
       "name": "ext-url-rs",
-      "version": "0.1.4",
-      "path": ".x07/deps/ext-url-rs/0.1.4",
-      "package_manifest_sha256": "c87e3e68a8520ae7538a3b76ba497088cc76629075a90ef67ce31190051db4f4",
+      "version": "0.1.5",
+      "path": ".x07/deps/ext-url-rs/0.1.5",
+      "package_manifest_sha256": "67ed07116b9c50eb0de03324c314199b6f10956eeb4b0fd00d81e8f66803c5fe",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.http_types": "dd14b3da1a82a2424e7f7205df8d3b97559fbe556e319dcf7d32e9a2b46a6bbd",
-        "ext.httparse": "aa37f2a0973c9278463ecf596f98529115a593a83edc250e1a5fa0d9f7f04bb0",
-        "ext.httparse.tests": "7e3e79eef1f6bd112f6d06eeb34f8bae4cd261ccb960b41b7adf5cea4c50aafd",
-        "ext.url.encode": "7e234d2e46b57f246f5d96db9048008ae99baf7661163da60b7a372cb1397e88",
-        "ext.url.parse": "f2d6059e9e2f13f0e80e7780bc58686efdf82e08b87355c56348a236bc80bd5f",
-        "ext.url.tests": "34fc0a3c3c983c2a2e6f5928f00f02d97d66384fe62117dc96e096febf239523"
+        "ext.http_types": "5a412c6fbe34ba9fd8db6acdf328d89d8a146d94d854c8e7c6cda96168877f2d",
+        "ext.httparse": "f62edceae297f4bce369da8eeb66dada56416fa7a177c96c073506383a6bab99",
+        "ext.httparse.tests": "85880633beb2fc5366ef99926da0722a81043077e1c9a0c3cdacc416cf1a00bc",
+        "ext.url.encode": "5af19adf830b3bcacc8e82495fd785f7f6f4f349d7656ff55cbec476bb5e346a",
+        "ext.url.parse": "f5a645025175634aa4437094e571e82ec2836f7a4c3443a2b2627f917dd42008",
+        "ext.url.tests": "ea37ce501c2a476cfe35bea9a249e5cb56d1ec37f5c6fc40344f56445bfa7b68"
       },
       "yanked": false
     },

@@ -10,8 +10,8 @@ permissions:
 env:
   X07_MCP_LOCK_RETRIES: "5"
   X07_MCP_LOCK_RETRY_DELAY_SECS: "3"
-  X07_TOOLCHAIN_TAG: "v0.1.108"
-  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-0.1.108-x86_64-unknown-linux-gnu.tar.gz"
+  X07_TOOLCHAIN_TAG: "v0.1.110"
+  X07_TOOLCHAIN_TARBALL_LINUX_X64: "x07-0.1.110-x86_64-unknown-linux-gnu.tar.gz"
   HARDPROOF_TAG: "v0.1.0-alpha.9"
 
 jobs:
@@ -171,67 +171,67 @@ jobs:
         shell: bash
         working-directory: x07-mcp
         run: X07_TOOLCHAIN_SOURCE_DIR="$(./scripts/ci/resolve_workspace_x07_root.sh)" ./scripts/ci/install_x07_toolchain.sh
-      - name: Unit tests (ext-mcp-trust@0.5.0)
+      - name: Unit tests (ext-mcp-trust@0.5.1)
         shell: bash
         working-directory: x07-mcp
         run: |
           x07_root="$(./scripts/ci/resolve_workspace_x07_root.sh)"
           (
-            cd packages/ext/x07-ext-mcp-trust/0.5.0
+            cd packages/ext/x07-ext-mcp-trust/0.5.1
             x07 test \
               --manifest tests/tests.json \
               --module-root modules \
               --module-root "$x07_root/packages/ext/x07-ext-base64-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.5/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.10/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.11/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.6/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.7/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-fs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-unicode-rs/0.1.5/modules"
           )
-      - name: Unit tests (ext-mcp-trust-os@0.5.0)
+      - name: Unit tests (ext-mcp-trust-os@0.5.2)
         shell: bash
         working-directory: x07-mcp
         run: |
           x07_root="$(./scripts/ci/resolve_workspace_x07_root.sh)"
-          trust_modules="$PWD/packages/ext/x07-ext-mcp-trust/0.5.0/modules"
+          trust_modules="$PWD/packages/ext/x07-ext-mcp-trust/0.5.1/modules"
           (
-            cd packages/ext/x07-ext-mcp-trust-os/0.5.0
+            cd packages/ext/x07-ext-mcp-trust-os/0.5.2
             x07 test \
               --manifest tests/tests.json \
               --module-root modules \
               --module-root "$trust_modules" \
               --module-root "$x07_root/packages/ext/x07-ext-base64-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-net/0.1.9/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.6/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.10/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-net/0.1.11/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.5/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.7/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.11/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-fs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-unicode-rs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-curl-c/0.1.6/modules"
           )
-      - name: Unit tests (x07-mcp@0.4.0)
+      - name: Unit tests (x07-mcp@0.4.4)
         shell: bash
         working-directory: x07-mcp
         run: |
           x07_root="$(./scripts/ci/resolve_workspace_x07_root.sh)"
-          trust_modules="$PWD/packages/ext/x07-ext-mcp-trust/0.5.0/modules"
-          trust_os_modules="$PWD/packages/ext/x07-ext-mcp-trust-os/0.5.0/modules"
+          trust_modules="$PWD/packages/ext/x07-ext-mcp-trust/0.5.1/modules"
+          trust_os_modules="$PWD/packages/ext/x07-ext-mcp-trust-os/0.5.2/modules"
           (
-            cd packages/app/x07-mcp/0.4.0
+            cd packages/app/x07-mcp/0.4.4
             x07 test \
               --manifest tests/tests.json \
               --module-root modules \
               --module-root "$trust_modules" \
               --module-root "$trust_os_modules" \
               --module-root "$x07_root/packages/ext/x07-ext-base64-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-net/0.1.9/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.6/modules" \
-              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.10/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-net/0.1.11/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-url-rs/0.1.5/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-json-rs/0.1.7/modules" \
+              --module-root "$x07_root/packages/ext/x07-ext-data-model/0.1.11/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-crypto-rs/0.1.5/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules" \
               --module-root "$x07_root/packages/ext/x07-ext-fs/0.1.5/modules" \

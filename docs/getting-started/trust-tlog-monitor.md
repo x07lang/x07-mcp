@@ -5,12 +5,12 @@ The trust tlog monitor adds append-only trust transparency checks (checkpoint ve
 ## Run package monitor tests
 
 ```sh
-cd packages/ext/x07-ext-mcp-trust-os/0.5.1
+cd packages/ext/x07-ext-mcp-trust-os/0.5.2
 x07 test --manifest tests/tests.json
 ```
 
 ```sh
-cd packages/app/x07-mcp/0.4.3
+cd packages/app/x07-mcp/0.4.4
 x07 test --manifest tests/tests.json
 ```
 

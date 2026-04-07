@@ -3,8 +3,8 @@
   "dependencies": [
     {
       "name": "ext-auth-jwt",
-      "path": ".x07/deps/ext-auth-jwt/0.1.6",
-      "version": "0.1.6"
+      "path": ".x07/deps/ext-auth-jwt/0.1.7",
+      "version": "0.1.7"
     },
     {
       "name": "ext-base64-rs",
@@ -48,23 +48,23 @@
     },
     {
       "name": "ext-mcp-auth",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.8",
-      "version": "0.4.8"
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.9",
+      "version": "0.4.9"
     },
     {
       "name": "ext-mcp-auth-core",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth-core/0.1.2",
-      "version": "0.1.2"
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth-core/0.1.3",
+      "version": "0.1.3"
     },
     {
       "name": "ext-mcp-core",
-      "path": "$workspace/packages/ext/x07-ext-mcp-core/0.3.5",
-      "version": "0.3.5"
+      "path": "$workspace/packages/ext/x07-ext-mcp-core/0.3.6",
+      "version": "0.3.6"
     },
     {
       "name": "ext-net",
-      "path": ".x07/deps/ext-net/0.1.10",
-      "version": "0.1.10"
+      "path": ".x07/deps/ext-net/0.1.11",
+      "version": "0.1.11"
     },
     {
       "name": "ext-openssl-c",
@@ -117,6 +117,48 @@
   "module_roots": [
     "src"
   ],
+  "patch": {
+    "ext-auth-jwt": {
+      "path": ".x07/deps/ext-auth-jwt/0.1.7",
+      "version": "0.1.7"
+    },
+    "ext-crypto-rs": {
+      "path": ".x07/deps/ext-crypto-rs/0.1.5",
+      "version": "0.1.5"
+    },
+    "ext-data-model": {
+      "path": ".x07/deps/ext-data-model/0.1.11",
+      "version": "0.1.11"
+    },
+    "ext-db-core": {
+      "path": ".x07/deps/ext-db-core/0.1.12",
+      "version": "0.1.12"
+    },
+    "ext-db-sqlite": {
+      "path": ".x07/deps/ext-db-sqlite/0.1.12",
+      "version": "0.1.12"
+    },
+    "ext-json-rs": {
+      "path": ".x07/deps/ext-json-rs/0.1.7",
+      "version": "0.1.7"
+    },
+    "ext-net": {
+      "path": ".x07/deps/ext-net/0.1.11",
+      "version": "0.1.11"
+    },
+    "ext-obs": {
+      "path": ".x07/deps/ext-obs/0.1.6",
+      "version": "0.1.6"
+    },
+    "ext-time-rs": {
+      "path": ".x07/deps/ext-time-rs/0.1.6",
+      "version": "0.1.6"
+    },
+    "ext-url-rs": {
+      "path": ".x07/deps/ext-url-rs/0.1.5",
+      "version": "0.1.5"
+    }
+  },
   "profiles": {
     "os": {
       "auto_ffi": true,
@@ -129,47 +171,5 @@
     }
   },
   "schema_version": "x07.project@0.4.0",
-  "world": "run-os",
-  "patch": {
-    "ext-json-rs": {
-      "version": "0.1.7",
-      "path": ".x07/deps/ext-json-rs/0.1.7"
-    },
-    "ext-net": {
-      "path": ".x07/deps/ext-net/0.1.10",
-      "version": "0.1.10"
-    },
-    "ext-crypto-rs": {
-      "path": ".x07/deps/ext-crypto-rs/0.1.5",
-      "version": "0.1.5"
-    },
-    "ext-data-model": {
-      "path": ".x07/deps/ext-data-model/0.1.11",
-      "version": "0.1.11"
-    },
-    "ext-time-rs": {
-      "path": ".x07/deps/ext-time-rs/0.1.6",
-      "version": "0.1.6"
-    },
-    "ext-auth-jwt": {
-      "path": ".x07/deps/ext-auth-jwt/0.1.6",
-      "version": "0.1.6"
-    },
-    "ext-obs": {
-      "path": ".x07/deps/ext-obs/0.1.4",
-      "version": "0.1.4"
-    },
-    "ext-db-core": {
-      "path": ".x07/deps/ext-db-core/0.1.12",
-      "version": "0.1.12"
-    },
-    "ext-db-sqlite": {
-      "path": ".x07/deps/ext-db-sqlite/0.1.11",
-      "version": "0.1.11"
-    },
-    "ext-url-rs": {
-      "path": ".x07/deps/ext-url-rs/0.1.5",
-      "version": "0.1.5"
-    }
-  }
+  "world": "run-os"
 }

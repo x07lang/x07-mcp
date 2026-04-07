@@ -3,6 +3,12 @@
 Hardproof `scan` emits a single report (`scan.json`) with five dimension results plus a token/context usage overlay.
 This page summarizes how to keep x07-native servers scoring high without turning your server into a “demo-only” artifact.
 
+The current score contract now distinguishes between a publishable full score and a partial score:
+
+- `overall_score` is only present when `score_truth_status = "publishable"`
+- `partial_score` is used when the scan is still useful but not publishable yet
+- `gating_reasons` and `unknown_dimensions` explain what is still missing
+
 ## Conformance
 
 - Keep MCP protocol semantics correct and deterministic (initialize, tools/list, tools/call, error envelopes).
@@ -38,6 +44,7 @@ Trust checks are enabled when a scan is given `--server-json` (and optionally `-
 
 - Ensure `server.json` includes registry publisher metadata under `_meta`.
 - Ensure the `.mcpb` sha256 matches `server.json.packages[].fileSha256`.
+- If you want a publishable overall score in CI, provide both trust inputs and gate with `hardproof ci --require-trust-for-full-score`.
 
 ## Token/context usage overlay (agent-friendly servers)
 
@@ -48,4 +55,5 @@ Hardproof estimates token footprints for common MCP surfaces. To keep usage heal
 - Keep responses small: return only required fields; paginate results; return only necessary fields.
 
 The scan report includes the overlay under `usage_metrics`, plus `USAGE-*` findings when thresholds are exceeded.
-
+Useful top-level usage checks now include `tool_count` and `metadata_to_payload_ratio_pct`, in addition to the existing
+catalog/schema/response token estimates.

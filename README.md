@@ -7,6 +7,9 @@
 ### Verify any MCP server
 
 Use the standalone verifier CLI: Hardproof (`hardproof scan --url ...`).
+If you do not provide trust inputs (`--server-json` and, when available, `--mcpb`), Hardproof may emit a
+partial score: `partial_score` is populated, `overall_score` stays `null`, and `score_truth_status`
+explains why the scan is not publishable yet.
 
 ### Follow the Postgres public demo
 

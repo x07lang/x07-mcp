@@ -18,18 +18,18 @@
     },
     {
       "name": "ext-data-model",
-      "path": ".x07/deps/ext-data-model/0.1.10",
-      "version": "0.1.10"
+      "path": ".x07/deps/ext-data-model/0.1.11",
+      "version": "0.1.11"
     },
     {
       "name": "ext-db-core",
-      "path": ".x07/deps/ext-db-core/0.1.11",
-      "version": "0.1.11"
+      "path": ".x07/deps/ext-db-core/0.1.12",
+      "version": "0.1.12"
     },
     {
       "name": "ext-db-sqlite",
-      "path": ".x07/deps/ext-db-sqlite/0.1.11",
-      "version": "0.1.11"
+      "path": ".x07/deps/ext-db-sqlite/0.1.12",
+      "version": "0.1.12"
     },
     {
       "name": "ext-fs",
@@ -48,8 +48,8 @@
     },
     {
       "name": "ext-json-rs",
-      "path": ".x07/deps/ext-json-rs/0.1.6",
-      "version": "0.1.6"
+      "path": ".x07/deps/ext-json-rs/0.1.7",
+      "version": "0.1.7"
     },
     {
       "name": "ext-jsonschema-rs",
@@ -58,28 +58,28 @@
     },
     {
       "name": "ext-mcp-core",
-      "path": ".x07/deps/ext-mcp-core/0.3.4",
-      "version": "0.3.4"
+      "path": ".x07/deps/ext-mcp-core/0.3.6",
+      "version": "0.3.6"
     },
     {
       "name": "ext-mcp-sandbox",
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.13",
-      "version": "0.3.13"
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.15",
+      "version": "0.3.15"
     },
     {
       "name": "ext-mcp-toolkit",
-      "path": ".x07/deps/ext-mcp-toolkit/0.3.10",
-      "version": "0.3.10"
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.12",
+      "version": "0.3.12"
     },
     {
       "name": "ext-mcp-transport-stdio",
-      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.8",
-      "version": "0.3.8"
+      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.10",
+      "version": "0.3.10"
     },
     {
       "name": "ext-mcp-worker",
-      "path": ".x07/deps/ext-mcp-worker/0.3.6",
-      "version": "0.3.6"
+      "path": ".x07/deps/ext-mcp-worker/0.3.8",
+      "version": "0.3.8"
     },
     {
       "name": "ext-regex",
@@ -125,49 +125,49 @@
   ],
   "operational_entry_symbol": "router.main_v1",
   "patch": {
-    "ext-json-rs": {
-      "path": ".x07/deps/ext-json-rs/0.1.6",
-      "version": "0.1.6"
-    },
-    "ext-mcp-sandbox": {
-      "path": ".x07/deps/ext-mcp-sandbox/0.3.13",
-      "version": "0.3.13"
-    },
-    "ext-mcp-toolkit": {
-      "path": ".x07/deps/ext-mcp-toolkit/0.3.10",
-      "version": "0.3.10"
+    "ext-auth-jwt": {
+      "path": ".x07/deps/ext-auth-jwt/0.1.7",
+      "version": "0.1.7"
     },
     "ext-crypto-rs": {
       "path": ".x07/deps/ext-crypto-rs/0.1.5",
       "version": "0.1.5"
     },
     "ext-data-model": {
-      "path": ".x07/deps/ext-data-model/0.1.10",
-      "version": "0.1.10"
+      "path": ".x07/deps/ext-data-model/0.1.11",
+      "version": "0.1.11"
+    },
+    "ext-db-core": {
+      "path": ".x07/deps/ext-db-core/0.1.12",
+      "version": "0.1.12"
+    },
+    "ext-db-sqlite": {
+      "path": ".x07/deps/ext-db-sqlite/0.1.12",
+      "version": "0.1.12"
+    },
+    "ext-json-rs": {
+      "path": ".x07/deps/ext-json-rs/0.1.7",
+      "version": "0.1.7"
+    },
+    "ext-mcp-sandbox": {
+      "path": ".x07/deps/ext-mcp-sandbox/0.3.15",
+      "version": "0.3.15"
+    },
+    "ext-mcp-toolkit": {
+      "path": ".x07/deps/ext-mcp-toolkit/0.3.12",
+      "version": "0.3.12"
+    },
+    "ext-mcp-transport-stdio": {
+      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.10",
+      "version": "0.3.10"
+    },
+    "ext-obs": {
+      "path": ".x07/deps/ext-obs/0.1.6",
+      "version": "0.1.6"
     },
     "ext-time-rs": {
       "path": ".x07/deps/ext-time-rs/0.1.6",
       "version": "0.1.6"
-    },
-    "ext-auth-jwt": {
-      "path": ".x07/deps/ext-auth-jwt/0.1.6",
-      "version": "0.1.6"
-    },
-    "ext-obs": {
-      "path": ".x07/deps/ext-obs/0.1.4",
-      "version": "0.1.4"
-    },
-    "ext-db-core": {
-      "path": ".x07/deps/ext-db-core/0.1.11",
-      "version": "0.1.11"
-    },
-    "ext-db-sqlite": {
-      "path": ".x07/deps/ext-db-sqlite/0.1.11",
-      "version": "0.1.11"
-    },
-    "ext-mcp-transport-stdio": {
-      "path": ".x07/deps/ext-mcp-transport-stdio/0.3.8",
-      "version": "0.3.8"
     }
   },
   "profiles": {

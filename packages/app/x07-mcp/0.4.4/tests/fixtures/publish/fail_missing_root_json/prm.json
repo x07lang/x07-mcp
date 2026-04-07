@@ -1,0 +1,7 @@
+{
+  "resource": "https://localhost:8443",
+  "authorization_servers": [
+    "https://as1.example"
+  ],
+  "signed_metadata": "eyJhbGciOiJFZERTQSJ9.eyJpc3MiOiJodHRwczovL2FzMS5leGFtcGxlIn0.signature"
+}

@@ -1,0 +1,155 @@
+{
+  "schema_version": "x07.tests_manifest@0.2.0",
+  "tests": [
+    {
+      "id": "trust/bundle_parse_ok",
+      "world": "run-os",
+      "entry": "smoke_trust.bundle_parse_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust/framework_policy_multi_issuer",
+      "world": "run-os",
+      "entry": "smoke_trust.framework_policy_multi_issuer",
+      "expect": "pass"
+    },
+    {
+      "id": "trust/framework_policy_default_fail_closed",
+      "world": "run-os",
+      "entry": "smoke_trust.framework_policy_default_fail_closed",
+      "expect": "pass"
+    },
+    {
+      "id": "trust/framework_keys_for_issuer",
+      "world": "run-os",
+      "entry": "smoke_trust.framework_keys_for_issuer",
+      "expect": "pass"
+    },
+    {
+      "id": "trust13/bundle_sig_stmt_sha_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase13.bundle_sig_stmt_sha_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust13/bundle_sig_verify_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase13.bundle_sig_verify_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust13/as_select_prefer_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase13.as_select_prefer_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust14/semver_select_highest_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase14.semver_select_highest_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust14/lock_v2_parse_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase14.lock_v2_parse_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust14/lock_v2_missing_pins_fail",
+      "world": "run-os",
+      "entry": "smoke_trust_phase14.lock_v2_missing_pins_fail",
+      "expect": "pass"
+    },
+    {
+      "id": "trust14/verify_bundle_from_lock_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase14.verify_bundle_from_lock_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust15/tuf_verify_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase15.tuf_verify_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust15/tuf_reject_timestamp_rollback",
+      "world": "run-os",
+      "entry": "smoke_trust_phase15.tuf_reject_timestamp_rollback",
+      "expect": "pass"
+    },
+    {
+      "id": "trust15/tuf_reject_snapshot_rollback",
+      "world": "run-os",
+      "entry": "smoke_trust_phase15.tuf_reject_snapshot_rollback",
+      "expect": "pass"
+    },
+    {
+      "id": "trust15/tuf_reject_expired_timestamp",
+      "world": "run-os",
+      "entry": "smoke_trust_phase15.tuf_reject_expired_timestamp",
+      "expect": "pass"
+    },
+    {
+      "id": "trust15/tuf_reject_fast_forward",
+      "world": "run-os",
+      "entry": "smoke_trust_phase15.tuf_reject_fast_forward",
+      "expect": "pass"
+    },
+    {
+      "id": "trust15/checkpoint_mismatch",
+      "world": "run-os",
+      "entry": "smoke_trust_phase15.checkpoint_mismatch",
+      "expect": "pass"
+    },
+    {
+      "id": "trust15/pack_downgrade_major_track",
+      "world": "run-os",
+      "entry": "smoke_trust_phase15.pack_downgrade_major_track",
+      "expect": "pass"
+    },
+    {
+      "id": "trust16/tlog_merkle_root_tree3",
+      "world": "run-os",
+      "entry": "smoke_trust_phase16.tlog_merkle_root_tree3",
+      "expect": "pass"
+    },
+    {
+      "id": "trust16/tlog_consistency_2_3_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase16.tlog_consistency_2_3_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust16/tlog_inclusion_leaf2_tree3_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase16.tlog_inclusion_leaf2_tree3_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust16/tlog_checkpoint_verify_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase16.tlog_checkpoint_verify_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust16/tlog_bundle_verify_ok",
+      "world": "run-os",
+      "entry": "smoke_trust_phase16.tlog_bundle_verify_ok",
+      "expect": "pass"
+    },
+    {
+      "id": "trust16/tlog_policy_allow_known",
+      "world": "run-os",
+      "entry": "smoke_trust_phase16.tlog_policy_allow_known",
+      "expect": "pass"
+    },
+    {
+      "id": "trust16/tlog_policy_violation_unexpected",
+      "world": "run-os",
+      "entry": "smoke_trust_phase16.tlog_policy_violation_unexpected",
+      "expect": "pass"
+    }
+  ]
+}

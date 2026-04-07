@@ -583,20 +583,20 @@ find "${lint_dirs[@]}" -type f -name '*.x07.json' -print0 \
 step "package tests (ext-mcp-rr sanitizer)"
 if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   x07_root="$(workspace_x07_root)"
-  auth_jwt_modules="$x07_root/packages/ext/x07-ext-auth-jwt/0.1.6/modules"
+  auth_jwt_modules="$x07_root/packages/ext/x07-ext-auth-jwt/0.1.7/modules"
   base64_modules="$x07_root/packages/ext/x07-ext-base64-rs/0.1.4/modules"
   crypto_modules="$x07_root/packages/ext/x07-ext-crypto-rs/0.1.5/modules"
   curl_modules="$x07_root/packages/ext/x07-ext-curl-c/0.1.6/modules"
-  data_model_modules="$x07_root/packages/ext/x07-ext-data-model/0.1.10/modules"
-  db_core_modules="$x07_root/packages/ext/x07-ext-db-core/0.1.11/modules"
-  db_sqlite_modules="$x07_root/packages/ext/x07-ext-db-sqlite/0.1.11/modules"
+  data_model_modules="$x07_root/packages/ext/x07-ext-data-model/0.1.11/modules"
+  db_core_modules="$x07_root/packages/ext/x07-ext-db-core/0.1.12/modules"
+  db_sqlite_modules="$x07_root/packages/ext/x07-ext-db-sqlite/0.1.12/modules"
   fs_modules="$x07_root/packages/ext/x07-ext-fs/0.1.5/modules"
   hex_modules="$x07_root/packages/ext/x07-ext-hex-rs/0.1.4/modules"
-  json_modules="$x07_root/packages/ext/x07-ext-json-rs/0.1.6/modules"
+  json_modules="$x07_root/packages/ext/x07-ext-json-rs/0.1.7/modules"
   jsonschema_modules="$x07_root/packages/ext/x07-ext-jsonschema-rs/0.1.0/modules"
   math_modules="$x07_root/packages/ext/x07-ext-math/0.1.4/modules"
-  net_modules="$x07_root/packages/ext/x07-ext-net/0.1.10/modules"
-  obs_ext_modules="$x07_root/packages/ext/x07-ext-obs/0.1.4/modules"
+  net_modules="$x07_root/packages/ext/x07-ext-net/0.1.11/modules"
+  obs_ext_modules="$x07_root/packages/ext/x07-ext-obs/0.1.6/modules"
   openssl_modules="$x07_root/packages/ext/x07-ext-openssl-c/0.1.9/modules"
   pb_modules="$x07_root/packages/ext/x07-ext-pb-rs/0.1.5/modules"
   rand_modules="$x07_root/packages/ext/x07-ext-rand/0.1.0/modules"
@@ -606,7 +606,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   time_modules="$x07_root/packages/ext/x07-ext-time-rs/0.1.6/modules"
   u64_modules="$x07_root/packages/ext/x07-ext-u64-rs/0.1.4/modules"
   unicode_modules="$x07_root/packages/ext/x07-ext-unicode-rs/0.1.5/modules"
-  url_modules="$x07_root/packages/ext/x07-ext-url-rs/0.1.4/modules"
+  url_modules="$x07_root/packages/ext/x07-ext-url-rs/0.1.5/modules"
   [[ -d "$auth_jwt_modules" ]] || { echo "ERROR: missing local modules: $auth_jwt_modules" >&2; exit 2; }
   [[ -d "$data_model_modules" ]] || { echo "ERROR: missing local modules: $data_model_modules" >&2; exit 2; }
   [[ -d "$db_core_modules" ]] || { echo "ERROR: missing local modules: $db_core_modules" >&2; exit 2; }
@@ -719,11 +719,14 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       >/dev/null
   )
 
-  step "package tests (ext-mcp-trust@0.5.0)"
   trust_050_dir="$root/packages/ext/x07-ext-mcp-trust/0.5.0"
   [[ -d "$trust_050_dir" ]] || { echo "ERROR: missing local package: $trust_050_dir" >&2; exit 2; }
+
+  step "package tests (ext-mcp-trust@0.5.1)"
+  trust_051_dir="$root/packages/ext/x07-ext-mcp-trust/0.5.1"
+  [[ -d "$trust_051_dir" ]] || { echo "ERROR: missing local package: $trust_051_dir" >&2; exit 2; }
   (
-    cd "$trust_050_dir"
+    cd "$trust_051_dir"
     x07_test \
       --manifest tests/tests.json \
       --module-root modules \
@@ -805,7 +808,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
     x07_test \
       --manifest tests/tests.json \
       --module-root modules \
-      --module-root "$trust_050_dir/modules" \
+      --module-root "$trust_051_dir/modules" \
       --module-root "$net_modules" \
       --module-root "$url_modules" \
       --module-root "$json_modules" \
@@ -819,15 +822,15 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       >/dev/null
   )
 
-  step "package tests (ext-mcp-trust-os@0.5.1)"
-  trust_os_051_dir="$root/packages/ext/x07-ext-mcp-trust-os/0.5.1"
-  [[ -d "$trust_os_051_dir" ]] || { echo "ERROR: missing local package: $trust_os_051_dir" >&2; exit 2; }
+  step "package tests (ext-mcp-trust-os@0.5.2)"
+  trust_os_052_dir="$root/packages/ext/x07-ext-mcp-trust-os/0.5.2"
+  [[ -d "$trust_os_052_dir" ]] || { echo "ERROR: missing local package: $trust_os_052_dir" >&2; exit 2; }
   (
-    cd "$trust_os_051_dir"
+    cd "$trust_os_052_dir"
     x07_test \
       --manifest tests/tests.json \
       --module-root modules \
-      --module-root "$trust_050_dir/modules" \
+      --module-root "$trust_051_dir/modules" \
       --module-root "$net_modules" \
       --module-root "$url_modules" \
       --module-root "$json_modules" \
@@ -964,16 +967,16 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
       >/dev/null
   )
 
-  step "package tests (x07-mcp@0.4.3 publish trust modules)"
-  app_pkg_043_dir="$root/packages/app/x07-mcp/0.4.3"
-  [[ -d "$app_pkg_043_dir" ]] || { echo "ERROR: missing local package: $app_pkg_043_dir" >&2; exit 2; }
+  step "package tests (x07-mcp@0.4.4 publish trust modules)"
+  app_pkg_044_dir="$root/packages/app/x07-mcp/0.4.4"
+  [[ -d "$app_pkg_044_dir" ]] || { echo "ERROR: missing local package: $app_pkg_044_dir" >&2; exit 2; }
   (
-    cd "$app_pkg_043_dir"
+    cd "$app_pkg_044_dir"
     x07_test \
       --manifest tests/tests.json \
       --module-root modules \
-      --module-root "$trust_050_dir/modules" \
-      --module-root "$trust_os_051_dir/modules" \
+      --module-root "$trust_051_dir/modules" \
+      --module-root "$trust_os_052_dir/modules" \
       --module-root "$crypto_modules" \
       --module-root "$data_model_modules" \
       --module-root "$hex_modules" \
@@ -2111,8 +2114,8 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   tmp_dirs+=("$tmp_manifest")
   jq \
     '.patch = ((.patch // {}) + {
-       "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-       "ext-net":{"version":"0.1.10","path":".x07/local/ext-net/0.1.10"}
+       "ext-json-rs":{"version":"0.1.7","path":".x07/local/ext-json-rs/0.1.7"},
+       "ext-net":{"version":"0.1.11","path":".x07/local/ext-net/0.1.11"}
      })' \
     "$conf_proj/x07.json" \
     >"$tmp_manifest"
@@ -2188,8 +2191,8 @@ PY
     tmp_manifest="${tmp}/x07.patched.json"
     jq \
       '.patch = ((.patch // {}) + {
-         "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-         "ext-mcp-sandbox":{"version":"0.3.14","path":".x07/local/ext-mcp-sandbox/0.3.14"}
+         "ext-json-rs":{"version":"0.1.7","path":".x07/local/ext-json-rs/0.1.7"},
+         "ext-mcp-sandbox":{"version":"0.3.15","path":".x07/local/ext-mcp-sandbox/0.3.15"}
        })' \
       x07.json \
       >"$tmp_manifest"
@@ -2259,9 +2262,9 @@ PY
     jq \
       '.schema_version = "x07.project@0.4.0" |
        .patch = ((.patch // {}) + {
-         "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-         "ext-mcp-sandbox":{"version":"0.3.14","path":".x07/local/ext-mcp-sandbox/0.3.14"},
-         "ext-net":{"version":"0.1.10","path":".x07/local/ext-net/0.1.10"},
+         "ext-json-rs":{"version":"0.1.7","path":".x07/local/ext-json-rs/0.1.7"},
+         "ext-mcp-sandbox":{"version":"0.3.15","path":".x07/local/ext-mcp-sandbox/0.3.15"},
+         "ext-net":{"version":"0.1.11","path":".x07/local/ext-net/0.1.11"},
          "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
        })' \
       x07.json \
@@ -2320,9 +2323,9 @@ PY
     jq \
       '.schema_version = "x07.project@0.4.0" |
        .patch = ((.patch // {}) + {
-         "ext-json-rs":{"version":"0.1.6","path":".x07/local/ext-json-rs/0.1.6"},
-         "ext-mcp-sandbox":{"version":"0.3.14","path":".x07/local/ext-mcp-sandbox/0.3.14"},
-         "ext-net":{"version":"0.1.10","path":".x07/local/ext-net/0.1.10"},
+         "ext-json-rs":{"version":"0.1.7","path":".x07/local/ext-json-rs/0.1.7"},
+         "ext-mcp-sandbox":{"version":"0.3.15","path":".x07/local/ext-mcp-sandbox/0.3.15"},
+         "ext-net":{"version":"0.1.11","path":".x07/local/ext-net/0.1.11"},
          "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
        })' \
       x07.json \
