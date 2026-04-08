@@ -194,6 +194,12 @@ def _iter_x07_projects(repo_root: Path) -> list[Path]:
     paths.append(repo_root / "conformance" / "client-x07" / "x07.json")
     paths.extend(sorted((repo_root / "templates").rglob("x07.json")))
     paths.extend(sorted((repo_root / "servers").rglob("x07.json")))
+    examples_root = repo_root / "examples"
+    if examples_root.is_dir():
+        paths.extend(sorted(examples_root.rglob("x07.json")))
+    docs_examples_root = repo_root / "docs" / "examples"
+    if docs_examples_root.is_dir():
+        paths.extend(sorted(docs_examples_root.rglob("x07.json")))
     return sorted({p for p in paths if p.is_file()})
 
 
@@ -201,6 +207,8 @@ def _iter_mcp_schema_json_files(repo_root: Path) -> list[Path]:
     roots = [
         repo_root / "templates",
         repo_root / "conformance",
+        repo_root / "docs" / "examples",
+        repo_root / "examples",
     ]
     out: list[Path] = []
     for r in roots:
@@ -221,6 +229,7 @@ def _iter_x07_json_files(repo_root: Path) -> list[Path]:
     roots: list[Path] = [
         repo_root / "cli" / "src",
         repo_root / "docs" / "examples",
+        repo_root / "examples",
         repo_root / "templates",
         repo_root / "conformance" / "client-x07" / "src",
         repo_root / "conformance" / "client-x07" / "tests",
