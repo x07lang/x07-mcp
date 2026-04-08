@@ -7,26 +7,8 @@ OUT_DIR="demos/postgres-public-beta/out"
 SERVER_ROOT="servers/postgres-mcp"
 TARGET_URL="http://127.0.0.1:8403/mcp"
 
-require_bin() {
-  if [[ "${1}" == */* ]]; then
-    if [[ ! -x "${1}" ]]; then
-      echo "error: missing required executable: ${1}" >&2
-      exit 2
-    fi
-    return 0
-  fi
-  if ! command -v "${1}" >/dev/null 2>&1; then
-    echo "error: missing required command: ${1}" >&2
-    exit 2
-  fi
-}
-
-VERIFIER_BIN="${HARDPROOF_BIN:-hardproof}"
-if [[ -z "${HARDPROOF_BIN:-}" && -x "${ROOT}/../hardproof/out/hardproof" ]]; then
-  VERIFIER_BIN="${ROOT}/../hardproof/out/hardproof"
-fi
-
-require_bin "${VERIFIER_BIN}"
+source "${DEMO_ROOT}/scripts/_hardproof_bin.sh"
+VERIFIER_BIN="$(resolve_hardproof_bin "${ROOT}")"
 
 cd "${ROOT}"
 mkdir -p "${OUT_DIR}"

@@ -43,9 +43,17 @@ If you intentionally rerun the same target without trust inputs, the expected sh
 - `score_truth_status = "partial"`
 - `overall_score = null`
 - `partial_score` is populated
-- `gating_reasons` includes `TRUST-UNKNOWN`
+- `gating_reasons` includes `TRUST-NOT-EVALUABLE` and `SERVER-JSON-MISSING`
 
-If you gate that trust-unknown rerun with `hardproof ci`, it now fails by default. Add `--allow-partial-score` only when you intentionally want threshold checks to accept a partial result.
+If you gate that trust-not-evaluable rerun with `hardproof ci`, it now fails by default. Add `--allow-partial-score` only when you intentionally want threshold checks to accept a partial result.
+
+## Expected warnings (current demo)
+
+The local demo is expected to produce warnings unless you add stronger trust evidence and tune the
+performance probe environment:
+
+- `TRUST-TRUSTPACK-MISSING` (no trust pack metadata provided)
+- `PERF-CONCURRENT-TOOLS-CALL-LOW` (concurrent tool-call probe is sensitive to local load)
 
 If the demo starts failing or producing new findings unexpectedly, treat it as a regression and
 inspect `findings[]` in `scan.json` for finding codes and evidence.
