@@ -108,8 +108,8 @@
     },
     {
       "name": "ext-mcp-transport-http",
-      "path": ".x07/deps/ext-mcp-transport-http/0.3.24",
-      "version": "0.3.24"
+      "path": ".x07/deps/ext-mcp-transport-http/0.3.25",
+      "version": "0.3.25"
     },
     {
       "name": "ext-mcp-transport-stdio",
@@ -241,8 +241,8 @@
       "version": "0.3.12"
     },
     "ext-mcp-transport-http": {
-      "path": ".x07/deps/ext-mcp-transport-http/0.3.24",
-      "version": "0.3.24"
+      "path": ".x07/deps/ext-mcp-transport-http/0.3.25",
+      "version": "0.3.25"
     },
     "ext-mcp-transport-stdio": {
       "path": ".x07/deps/ext-mcp-transport-stdio/0.3.10",
