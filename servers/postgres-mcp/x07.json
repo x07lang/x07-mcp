@@ -259,13 +259,13 @@
   "profiles": {
     "os": {
       "auto_ffi": true,
-      "solve_fuel": 500000000,
+      "solve_fuel": 200000000000,
       "world": "run-os"
     },
     "sandbox": {
       "auto_ffi": true,
       "policy": "policy/mcp.worker.base.policy.json",
-      "solve_fuel": 500000000,
+      "solve_fuel": 200000000000,
       "world": "run-os-sandboxed"
     }
   },
