@@ -340,12 +340,12 @@
     },
     {
       "name": "ext-mcp-transport-http",
-      "version": "0.3.24",
-      "path": ".x07/deps/ext-mcp-transport-http/0.3.24",
-      "package_manifest_sha256": "48b2f07105f612fbc3a02e834277d8f8aa73318386f5cf0170d1c514175577da",
+      "version": "0.3.25",
+      "path": ".x07/deps/ext-mcp-transport-http/0.3.25",
+      "package_manifest_sha256": "639c5fcf700df68aa6aacb05663668e2e9c319ba9ef011c798907095c91de541",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.mcp.server": "4f93cb550f31521882e849ec835af914abac98c1d8ceb440dfc1666c84d870c5",
+        "ext.mcp.server": "1fefa19e8bc8b7a3e693dc76ba9435c7785cbd447d9934d6f391377dcaf6f3df",
         "std.mcp.transport.http": "8087f75ead8a810b9da32a52c6db5a6b04102fc488a58f6ae9b08632c0402cb7",
         "std.mcp.transport.http_rules": "81b9dced76879bcb0a1ec138d1bb63b16a67bddbb4f11a747cada9b4a8f4bcd2",
         "std.mcp.transport.http_session": "9f8f72e5e25d089aeb3e5f22183c12508b477d7baff5eaa54cc402c25f64c4d9",

@@ -7,7 +7,7 @@
 - `ext-mcp-worker@0.3.8`: worker protocol + worker entrypoint
 - `ext-mcp-sandbox@0.3.15`: router-side sandbox + task stores/executors + worker spawn helpers (streaming/cancel-aware), custom limits profiles, and per-tool process allowlists
 - `ext-mcp-transport-stdio@0.3.10`: stdio MCP transport (tasks, progress, cancellation, subscriptions) with runtime descriptor-path support
-- `ext-mcp-transport-http@0.3.24`: HTTP MCP transport (`ext.mcp.server`) + Streamable HTTP SSE with runtime descriptor-path support and the `ext-net@0.1.11` package line
+- `ext-mcp-transport-http@0.3.25`: HTTP MCP transport (`ext.mcp.server`) + Streamable HTTP SSE with runtime descriptor-path support and the `ext-net@0.1.11` package line
 - `ext-mcp-transport-http@0.2.1`: HTTP MCP transport (`std.mcp.transport.http`) for the legacy server config (`x07.mcp.server_config@0.2.0`)
 - `ext-mcp-auth-core@0.1.3`: pure PRM URL/JSON utilities, Bearer parsing, `WWW-Authenticate` formatting, scope set ops
 - `ext-mcp-auth@0.4.9`: OAuth2 resource server enforcement (introspection + JWT/JWKS) + DPoP + DPoP nonce + signed PRM metadata (HS256 + Ed25519/RS256 with trust anchors) (uses `ext-mcp-auth-core` and the `ext-net@0.1.11` package line)

@@ -41,7 +41,11 @@ In another terminal:
 ./scripts/verify_demo.sh
 ```
 
-If you are developing inside the multi-repo workspace (`x07lang/`), `verify_demo.sh` will prefer `../hardproof/out/hardproof` when present. Otherwise it uses `hardproof` from `PATH`.
+`verify_demo.sh` resolves the Hardproof binary as:
+- `HARDPROOF_BIN` when set
+- `hardproof` on `PATH`
+- `~/.local/bin/hardproof`
+- `../hardproof/out/hardproof` (only if the version matches the sibling `hardproof` repo)
 
 Expected artifacts under `demos/postgres-public-beta/out/`:
 - `scan/scan.json`
@@ -56,7 +60,10 @@ See `docs/public-beta/postgres-demo-expected-findings.md` for what to expect in 
 Because `verify_demo.sh` passes both `--server-json` and `--mcpb`, the canonical demo is expected to
 produce a publishable full score (`score_truth_status = "publishable"`). If you run `hardproof scan`
 without those trust inputs, expect a partial result instead (`overall_score = null`, `partial_score`
-set, and `gating_reasons` including `TRUST-UNKNOWN`).
+set, and `gating_reasons` including `TRUST-NOT-EVALUABLE`).
+
+For known caveats and a video/demo recordability checklist, see:
+- `docs/public-beta/postgres-demo-recordability-checklist.md`
 
 ### 3.1) Benchmarkable scan runs (optional)
 
