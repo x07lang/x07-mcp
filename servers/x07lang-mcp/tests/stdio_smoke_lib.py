@@ -13,6 +13,25 @@ from pathlib import Path
 from typing import Any
 
 
+def _with_preserved_publish_manifest(server_root: Path, fn) -> None:
+    manifest_path = server_root / "publish" / "server.mcp-registry.json"
+    try:
+        original = manifest_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        original = None
+
+    try:
+        fn()
+    finally:
+        if original is not None:
+            try:
+                current = manifest_path.read_text(encoding="utf-8")
+            except FileNotFoundError:
+                current = None
+            if current is not None and current != original:
+                manifest_path.write_text(original, encoding="utf-8")
+
+
 def _send_json_line(proc: subprocess.Popen[str], msg: object) -> None:
     line = json.dumps(msg, separators=(",", ":"))
     assert proc.stdin is not None
@@ -222,25 +241,33 @@ def build_bins(server_root: Path) -> None:
     env = tool_env(server_root)
     env["X07_MCP_BUILD_BINS_ONLY"] = "1"
     hydrate_server_deps(server_root, env)
-    subprocess.run(
-        [str(server_root / "publish" / "build_mcpb.sh")],
-        cwd=server_root,
-        env=env,
-        check=True,
-        stdout=subprocess.DEVNULL,
-    )
+
+    def _run_build() -> None:
+        subprocess.run(
+            [str(server_root / "publish" / "build_mcpb.sh")],
+            cwd=server_root,
+            env=env,
+            check=True,
+            stdout=subprocess.DEVNULL,
+        )
+
+    _with_preserved_publish_manifest(server_root, _run_build)
 
 
 def build_bundle(server_root: Path) -> Path:
     env = tool_env(server_root)
     hydrate_server_deps(server_root, env)
-    subprocess.run(
-        [str(server_root / "publish" / "build_mcpb.sh")],
-        cwd=server_root,
-        env=env,
-        check=True,
-        stdout=subprocess.DEVNULL,
-    )
+
+    def _run_build() -> None:
+        subprocess.run(
+            [str(server_root / "publish" / "build_mcpb.sh")],
+            cwd=server_root,
+            env=env,
+            check=True,
+            stdout=subprocess.DEVNULL,
+        )
+
+    _with_preserved_publish_manifest(server_root, _run_build)
     bundle_path = server_root / "dist" / "x07lang-mcp.mcpb"
     if not bundle_path.is_file():
         raise RuntimeError(f"missing bundle: {bundle_path}")
