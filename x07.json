@@ -153,8 +153,8 @@
     },
     {
       "name": "ext-regex",
-      "path": ".x07/deps/ext-regex/0.2.4",
-      "version": "0.2.4"
+      "path": ".x07/deps/ext-regex/0.2.5",
+      "version": "0.2.5"
     },
     {
       "name": "ext-sockets-c",
@@ -259,6 +259,10 @@
     "ext-obs": {
       "path": ".x07/deps/ext-obs/0.1.6",
       "version": "0.1.6"
+    },
+    "ext-regex": {
+      "path": ".x07/deps/ext-regex/0.2.5",
+      "version": "0.2.5"
     },
     "ext-openssl-c": {
       "path": ".x07/deps/ext-openssl-c/0.1.9",

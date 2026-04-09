@@ -148,8 +148,8 @@
     },
     {
       "name": "ext-regex",
-      "path": ".x07/deps/ext-regex/0.2.4",
-      "version": "0.2.4"
+      "path": ".x07/deps/ext-regex/0.2.5",
+      "version": "0.2.5"
     },
     {
       "name": "ext-sockets-c",
@@ -227,6 +227,10 @@
     "ext-json-rs": {
       "path": ".x07/deps/ext-json-rs/0.1.7",
       "version": "0.1.7"
+    },
+    "ext-regex": {
+      "path": ".x07/deps/ext-regex/0.2.5",
+      "version": "0.2.5"
     },
     "ext-mcp-rr": {
       "path": ".x07/deps/ext-mcp-rr/0.3.21",

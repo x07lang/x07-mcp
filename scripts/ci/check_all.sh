@@ -600,7 +600,7 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
   openssl_modules="$x07_root/packages/ext/x07-ext-openssl-c/0.1.9/modules"
   pb_modules="$x07_root/packages/ext/x07-ext-pb-rs/0.1.5/modules"
   rand_modules="$x07_root/packages/ext/x07-ext-rand/0.1.0/modules"
-  regex_modules="$x07_root/packages/ext/x07-ext-regex/0.2.4/modules"
+  regex_modules="$x07_root/packages/ext/x07-ext-regex/0.2.5/modules"
   sockets_modules="$x07_root/packages/ext/x07-ext-sockets-c/0.1.6/modules"
   stdio_modules="$x07_root/packages/ext/x07-ext-stdio/0.1.0/modules"
   time_modules="$x07_root/packages/ext/x07-ext-time-rs/0.1.6/modules"

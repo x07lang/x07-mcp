@@ -450,14 +450,15 @@
     },
     {
       "name": "ext-regex",
-      "version": "0.2.4",
-      "path": ".x07/deps/ext-regex/0.2.4",
-      "package_manifest_sha256": "5f10da1b19bbb296e460cf903d4b93954b55411f59c913eb6044354c497c6a18",
+      "version": "0.2.5",
+      "path": ".x07/deps/ext-regex/0.2.5",
+      "package_manifest_sha256": "2b050b0695dd3dddb28b2aa40c7180ce15bc75f33e067fd6235a73dc746b3c2e",
       "module_root": "modules",
       "modules_sha256": {
-        "ext.regex": "2167fb0d3ffb85e92cdac612dfb8b5de4dbb52a211bfadc8630d67d91fba16be",
+        "ext.regex": "478683d110a814a169f9ddffb69dc7cbdfe8a666a8365b7676778a81a9068ca5",
         "ext.regex.tests": "3626ebe4b5b487e82bc4ded9745cd3acd6a21258ac3a3b8e6f6696ee1fa75f5d"
       },
+      "overridden_by": "ext-regex",
       "yanked": false
     },
     {

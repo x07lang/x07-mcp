@@ -50,12 +50,21 @@ Trust checks are enabled when a scan is given `--server-json` (and optionally `-
 
 ## Token/context usage overlay (agent-friendly servers)
 
-Hardproof estimates token footprints for common MCP surfaces. To keep usage healthy:
+Hardproof reports a usage overlay under `usage_metrics`, including explicit truth-class semantics.
+
+The report uses `usage_mode` to make token truth explicit:
+
+- `usage_mode=estimate`: deterministic estimate fallback (default).
+- `usage_mode=tokenizer_exact`: exact counts under a chosen tokenizer profile (`--tokenizer openai:o200k_base`).
+- `usage_mode=trace_observed`: observed counts from a real client trace (`--token-trace trace.json`).
+- `usage_mode=mixed`: per-metric mix of exact + observed when both are available.
+
+To keep usage healthy:
 
 - Keep `tools/list` small: fewer tools, shorter descriptions, fewer long examples.
 - Keep input schemas small: remove redundant fields; avoid large enums or deeply nested objects when not needed.
 - Keep responses small: return only required fields; paginate results; return only necessary fields.
 
 The scan report includes the overlay under `usage_metrics`, plus `USAGE-*` findings when thresholds are exceeded.
-Useful top-level usage checks now include `tool_count` and `metadata_to_payload_ratio_pct`, in addition to the existing
-catalog/schema/response token estimates. The overlay also records `estimator_family`, `estimator_version`, and confidence so consumers know these are deterministic estimates, not billing-grade truth.
+In estimate mode, the overlay also records `estimator_family`, `estimator_version`, and confidence so consumers know
+these are deterministic comparison signals, not billing-grade truth.

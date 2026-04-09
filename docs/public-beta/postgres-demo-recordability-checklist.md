@@ -39,7 +39,7 @@ To freeze outputs for website/content work:
 - The current demo commonly warns on:
   - `TRUST-TRUSTPACK-MISSING` (no trust pack metadata provided)
   - `PERF-CONCURRENT-TOOLS-CALL-LOW` (concurrency probes are sensitive to local load)
-- Usage metrics are deterministic estimates, not billing-grade truth.
+- Usage metrics can be `estimate`, `tokenizer_exact`, `trace_observed`, or `mixed` (see `usage_mode`); estimate mode is a deterministic comparison signal, not billing-grade truth.
 - If you omit trust inputs (`--server-json`, `--mcpb`), expect a partial score (`score_truth_status = "partial"`).
 
 ## Recording checklist
