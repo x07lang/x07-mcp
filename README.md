@@ -126,6 +126,16 @@ Repo gate:
 ./scripts/ci/check_all.sh
 ```
 
+## Fixture Servers
+
+`x07-mcp fixtures` runs deterministic stdio MCP servers intended for local smoke checks and metric oracles.
+
+```bash
+x07-mcp fixtures server-perf-sleep --sleep-ms 10
+x07-mcp fixtures server-big-catalog --tools 500
+x07-mcp fixtures server-reliability-fuzz
+```
+
 For CI-parity lock and smoke checks:
 
 ```bash
