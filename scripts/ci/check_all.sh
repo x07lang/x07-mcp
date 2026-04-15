@@ -1551,13 +1551,13 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 	      exit 2
 	    fi
 
-	    stream_wait_smoke_json="$(
+	    if ! stream_wait_smoke_json="$(
 	      (
 	        cd tests
 	        x07-os-runner \
 		          --program router_exec_streaming_waits_for_worker_output_entry.x07.json \
 		          --world run-os \
-		          --solve-fuel 500000000 \
+		          --solve-fuel 1000000000 \
 		          --module-root ../modules \
 		          --module-root . \
 		          --module-root "$root/packages/ext/x07-ext-mcp-core/0.3.4/modules" \
@@ -1570,7 +1570,11 @@ if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
 	          --module-root "$fs_modules" \
 	          --auto-ffi
 	      )
-	    )"
+	    )"; then
+	      echo "ERROR: ext-mcp-sandbox streaming wait smoke failed" >&2
+	      echo "$stream_wait_smoke_json" >&2
+	      exit 2
+	    fi
 	    stream_wait_smoke_ok="$(printf '%s' "$stream_wait_smoke_json" | jq -r '.solve.ok // false')"
 	    stream_wait_smoke_out="$(printf '%s' "$stream_wait_smoke_json" | jq -r '(.solve.solve_output_b64 // "") | @base64d')"
 	    if [[ "$stream_wait_smoke_ok" != "true" || "$stream_wait_smoke_out" != "ok" ]]; then

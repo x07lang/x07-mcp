@@ -1,1 +1,0 @@
-{"schema_version":"x07.mcp.prm_signing@0.2.0","enabled":true,"alg":"RS256","kid":"test-rsa-sign-1","iss":"https://rs.example.test/mcp","keypair_jwk_path":"fixtures/prm_signing.rs256.private.jwk.json","claims_include":["resource","authorization_servers","scopes_supported","bearer_methods_supported"],"include_iat_exp":true,"ttl_s":3600,"test_fixed_now_epoch_s":1765000100}

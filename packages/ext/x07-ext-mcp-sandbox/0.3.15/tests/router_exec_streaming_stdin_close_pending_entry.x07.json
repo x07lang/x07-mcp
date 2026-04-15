@@ -1,1 +1,0 @@
-{"decls":[],"imports":["smoke_router_exec_streaming"],"kind":"entry","module_id":"main","schema_version":"x07.x07ast@0.5.0","solve":["begin",["let","task",["smoke_router_exec_streaming.stdin_close_pending_regression_stream_v1"]],["let","res",["task.join.result_bytes","task"]],["if",["=",["result_bytes.err_code","res"],0],["bytes.lit","ok"],["bytes.lit","err"]]]}
