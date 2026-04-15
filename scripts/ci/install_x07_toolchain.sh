@@ -60,6 +60,9 @@ native_backend_build_script() {
   base="${base%.a}"
   base="${base%.lib}"
   case "${base}" in
+    libx07_ext_archive)
+      printf 'ci/ensure_ext_archive_backend.sh\n'
+      ;;
     libx07_ext_*)
       printf 'build_%s.sh\n' "${base#libx07_}"
       ;;
@@ -83,6 +86,8 @@ toolchain_tree_complete() {
   local manifest_path="$tree_root/deps/x07/native_backends.json"
   local relpath=""
 
+  [[ -f "$tree_root/catalog/diagnostics.json" ]] || return 1
+  [[ -f "$tree_root/stdlib.std-core.lock" ]] || return 1
   [[ -f "$manifest_path" ]] || return 1
   while IFS= read -r relpath; do
     [[ -n "$relpath" ]] || continue
@@ -181,9 +186,12 @@ fi
 if [[ -x "${x07_bin}" ]]; then
   if [[ -n "${source_dir}" ]]; then
     staged_stdlib_lock="${install_root}/toolchains/v${version}/stdlib.lock"
+    staged_stdlib_std_core_lock="${install_root}/toolchains/v${version}/stdlib.std-core.lock"
     root_stdlib_lock="${install_root}/stdlib.lock"
+    root_stdlib_std_core_lock="${install_root}/stdlib.std-core.lock"
     toolchain_dir="${install_root}/toolchains/v${version}"
     if [[ -f "${staged_stdlib_lock}" && -f "${root_stdlib_lock}" ]] \
+      && [[ -f "${staged_stdlib_std_core_lock}" && -f "${root_stdlib_std_core_lock}" ]] \
       && toolchain_tree_complete "${install_root}" \
       && toolchain_tree_complete "${toolchain_dir}" \
       && "${x07_bin}" --version; then
@@ -202,10 +210,10 @@ if [[ -n "${source_dir}" ]]; then
   fi
 
   echo "==> install x07 toolchain from source checkout (${source_dir})"
-  cargo install --locked --root "${install_root}" --path "${source_dir}/crates/x07"
-  cargo install --locked --root "${install_root}" --path "${source_dir}/crates/x07c"
-  cargo install --locked --root "${install_root}" --path "${source_dir}/crates/x07-host-runner"
-  cargo install --locked --root "${install_root}" --path "${source_dir}/crates/x07-os-runner"
+  cargo install --locked --force --root "${install_root}" --path "${source_dir}/crates/x07"
+  cargo install --locked --force --root "${install_root}" --path "${source_dir}/crates/x07c"
+  cargo install --locked --force --root "${install_root}" --path "${source_dir}/crates/x07-host-runner"
+  cargo install --locked --force --root "${install_root}" --path "${source_dir}/crates/x07-os-runner"
   ensure_source_toolchain_artifacts
 
   stage_source_toolchain_tree() {
@@ -218,12 +226,12 @@ if [[ -n "${source_dir}" ]]; then
         cp "${src_bin}" "${dest_bin}"
       fi
     done
-    for file_name in README.md stdlib.lock stdlib.os.lock; do
+    for file_name in README.md stdlib.lock stdlib.os.lock stdlib.std-core.lock; do
       if [[ -f "${source_dir}/${file_name}" ]]; then
         cp "${source_dir}/${file_name}" "${dest_root}/${file_name}"
       fi
     done
-    for dir_name in .agent deps spec stdlib; do
+    for dir_name in .agent catalog deps spec stdlib; do
       if [[ -d "${source_dir}/${dir_name}" ]]; then
         rm -rf "${dest_root}/${dir_name}"
         cp -R "${source_dir}/${dir_name}" "${dest_root}/${dir_name}"

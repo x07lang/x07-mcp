@@ -12,8 +12,8 @@
       "uri": "x07://agent/playbook",
       "name": "Agent playbook (token-efficient)",
       "mimeType": "text/plain; charset=utf-8",
-      "text": "Preferred agent loop (bounded by design):\n1) Discover with x07.search_v1 or x07.doc_v1.\n2) For proofs or certificates, read x07://trust/formal-verification before running commands.\n3) x07.exec_v1: run x07 with argv/args (use --json=canon + --report-out + --quiet-json when possible).\n4) On failure: x07.context_pack_v1 (x07 agent context) to focus on only the relevant code + diagnostics.\n5) Fix via x07.patch_apply_v1 (x07.patchset@0.1.0).\n6) Repeat x07.exec_v1.\n\nCertification loop:\n- x07 verify --prove --entry <sym>\n- x07 trust profile check --project x07.json --profile <profile.json> --entry <sym>\n- x07 pkg attest-closure --project x07.json --out arch/trust/dependency_closure.attest.json for networked profiles\n- x07 trust certify --project x07.json --profile <profile.json> --entry <sym> --out-dir target/cert\n\nMinimize tokens:\n- Use x07.search_v1 for discovery (small hits list).\n- Use resources/read or x07.artifact_snippet_v1 only when needed.\n- Prefer context packs over dumping files into chat.\n",
-      "size": 1009
+      "text": "Preferred agent loop (bounded by design):\n1) Discover with x07.search_v1 or x07.doc_v1.\n2) For proofs or certificates, read x07://trust/formal-verification before running commands.\n3) x07.exec_v1: run x07 with argv/args (use --json=canon + --report-out + --quiet-json when possible).\n3b) For dependency closure/integrity: x07.pkg.tree_v1 / x07.pkg.verify_v1 / x07.pkg.check_semver_v1.\n4) On failure: x07.context_pack_v1 (x07 agent context) to focus on only the relevant code + diagnostics.\n5) Fix via x07.patch_apply_v1 (x07.patchset@0.1.0).\n6) Repeat x07.exec_v1.\n\nCertification loop:\n- x07 verify --prove --entry <sym>\n- x07 trust profile check --project x07.json --profile <profile.json> --entry <sym>\n- x07 pkg attest-closure --project x07.json --out arch/trust/dependency_closure.attest.json for networked profiles\n- x07 trust certify --project x07.json --profile <profile.json> --entry <sym> --out-dir target/cert\n\nMinimize tokens:\n- Use x07.search_v1 for discovery (small hits list).\n- Use resources/read or x07.artifact_snippet_v1 only when needed.\n- Prefer context packs over dumping files into chat.\n",
+      "size": 1110
     },
     {
       "uri": "x07://trust/formal-verification",
@@ -78,6 +78,16 @@
       "mimeType": "application/json; charset=utf-8",
       "text": "{\"schema_version\":\"x07lang.mcp.resource@0.1.0\",\"pack\":\"pkg\",\"url\":\"https://registry.x07.io/index/catalog.json\",\"cache_path\":\".x07/artifacts/mcp/cache/registry.catalog.json\",\"docs\":[\"x07/docs/agent/contract.md\"]}\n",
       "size": 212,
+      "x07": {
+        "pack": "pkg"
+      }
+    },
+    {
+      "uri": "x07://pkg/integrity",
+      "name": "Packaging integrity tooling",
+      "mimeType": "application/json; charset=utf-8",
+      "text": "{\"schema_version\":\"x07lang.mcp.resource@0.1.0\",\"pack\":\"pkg\",\"docs\":[\"x07/docs/guides/packaging-integrity.md\",\"x07/docs/guides/offline.md\"],\"commands\":[\"x07 pkg verify NAME[@VERSION]\",\"x07 pkg check-semver --old <dir> --new <dir>\",\"x07 pkg tree --project x07.json\",\"x07 pkg lock --project x07.json --check --offline\",\"x07 run --project x07.json --offline --input <case.bin>\"]}\n",
+      "size": 376,
       "x07": {
         "pack": "pkg"
       }

@@ -1,5 +1,14 @@
 {
-  "schema_version": "x07.lock@0.3.0",
+  "schema_version": "x07.lock@0.4.0",
+  "toolchain": {
+    "x07_version": "0.2.3",
+    "x07c_version": "0.2.3",
+    "lang_id": "x07-core@0.2.0",
+    "compat": "0.5"
+  },
+  "registry": {
+    "index_url": "sparse+https://registry.x07.io/index/"
+  },
   "dependencies": [
     {
       "name": "ext-auth-jwt",
@@ -175,18 +184,18 @@
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.cache.ttl_bytes_v1": "4e4c80cae20ada7841448c44a6a873eae97733fa2c30ae29c543c50e6d1e81ca",
-        "std.mcp.ctx": "8cfcb31d6d2448436acd85456b93c1978904dd9962edba9608ea5d716db6022c",
+        "std.mcp.ctx": "624891a913c5b5d10a4cf36d8314f4c4afa8446132f8708a43e2dfcb3ae8e8c9",
         "std.mcp.diag": "5cd826c1fed2c70fae7808e91402a6f001d39b6255dc6b1d9611aafcd9932440",
-        "std.mcp.jsonrpc": "e45b33072edc9d102cd1832533fbbcbc227365df35ba0787e852e55b493cd9eb",
+        "std.mcp.jsonrpc": "ed048a8b5e6545b3363a8f3e3c871170e7b00f5615c435e89e12480b30d00139",
         "std.mcp.logging": "92f179d339afb6bb142424343ef171dfe62ef83606a593f03397d97251c0ab03",
-        "std.mcp.notifications": "702cd717ee10c2bc952e8b5767da1679c13a9dc1b9f6a1185495ea3d1df289da",
+        "std.mcp.notifications": "13b4a7558f193a3dccfa09e1e4e95b3804fe7a5ef9f5387110852f3ec410c69c",
         "std.mcp.progress_registry": "d76a635d213b04cdba774bfdebb4ba68b07fab6e90ca59ccaf21c9a3698c1432",
         "std.mcp.protocol": "d294f387128fc0601d3d9ce8c42d78ab87f4ee1bf758b8d3bd39c390551dd381",
         "std.mcp.redact": "a60c63c327afed02e70e95f7ed9baecb66cdd1e89896116076d5c50a8ebaffe1",
         "std.mcp.sse": "2d2af24c8efb02a358297555e0e0ade89e1b6ac01a9ad06e37bddc3847dab8c8",
         "std.mcp.tool": "bc13c2078cdcd9b79b7f822e0232f56bf193ae85c9264c4dc80379154b0afd85",
-        "std.mcp.tool.errors": "6f458edfeaa0179711c10ce7f9cda3179a5d15eb5259723131d6a1333fb64a40",
-        "std.mcp.tool.result": "7b06e6d636552a8a835ec31ff80c1b1dfbaeccb0fc0534fc54845c4b9cc29014",
+        "std.mcp.tool.errors": "0e9fc9c5e29e651f1f55c5f86a60d969ab43db42dc0d75fc6dcd3d2138bcd47d",
+        "std.mcp.tool.result": "bfdf5c3823d5fe485e7800b910e9dcaa2169f48a1e526fbdb7efc0cc866713ac",
         "std.mcp.util.json": "81c289f3987178fe4a14c948e772cdf663be0eca6f9c4f6a850cfe832d8bb97f"
       }
     },

@@ -2260,7 +2260,7 @@ PY
     install_project_local_deps_from_workspace "$x07_root" "$PWD"
     tmp_manifest="${tmp}/x07.patched.json"
     jq \
-      '.schema_version = "x07.project@0.4.0" |
+      '.schema_version = "x07.project@0.5.0" |
        .patch = ((.patch // {}) + {
          "ext-json-rs":{"version":"0.1.7","path":".x07/local/ext-json-rs/0.1.7"},
          "ext-mcp-sandbox":{"version":"0.3.15","path":".x07/local/ext-mcp-sandbox/0.3.15"},
@@ -2321,7 +2321,7 @@ PY
     install_project_local_deps_from_workspace "$x07_root" "$PWD"
     tmp_manifest="${tmp}/x07.patched.json"
     jq \
-      '.schema_version = "x07.project@0.4.0" |
+      '.schema_version = "x07.project@0.5.0" |
        .patch = ((.patch // {}) + {
          "ext-json-rs":{"version":"0.1.7","path":".x07/local/ext-json-rs/0.1.7"},
          "ext-mcp-sandbox":{"version":"0.3.15","path":".x07/local/ext-mcp-sandbox/0.3.15"},

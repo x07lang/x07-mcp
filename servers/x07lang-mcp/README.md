@@ -59,6 +59,9 @@ Configure your MCP client:
   - `x07.artifact_snippet_v1`
 - Discovery:
   - `x07.ecosystem.status_v1`
+  - `x07.pkg.tree_v1`
+  - `x07.pkg.verify_v1`
+  - `x07.pkg.check_semver_v1`
   - `x07.pkg.provides_v1`
   - `x07.pkg.catalog_v1`
 - Optional packs:

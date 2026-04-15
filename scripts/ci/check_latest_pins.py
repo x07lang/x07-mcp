@@ -12,7 +12,7 @@ from pathlib import Path
 
 
 _SEMVER_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)(?:[-+].*)?$")
-_LATEST_PROJECT_SCHEMA = "x07.project@0.4.0"
+_LATEST_PROJECT_SCHEMA = "x07.project@0.5.0"
 _X07_TOOLCHAIN_WORKFLOW_FILES = (
     Path(".github/workflows/ci.yml"),
     Path(".github/workflows/perf-smoke.yml"),

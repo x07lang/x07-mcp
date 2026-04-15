@@ -2,7 +2,7 @@
 
 `x07-mcp` pins upstream MCP ecosystem inputs for deterministic CI and release behavior.
 
-- X07 toolchain pin: `x07-toolchain.toml` (`v0.1.93`)
+- X07 toolchain pin: `x07-toolchain.toml` (`v0.2.3`)
 - MCP protocol version: `2025-11-25`
 - Registry schema URL: `https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json`
 - Registry schema file: `registry/schema/server.schema.2025-12-11.json`

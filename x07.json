@@ -1,4 +1,5 @@
 {
+  "compat": "0.5",
   "default_profile": "os",
   "dependencies": [
     {
@@ -13,8 +14,8 @@
     },
     {
       "name": "ext-cli",
-      "path": ".x07/deps/ext-cli/0.1.15",
-      "version": "0.1.15"
+      "path": ".x07/deps/ext-cli/0.1.17",
+      "version": "0.1.17"
     },
     {
       "name": "ext-crypto-rs",
@@ -260,13 +261,13 @@
       "path": ".x07/deps/ext-obs/0.1.6",
       "version": "0.1.6"
     },
-    "ext-regex": {
-      "path": ".x07/deps/ext-regex/0.2.5",
-      "version": "0.2.5"
-    },
     "ext-openssl-c": {
       "path": ".x07/deps/ext-openssl-c/0.1.9",
       "version": "0.1.9"
+    },
+    "ext-regex": {
+      "path": ".x07/deps/ext-regex/0.2.5",
+      "version": "0.2.5"
     },
     "ext-time-rs": {
       "path": ".x07/deps/ext-time-rs/0.1.6",
@@ -288,6 +289,6 @@
       "world": "run-os"
     }
   },
-  "schema_version": "x07.project@0.4.0",
+  "schema_version": "x07.project@0.5.0",
   "world": "run-os"
 }

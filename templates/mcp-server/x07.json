@@ -1,28 +1,18 @@
 {
-  "schema_version": "x07.project@0.4.0",
-  "world": "run-os",
+  "compat": "0.5",
+  "default_profile": "os",
+  "dependencies": [],
   "entry": "src/main.x07.json",
+  "lockfile": "x07.lock.json",
   "module_roots": [
     "src",
     "tests"
   ],
-  "lockfile": "x07.lock.json",
-  "dependencies": [],
-  "default_profile": "os",
-  "profiles": {
-    "os": {
-      "world": "run-os",
-      "auto_ffi": true,
-      "solve_fuel": 50000000000
-    },
-    "sandbox": {
-      "world": "run-os-sandboxed",
-      "policy": ".x07/policies/base/worker.sandbox.base.policy.json",
-      "auto_ffi": true,
-      "solve_fuel": 50000000000
-    }
-  },
   "patch": {
+    "ext-auth-jwt": {
+      "path": ".x07/deps/ext-auth-jwt/0.1.7",
+      "version": "0.1.7"
+    },
     "ext-crypto-rs": {
       "path": ".x07/deps/ext-crypto-rs/0.1.5",
       "version": "0.1.5"
@@ -30,22 +20,6 @@
     "ext-data-model": {
       "path": ".x07/deps/ext-data-model/0.1.11",
       "version": "0.1.11"
-    },
-    "ext-json-rs": {
-      "path": ".x07/deps/ext-json-rs/0.1.7",
-      "version": "0.1.7"
-    },
-    "ext-time-rs": {
-      "path": ".x07/deps/ext-time-rs/0.1.6",
-      "version": "0.1.6"
-    },
-    "ext-auth-jwt": {
-      "path": ".x07/deps/ext-auth-jwt/0.1.7",
-      "version": "0.1.7"
-    },
-    "ext-obs": {
-      "path": ".x07/deps/ext-obs/0.1.6",
-      "version": "0.1.6"
     },
     "ext-db-core": {
       "path": ".x07/deps/ext-db-core/0.1.12",
@@ -55,9 +29,36 @@
       "path": ".x07/deps/ext-db-sqlite/0.1.12",
       "version": "0.1.12"
     },
+    "ext-json-rs": {
+      "path": ".x07/deps/ext-json-rs/0.1.7",
+      "version": "0.1.7"
+    },
+    "ext-obs": {
+      "path": ".x07/deps/ext-obs/0.1.6",
+      "version": "0.1.6"
+    },
+    "ext-time-rs": {
+      "path": ".x07/deps/ext-time-rs/0.1.6",
+      "version": "0.1.6"
+    },
     "ext-url-rs": {
       "path": ".x07/deps/ext-url-rs/0.1.5",
       "version": "0.1.5"
     }
-  }
+  },
+  "profiles": {
+    "os": {
+      "auto_ffi": true,
+      "solve_fuel": 50000000000,
+      "world": "run-os"
+    },
+    "sandbox": {
+      "auto_ffi": true,
+      "policy": ".x07/policies/base/worker.sandbox.base.policy.json",
+      "solve_fuel": 50000000000,
+      "world": "run-os-sandboxed"
+    }
+  },
+  "schema_version": "x07.project@0.5.0",
+  "world": "run-os"
 }

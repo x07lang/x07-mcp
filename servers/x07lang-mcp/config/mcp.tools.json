@@ -1340,6 +1340,360 @@
       }
     },
     {
+      "name": "x07.pkg.tree_v1",
+      "description": "Print a deterministic dependency-closure graph via `x07 pkg tree`.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_path": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/pkg-tree/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 120000,
+            "default": 10000
+          }
+        },
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "pkg",
+        "limits_profile": "mcp_tool_pkg_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "target"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 30000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "x07.pkg.verify_v1",
+      "description": "Verify a package signature via `x07 pkg verify`.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "version": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 64,
+            "default": ""
+          },
+          "index": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "default": ""
+          },
+          "offline": {
+            "type": "boolean",
+            "default": false
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/pkg-verify/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 120000,
+            "default": 10000
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "pkg",
+        "limits_profile": "mcp_tool_pkg_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "target"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 30000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "x07.pkg.check_semver_v1",
+      "description": "Detect breaking export changes via `x07 pkg check-semver`.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "old_dir": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "new_dir": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "report_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "default": ".x07/artifacts/mcp/pkg-check-semver/report.json"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 120000,
+            "default": 30000
+          }
+        },
+        "required": [
+          "old_dir",
+          "new_dir"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "auth": {
+        "required_scopes": [
+          "mcp:tools"
+        ]
+      },
+      "x07": {
+        "impl": "mcp.user.call_tool_v1",
+        "pack": "pkg",
+        "limits_profile": "mcp_tool_pkg_v1",
+        "sandbox": {
+          "fs": {
+            "read_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/"
+            ],
+            "write_roots": [
+              ".x07",
+              "/Users/",
+              "/home/",
+              "/private/tmp/",
+              "/tmp/",
+              "/var/folders/",
+              "target"
+            ]
+          },
+          "process": {
+            "allow": [
+              "x07"
+            ],
+            "allow_env_keys": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ],
+            "allow_cwd_roots": [
+              ".",
+              "/Users/",
+              "/home/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/"
+            ],
+            "max_runtime_ms": 30000,
+            "allow_exec_prefixes": [
+              "/Users/",
+              "/home/",
+              "/usr/local/bin/",
+              "/opt/homebrew/bin/",
+              "/tmp/",
+              "/private/tmp/",
+              "/var/folders/",
+              "/usr/bin/"
+            ],
+            "enabled": true,
+            "allow_spawn": true,
+            "allow_exec": true,
+            "allow_exit": true,
+            "allow_cwd": true
+          },
+          "net": {},
+          "env": {
+            "allowlist": [
+              "HOME",
+              "PATH",
+              "XDG_CACHE_HOME",
+              "X07UP_HOME",
+              "X07_MCP_X07_EXE"
+            ]
+          }
+        }
+      }
+    },
+    {
       "name": "x07.pkg.catalog_v1",
       "description": "Query cached or refreshed X07 package catalogs from the registry and agent portal with cursor pagination.",
       "inputSchema": {
