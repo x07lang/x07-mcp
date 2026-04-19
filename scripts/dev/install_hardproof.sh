@@ -8,7 +8,7 @@ fi
 
 bootstrap_tag="${tag}"
 if [[ "${tag}" == "latest-beta" || "${tag}" == latest-beta* ]]; then
-  bootstrap_tag="${HARDPROOF_BOOTSTRAP_BETA_TAG:-v0.3.0-beta.0}"
+  bootstrap_tag="${HARDPROOF_BOOTSTRAP_BETA_TAG:-v0.4.0-beta.8}"
 elif [[ "${tag}" == "latest-alpha" || "${tag}" == latest-alpha* ]]; then
   bootstrap_tag="${HARDPROOF_BOOTSTRAP_ALPHA_TAG:-v0.1.0-alpha.9}"
 fi

@@ -6,7 +6,7 @@ This page summarizes how to keep x07-native servers scoring high without turning
 The current score contract distinguishes between a full score and a partial score:
 
 - `score_mode = "full"` means `overall_score` is present and the scan is eligible for a full score
-- `score_mode = "partial"` means `overall_score` stays `null`, while `partial_score` remains machine-readable
+- `score_mode = "partial"` means the scan is not eligible for a publishable score; when `score_available=true`, Hardproof still reports the effective score in both `overall_score` and `partial_score`
 - `gating_reasons` and `unknown_dimensions` explain what is still missing
 
 ## Conformance
