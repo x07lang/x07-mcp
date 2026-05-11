@@ -44,7 +44,7 @@ Run the smoke + PBT suite:
 x07 test --all --manifest tests/tests.json
 ```
 
-Show the strong prove rejection explicitly:
+Probe the developer-only prove surface:
 
 ```bash
 x07 verify --prove \
@@ -52,7 +52,10 @@ x07 verify --prove \
   --entry auth_core_cert.main_v1
 ```
 
-That command should fail with `X07V_IMPORTED_STUB_FORBIDDEN`.
+Depending on how the auth-core package is resolved, that command either fails
+with `X07V_IMPORTED_STUB_FORBIDDEN` or emits a proof summary with a
+non-certifiable `imported_stub` assumption. The strong-profile certification
+below must reject both shapes.
 
 Run the developer prove flow:
 
@@ -82,7 +85,7 @@ x07 trust certify \
 ```
 
 That command should fail; in the current toolchain the rejection report includes
-`X07TC_EPROVE_UNSUPPORTED` because the strong prove step refuses
+`X07TC_EDEV_ONLY_ASSUMPTION` because the strong prove step refuses
 imported-stub assumptions. The repo CI keeps this example as a
 negative-certification check so the developer-only bearer-parser path cannot
 quietly turn into an accepted strong certificate. This is why the public
