@@ -6,7 +6,15 @@ cd "${ROOT}"
 
 mkdir -p .agent_cache/registry-fixtures
 
-./scripts/ci/hydrate_root_deps.sh
+if [[ "${X07_MCP_LOCAL_DEPS:-0}" == "1" ]]; then
+  x07_root="$(./scripts/ci/resolve_workspace_x07_root.sh)"
+  X07_ROOT="${x07_root}" \
+    X07_WORKSPACE_ROOT="${ROOT}" \
+    ./scripts/ci/materialize_project_local_deps.sh x07.json >/dev/null
+  x07 pkg lock --project x07.json --check --offline --json=off >/dev/null
+else
+  ./scripts/ci/hydrate_root_deps.sh
+fi
 
 if [[ ! -x dist/x07-mcp ]]; then
   x07 bundle \
