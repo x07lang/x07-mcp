@@ -385,6 +385,16 @@ def _call_tool(
     return resp
 
 
+def _structured_content(resp: dict[str, Any], tool_name: str) -> dict[str, Any]:
+    result = resp.get("result")
+    if not isinstance(result, dict):
+        raise AssertionError(f"{tool_name} missing result payload: {resp!r}")
+    structured = result.get("structuredContent")
+    if not isinstance(structured, dict):
+        raise AssertionError(f"{tool_name} missing structuredContent: {resp!r}")
+    return structured
+
+
 def _write_fake_cli(path: Path, name: str) -> None:
     if name == "x07-wasm":
         script = """#!/bin/sh
@@ -597,6 +607,90 @@ def run_fmt_path_resolution_smoke(
             raise AssertionError("formatter output is missing the trailing newline")
         if '"schema_version":"x07.x07ast@0.8.0"' not in formatted:
             raise AssertionError(f"unexpected formatter output: {formatted!r}")
+
+
+def run_patch_apply_repo_root_smoke(
+    server_exe: Path,
+    server_root: Path,
+    expected_version: str,
+) -> None:
+    fixtures_root = server_root / "tests" / "fixtures"
+    temp_parent = fixtures_root if fixtures_root.is_dir() else server_root
+    with tempfile.TemporaryDirectory(
+        dir=temp_parent,
+        prefix="patch-apply-smoke-",
+    ) as temp_dir:
+        temp_root = Path(temp_dir)
+        repo_root = temp_root / "repo"
+        repo_root.mkdir()
+        target_file = repo_root / "patched.json"
+        target_file.write_text('{"items":[]}\n', encoding="utf-8")
+
+        patchset = {
+            "schema_version": "x07.patchset@0.1.0",
+            "patches": [
+                {
+                    "path": "patched.json",
+                    "patch": [
+                        {
+                            "op": "add",
+                            "path": "/items/0",
+                            "value": "ok",
+                        }
+                    ],
+                }
+            ],
+        }
+
+        proc = _initialize_stdio_session(
+            [str(server_exe)],
+            server_root,
+            expected_version,
+        )
+        try:
+            resp = _call_tool(
+                proc,
+                2,
+                "x07.patch_apply_v1",
+                {
+                    "repo_root": str(repo_root),
+                    "mode": "write",
+                    "patchset": patchset,
+                },
+            )
+        finally:
+            if proc.poll() is None:
+                proc.terminate()
+                try:
+                    proc.wait(timeout=2.0)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                    proc.wait(timeout=2.0)
+
+        patched = json.loads(target_file.read_text(encoding="utf-8"))
+        if patched != {"items": ["ok"]}:
+            raise AssertionError(f"patch_apply did not patch repo file: {patched!r}")
+
+        structured = _structured_content(resp, "x07.patch_apply_v1")
+        if structured.get("ok") is not True:
+            raise AssertionError(f"patch_apply structured result is not ok: {structured!r}")
+        if structured.get("exit_code") != 0:
+            raise AssertionError(f"patch_apply exit_code is not zero: {structured!r}")
+
+        for key in ("patchset_path", "stdout_path", "stderr_path"):
+            raw_path = structured.get(key)
+            if not isinstance(raw_path, str) or not raw_path:
+                raise AssertionError(f"patch_apply missing {key}: {structured!r}")
+            path = Path(raw_path)
+            if not path.is_file():
+                raise AssertionError(f"patch_apply {key} does not exist: {path}")
+            if not path.resolve().is_relative_to(repo_root.resolve()):
+                raise AssertionError(f"patch_apply {key} escaped repo_root: {path}")
+
+        stdout_path = Path(str(structured["stdout_path"]))
+        stdout_text = stdout_path.read_text(encoding="utf-8")
+        if "patched.json" not in stdout_text:
+            raise AssertionError(f"patch_apply stdout missing changed path: {stdout_text!r}")
 
 
 def run_stdio_smoke_cmd(
