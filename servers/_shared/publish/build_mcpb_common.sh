@@ -324,4 +324,32 @@ TMP_OUT_FILE=""
 generate_server_json
 
 shasum -a 256 "${OUT_FILE}" | awk '{print $1}' > "${OUT_FILE}.sha256.txt"
+
+# Keep the manifest's declared bundle sha in lockstep with the built artifact
+# so released metadata cannot drift from the actual .mcpb.
+python3 - "${SERVER_ROOT}/x07.mcp.json" "${OUT_FILE}.sha256.txt" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+manifest_path = Path(sys.argv[1])
+new_sha = Path(sys.argv[2]).read_text(encoding="utf-8").strip()
+
+doc = json.loads(manifest_path.read_text(encoding="utf-8"))
+changed = False
+for pkg in doc.get("packages", []):
+    if pkg.get("registryType") != "mcpb":
+        continue
+    old_sha = pkg.get("fileSha256", "")
+    if old_sha == new_sha:
+        continue
+    pkg["fileSha256"] = new_sha
+    changed = True
+    print(f"refreshed {manifest_path} fileSha256: old={old_sha} new={new_sha}")
+if changed:
+    manifest_path.write_text(
+        json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+PY
+
 echo "built ${OUT_FILE}"

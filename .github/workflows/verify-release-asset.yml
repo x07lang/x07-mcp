@@ -1,0 +1,80 @@
+name: Verify Release Asset
+
+on:
+  release:
+    types: [published, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  verify-x07lang-mcp-mcpb:
+    name: release / verify-x07lang-mcp-mcpb
+    if: startsWith(github.event.release.tag_name, 'x07lang-mcp-v')
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout tagged commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - name: Download published release assets
+        shell: bash
+        run: |
+          mkdir -p .release-assets
+          gh release download "${TAG}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --pattern 'x07lang-mcp.mcpb' \
+            --pattern 'x07lang-mcp.mcpb.sha256.txt' \
+            --dir .release-assets
+          for asset in x07lang-mcp.mcpb x07lang-mcp.mcpb.sha256.txt; do
+            if [[ ! -f ".release-assets/${asset}" ]]; then
+              echo "ERROR: release ${TAG} is missing asset ${asset}" >&2
+              exit 1
+            fi
+          done
+      - name: Verify published mcpb sha256 consistency
+        shell: bash
+        run: |
+          actual="$(sha256sum .release-assets/x07lang-mcp.mcpb | awk '{print $1}')"
+          published="$(tr -d '[:space:]' < .release-assets/x07lang-mcp.mcpb.sha256.txt)"
+          declared="$(
+            python3 - servers/x07lang-mcp/publish/server.mcp-registry.json <<'PY'
+          import json
+          import sys
+
+          with open(sys.argv[1], encoding="utf-8") as f:
+              doc = json.load(f)
+          shas = [
+              str(pkg.get("fileSha256", ""))
+              for pkg in doc.get("packages", [])
+              if pkg.get("registryType") == "mcpb"
+          ]
+          if len(shas) != 1 or not shas[0]:
+              raise SystemExit(
+                  f"expected exactly 1 mcpb package with fileSha256, got {shas!r}"
+              )
+          print(shas[0])
+          PY
+          )"
+
+          echo "release asset sha256:                ${actual}"
+          echo "release sha256.txt:                  ${published}"
+          echo "server.mcp-registry.json fileSha256: ${declared}"
+
+          status=0
+          if [[ "${actual}" != "${published}" ]]; then
+            echo "ERROR: published x07lang-mcp.mcpb does not match x07lang-mcp.mcpb.sha256.txt on release ${TAG}" >&2
+            status=1
+          fi
+          if [[ "${actual}" != "${declared}" ]]; then
+            echo "ERROR: published x07lang-mcp.mcpb does not match fileSha256 in servers/x07lang-mcp/publish/server.mcp-registry.json at ${TAG}" >&2
+            status=1
+          fi
+          if [[ "${status}" -ne 0 ]]; then
+            echo "ERROR: release ${TAG} carries a stale or mislabeled x07lang-mcp.mcpb asset" >&2
+            exit 1
+          fi
+          echo "ok: release ${TAG} mcpb asset matches sha256.txt and server.mcp-registry.json"

@@ -45,6 +45,31 @@ Configure your MCP client:
     - `X07_MCP_X07LP_EXE=/absolute/path/to/x07lp`
     - `X07_MCP_X07_DEVICE_HOST_DESKTOP_EXE=/absolute/path/to/x07-device-host-desktop`
 
+### Install for Claude Code
+
+`scripts/install_local.sh` downloads the released bundle for a tag, verifies its
+SHA-256 against the published `.sha256.txt`, extracts it under
+`~/.local/share/x07lang-mcp/releases/<tag>/bundle`, atomically repoints the
+`~/.local/share/x07lang-mcp/current` symlink, and creates the
+`~/.local/share/x07lang-mcp/bin/x07lang-mcp-stdio` wrapper:
+
+```bash
+./scripts/install_local.sh                            # tag from x07.mcp.json version
+./scripts/install_local.sh --tag x07lang-mcp-v0.2.10  # explicit release tag
+./scripts/install_local.sh --mcpb dist/x07lang-mcp.mcpb  # install a local bundle
+```
+
+Then register the server with Claude Code:
+
+```bash
+claude mcp add x07lang-mcp -s user -- "$HOME/.local/share/x07lang-mcp/bin/x07lang-mcp-stdio"
+```
+
+The wrapper runs the bundled router from the install root and defaults
+`X07_MCP_X07_EXE` to `~/.x07/bin/x07`; export `X07_MCP_X07_EXE` before launch to
+pin a different toolchain build. `./scripts/install_local.sh --uninstall`
+removes `~/.local/share/x07lang-mcp`.
+
 ## Tools
 - Core:
   - `x07.search_v1`

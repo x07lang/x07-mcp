@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*"
+      - "x07lang-mcp-v*"
 
 permissions:
   contents: read
