@@ -148,7 +148,7 @@
     },
     {
       "name": "x07.doc_v1",
-      "description": "Run `x07 doc` and return a compact summary.",
+      "description": "Run `x07 doc` and return a compact summary. On x07 0.2.11+, export rows include an optional behavioral `summary` field.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
