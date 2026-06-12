@@ -4,7 +4,7 @@
 
 Public hero path: [`postgres-mcp`](../../servers/postgres-mcp/README.md). Demo: `../../demos/postgres-public-beta/README.md`.
 
-- [`x07lang-mcp`](../../servers/x07lang-mcp/README.md) — official X07 ecosystem server with core editing tools plus capability-gated `x07.pkg.*`, `x07.wasm.*`, `x07.web_ui.*`, `x07.device.*`, `x07.app.*`, and `lp.*`
+- [`x07lang-mcp`](../../servers/x07lang-mcp/README.md) — official X07 ecosystem server with core editing tools plus capability-gated `x07.pkg.*`, `x07.wasm.*`, `x07.web_ui.*`, `x07.device.*`, `x07.app.*`, and `lp.*` (the web-ui/device/app/platform packs are in maintenance mode — security and compatibility fixes only)
 - [`github-mcp`](../../servers/github-mcp/README.md) — `github.list_repos`, `github.get_issue`
 - [`slack-mcp`](../../servers/slack-mcp/README.md) — `slack.list_channels`, `slack.post_message`
 - [`jira-mcp`](../../servers/jira-mcp/README.md) — `jira.search_issues`, `jira.get_issue`

@@ -27,9 +27,9 @@ Primary install docs:
   - `x07.pkg.catalog_v1`
 - Optional wasm/app packs:
   - `x07.wasm.core_v1`
-  - `x07.web_ui.exec_v1`
-  - `x07.device.exec_v1`
-  - `x07.app.exec_v1`
+  - `x07.web_ui.exec_v1` (maintenance)
+  - `x07.device.exec_v1` (maintenance)
+  - `x07.app.exec_v1` (maintenance)
 - Service authoring and workload review:
   - `x07.service.init_v1`
   - `x07.service.archetypes_v1`
@@ -38,7 +38,7 @@ Primary install docs:
   - `x07.service.validate_v1`
   - `x07.workload.inspect_v1`
   - `x07.topology.preview_v1`
-- Optional platform pack:
+- Optional platform pack (maintenance):
   - `lp.query_v1`
   - `lp.control_v1`
   - `lp.release.submit_v1`
@@ -46,6 +46,10 @@ Primary install docs:
   - `lp.release.explain_v1`
   - `lp.release.rollback_v1`
   - `lp.binding.status_v1`
+
+## Maintenance packs
+
+The `x07.web_ui.*`, `x07.device.*`, `x07.app.*`, and `lp.*` packs are in maintenance mode after the 2026-06 scope cut. Their backing repos (`x07-web-ui`, `x07-device-host`, and the `x07-platform*` control plane) are archived and read-only on GitHub. The packs stay in the server and remain functional, but they receive security and compatibility fixes only.
 
 ## Pack gating
 
@@ -66,6 +70,11 @@ When you need workspace builds or isolated smoke fixtures, path resolution for t
 - `X07_MCP_X07_WASM_EXE`
 - `X07_MCP_X07LP_EXE`
 - `X07_MCP_X07_DEVICE_HOST_DESKTOP_EXE`
+
+## Toolchain feature notes
+
+- `x07.doc_v1` passes through `x07 doc` output; on x07 0.2.11+ export rows also carry an optional behavioral `summary` field with one-line contracts (separators, encodings, error codes, move semantics).
+- The lossless x07text projection (`x07 ast to-text` / `x07 ast from-text`, x07 0.2.11+) is available through `x07.exec_v1` until a dedicated tool ships. Both subcommands emit `{ok,in,out,sha256}` reports, and `from-text` output is byte-identical to `x07 fmt` canonical bytes.
 
 ## Resources and prompts
 

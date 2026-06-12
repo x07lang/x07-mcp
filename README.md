@@ -4,7 +4,7 @@
 
 Official MCP kit for X07, plus the official `io.x07/x07lang-mcp` server.
 
-This repo is the bridge between the X07 toolchain and MCP runtimes. It gives you the packages, CLI, templates, docs, and reference servers needed to build MCP servers in X07, and it also ships the official server that coding agents use to work on X07 projects.
+[X07](https://github.com/x07lang/x07) is the deterministic, certifiable execution substrate for agent-written software. This repo is the bridge between that substrate and MCP runtimes: it gives you the packages, CLI, templates, docs, and reference servers needed to build MCP servers in X07, and it also ships the official server that coding agents use to work on X07 projects.
 
 **Start here:** [Codespaces quickstart](docs/getting-started/codespaces.md) · [Scaffold guide](docs/getting-started/scaffold.md) · [Official server README](servers/x07lang-mcp/README.md) · [Postgres demo](demos/postgres-public-beta/README.md) · [X07 Agent Quickstart](https://x07lang.org/docs/getting-started/agent-quickstart)
 
@@ -18,7 +18,7 @@ If you want an MCP server for writing, inspecting, testing, and operating X07 pr
 2. Download the published `.mcpb` bundle described in [`servers/x07lang-mcp/README.md`](servers/x07lang-mcp/README.md).
 3. Configure your MCP client to install or run that bundle.
 
-The server uses your local `x07` toolchain and exposes structured tooling for editing X07 code, querying packages, running WASM/device/app operations, and working with selected platform surfaces.
+The server uses your local `x07` toolchain and exposes structured tooling for editing X07 code, querying packages, running WASM/device/app operations, and working with selected platform surfaces. The device, app, web-ui, and platform tool packs are in maintenance mode after the 2026-06 scope cut; see [`servers/x07lang-mcp/README.md`](servers/x07lang-mcp/README.md).
 
 ### Build an MCP server in X07
 
@@ -70,10 +70,15 @@ By default, `hardproof ci` fails on `score_mode=partial`; use `--allow-partial-s
 
 ## How It Fits The X07 Ecosystem
 
-- [`x07`](https://github.com/x07lang/x07) provides the language, repair loop, package manager, and core docs
+The ecosystem was narrowed in 2026-06 to concentrate on the substrate bet. Active repos:
+
+- [`x07`](https://github.com/x07lang/x07) provides the language, verification/certification tooling, repair loop, package manager, and core docs
 - `x07-mcp` provides the MCP-facing packages, templates, conformance flow, and official X07 MCP server
+- [`x07-registry`](https://github.com/x07lang/x07-registry) provides the package registry backend
+- [`x07-wasm-backend`](https://github.com/x07lang/x07-wasm-backend) provides the WASM toolchain (modules and WASI components)
 - [`hardproof`](https://github.com/x07lang/hardproof) verifies MCP servers and release artifacts across language boundaries
-- [`x07-wasm-backend`](https://github.com/x07lang/x07-wasm-backend), [`x07-web-ui`](https://github.com/x07lang/x07-web-ui), [`x07-device-host`](https://github.com/x07lang/x07-device-host), and [`x07-platform`](https://github.com/x07lang/x07-platform) provide downstream capability surfaces that agents can reach through structured tool contracts
+
+The web-ui, device, and platform repos (`x07-web-ui`, `x07-device-host`, `x07-platform*`) were archived in the 2026-06 scope cut and are read-only on GitHub. The corresponding `x07lang-mcp` tool packs remain functional but receive security and compatibility fixes only.
 
 ## Architecture
 

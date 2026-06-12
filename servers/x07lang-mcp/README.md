@@ -2,7 +2,7 @@
 
 Official MCP server for the X07 language: `io.x07/x07lang-mcp`.
 
-Designed for agentic X07 coding loops: search docs/skills, run the toolchain, apply JSON Patch safely, and return token-efficient context packs, with per-tool sandboxing and the public formal-verification/certification docs surfaced directly to the client.
+X07 is the deterministic, certifiable execution substrate for agent-written software, and this server is how coding agents drive it over MCP. Designed for agentic X07 coding loops: search docs/skills, run the toolchain, apply JSON Patch safely, and return token-efficient context packs, with per-tool sandboxing and the public formal-verification/certification docs surfaced directly to the client.
 
 ## Install (published `.mcpb`)
 
@@ -66,9 +66,9 @@ Configure your MCP client:
   - `x07.pkg.catalog_v1`
 - Optional packs:
   - `x07.wasm.core_v1`
-  - `x07.web_ui.exec_v1`
-  - `x07.device.exec_v1`
-  - `x07.app.exec_v1`
+  - `x07.web_ui.exec_v1` (maintenance)
+  - `x07.device.exec_v1` (maintenance)
+  - `x07.app.exec_v1` (maintenance)
   - `x07.service.init_v1`
   - `x07.service.archetypes_v1`
   - `x07.service.genpack.schema_v1`
@@ -76,6 +76,7 @@ Configure your MCP client:
   - `x07.service.validate_v1`
   - `x07.workload.inspect_v1`
   - `x07.topology.preview_v1`
+- Optional platform pack (maintenance):
   - `lp.query_v1`
   - `lp.control_v1`
   - `lp.release.submit_v1`
@@ -92,6 +93,13 @@ Configure your MCP client:
   - `lp.rollout.rollback_v1`
   - `lp.slo.snapshot.latest_v1`
   - `lp.slo.snapshot.list_v1`
+
+Maintenance packs (2026-06 scope cut): the `x07.web_ui.*`, `x07.device.*`, `x07.app.*`, and `lp.*` tools stay in the server and remain functional, but their backing repos (`x07-web-ui`, `x07-device-host`, and the `x07-platform*` control plane) are archived and read-only on GitHub. These packs receive security and compatibility fixes only.
+
+Toolchain feature notes:
+
+- `x07.doc_v1` returns `x07 doc` output; on x07 0.2.11+ export rows also carry an optional behavioral `summary` field (one-line contracts covering separators, encodings, error codes, and move semantics).
+- The lossless x07text projection (`x07 ast to-text` / `x07 ast from-text`, x07 0.2.11+) is available through `x07.exec_v1` until a dedicated tool ships; both subcommands emit `{ok,in,out,sha256}` reports, and `from-text` output is byte-identical to `x07 fmt` canonical bytes.
 
 `x07lang-mcp` writes an effective runtime server config plus filtered tools/resources/prompts manifests under `.x07/artifacts/mcp/runtime/`. The advertised surface is gated by the installed toolchain:
 
@@ -121,10 +129,11 @@ That keeps the server surface small while making the certification workflow expl
 
 ## Run (from source)
 
-The current source tree tracks the `x07.x07ast@0.8.0` line. For local source
-builds, use a matching `x07` binary, preferably a workspace build such as
-`../x07/target/debug/x07` via `X07_MCP_X07_EXE=/absolute/path/to/x07`.
-The published `.mcpb` above remains the last released bundle.
+The source tree tracks the `x07.x07ast@0.8.0` line and builds with the
+repo-pinned toolchain from `x07-toolchain.toml`. To pin a specific build,
+set `X07_MCP_X07_EXE=/absolute/path/to/x07`. If you keep a sibling `../x07`
+checkout, local checks require it to be a clean checkout of the exact pinned
+tag, or `X07_ROOT` must point at a matching worktree.
 
 Build router + worker binaries:
 - Binaries only: `X07_MCP_BUILD_BINS_ONLY=1 ./publish/build_mcpb.sh`

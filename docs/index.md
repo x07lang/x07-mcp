@@ -1,6 +1,6 @@
 # x07-mcp
 
-`x07-mcp` is the MCP kit for X07. It provides:
+`x07-mcp` is the MCP kit for X07, the deterministic, certifiable execution substrate for agent-written software. It provides:
 
 - a **stdio MCP server** implementation (JSON-RPC 2.0, newline-delimited)
 - an **HTTP MCP server** with Streamable HTTP + SSE support
