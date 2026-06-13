@@ -25,11 +25,8 @@ Primary install docs:
   - `x07.ecosystem.status_v1`
   - `x07.pkg.provides_v1`
   - `x07.pkg.catalog_v1`
-- Optional wasm/app packs:
+- Optional wasm pack:
   - `x07.wasm.core_v1`
-  - `x07.web_ui.exec_v1` (maintenance)
-  - `x07.device.exec_v1` (maintenance)
-  - `x07.app.exec_v1` (maintenance)
 - Service authoring and workload review:
   - `x07.service.init_v1`
   - `x07.service.archetypes_v1`
@@ -38,18 +35,10 @@ Primary install docs:
   - `x07.service.validate_v1`
   - `x07.workload.inspect_v1`
   - `x07.topology.preview_v1`
-- Optional platform pack (maintenance):
-  - `lp.query_v1`
-  - `lp.control_v1`
-  - `lp.release.submit_v1`
-  - `lp.release.query_v1`
-  - `lp.release.explain_v1`
-  - `lp.release.rollback_v1`
-  - `lp.binding.status_v1`
 
-## Maintenance packs
+## Removed packs
 
-The `x07.web_ui.*`, `x07.device.*`, `x07.app.*`, and `lp.*` packs are in maintenance mode after the 2026-06 scope cut. Their backing repos (`x07-web-ui`, `x07-device-host`, and the `x07-platform*` control plane) are archived and read-only on GitHub. The packs stay in the server and remain functional, but they receive security and compatibility fixes only.
+The `x07.web_ui.*`, `x07.device.*`, `x07.app.*`, and `lp.*` tool packs were removed from this server in the 2026-06 refocus, when the `x07-web-ui`, `x07-device-host`, and `x07-platform*` repos were archived.
 
 ## Pack gating
 
@@ -57,8 +46,7 @@ At startup the server detects the local toolchain and writes an effective runtim
 
 - core/search/pkg are enabled when `x07` is available
 - service authoring is enabled when `x07` is available
-- wasm/web-ui/device/app/workload/topology are enabled when `x07-wasm` is available
-- `lp.*` release/control/binding tools are enabled when `x07lp` is available
+- wasm/workload/topology are enabled when `x07-wasm` is available
 
 `x07.ecosystem.status_v1` is the cheap probe surface for pack availability, detected helper binaries, and workspace signals.
 
@@ -68,8 +56,6 @@ When you need workspace builds or isolated smoke fixtures, path resolution for t
 
 - `X07_MCP_X07_EXE`
 - `X07_MCP_X07_WASM_EXE`
-- `X07_MCP_X07LP_EXE`
-- `X07_MCP_X07_DEVICE_HOST_DESKTOP_EXE`
 
 ## Toolchain feature notes
 
@@ -81,9 +67,6 @@ When you need workspace builds or isolated smoke fixtures, path resolution for t
 The server publishes focused resource entrypoints for the X07 ecosystem:
 
 - `x07://wasm/profiles`
-- `x07://web-ui/contracts`
-- `x07://device/host-abi`
-- `x07://platform/contracts`
 - `x07://registry/catalog`
 - `x07://agent-portal/index`
 

@@ -18,7 +18,7 @@ If you want an MCP server for writing, inspecting, testing, and operating X07 pr
 2. Download the published `.mcpb` bundle described in [`servers/x07lang-mcp/README.md`](servers/x07lang-mcp/README.md).
 3. Configure your MCP client to install or run that bundle.
 
-The server uses your local `x07` toolchain and exposes structured tooling for editing X07 code, querying packages, running WASM/device/app operations, and working with selected platform surfaces. The device, app, web-ui, and platform tool packs are in maintenance mode after the 2026-06 scope cut; see [`servers/x07lang-mcp/README.md`](servers/x07lang-mcp/README.md).
+The server uses your local `x07` toolchain and exposes structured tooling for editing X07 code, querying packages, running WASM operations, and authoring services; see [`servers/x07lang-mcp/README.md`](servers/x07lang-mcp/README.md).
 
 ### Build an MCP server in X07
 
@@ -78,7 +78,7 @@ The ecosystem was narrowed in 2026-06 to concentrate on the substrate bet. Activ
 - [`x07-wasm-backend`](https://github.com/x07lang/x07-wasm-backend) provides the WASM toolchain (modules and WASI components)
 - [`hardproof`](https://github.com/x07lang/hardproof) verifies MCP servers and release artifacts across language boundaries
 
-The web-ui, device, and platform repos (`x07-web-ui`, `x07-device-host`, `x07-platform*`) were archived in the 2026-06 scope cut and are read-only on GitHub. The corresponding `x07lang-mcp` tool packs remain functional but receive security and compatibility fixes only.
+The web-ui, device, and platform repos (`x07-web-ui`, `x07-device-host`, `x07-platform*`) were archived in the 2026-06 refocus and are read-only on GitHub. Their `x07lang-mcp` tool packs (`x07.web_ui.*`, `x07.device.*`, `x07.app.*`, `lp.*`) were removed at the same time.
 
 ## Architecture
 

@@ -444,7 +444,7 @@ def run_paas_surface_smoke(server_exe: Path, server_root: Path, expected_version
         shim_bin_dir = temp_root / "shim-bin"
         shim_bin_dir.mkdir()
         shim_paths: dict[str, Path] = {}
-        for tool_name in ("x07-wasm", "x07lp"):
+        for tool_name in ("x07-wasm",):
             tool_path = shim_bin_dir / tool_name
             _write_fake_cli(tool_path, tool_name)
             shim_paths[tool_name] = tool_path
@@ -455,7 +455,6 @@ def run_paas_surface_smoke(server_exe: Path, server_root: Path, expected_version
             expected_version,
             extra_env={
                 "X07_MCP_X07_WASM_EXE": str(shim_paths["x07-wasm"]),
-                "X07_MCP_X07LP_EXE": str(shim_paths["x07lp"]),
             },
         )
         try:
@@ -500,39 +499,6 @@ def run_paas_surface_smoke(server_exe: Path, server_root: Path, expected_version
                 8,
                 "x07.topology.preview_v1",
                 {"cwd": str(service_dir)},
-            )
-            _call_tool(
-                proc,
-                9,
-                "lp.release.submit_v1",
-                {
-                    "workload_id": "orders-api",
-                    "pack_digest": "sha256:abc123",
-                },
-            )
-            _call_tool(
-                proc,
-                10,
-                "lp.release.query_v1",
-                {"release_id": "rel-123", "view": "evidence"},
-            )
-            _call_tool(
-                proc,
-                11,
-                "lp.release.explain_v1",
-                {"release_id": "rel-123"},
-            )
-            _call_tool(
-                proc,
-                12,
-                "lp.release.rollback_v1",
-                {"release_id": "rel-123", "reason": "smoke"},
-            )
-            _call_tool(
-                proc,
-                13,
-                "lp.binding.status_v1",
-                {"binding_id": "orders-db"},
             )
         finally:
             if proc.poll() is None:

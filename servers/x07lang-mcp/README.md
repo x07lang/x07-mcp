@@ -42,8 +42,6 @@ Configure your MCP client:
   - env override (recommended when you want to pin one specific toolchain build): `X07_MCP_X07_EXE=/absolute/path/to/x07`
   - optional helper overrides:
     - `X07_MCP_X07_WASM_EXE=/absolute/path/to/x07-wasm`
-    - `X07_MCP_X07LP_EXE=/absolute/path/to/x07lp`
-    - `X07_MCP_X07_DEVICE_HOST_DESKTOP_EXE=/absolute/path/to/x07-device-host-desktop`
 
 ### Install for Claude Code
 
@@ -91,9 +89,6 @@ removes `~/.local/share/x07lang-mcp`.
   - `x07.pkg.catalog_v1`
 - Optional packs:
   - `x07.wasm.core_v1`
-  - `x07.web_ui.exec_v1` (maintenance)
-  - `x07.device.exec_v1` (maintenance)
-  - `x07.app.exec_v1` (maintenance)
   - `x07.service.init_v1`
   - `x07.service.archetypes_v1`
   - `x07.service.genpack.schema_v1`
@@ -101,25 +96,8 @@ removes `~/.local/share/x07lang-mcp`.
   - `x07.service.validate_v1`
   - `x07.workload.inspect_v1`
   - `x07.topology.preview_v1`
-- Optional platform pack (maintenance):
-  - `lp.query_v1`
-  - `lp.control_v1`
-  - `lp.release.submit_v1`
-  - `lp.release.query_v1`
-  - `lp.release.explain_v1`
-  - `lp.release.rollback_v1`
-  - `lp.binding.status_v1`
-  - `lp.rollout.list_v1`
-  - `lp.rollout.status_v1`
-  - `lp.rollout.start_v1`
-  - `lp.rollout.pause_v1`
-  - `lp.rollout.promote_v1`
-  - `lp.rollout.abort_v1`
-  - `lp.rollout.rollback_v1`
-  - `lp.slo.snapshot.latest_v1`
-  - `lp.slo.snapshot.list_v1`
 
-Maintenance packs (2026-06 scope cut): the `x07.web_ui.*`, `x07.device.*`, `x07.app.*`, and `lp.*` tools stay in the server and remain functional, but their backing repos (`x07-web-ui`, `x07-device-host`, and the `x07-platform*` control plane) are archived and read-only on GitHub. These packs receive security and compatibility fixes only.
+Removed packs (2026-06 refocus): the `x07.web_ui.*`, `x07.device.*`, `x07.app.*`, and `lp.*` tools were removed from this server when their backing repos (`x07-web-ui`, `x07-device-host`, and the `x07-platform*` control plane) were archived and made read-only on GitHub.
 
 Toolchain feature notes:
 
@@ -130,17 +108,14 @@ Toolchain feature notes:
 
 - core/search/pkg when `x07` is available
 - service authoring when `x07` is available
-- wasm/web-ui/device/app/workload/topology when `x07-wasm` is available
-- `lp.*` release/rollout/SLO/control/binding tools when `x07lp` is available
+- wasm/workload/topology when `x07-wasm` is available
 
-The service/workload/hosted-release additions keep the same rule as the older pack surfaces: the MCP server shells out to the canonical CLIs instead of carrying a parallel implementation, so CLI behavior and MCP behavior stay aligned. The hosted release tools keep the durable `release_id` returned by `lp.release.submit_v1` as the join key for later query/explain/rollback steps, and the binding tool keeps using hosted `binding_id` values from the public control-plane surface.
+The service/workload additions keep the same rule as the older pack surfaces: the MCP server shells out to the canonical CLIs instead of carrying a parallel implementation, so CLI behavior and MCP behavior stay aligned.
 
-Typical hosted PaaS loop through the official server:
+Typical service authoring loop through the official server:
 
 - scaffold and validate with `x07.service.init_v1`, `x07.service.genpack.*`, and `x07.service.validate_v1`
 - review the bounded workload shape with `x07.workload.inspect_v1` and `x07.topology.preview_v1`
-- submit and review a hosted release with `lp.release.submit_v1`, then carry the returned durable `release_id` through `lp.release.query_v1`, `lp.release.explain_v1`, and `lp.release.rollback_v1`; use `lp.binding.status_v1` for the related binding diagnostics keyed by durable `binding_id`
-- inspect and control rollouts with `lp.rollout.*` and read SLO windows with `lp.slo.snapshot.*`
 
 Dedicated pack tools return bounded summaries with file-backed reports and artifacts. Use `x07.artifact_snippet_v1` or resource reads to inspect the full output only when needed.
 

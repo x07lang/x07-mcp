@@ -43,36 +43,6 @@
       }
     },
     {
-      "uri": "x07://web-ui/contracts",
-      "name": "Web UI contracts and traces",
-      "mimeType": "application/json; charset=utf-8",
-      "text": "{\"schema_version\":\"x07lang.mcp.resource@0.1.0\",\"pack\":\"web_ui\",\"index\":\"arch/web_ui/index.x07webui.json\",\"fixtures_glob\":\"arch/web_ui/contracts/**/*.json\",\"docs\":[\"x07/docs/toolchain/wasm.md\"],\"commands\":[\"x07 wasm web-ui contracts validate\",\"x07 wasm web-ui build\",\"x07 wasm web-ui test\",\"x07 wasm web-ui regress from-incident\"]}\n",
-      "size": 331,
-      "x07": {
-        "pack": "web_ui"
-      }
-    },
-    {
-      "uri": "x07://device/host-abi",
-      "name": "Device host ABI and packaging",
-      "mimeType": "application/json; charset=utf-8",
-      "text": "{\"schema_version\":\"x07lang.mcp.resource@0.1.0\",\"pack\":\"device\",\"index\":\"arch/device/index.x07device.json\",\"host_binary\":\"x07-device-host-desktop\",\"docs\":[\"x07/docs/toolchain/wasm.md\"],\"commands\":[\"x07 wasm device build\",\"x07 wasm device verify\",\"x07 wasm device run\",\"x07 wasm device package\",\"x07 wasm device provenance attest\"]}\n",
-      "size": 331,
-      "x07": {
-        "pack": "device"
-      }
-    },
-    {
-      "uri": "x07://platform/contracts",
-      "name": "Platform contract surface",
-      "mimeType": "application/json; charset=utf-8",
-      "text": "{\"schema_version\":\"x07lang.mcp.resource@0.1.0\",\"pack\":\"platform\",\"docs\":[\"x07/docs/agent/platform.md\"],\"contracts\":[\"lp.deploy.query.result@0.1.0\",\"lp.incident.query.result@0.1.0\",\"lp.control.action.result@0.1.0\",\"lp.app.list.result@0.1.0\"],\"namespace\":\"lp.*\"}\n",
-      "size": 261,
-      "x07": {
-        "pack": "platform"
-      }
-    },
-    {
       "uri": "x07://registry/catalog",
       "name": "Registry catalog endpoint",
       "mimeType": "application/json; charset=utf-8",
