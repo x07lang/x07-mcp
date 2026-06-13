@@ -1,3 +1,3 @@
 [toolchain]
-channel = "v0.2.13"
+channel = "v0.2.14"
 components = ["docs", "skills"]
