@@ -2196,7 +2196,7 @@ PY
     jq \
       '.patch = ((.patch // {}) + {
          "ext-json-rs":{"version":"0.1.7","path":".x07/local/ext-json-rs/0.1.7"},
-         "ext-mcp-sandbox":{"version":"0.3.15","path":".x07/local/ext-mcp-sandbox/0.3.15"}
+         "ext-mcp-sandbox":{"version":"0.3.16","path":".x07/local/ext-mcp-sandbox/0.3.16"}
        })' \
       x07.json \
       >"$tmp_manifest"
@@ -2267,7 +2267,7 @@ PY
       '.schema_version = "x07.project@0.5.0" |
        .patch = ((.patch // {}) + {
          "ext-json-rs":{"version":"0.1.7","path":".x07/local/ext-json-rs/0.1.7"},
-         "ext-mcp-sandbox":{"version":"0.3.15","path":".x07/local/ext-mcp-sandbox/0.3.15"},
+         "ext-mcp-sandbox":{"version":"0.3.16","path":".x07/local/ext-mcp-sandbox/0.3.16"},
          "ext-net":{"version":"0.1.11","path":".x07/local/ext-net/0.1.11"},
          "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
        })' \
@@ -2328,7 +2328,7 @@ PY
       '.schema_version = "x07.project@0.5.0" |
        .patch = ((.patch // {}) + {
          "ext-json-rs":{"version":"0.1.7","path":".x07/local/ext-json-rs/0.1.7"},
-         "ext-mcp-sandbox":{"version":"0.3.15","path":".x07/local/ext-mcp-sandbox/0.3.15"},
+         "ext-mcp-sandbox":{"version":"0.3.16","path":".x07/local/ext-mcp-sandbox/0.3.16"},
          "ext-net":{"version":"0.1.11","path":".x07/local/ext-net/0.1.11"},
          "ext-u64-rs":{"version":"0.1.4","path":".x07/local/ext-u64-rs/0.1.4"}
        })' \
