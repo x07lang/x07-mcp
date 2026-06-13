@@ -1,0 +1,6 @@
+{"dir":"c2s","req":{"method":"GET","url":"https://trust-registry.example.test/v1/bundles/dev_trust_bundle_v1/1.0.0/bundle.trust_bundle.json","headers":{"Accept":"application/json"}}}
+{"dir":"s2c","res":{"status":200,"headers":{"Content-Type":"application/json","ETag":"\"bundle-v1-etag\"","Cache-Control":"max-age=3600"},"body_file":"bundle.trust_bundle.json"}}
+{"dir":"c2s","req":{"method":"GET","url":"https://trust-registry.example.test/v1/bundles/dev_trust_bundle_v1/1.0.0/bundle.trust_bundle.json","headers":{"Accept":"application/json","If-None-Match":"\"bundle-v1-etag\""}}}
+{"dir":"s2c","res":{"status":304,"headers":{"ETag":"\"bundle-v1-etag\"","Cache-Control":"max-age=3600"},"body":""}}
+{"dir":"c2s","req":{"method":"GET","url":"https://trust-registry.example.test/v1/bundles/dev_trust_bundle_v1/1.0.0/bundle.trust_bundle.sig.jwt","headers":{"Accept":"text/plain"}}}
+{"dir":"s2c","res":{"status":200,"headers":{"Content-Type":"text/plain","Cache-Control":"max-age=3600"},"body":"stub-signature"}}

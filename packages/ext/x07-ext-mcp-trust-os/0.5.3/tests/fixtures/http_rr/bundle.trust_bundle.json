@@ -1,0 +1,33 @@
+{
+  "schema_version": "x07.mcp.trust.bundle@0.1.0",
+  "bundle_id": "dev_trust_bundle_v1",
+  "bundle_version": "2026-02-16",
+  "version": "0.2.0",
+  "issuers": [
+    {
+      "issuer": "https://auth.example.com",
+      "roles": [
+        "authorization_server",
+        "prm_signer"
+      ],
+      "usage": [
+        "prm_signed_metadata"
+      ],
+      "algs": [
+        "Ed25519",
+        "EdDSA"
+      ],
+      "jwks": {
+        "keys": [
+          {
+            "kty": "OKP",
+            "crv": "Ed25519",
+            "x": "A3WWp-lK4V561cvg97VV4VT0PskpQLPZDPpFk72qT88",
+            "kid": "prm-ed25519-2026-01",
+            "use": "sig"
+          }
+        ]
+      }
+    }
+  ]
+}

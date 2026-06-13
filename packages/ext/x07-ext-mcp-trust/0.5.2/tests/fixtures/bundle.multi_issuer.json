@@ -1,0 +1,46 @@
+{
+  "schema_version": "x07.mcp.trust.bundle@0.1.0",
+  "bundle_id": "com.example/x07-mcp-dev-prm-signers",
+  "version": "0.1.0",
+  "description": "DEV ONLY. Keys used for signed PRM fixtures.",
+  "issuers": [
+    {
+      "issuer": "https://auth.example.com",
+      "usage": [
+        "prm_signed_metadata"
+      ],
+      "algs": [
+        "EdDSA"
+      ],
+      "jwks": {
+        "keys": [
+          {
+            "kty": "OKP",
+            "crv": "Ed25519",
+            "kid": "dev-2026-02-15",
+            "x": "1EgH_hpQHK0aS1isejNLbPo0wtkzNW5zJtp03a9c8Uc"
+          }
+        ]
+      }
+    },
+    {
+      "issuer": "https://auth2.example.com",
+      "usage": [
+        "prm_signed_metadata"
+      ],
+      "algs": [
+        "EdDSA"
+      ],
+      "jwks": {
+        "keys": [
+          {
+            "kty": "OKP",
+            "crv": "Ed25519",
+            "kid": "dev2-2026-02-15",
+            "x": "4gNpdGfhmL6mk_VblB9Y4Mal4qOTmx2wUlCd5fzctEo"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "schema_version": "x07.lock@0.4.0",
   "toolchain": {
-    "x07_version": "0.2.11",
-    "x07c_version": "0.2.11",
+    "x07_version": "0.2.13",
+    "x07c_version": "0.2.13",
     "lang_id": "x07-core@0.2.0",
     "compat": "0.5"
   },
@@ -25,9 +25,9 @@
     },
     {
       "name": "ext-data-model",
-      "version": "0.1.11",
-      "path": ".x07/deps/ext-data-model/0.1.11",
-      "package_manifest_sha256": "17b1c2a9437638bbd83d608c999613bacc694df6a7ba16f4ad20b8d1a3fb0b19",
+      "version": "0.1.13",
+      "path": ".x07/deps/ext-data-model/0.1.13",
+      "package_manifest_sha256": "d03659be2b48c6a021bd342fb5008fab9fc5ef5e444741468737082a4a3254bf",
       "module_root": "modules",
       "modules_sha256": {
         "ext.data_model": "0ccbb44a004127875464a769a72f2b56d6a55beb3c3ebaff7686cdddaac8b6c2",
@@ -63,14 +63,14 @@
     },
     {
       "name": "ext-json-rs",
-      "version": "0.1.7",
-      "path": ".x07/deps/ext-json-rs/0.1.7",
-      "package_manifest_sha256": "6e6e85497b70ea851b44a29ff0059d6ffd3802cfd9302a2d5e676d75bc9486de",
+      "version": "0.1.8",
+      "path": ".x07/deps/ext-json-rs/0.1.8",
+      "package_manifest_sha256": "1d2c23ebe9b6f610adc673135b7db931428ad03445170192646e784daa7a0641",
       "module_root": "modules",
       "modules_sha256": {
         "ext.json.canon": "2b1254ac42bdd3a8d616b738e1e0434d13cca30cdc5b97890e35089c66668034",
-        "ext.json.data_model": "c619a03382838f1e5a0a6c8e479144abc5cffeb91f05689e3922529e9228390f",
-        "ext.json.pointer": "24900c8325e399202c20a6fb797363632b5e3652c7ddbacf05d2aa9d7c9598b0",
+        "ext.json.data_model": "2872abb4e14173e6a2e1f55e2f60f613d4e7e10d958eef338c1bc44b06454c91",
+        "ext.json.pointer": "cf56656eb7cd1de48e933c04af9e64bdf32558b1dd18059ae41868a9e1328c7a",
         "ext.json.tests": "10108c17ce39db201a8662fea7e433c01b74f2b74833d5cf3497a0ce00261d30"
       },
       "overridden_by": "ext-json-rs",
@@ -78,9 +78,9 @@
     },
     {
       "name": "ext-mcp-auth-core",
-      "version": "0.1.3",
-      "path": ".x07/deps/ext-mcp-auth-core/0.1.3",
-      "package_manifest_sha256": "21310fb960182f093f3191c718bcc145381128105ea48c1762ca4b8ef4b4b62b",
+      "version": "0.1.4",
+      "path": ".x07/deps/ext-mcp-auth-core/0.1.4",
+      "package_manifest_sha256": "8dda8c874c91be4ceffebffa4a35a18697929863264d5817ce93a2d8467d8657",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.auth.bearer_v1": "5898caeed5e4bf6fb8c04139b47804f8e0eb0b8dde6ee6aeaa2ab6022d004444",

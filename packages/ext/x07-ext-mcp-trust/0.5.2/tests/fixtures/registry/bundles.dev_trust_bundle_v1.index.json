@@ -1,0 +1,13 @@
+{
+  "schema_version": "x07.mcp.trust.bundle_index@0.1.0",
+  "bundle_id": "dev_trust_bundle_v1",
+  "latest": "1.0.0",
+  "versions": {
+    "1.0.0": {
+      "bundle_url": "https://trust-registry.example.test/v1/bundles/dev_trust_bundle_v1/1.0.0/bundle.trust_bundle.json",
+      "bundle_sha256": "64d6487ff2be3d53870782aeffcc95a27ccabc9b3317eaccb3b4b51df6d5919d",
+      "sig_url": "https://trust-registry.example.test/v1/bundles/dev_trust_bundle_v1/1.0.0/bundle.trust_bundle.sig.jwt",
+      "sig_sha256": "fa3bc9526698969f9e2ae23fa48541954d4695a5c86e8430941e7945fc53cb4c"
+    }
+  }
+}

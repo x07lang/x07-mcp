@@ -1,0 +1,15 @@
+{
+  "issuer": "https://as2.example",
+  "authorization_endpoint": "https://as2.example/oauth2/authorize",
+  "token_endpoint": "https://as2.example/oauth2/token",
+  "jwks_uri": "https://as2.example/.well-known/jwks.json",
+  "response_types_supported": [
+    "code"
+  ],
+  "grant_types_supported": [
+    "authorization_code"
+  ],
+  "code_challenge_methods_supported": [
+    "S256"
+  ]
+}

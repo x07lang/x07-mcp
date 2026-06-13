@@ -8,8 +8,8 @@
     },
     {
       "name": "ext-data-model",
-      "path": ".x07/deps/ext-data-model/0.1.11",
-      "version": "0.1.11"
+      "path": ".x07/deps/ext-data-model/0.1.13",
+      "version": "0.1.13"
     },
     {
       "name": "ext-ini-rs",
@@ -18,13 +18,13 @@
     },
     {
       "name": "ext-json-rs",
-      "path": ".x07/deps/ext-json-rs/0.1.7",
-      "version": "0.1.7"
+      "path": ".x07/deps/ext-json-rs/0.1.8",
+      "version": "0.1.8"
     },
     {
       "name": "ext-mcp-auth-core",
-      "path": ".x07/deps/ext-mcp-auth-core/0.1.3",
-      "version": "0.1.3"
+      "path": ".x07/deps/ext-mcp-auth-core/0.1.4",
+      "version": "0.1.4"
     },
     {
       "name": "ext-toml-rs",
@@ -61,12 +61,12 @@
   "operational_entry_symbol": "auth_core_cert.main_v1",
   "patch": {
     "ext-data-model": {
-      "path": ".x07/deps/ext-data-model/0.1.11",
-      "version": "0.1.11"
+      "path": ".x07/deps/ext-data-model/0.1.13",
+      "version": "0.1.13"
     },
     "ext-json-rs": {
-      "path": ".x07/deps/ext-json-rs/0.1.7",
-      "version": "0.1.7"
+      "path": ".x07/deps/ext-json-rs/0.1.8",
+      "version": "0.1.8"
     }
   },
   "schema_version": "x07.project@0.5.0",

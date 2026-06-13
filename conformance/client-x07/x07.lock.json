@@ -1,8 +1,8 @@
 {
   "schema_version": "x07.lock@0.4.0",
   "toolchain": {
-    "x07_version": "0.2.11",
-    "x07c_version": "0.2.11",
+    "x07_version": "0.2.13",
+    "x07c_version": "0.2.13",
     "lang_id": "x07-core@0.2.0",
     "compat": "0.5"
   },
@@ -12,9 +12,9 @@
   "dependencies": [
     {
       "name": "ext-auth-jwt",
-      "version": "0.1.7",
-      "path": ".x07/deps/ext-auth-jwt/0.1.7",
-      "package_manifest_sha256": "f10c80c1798adb6f573fa0bec72d8b0df072231d70c6d62ad0b5f729bf3ac19c",
+      "version": "0.1.8",
+      "path": ".x07/deps/ext-auth-jwt/0.1.8",
+      "package_manifest_sha256": "f529e63c9c0f36f6b2cbddec1bcd07717d5e750ed5b8fa66d216b7f461e2f4fb",
       "module_root": "modules",
       "modules_sha256": {
         "std.auth.jose_jws_v1": "3f419b33b32bde3507ee6e90b568834f1e07720c3bde1878f6ee95923c443697",
@@ -80,9 +80,9 @@
     },
     {
       "name": "ext-data-model",
-      "version": "0.1.11",
-      "path": ".x07/deps/ext-data-model/0.1.11",
-      "package_manifest_sha256": "17b1c2a9437638bbd83d608c999613bacc694df6a7ba16f4ad20b8d1a3fb0b19",
+      "version": "0.1.13",
+      "path": ".x07/deps/ext-data-model/0.1.13",
+      "package_manifest_sha256": "d03659be2b48c6a021bd342fb5008fab9fc5ef5e444741468737082a4a3254bf",
       "module_root": "modules",
       "modules_sha256": {
         "ext.data_model": "0ccbb44a004127875464a769a72f2b56d6a55beb3c3ebaff7686cdddaac8b6c2",
@@ -130,14 +130,14 @@
     },
     {
       "name": "ext-json-rs",
-      "version": "0.1.7",
-      "path": ".x07/deps/ext-json-rs/0.1.7",
-      "package_manifest_sha256": "6e6e85497b70ea851b44a29ff0059d6ffd3802cfd9302a2d5e676d75bc9486de",
+      "version": "0.1.8",
+      "path": ".x07/deps/ext-json-rs/0.1.8",
+      "package_manifest_sha256": "1d2c23ebe9b6f610adc673135b7db931428ad03445170192646e784daa7a0641",
       "module_root": "modules",
       "modules_sha256": {
         "ext.json.canon": "2b1254ac42bdd3a8d616b738e1e0434d13cca30cdc5b97890e35089c66668034",
-        "ext.json.data_model": "c619a03382838f1e5a0a6c8e479144abc5cffeb91f05689e3922529e9228390f",
-        "ext.json.pointer": "24900c8325e399202c20a6fb797363632b5e3652c7ddbacf05d2aa9d7c9598b0",
+        "ext.json.data_model": "2872abb4e14173e6a2e1f55e2f60f613d4e7e10d958eef338c1bc44b06454c91",
+        "ext.json.pointer": "cf56656eb7cd1de48e933c04af9e64bdf32558b1dd18059ae41868a9e1328c7a",
         "ext.json.tests": "10108c17ce39db201a8662fea7e433c01b74f2b74833d5cf3497a0ce00261d30"
       },
       "overridden_by": "ext-json-rs",
@@ -145,9 +145,9 @@
     },
     {
       "name": "ext-mcp-auth",
-      "version": "0.4.9",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.9",
-      "package_manifest_sha256": "bae56c7609b3b897654ce202688eb5652a1f67a83f7732f8ec8382e62b1f6c2b",
+      "version": "0.4.10",
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth/0.4.10",
+      "package_manifest_sha256": "b1859b32ab9205f6c37aec2cc92c87002106c9fea2bb442b0001b47da794ef44",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.auth.challenge": "0ef1a2ddc1c00e510c273d9d35bc4488e3963ce2cae29828132bd34d17aff758",
@@ -166,9 +166,9 @@
     },
     {
       "name": "ext-mcp-auth-core",
-      "version": "0.1.3",
-      "path": "$workspace/packages/ext/x07-ext-mcp-auth-core/0.1.3",
-      "package_manifest_sha256": "21310fb960182f093f3191c718bcc145381128105ea48c1762ca4b8ef4b4b62b",
+      "version": "0.1.4",
+      "path": "$workspace/packages/ext/x07-ext-mcp-auth-core/0.1.4",
+      "package_manifest_sha256": "8dda8c874c91be4ceffebffa4a35a18697929863264d5817ce93a2d8467d8657",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.auth.bearer_v1": "5898caeed5e4bf6fb8c04139b47804f8e0eb0b8dde6ee6aeaa2ab6022d004444",
@@ -178,9 +178,9 @@
     },
     {
       "name": "ext-mcp-core",
-      "version": "0.3.6",
-      "path": "$workspace/packages/ext/x07-ext-mcp-core/0.3.6",
-      "package_manifest_sha256": "34bd794715946fd6ee2cf5a2a1028477383cef518796d85bf7a66f71eb6693ec",
+      "version": "0.3.7",
+      "path": "$workspace/packages/ext/x07-ext-mcp-core/0.3.7",
+      "package_manifest_sha256": "77afb08fcfc89341ffbcddeece8dd2b128ff50d4ecf6d13e4066d2b37cc9f6b3",
       "module_root": "modules",
       "modules_sha256": {
         "std.mcp.cache.ttl_bytes_v1": "4e4c80cae20ada7841448c44a6a873eae97733fa2c30ae29c543c50e6d1e81ca",

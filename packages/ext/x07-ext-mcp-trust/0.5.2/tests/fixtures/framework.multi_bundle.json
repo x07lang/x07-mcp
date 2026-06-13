@@ -1,0 +1,87 @@
+{
+  "schema_version": "x07.mcp.trust.framework@0.1.0",
+  "framework_id": "com.example/x07-mcp-dev-trust-framework",
+  "version": "0.1.0",
+  "bundles": [
+    {
+      "path": "tests/fixtures/bundle.multi_issuer.json"
+    },
+    {
+      "path": "tests/fixtures/bundle.multi_issuer.json"
+    }
+  ],
+  "resource_policies": [
+    {
+      "match": {
+        "kind": "prefix",
+        "value": "https://server.example.com/mcp"
+      },
+      "allowed_prm_signers": [
+        "https://auth.example.com",
+        "https://auth2.example.com"
+      ],
+      "require_signed_prm": true,
+      "verify_cfg": {
+        "mode": "fail_closed",
+        "allowed_algs": [
+          "EdDSA"
+        ],
+        "max_clock_skew_seconds": 60
+      }
+    }
+  ],
+  "defaults": {
+    "require_signed_prm": true,
+    "verify_cfg": {
+      "mode": "fail_closed"
+    }
+  },
+  "bundles_data": [
+    {
+      "schema_version": "x07.mcp.trust.bundle@0.1.0",
+      "bundle_id": "com.example/x07-mcp-dev-prm-signers",
+      "version": "0.1.0",
+      "issuers": [
+        {
+          "issuer": "https://auth.example.com",
+          "algs": [
+            "EdDSA"
+          ],
+          "jwks": {
+            "keys": [
+              {
+                "kty": "OKP",
+                "crv": "Ed25519",
+                "kid": "dev-2026-02-15",
+                "x": "1EgH_hpQHK0aS1isejNLbPo0wtkzNW5zJtp03a9c8Uc"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "schema_version": "x07.mcp.trust.bundle@0.1.0",
+      "bundle_id": "com.example/x07-mcp-dev-prm-signers-2",
+      "version": "0.1.0",
+      "issuers": [
+        {
+          "issuer": "https://auth2.example.com",
+          "algs": [
+            "EdDSA"
+          ],
+          "jwks": {
+            "keys": [
+              {
+                "kty": "OKP",
+                "crv": "Ed25519",
+                "kid": "dev2-2026-02-15",
+                "x": "4gNpdGfhmL6mk_VblB9Y4Mal4qOTmx2wUlCd5fzctEo"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
