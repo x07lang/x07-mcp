@@ -101,8 +101,8 @@ Removed packs (2026-06 refocus): the `x07.web_ui.*`, `x07.device.*`, `x07.app.*`
 
 Toolchain feature notes:
 
-- `x07.doc_v1` returns `x07 doc` output; on x07 0.2.11+ export rows also carry an optional behavioral `summary` field (one-line contracts covering separators, encodings, error codes, and move semantics).
-- The lossless x07text projection (`x07 ast to-text` / `x07 ast from-text`, x07 0.2.11+) is available through `x07.exec_v1` until a dedicated tool ships; both subcommands emit `{ok,in,out,sha256}` reports, and `from-text` output is byte-identical to `x07 fmt` canonical bytes.
+- `x07.doc_v1` returns `x07 doc` output; on x07 0.2.12+ export rows also carry an optional behavioral `summary` field (one-line contracts covering separators, encodings, error codes, and move semantics).
+- The lossless x07text projection (`x07 ast to-text` / `x07 ast from-text`, x07 0.2.12+) is available through `x07.exec_v1` until a dedicated tool ships; both subcommands emit `{ok,in,out,sha256}` reports, and `from-text` output is byte-identical to `x07 fmt` canonical bytes.
 
 `x07lang-mcp` writes an effective runtime server config plus filtered tools/resources/prompts manifests under `.x07/artifacts/mcp/runtime/`. The advertised surface is gated by the installed toolchain:
 

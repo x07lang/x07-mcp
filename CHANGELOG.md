@@ -16,6 +16,7 @@
 - `x07lang-mcp@0.2.10`: docs note that the lossless x07text projection (`x07 ast to-text` / `x07 ast from-text`, x07 0.2.11+) is available through `x07.exec_v1` until a dedicated tool ships; both subcommands emit `{ok,in,out,sha256}` reports.
 - `x07lang-mcp@0.2.11`: toolchain pin moves to x07 `v0.2.14` (`x07-toolchain.toml`), so the server is developed and conformance-tested against the current toolchain; `docs/reference/pins.md` corrected to match.
 - `x07lang-mcp@0.2.11`: docs align to the five active repos (`x07`, `x07-mcp`, `x07-registry`, `x07-wasm-backend`, `hardproof`); the web-ui/device/app/platform packs remain removed from the gated surface after the 2026-06 refocus.
+- `x07lang-mcp@0.2.12`: toolchain pin moves to x07 `v0.2.15` (`x07-toolchain.toml`, `docs/reference/pins.md`), so the server is developed and conformance-tested against the v0.2.15 toolchain — which ships the RFC 0002 expressiveness floor (`f64`, `defrecord`, `defenum` + `match`, and validated UTF-8 strings via `std.str`) at schema `x07.x07ast@0.9.0`.
 
 ## 0.1.0
 
