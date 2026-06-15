@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Guards the committed server registry manifests against a placeholder, empty, or
+# malformed mcpb fileSha256 before a release ships.
+#
+# This runs on tag push (release-guards.yml), where the gitignored dist/ build
+# output and the not-yet-created GitHub release asset are both unavailable -- so
+# it checks the committed servers/*/publish/server.mcp-registry.json. The full
+# "sha matches the actual mcpb (and its .sha256.txt)" chain is covered elsewhere:
+# `x07-mcp publish --dry-run` in ci/check (post-build, against dist/) and the
+# verify-release-asset workflow (against the published .mcpb on the release).
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 PLACEHOLDER_SHA="0000000000000000000000000000000000000000000000000000000000000000"
 
@@ -12,22 +22,19 @@ require_cmd() {
 }
 
 require_cmd jq
-require_cmd python3
 
 server_json_files=()
 while IFS= read -r server_json; do
   server_json_files+=("$server_json")
-done < <(find "$ROOT/servers" -type f -path '*/dist/server.json' | sort)
+done < <(find "$ROOT/servers" -type f -path '*/publish/server.mcp-registry.json' | sort)
 
 if [[ ${#server_json_files[@]} -eq 0 ]]; then
-  echo "ERROR: no server.json files found under $ROOT/servers/*/dist/" >&2
+  echo "ERROR: no publish/server.mcp-registry.json files found under $ROOT/servers/*/" >&2
   exit 2
 fi
 
 status=0
 for server_json in "${server_json_files[@]}"; do
-  dist_dir="$(cd "$(dirname "$server_json")" && pwd)"
-
   shas=()
   while IFS= read -r sha; do
     shas+=("$sha")
@@ -51,64 +58,16 @@ for server_json in "${server_json_files[@]}"; do
     continue
   fi
   if [[ ! "$sha_from_json" =~ ^[0-9a-f]{64}$ ]]; then
-    echo "ERROR: $server_json mcpb fileSha256 must be 64 lowercase hex chars" >&2
+    echo "ERROR: $server_json mcpb fileSha256 must be 64 lowercase hex chars (got: $sha_from_json)" >&2
     status=1
     continue
   fi
 
-  mcpb_files=()
-  while IFS= read -r mcpb; do
-    mcpb_files+=("$mcpb")
-  done < <(find "$dist_dir" -maxdepth 1 -type f -name '*.mcpb' | sort)
-
-  if [[ ${#mcpb_files[@]} -ne 1 ]]; then
-    echo "ERROR: $dist_dir must contain exactly 1 .mcpb file (got ${#mcpb_files[@]})" >&2
-    status=1
-    continue
-  fi
-
-  mcpb_path="${mcpb_files[0]}"
-  sha_actual="$(
-    python3 - "$mcpb_path" <<'PY'
-import hashlib
-import sys
-
-path = sys.argv[1]
-h = hashlib.sha256()
-with open(path, "rb") as f:
-    for chunk in iter(lambda: f.read(1024 * 1024), b""):
-        h.update(chunk)
-print(h.hexdigest())
-PY
-  )"
-
-  if [[ "$sha_actual" != "$sha_from_json" ]]; then
-    echo "ERROR: sha mismatch for $server_json (json=$sha_from_json actual=$sha_actual file=$mcpb_path)" >&2
-    status=1
-  fi
-
-  sha_txt_files=()
-  while IFS= read -r sha_txt; do
-    sha_txt_files+=("$sha_txt")
-  done < <(find "$dist_dir" -maxdepth 1 -type f -name '*.mcpb.sha256.txt' | sort)
-
-  if [[ ${#sha_txt_files[@]} -ne 1 ]]; then
-    echo "ERROR: $dist_dir must contain exactly 1 .mcpb.sha256.txt file (got ${#sha_txt_files[@]})" >&2
-    status=1
-    continue
-  fi
-
-  sha_txt_path="${sha_txt_files[0]}"
-  sha_txt="$(tr -d '\r\n\t ' < "$sha_txt_path")"
-  if [[ "$sha_txt" != "$sha_actual" ]]; then
-    echo "ERROR: sha mismatch for $sha_txt_path (txt=$sha_txt actual=$sha_actual)" >&2
-    status=1
-  fi
+  echo "ok: $server_json mcpb fileSha256 is well-formed ($sha_from_json)"
 done
 
 if [[ "$status" -ne 0 ]]; then
   exit 1
 fi
 
-echo "ok: release server.json mcpb shas are consistent"
-
+echo "ok: committed server.mcp-registry.json mcpb shas are well-formed"
