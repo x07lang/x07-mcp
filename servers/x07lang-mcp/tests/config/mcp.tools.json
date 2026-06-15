@@ -47,8 +47,8 @@
           "max_read_bytes": {
             "type": "integer",
             "minimum": 256,
-            "maximum": 65536,
-            "default": 8192
+            "maximum": 1048576,
+            "default": 1048576
           },
           "snippet_max_bytes": {
             "type": "integer",
