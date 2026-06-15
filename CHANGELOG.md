@@ -17,6 +17,7 @@
 - `x07lang-mcp@0.2.11`: toolchain pin moves to x07 `v0.2.14` (`x07-toolchain.toml`), so the server is developed and conformance-tested against the current toolchain; `docs/reference/pins.md` corrected to match.
 - `x07lang-mcp@0.2.11`: docs align to the five active repos (`x07`, `x07-mcp`, `x07-registry`, `x07-wasm-backend`, `hardproof`); the web-ui/device/app/platform packs remain removed from the gated surface after the 2026-06 refocus.
 - `x07lang-mcp@0.2.12`: toolchain pin moves to x07 `v0.2.15` (`x07-toolchain.toml`, `docs/reference/pins.md`), so the server is developed and conformance-tested against the v0.2.15 toolchain — which ships the RFC 0002 expressiveness floor (`f64`, `defrecord`, `defenum` + `match`, and validated UTF-8 strings via `std.str`) at schema `x07.x07ast@0.9.0`.
+- `x07lang-mcp@0.2.13`: toolchain pin moves to x07 `v0.2.16` (`x07-toolchain.toml`, `docs/reference/pins.md`, CI `X07_TOOLCHAIN_TAG`), so the server is developed and conformance-tested against the v0.2.16 toolchain. `x07.search_v1` no longer drops documents larger than `max_read_bytes`: the per-file read cap defaulted to 8 KiB, and `std.os.fs.read_all_v1` errors on over-cap files, so every shipped doc above 8 KiB (the language guide, RFC 0002 types/records/enums, the 404 KiB diagnostic-codes reference) was invisible to a default search. The default is raised to 1 MiB (min stays 256 for cheap shallow searches); result size is unchanged (bounded by `limit`/`snippet_max_bytes`).
 
 ## 0.1.0
 
