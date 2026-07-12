@@ -1,8 +1,6 @@
 name: Trust Registry Transparency Monitor
 
 on:
-  schedule:
-    - cron: "0 * * * *"
   workflow_dispatch: {}
 
 permissions:
